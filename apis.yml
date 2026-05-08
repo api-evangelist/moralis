@@ -2,28 +2,92 @@ aid: moralis
 url: https://raw.githubusercontent.com/api-evangelist/moralis/refs/heads/main/apis.yml
 name: Moralis
 x-type: company
-description: >-
-  Moralis is a Web3 data platform providing unified APIs for token, NFT, transaction, balance, and DeFi data across 30+ EVM chains and Solana. Streams API for real-time webhooks.
+description: Moralis is a Web3 data platform offering REST-based Data APIs for EVM
+  and Solana chains, real-time Streams (webhooks), Datashare exports, and an enterprise
+  Data Indexer. Supports 30+ chains for wallets, analytics, automation, and data pipelines.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Web3
-  - Blockchain
-  - Indexing
-  - NFT
-  - Multi-Chain
+- Web3
+- Blockchain
+- Data API
+- Streams
+- Indexing
 created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
-apis: []
+apis:
+- aid: moralis:evm-api
+  name: Moralis EVM API
+  description: REST API for EVM chain data (NFTs, tokens, balances, transactions,
+    blocks, resolve domain) across Ethereum, Polygon, Arbitrum, Optimism, Base, Avalanche,
+    BNB, etc.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - REST
+  - EVM
+  properties:
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+  - type: OpenAPI
+    url: openapi/moralis-evm-api-openapi.json
+- aid: moralis:solana-api
+  name: Moralis Solana API
+  description: REST API for Solana on-chain data (accounts, NFTs, tokens, transactions).
+  humanURL: https://docs.moralis.com/web3-data-api/solana
+  baseURL: https://solana-gateway.moralis.io
+  tags:
+  - REST
+  - Solana
+  properties:
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/solana
+- aid: moralis:streams
+  name: Moralis Streams API
+  description: REST API for managing real-time blockchain event streams delivered
+    via webhooks.
+  humanURL: https://docs.moralis.com/streams-api
+  baseURL: https://api.moralis-streams.com
+  tags:
+  - REST
+  - Streams
+  - Webhooks
+  properties:
+  - type: Documentation
+    url: https://docs.moralis.com/streams-api
+- aid: moralis:auth-api
+  name: Moralis Auth API
+  description: REST API for Sign-In with Ethereum / Solana challenge generation and
+    verification.
+  humanURL: https://docs.moralis.com/authentication-api
+  baseURL: https://authapi.moralis.io
+  tags:
+  - REST
+  - Auth
+  properties:
+  - type: Documentation
+    url: https://docs.moralis.com/authentication-api
+- aid: moralis:datashare
+  name: Moralis Datashare
+  description: Bulk historical and ongoing blockchain dataset exports (Parquet/CSV
+    via S3 / Snowflake share).
+  humanURL: https://moralis.com/datashare
+  baseURL: n/a (export)
+  tags:
+  - Bulk
+  - Export
+  properties:
+  - type: Documentation
+    url: https://moralis.com/datashare
 common:
-  - type: Website
-    url: https://moralis.com/
-  - type: Plans
-    url: plans/moralis-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/moralis-rate-limits.yml
-  - type: FinOps
-    url: finops/moralis-finops.yml
+- type: Website
+  url: https://moralis.com/
+- type: Plans
+  url: plans/moralis-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/moralis-rate-limits.yml
+- type: FinOps
+  url: finops/moralis-finops.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

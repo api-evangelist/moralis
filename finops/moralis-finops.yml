@@ -5,20 +5,20 @@ provider: Moralis
 providerId: moralis
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: true
 tags:
 - Web3
 - Blockchain
+- Data API
+- Streams
 - Indexing
-- NFT
-- Multi-Chain
 - FinOps
-- Cost Management
 - FOCUS
-description: FOCUS-aligned FinOps placeholder for Moralis. Pipeline will replace with real billing details.
-notes: Initial scaffold — billing model has not yet been reconciled.
+description: Moralis bills as subscription + CU usage. Streams events and Datashare
+  exports are metered separately.
+notes: Usage in dashboard.
 sources:
-- https://moralis.com/
+- https://moralis.com/pricing
 - https://focus.finops.org/focus-specification/v1-3/
 alignedWith:
   framework: FinOps Foundation Framework
@@ -26,16 +26,15 @@ alignedWith:
   dataSpec: FOCUS
   dataSpecVersion: '1.3'
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
-publisherName: Moralis
+publisherName: Moralis Web3 Technology AB
 serviceCategory: Web3
 billingModel:
-  pricingCategory: To Be Reconciled
+  pricingCategory: Subscription + Usage
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
   - Usage
   - Purchase
-  - Adjustment
 focusColumns:
   ServiceName: Moralis
   ServiceCategory: Web3
@@ -45,22 +44,31 @@ focusColumns:
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-- name: api_usage
-  description: Catch-all meter pending reconciliation.
-  unit: varies
+- name: compute_units
+  description: Data API CUs.
+  unit: CU
   aggregation: sum
   dimensions:
-  - account
-  - resource
+  - api_key
+  - chain
+  - endpoint
+- name: stream_events
+  description: Streams events delivered.
+  unit: event
+  aggregation: sum
+  dimensions:
+  - stream
+  - chain
 principles:
 - name: Visibility
-  description: Pull provider invoices or usage exports until a self-serve usage feed is documented.
+  description: Use Moralis dashboard; export usage CSVs.
 - name: Allocation
-  description: Tag invoice line items to consuming business units in your FinOps store.
+  description: One API key per service/team for attribution.
 - name: Optimization
-  description: Levers depend on the provider's billing model; review at renewal once reconciled.
+  description: Cache responses; restrict chains in queries; use Streams instead of
+    polling.
 - name: Accountability
-  description: Assign a contract owner to review billing against negotiated terms.
+  description: API key owners review monthly CU vs plan.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,6 +1,8 @@
 # Moralis (moralis)
 
-Moralis is a Web3 data platform providing unified APIs for token, NFT, transaction, balance, and DeFi data across 30+ EVM chains and Solana. Streams API for real-time webhooks.
+Moralis is a Web3 data platform offering REST-based Data APIs for EVM and Solana chains, real-time Streams (webhooks), Datashare exports, and an enterprise Data Indexer. Supports 30+ chains for wallets, analytics, automation, and data pipelines.
+
+OpenAPI 3.0 spec for the Moralis EVM API was downloaded from https://deep-index.moralis.io/api-docs-2.2/v2.2/swagger.json and captured at [`openapi/moralis-evm-api-openapi.json`](openapi/moralis-evm-api-openapi.json).
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/moralis/refs/heads/main/apis.yml)
 
@@ -9,8 +11,15 @@ Moralis is a Web3 data platform providing unified APIs for token, NFT, transacti
 ## Type
 - **x-type:** company
 
-## Tags:
- - Web3, Blockchain, Indexing, NFT, Multi-Chain
+## APIs
+- **Moralis EVM API** - REST API for EVM chain data (NFTs, tokens, balances, transactions, blocks, resolve domain) across Ethereum, Polygon, Arbitrum, Optimism, Base, Avalanche, BNB, etc.
+- **Moralis Solana API** - REST API for Solana on-chain data (accounts, NFTs, tokens, transactions).
+- **Moralis Streams API** - REST API for managing real-time blockchain event streams delivered via webhooks.
+- **Moralis Auth API** - REST API for Sign-In with Ethereum / Solana challenge generation and verification.
+- **Moralis Datashare** - Bulk historical and ongoing blockchain dataset exports (Parquet/CSV via S3 / Snowflake share).
+
+## Tags
+ - Web3, Blockchain, Data API, Streams, Indexing
 
 ## Timestamps
 - **Created:** 2026-05-08
@@ -18,9 +27,9 @@ Moralis is a Web3 data platform providing unified APIs for token, NFT, transacti
 
 ## Common Properties
 - [Website](https://moralis.com/)
-- [Plans](plans/moralis-plans-pricing.yml) — placeholder, pipeline reconciles later
-- [RateLimits](rate-limits/moralis-rate-limits.yml) — placeholder
-- [FinOps](finops/moralis-finops.yml) — FOCUS-aligned placeholder
+- [Plans](plans/moralis-plans-pricing.yml)
+- [RateLimits](rate-limits/moralis-rate-limits.yml)
+- [FinOps](finops/moralis-finops.yml)
 
 ## Maintainers
 **FN:** Kin Lane
