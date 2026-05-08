@@ -1,0 +1,29 @@
+aid: moralis
+url: https://raw.githubusercontent.com/api-evangelist/moralis/refs/heads/main/apis.yml
+name: Moralis
+x-type: company
+description: >-
+  Moralis is a Web3 data platform providing unified APIs for token, NFT, transaction, balance, and DeFi data across 30+ EVM chains and Solana. Streams API for real-time webhooks.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Web3
+  - Blockchain
+  - Indexing
+  - NFT
+  - Multi-Chain
+created: '2026-05-08'
+modified: '2026-05-08'
+specificationVersion: '0.19'
+apis: []
+common:
+  - type: Website
+    url: https://moralis.com/
+  - type: Plans
+    url: plans/moralis-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/moralis-rate-limits.yml
+  - type: FinOps
+    url: finops/moralis-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
