@@ -1,7 +1,7 @@
 aid: moralis
 url: https://raw.githubusercontent.com/api-evangelist/moralis/refs/heads/main/apis.yml
 name: Moralis
-x-type: company
+kind: company
 description: Moralis is a Web3 data platform offering REST-based Data APIs for EVM
   and Solana chains, real-time Streams (webhooks), Datashare exports, and an enterprise
   Data Indexer. Supports 30+ chains for wallets, analytics, automation, and data pipelines.
