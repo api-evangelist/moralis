@@ -1,0 +1,335 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: EVM API — Get Transfers
+  description: 'EVM API — Get Transfers. 3 operations. Lead operation: Get NFT transfers by contract address. Self-contained
+    Naftiko capability covering one Moralis business surface.'
+  tags:
+  - Moralis
+  - Get Transfers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MORALIS_API_KEY: MORALIS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: evm-get-transfers
+    baseUri: https://deep-index.moralis.io/api/v2.2
+    description: EVM API — Get Transfers business capability. Self-contained, no shared references.
+    resources:
+    - name: nft-address-transfers
+      path: /nft/{address}/transfers
+      operations:
+      - name: getnftcontracttransfers
+        method: GET
+        description: Get NFT transfers by contract address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: from_block
+          in: query
+          type: integer
+          description: The minimum block number from where to get the transfers
+        - name: to_block
+          in: query
+          type: integer
+          description: The maximum block number from where to get the transfers.
+        - name: from_date
+          in: query
+          type: string
+          description: The date from where to get the transfers (format in seconds or datestring accepted by momentjs)
+        - name: to_date
+          in: query
+          type: string
+          description: Get transfers up until this date (format in seconds or datestring accepted by momentjs)
+        - name: address
+          in: path
+          type: string
+          description: The address of the NFT contract
+          required: true
+        - name: format
+          in: query
+          type: string
+          description: The format of the token ID
+        - name: include_prices
+          in: query
+          type: boolean
+          description: Should NFT last sale prices be included in the result?
+        - name: limit
+          in: query
+          type: integer
+          description: The desired page size of the result.
+        - name: order
+          in: query
+          type: string
+          description: The order of the result, in ascending (ASC) or descending (DESC)
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor returned in the previous response (used for getting the next page).
+    - name: nft-address-token_id-transfers
+      path: /nft/{address}/{token_id}/transfers
+      operations:
+      - name: getnfttransfers
+        method: GET
+        description: Get NFT transfers by token ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: address
+          in: path
+          type: string
+          description: The address of the NFT contract
+          required: true
+        - name: token_id
+          in: path
+          type: string
+          description: The ID of the token
+          required: true
+        - name: format
+          in: query
+          type: string
+          description: The format of the token ID
+        - name: include_prices
+          in: query
+          type: boolean
+          description: Should NFT last sale prices be included in the result?
+        - name: limit
+          in: query
+          type: integer
+          description: The desired page size of the result.
+        - name: order
+          in: query
+          type: string
+          description: The order of the result, in ascending (ASC) or descending (DESC)
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor returned in the previous response (used for getting the next page).
+    - name: address-nft-transfers
+      path: /{address}/nft/transfers
+      operations:
+      - name: getwalletnfttransfers
+        method: GET
+        description: Get NFT Transfers by wallet address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: address
+          in: path
+          type: string
+          description: The wallet address of the sender or recipient of the transfers
+          required: true
+        - name: contract_addresses
+          in: query
+          type: array
+          description: List of contract addresses of transfers
+        - name: format
+          in: query
+          type: string
+          description: The format of the token ID
+        - name: from_block
+          in: query
+          type: integer
+          description: The minimum block number from which to get the transfers
+        - name: to_block
+          in: query
+          type: string
+          description: To get the reserves at this block number
+        - name: from_date
+          in: query
+          type: string
+          description: The date from where to get the transfers (format in seconds or datestring accepted by momentjs)
+        - name: to_date
+          in: query
+          type: string
+          description: Get transfers up until this date (format in seconds or datestring accepted by momentjs)
+        - name: include_prices
+          in: query
+          type: boolean
+          description: Should NFT last sale prices be included in the result?
+        - name: limit
+          in: query
+          type: integer
+          description: The desired page size of the result.
+        - name: order
+          in: query
+          type: string
+          description: The order of the result, in ascending (ASC) or descending (DESC)
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor returned in the previous response (used for getting the next page).
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.MORALIS_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: evm-get-transfers-rest
+    port: 8080
+    description: REST adapter for EVM API — Get Transfers. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/nft/{address}/transfers
+      name: nft-address-transfers
+      description: REST surface for nft-address-transfers.
+      operations:
+      - method: GET
+        name: getnftcontracttransfers
+        description: Get NFT transfers by contract address
+        call: evm-get-transfers.getnftcontracttransfers
+        with:
+          chain: rest.chain
+          from_block: rest.from_block
+          to_block: rest.to_block
+          from_date: rest.from_date
+          to_date: rest.to_date
+          address: rest.address
+          format: rest.format
+          include_prices: rest.include_prices
+          limit: rest.limit
+          order: rest.order
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/nft/{address}/{token-id}/transfers
+      name: nft-address-token-id-transfers
+      description: REST surface for nft-address-token_id-transfers.
+      operations:
+      - method: GET
+        name: getnfttransfers
+        description: Get NFT transfers by token ID
+        call: evm-get-transfers.getnfttransfers
+        with:
+          chain: rest.chain
+          address: rest.address
+          token_id: rest.token_id
+          format: rest.format
+          include_prices: rest.include_prices
+          limit: rest.limit
+          order: rest.order
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{address}/nft/transfers
+      name: address-nft-transfers
+      description: REST surface for address-nft-transfers.
+      operations:
+      - method: GET
+        name: getwalletnfttransfers
+        description: Get NFT Transfers by wallet address
+        call: evm-get-transfers.getwalletnfttransfers
+        with:
+          chain: rest.chain
+          address: rest.address
+          contract_addresses: rest.contract_addresses
+          format: rest.format
+          from_block: rest.from_block
+          to_block: rest.to_block
+          from_date: rest.from_date
+          to_date: rest.to_date
+          include_prices: rest.include_prices
+          limit: rest.limit
+          order: rest.order
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: evm-get-transfers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for EVM API — Get Transfers. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-nft-transfers-contract-address
+      description: Get NFT transfers by contract address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-get-transfers.getnftcontracttransfers
+      with:
+        chain: tools.chain
+        from_block: tools.from_block
+        to_block: tools.to_block
+        from_date: tools.from_date
+        to_date: tools.to_date
+        address: tools.address
+        format: tools.format
+        include_prices: tools.include_prices
+        limit: tools.limit
+        order: tools.order
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-nft-transfers-token-id
+      description: Get NFT transfers by token ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-get-transfers.getnfttransfers
+      with:
+        chain: tools.chain
+        address: tools.address
+        token_id: tools.token_id
+        format: tools.format
+        include_prices: tools.include_prices
+        limit: tools.limit
+        order: tools.order
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-nft-transfers-wallet-address
+      description: Get NFT Transfers by wallet address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-get-transfers.getwalletnfttransfers
+      with:
+        chain: tools.chain
+        address: tools.address
+        contract_addresses: tools.contract_addresses
+        format: tools.format
+        from_block: tools.from_block
+        to_block: tools.to_block
+        from_date: tools.from_date
+        to_date: tools.to_date
+        include_prices: tools.include_prices
+        limit: tools.limit
+        order: tools.order
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.

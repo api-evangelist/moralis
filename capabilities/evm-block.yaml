@@ -1,0 +1,182 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: EVM API — Block
+  description: 'EVM API — Block. 3 operations. Lead operation: Get block by hash. Self-contained Naftiko capability covering
+    one Moralis business surface.'
+  tags:
+  - Moralis
+  - Block
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MORALIS_API_KEY: MORALIS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: evm-block
+    baseUri: https://deep-index.moralis.io/api/v2.2
+    description: EVM API — Block business capability. Self-contained, no shared references.
+    resources:
+    - name: block-block_number_or_hash
+      path: /block/{block_number_or_hash}
+      operations:
+      - name: getblock
+        method: GET
+        description: Get block by hash
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: block_number_or_hash
+          in: path
+          type: string
+          description: The block number or block hash
+          required: true
+        - name: include
+          in: query
+          type: string
+          description: If the result should contain the internal transactions.
+    - name: dateToBlock
+      path: /dateToBlock
+      operations:
+      - name: getdatetoblock
+        method: GET
+        description: Get block by date
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: date
+          in: query
+          type: string
+          description: Unix date in milliseconds or a datestring (format in seconds or datestring accepted by momentjs)
+    - name: latestBlockNumber-chain
+      path: /latestBlockNumber/{chain}
+      operations:
+      - name: getlatestblocknumber
+        method: GET
+        description: Get latest block number
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: path
+          type: string
+          description: The chain to query
+          required: true
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.MORALIS_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: evm-block-rest
+    port: 8080
+    description: REST adapter for EVM API — Block. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/block/{block-number-or-hash}
+      name: block-block-number-or-hash
+      description: REST surface for block-block_number_or_hash.
+      operations:
+      - method: GET
+        name: getblock
+        description: Get block by hash
+        call: evm-block.getblock
+        with:
+          chain: rest.chain
+          block_number_or_hash: rest.block_number_or_hash
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/datetoblock
+      name: datetoblock
+      description: REST surface for dateToBlock.
+      operations:
+      - method: GET
+        name: getdatetoblock
+        description: Get block by date
+        call: evm-block.getdatetoblock
+        with:
+          chain: rest.chain
+          date: rest.date
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/latestblocknumber/{chain}
+      name: latestblocknumber-chain
+      description: REST surface for latestBlockNumber-chain.
+      operations:
+      - method: GET
+        name: getlatestblocknumber
+        description: Get latest block number
+        call: evm-block.getlatestblocknumber
+        with:
+          chain: rest.chain
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: evm-block-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for EVM API — Block. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-block-hash
+      description: Get block by hash
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-block.getblock
+      with:
+        chain: tools.chain
+        block_number_or_hash: tools.block_number_or_hash
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-block-date
+      description: Get block by date
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-block.getdatetoblock
+      with:
+        chain: tools.chain
+        date: tools.date
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-latest-block-number
+      description: Get latest block number
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-block.getlatestblocknumber
+      with:
+        chain: tools.chain
+      outputParameters:
+      - type: object
+        mapping: $.

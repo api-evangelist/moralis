@@ -1,0 +1,100 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: EVM API — Get Unique Owners
+  description: 'EVM API — Get Unique Owners. 1 operations. Lead operation: Get unique wallet addresses owning NFTs from a
+    contract.. Self-contained Naftiko capability covering one Moralis business surface.'
+  tags:
+  - Moralis
+  - Get Unique Owners
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MORALIS_API_KEY: MORALIS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: evm-get-unique-owners
+    baseUri: https://deep-index.moralis.io/api/v2.2
+    description: EVM API — Get Unique Owners business capability. Self-contained, no shared references.
+    resources:
+    - name: nft-address-unique-owners
+      path: /nft/{address}/unique-owners
+      operations:
+      - name: getuniqueownersbycollection
+        method: GET
+        description: Get unique wallet addresses owning NFTs from a contract.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: address
+          in: path
+          type: string
+          description: The address of the NFT contract
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: The desired page size of the result.
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor returned in the previous response (used for getting the next page).
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.MORALIS_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: evm-get-unique-owners-rest
+    port: 8080
+    description: REST adapter for EVM API — Get Unique Owners. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/nft/{address}/unique-owners
+      name: nft-address-unique-owners
+      description: REST surface for nft-address-unique-owners.
+      operations:
+      - method: GET
+        name: getuniqueownersbycollection
+        description: Get unique wallet addresses owning NFTs from a contract.
+        call: evm-get-unique-owners.getuniqueownersbycollection
+        with:
+          chain: rest.chain
+          address: rest.address
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: evm-get-unique-owners-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for EVM API — Get Unique Owners. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-unique-wallet-addresses-owning
+      description: Get unique wallet addresses owning NFTs from a contract.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-get-unique-owners.getuniqueownersbycollection
+      with:
+        chain: tools.chain
+        address: tools.address
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,204 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: EVM API — Get Floor Price
+  description: 'EVM API — Get Floor Price. 3 operations. Lead operation: Get NFT floor price by contract. Self-contained Naftiko
+    capability covering one Moralis business surface.'
+  tags:
+  - Moralis
+  - Get Floor Price
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MORALIS_API_KEY: MORALIS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: evm-get-floor-price
+    baseUri: https://deep-index.moralis.io/api/v2.2
+    description: EVM API — Get Floor Price business capability. Self-contained, no shared references.
+    resources:
+    - name: nft-address-floor-price
+      path: /nft/{address}/floor-price
+      operations:
+      - name: getnftfloorpricebycontract
+        method: GET
+        description: Get NFT floor price by contract
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: address
+          in: path
+          type: string
+          description: The address of the NFT contract
+          required: true
+    - name: nft-address-floor-price-historical
+      path: /nft/{address}/floor-price/historical
+      operations:
+      - name: getnfthistoricalfloorpricebycontract
+        method: GET
+        description: Get historical NFT floor price by contract
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: interval
+          in: query
+          type: string
+          description: The duration to query
+          required: true
+        - name: address
+          in: path
+          type: string
+          description: The address of the NFT contract
+          required: true
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor returned in the previous response (used for getting the next page).
+    - name: nft-address-token_id-floor-price
+      path: /nft/{address}/{token_id}/floor-price
+      operations:
+      - name: getnftfloorpricebytoken
+        method: GET
+        description: Get NFT floor price by token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: address
+          in: path
+          type: string
+          description: The address of the NFT contract
+          required: true
+        - name: token_id
+          in: path
+          type: string
+          description: The token ID of the NFT
+          required: true
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.MORALIS_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: evm-get-floor-price-rest
+    port: 8080
+    description: REST adapter for EVM API — Get Floor Price. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/nft/{address}/floor-price
+      name: nft-address-floor-price
+      description: REST surface for nft-address-floor-price.
+      operations:
+      - method: GET
+        name: getnftfloorpricebycontract
+        description: Get NFT floor price by contract
+        call: evm-get-floor-price.getnftfloorpricebycontract
+        with:
+          chain: rest.chain
+          address: rest.address
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/nft/{address}/floor-price/historical
+      name: nft-address-floor-price-historical
+      description: REST surface for nft-address-floor-price-historical.
+      operations:
+      - method: GET
+        name: getnfthistoricalfloorpricebycontract
+        description: Get historical NFT floor price by contract
+        call: evm-get-floor-price.getnfthistoricalfloorpricebycontract
+        with:
+          chain: rest.chain
+          interval: rest.interval
+          address: rest.address
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/nft/{address}/{token-id}/floor-price
+      name: nft-address-token-id-floor-price
+      description: REST surface for nft-address-token_id-floor-price.
+      operations:
+      - method: GET
+        name: getnftfloorpricebytoken
+        description: Get NFT floor price by token
+        call: evm-get-floor-price.getnftfloorpricebytoken
+        with:
+          chain: rest.chain
+          address: rest.address
+          token_id: rest.token_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: evm-get-floor-price-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for EVM API — Get Floor Price. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-nft-floor-price-contract
+      description: Get NFT floor price by contract
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-get-floor-price.getnftfloorpricebycontract
+      with:
+        chain: tools.chain
+        address: tools.address
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-historical-nft-floor-price
+      description: Get historical NFT floor price by contract
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-get-floor-price.getnfthistoricalfloorpricebycontract
+      with:
+        chain: tools.chain
+        interval: tools.interval
+        address: tools.address
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-nft-floor-price-token
+      description: Get NFT floor price by token
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-get-floor-price.getnftfloorpricebytoken
+      with:
+        chain: tools.chain
+        address: tools.address
+        token_id: tools.token_id
+      outputParameters:
+      - type: object
+        mapping: $.

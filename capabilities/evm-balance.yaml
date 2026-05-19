@@ -1,0 +1,148 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: EVM API — Balance
+  description: 'EVM API — Balance. 2 operations. Lead operation: Get native balance for a set of wallets. Self-contained Naftiko
+    capability covering one Moralis business surface.'
+  tags:
+  - Moralis
+  - Balance
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MORALIS_API_KEY: MORALIS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: evm-balance
+    baseUri: https://deep-index.moralis.io/api/v2.2
+    description: EVM API — Balance business capability. Self-contained, no shared references.
+    resources:
+    - name: wallets-balances
+      path: /wallets/balances
+      operations:
+      - name: getnativebalancesforaddresses
+        method: GET
+        description: Get native balance for a set of wallets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: to_block
+          in: query
+          type: number
+          description: The block number on which the balances should be checked
+        - name: wallet_addresses
+          in: query
+          type: array
+          description: The addresses to get metadata for
+          required: true
+    - name: address-balance
+      path: /{address}/balance
+      operations:
+      - name: getnativebalance
+        method: GET
+        description: Get native balance by wallet
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: address
+          in: path
+          type: string
+          description: The address from which the native balance will be checked
+          required: true
+        - name: to_block
+          in: query
+          type: number
+          description: The block number up to which the balances will be checked.
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.MORALIS_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: evm-balance-rest
+    port: 8080
+    description: REST adapter for EVM API — Balance. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/wallets/balances
+      name: wallets-balances
+      description: REST surface for wallets-balances.
+      operations:
+      - method: GET
+        name: getnativebalancesforaddresses
+        description: Get native balance for a set of wallets
+        call: evm-balance.getnativebalancesforaddresses
+        with:
+          chain: rest.chain
+          to_block: rest.to_block
+          wallet_addresses: rest.wallet_addresses
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{address}/balance
+      name: address-balance
+      description: REST surface for address-balance.
+      operations:
+      - method: GET
+        name: getnativebalance
+        description: Get native balance by wallet
+        call: evm-balance.getnativebalance
+        with:
+          chain: rest.chain
+          address: rest.address
+          to_block: rest.to_block
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: evm-balance-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for EVM API — Balance. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-native-balance-set-wallets
+      description: Get native balance for a set of wallets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-balance.getnativebalancesforaddresses
+      with:
+        chain: tools.chain
+        to_block: tools.to_block
+        wallet_addresses: tools.wallet_addresses
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-native-balance-wallet
+      description: Get native balance by wallet
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-balance.getnativebalance
+      with:
+        chain: tools.chain
+        address: tools.address
+        to_block: tools.to_block
+      outputParameters:
+      - type: object
+        mapping: $.

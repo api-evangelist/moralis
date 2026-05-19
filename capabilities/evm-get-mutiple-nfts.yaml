@@ -1,0 +1,88 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: EVM API — Get Mutiple NFTs
+  description: 'EVM API — Get Mutiple NFTs. 1 operations. Lead operation: Get Metadata for NFTs. Self-contained Naftiko capability
+    covering one Moralis business surface.'
+  tags:
+  - Moralis
+  - Get Mutiple NFTs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MORALIS_API_KEY: MORALIS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: evm-get-mutiple-nfts
+    baseUri: https://deep-index.moralis.io/api/v2.2
+    description: EVM API — Get Mutiple NFTs business capability. Self-contained, no shared references.
+    resources:
+    - name: nft-getMultipleNFTs
+      path: /nft/getMultipleNFTs
+      operations:
+      - name: getmultiplenfts
+        method: POST
+        description: Get Metadata for NFTs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.MORALIS_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: evm-get-mutiple-nfts-rest
+    port: 8080
+    description: REST adapter for EVM API — Get Mutiple NFTs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/nft/getmultiplenfts
+      name: nft-getmultiplenfts
+      description: REST surface for nft-getMultipleNFTs.
+      operations:
+      - method: POST
+        name: getmultiplenfts
+        description: Get Metadata for NFTs
+        call: evm-get-mutiple-nfts.getmultiplenfts
+        with:
+          chain: rest.chain
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: evm-get-mutiple-nfts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for EVM API — Get Mutiple NFTs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-metadata-nfts
+      description: Get Metadata for NFTs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: evm-get-mutiple-nfts.getmultiplenfts
+      with:
+        chain: tools.chain
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

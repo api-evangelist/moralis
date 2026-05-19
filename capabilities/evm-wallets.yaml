@@ -1,0 +1,899 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: EVM API — Wallets
+  description: 'EVM API — Wallets. 13 operations. Lead operation: Get ERC20 approvals by wallet. Self-contained Naftiko capability
+    covering one Moralis business surface.'
+  tags:
+  - Moralis
+  - Wallets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MORALIS_API_KEY: MORALIS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: evm-wallets
+    baseUri: https://deep-index.moralis.io/api/v2.2
+    description: EVM API — Wallets business capability. Self-contained, no shared references.
+    resources:
+    - name: wallets-address-approvals
+      path: /wallets/{address}/approvals
+      operations:
+      - name: getwalletapprovals
+        method: GET
+        description: Get ERC20 approvals by wallet
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: limit
+          in: query
+          type: integer
+          description: The desired page size of the result.
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor returned in the previous response (used for getting the next page).
+        - name: address
+          in: path
+          type: string
+          description: The wallet address from which to retrieve active ERC20 token approvals
+          required: true
+    - name: wallets-address-chains
+      path: /wallets/{address}/chains
+      operations:
+      - name: getwalletactivechains
+        method: GET
+        description: Get active chains by wallet address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: address
+          in: path
+          type: string
+          description: Wallet address
+          required: true
+        - name: chains
+          in: query
+          type: array
+          description: The chains to query
+    - name: wallets-address-defi-positions
+      path: /wallets/{address}/defi/positions
+      operations:
+      - name: getdefipositionssummary
+        method: GET
+        description: Get DeFi positions of a wallet
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: address
+          in: path
+          type: string
+          description: Wallet address
+          required: true
+    - name: wallets-address-defi-summary
+      path: /wallets/{address}/defi/summary
+      operations:
+      - name: getdefisummary
+        method: GET
+        description: Get the DeFi summary of a wallet
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: address
+          in: path
+          type: string
+          description: Wallet address
+          required: true
+    - name: wallets-address-defi-protocol-positions
+      path: /wallets/{address}/defi/{protocol}/positions
+      operations:
+      - name: getdefipositionsbyprotocol
+        method: GET
+        description: Get detailed DeFi positions by protocol for a wallet
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: address
+          in: path
+          type: string
+          description: Wallet address
+          required: true
+        - name: protocol
+          in: path
+          type: string
+          description: The protocol to query
+          required: true
+    - name: wallets-address-history
+      path: /wallets/{address}/history
+      operations:
+      - name: getwallethistory
+        method: GET
+        description: Get the complete decoded transaction history of a wallet
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: from_block
+          in: query
+          type: integer
+          description: The minimum block number from which to get the transactions
+        - name: to_block
+          in: query
+          type: integer
+          description: The maximum block number from which to get the transactions.
+        - name: from_date
+          in: query
+          type: string
+          description: The start date from which to get the transactions (format in seconds or datestring accepted by momentjs)
+        - name: to_date
+          in: query
+          type: string
+          description: Get the transactions up to this date (format in seconds or datestring accepted by momentjs)
+        - name: address
+          in: path
+          type: string
+          description: The address of the wallet
+          required: true
+        - name: include_internal_transactions
+          in: query
+          type: boolean
+          description: If the result should contain the internal transactions.
+        - name: nft_metadata
+          in: query
+          type: boolean
+          description: If the result should contain the nft metadata.
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor returned in the previous response (used for getting the next page).
+        - name: order
+          in: query
+          type: string
+          description: The order of the result, in ascending (ASC) or descending (DESC)
+        - name: limit
+          in: query
+          type: integer
+          description: The desired page size of the result.
+    - name: wallets-address-insight
+      path: /wallets/{address}/insight
+      operations:
+      - name: getwalletinsight
+        method: GET
+        description: Get wallet insight metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: address
+          in: path
+          type: string
+          description: The wallet address to get insight for
+          required: true
+        - name: chains
+          in: query
+          type: array
+          description: The chains to query. If not provided, aggregates across all supported chains.
+        - name: includeChainBreakdown
+          in: query
+          type: boolean
+          description: When true, includes a per-chain breakdown array in the response with both native and USD values.
+    - name: wallets-address-net-worth
+      path: /wallets/{address}/net-worth
+      operations:
+      - name: getwalletnetworth
+        method: GET
+        description: Get wallet net worth
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chains
+          in: query
+          type: array
+          description: The chains to query
+        - name: address
+          in: path
+          type: string
+          description: The wallet address
+          required: true
+        - name: exclude_spam
+          in: query
+          type: boolean
+          description: Exclude spam tokens from the result
+        - name: exclude_unverified_contracts
+          in: query
+          type: boolean
+          description: Exclude unverified contracts from the result
+        - name: max_token_inactivity
+          in: query
+          type: number
+          description: Exclude tokens inactive for more than the given amount of days
+        - name: min_pair_side_liquidity_usd
+          in: query
+          type: number
+          description: Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity
+            on a single side of the pair.
+    - name: wallets-address-profitability
+      path: /wallets/{address}/profitability
+      operations:
+      - name: getwalletprofitability
+        method: GET
+        description: Get detailed profit and loss by wallet address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: address
+          in: path
+          type: string
+          description: The wallet address for which profitability is to be retrieved.
+          required: true
+        - name: days
+          in: query
+          type: string
+          description: Timeframe in days for which profitability is calculated, Options include 'all', '7', '30', '60', '90'
+            default is 'all'.
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: token_addresses
+          in: query
+          type: array
+          description: The token addresses list to filter the result with
+    - name: wallets-address-profitability-summary
+      path: /wallets/{address}/profitability/summary
+      operations:
+      - name: getwalletprofitabilitysummary
+        method: GET
+        description: Get profit and loss summary by wallet address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: address
+          in: path
+          type: string
+          description: The wallet address for which profitability summary is to be retrieved.
+          required: true
+        - name: days
+          in: query
+          type: string
+          description: Timeframe in days for the profitability summary. Options include 'all', '7', '30', '60', '90' default
+            is 'all'.
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+    - name: wallets-address-stats
+      path: /wallets/{address}/stats
+      operations:
+      - name: getwalletstats
+        method: GET
+        description: Get summary stats by wallet address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: address
+          in: path
+          type: string
+          description: Wallet address
+          required: true
+    - name: wallets-address-swaps
+      path: /wallets/{address}/swaps
+      operations:
+      - name: getswapsbywalletaddress
+        method: GET
+        description: Get swap transactions by wallet address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: address
+          in: path
+          type: string
+          description: The wallet address token-transactions are to be retrieved for.
+          required: true
+        - name: tokenAddress
+          in: query
+          type: string
+          description: The token address to get transaction for (optional)
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor returned in the previous response (used for getting the next page).
+        - name: limit
+          in: query
+          type: integer
+          description: The desired page size of the result.
+        - name: fromBlock
+          in: query
+          type: integer
+          description: The minimum block number from which to get the token transactions
+        - name: toBlock
+          in: query
+          type: string
+          description: The block number to get the token transactions from
+        - name: fromDate
+          in: query
+          type: string
+          description: The start date from which to get the token transactions (format in seconds or datestring accepted by
+            momentjs)
+        - name: toDate
+          in: query
+          type: string
+          description: The end date from which to get the token transactions (format in seconds or datestring accepted by
+            momentjs)
+        - name: order
+          in: query
+          type: string
+          description: The order of the result, in ascending (ASC) or descending (DESC)
+        - name: transactionTypes
+          in: query
+          type: string
+          description: Array of transaction types. Allowed values are 'buy', 'sell'.
+    - name: wallets-address-tokens
+      path: /wallets/{address}/tokens
+      operations:
+      - name: getwallettokenbalancesprice
+        method: GET
+        description: Get token balances with prices by wallet address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chain
+          in: query
+          type: string
+          description: The chain to query
+        - name: address
+          in: path
+          type: string
+          description: The address from which token balances will be checked
+          required: true
+        - name: to_block
+          in: query
+          type: number
+          description: The block number up to which the balances will be checked.
+        - name: token_addresses
+          in: query
+          type: array
+          description: The addresses to get balances for (optional)
+        - name: exclude_spam
+          in: query
+          type: boolean
+          description: Exclude spam tokens from the result
+        - name: exclude_unverified_contracts
+          in: query
+          type: boolean
+          description: Exclude unverified contracts from the result
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor returned in the previous response (used for getting the next page).
+        - name: limit
+          in: query
+          type: integer
+          description: The desired page size of the result.
+        - name: exclude_native
+          in: query
+          type: boolean
+          description: Exclude native balance from the result
+        - name: max_token_inactivity
+          in: query
+          type: number
+          description: Exclude tokens inactive for more than the given amount of days
+        - name: min_pair_side_liquidity_usd
+          in: query
+          type: number
+          description: Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity
+            on a single side of the pair.
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.MORALIS_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: evm-wallets-rest
+    port: 8080
+    description: REST adapter for EVM API — Wallets. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/wallets/{address}/approvals
+      name: wallets-address-approvals
+      description: REST surface for wallets-address-approvals.
+      operations:
+      - method: GET
+        name: getwalletapprovals
+        description: Get ERC20 approvals by wallet
+        call: evm-wallets.getwalletapprovals
+        with:
+          chain: rest.chain
+          limit: rest.limit
+          cursor: rest.cursor
+          address: rest.address
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wallets/{address}/chains
+      name: wallets-address-chains
+      description: REST surface for wallets-address-chains.
+      operations:
+      - method: GET
+        name: getwalletactivechains
+        description: Get active chains by wallet address
+        call: evm-wallets.getwalletactivechains
+        with:
+          address: rest.address
+          chains: rest.chains
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wallets/{address}/defi/positions
+      name: wallets-address-defi-positions
+      description: REST surface for wallets-address-defi-positions.
+      operations:
+      - method: GET
+        name: getdefipositionssummary
+        description: Get DeFi positions of a wallet
+        call: evm-wallets.getdefipositionssummary
+        with:
+          chain: rest.chain
+          address: rest.address
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wallets/{address}/defi/summary
+      name: wallets-address-defi-summary
+      description: REST surface for wallets-address-defi-summary.
+      operations:
+      - method: GET
+        name: getdefisummary
+        description: Get the DeFi summary of a wallet
+        call: evm-wallets.getdefisummary
+        with:
+          chain: rest.chain
+          address: rest.address
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wallets/{address}/defi/{protocol}/positions
+      name: wallets-address-defi-protocol-positions
+      description: REST surface for wallets-address-defi-protocol-positions.
+      operations:
+      - method: GET
+        name: getdefipositionsbyprotocol
+        description: Get detailed DeFi positions by protocol for a wallet
+        call: evm-wallets.getdefipositionsbyprotocol
+        with:
+          chain: rest.chain
+          address: rest.address
+          protocol: rest.protocol
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wallets/{address}/history
+      name: wallets-address-history
+      description: REST surface for wallets-address-history.
+      operations:
+      - method: GET
+        name: getwallethistory
+        description: Get the complete decoded transaction history of a wallet
+        call: evm-wallets.getwallethistory
+        with:
+          chain: rest.chain
+          from_block: rest.from_block
+          to_block: rest.to_block
+          from_date: rest.from_date
+          to_date: rest.to_date
+          address: rest.address
+          include_internal_transactions: rest.include_internal_transactions
+          nft_metadata: rest.nft_metadata
+          cursor: rest.cursor
+          order: rest.order
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wallets/{address}/insight
+      name: wallets-address-insight
+      description: REST surface for wallets-address-insight.
+      operations:
+      - method: GET
+        name: getwalletinsight
+        description: Get wallet insight metrics
+        call: evm-wallets.getwalletinsight
+        with:
+          address: rest.address
+          chains: rest.chains
+          includeChainBreakdown: rest.includeChainBreakdown
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wallets/{address}/net-worth
+      name: wallets-address-net-worth
+      description: REST surface for wallets-address-net-worth.
+      operations:
+      - method: GET
+        name: getwalletnetworth
+        description: Get wallet net worth
+        call: evm-wallets.getwalletnetworth
+        with:
+          chains: rest.chains
+          address: rest.address
+          exclude_spam: rest.exclude_spam
+          exclude_unverified_contracts: rest.exclude_unverified_contracts
+          max_token_inactivity: rest.max_token_inactivity
+          min_pair_side_liquidity_usd: rest.min_pair_side_liquidity_usd
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wallets/{address}/profitability
+      name: wallets-address-profitability
+      description: REST surface for wallets-address-profitability.
+      operations:
+      - method: GET
+        name: getwalletprofitability
+        description: Get detailed profit and loss by wallet address
+        call: evm-wallets.getwalletprofitability
+        with:
+          address: rest.address
+          days: rest.days
+          chain: rest.chain
+          token_addresses: rest.token_addresses
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wallets/{address}/profitability/summary
+      name: wallets-address-profitability-summary
+      description: REST surface for wallets-address-profitability-summary.
+      operations:
+      - method: GET
+        name: getwalletprofitabilitysummary
+        description: Get profit and loss summary by wallet address
+        call: evm-wallets.getwalletprofitabilitysummary
+        with:
+          address: rest.address
+          days: rest.days
+          chain: rest.chain
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wallets/{address}/stats
+      name: wallets-address-stats
+      description: REST surface for wallets-address-stats.
+      operations:
+      - method: GET
+        name: getwalletstats
+        description: Get summary stats by wallet address
+        call: evm-wallets.getwalletstats
+        with:
+          chain: rest.chain
+          address: rest.address
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wallets/{address}/swaps
+      name: wallets-address-swaps
+      description: REST surface for wallets-address-swaps.
+      operations:
+      - method: GET
+        name: getswapsbywalletaddress
+        description: Get swap transactions by wallet address
+        call: evm-wallets.getswapsbywalletaddress
+        with:
+          chain: rest.chain
+          address: rest.address
+          tokenAddress: rest.tokenAddress
+          cursor: rest.cursor
+          limit: rest.limit
+          fromBlock: rest.fromBlock
+          toBlock: rest.toBlock
+          fromDate: rest.fromDate
+          toDate: rest.toDate
+          order: rest.order
+          transactionTypes: rest.transactionTypes
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wallets/{address}/tokens
+      name: wallets-address-tokens
+      description: REST surface for wallets-address-tokens.
+      operations:
+      - method: GET
+        name: getwallettokenbalancesprice
+        description: Get token balances with prices by wallet address
+        call: evm-wallets.getwallettokenbalancesprice
+        with:
+          chain: rest.chain
+          address: rest.address
+          to_block: rest.to_block
+          token_addresses: rest.token_addresses
+          exclude_spam: rest.exclude_spam
+          exclude_unverified_contracts: rest.exclude_unverified_contracts
+          cursor: rest.cursor
+          limit: rest.limit
+          exclude_native: rest.exclude_native
+          max_token_inactivity: rest.max_token_inactivity
+          min_pair_side_liquidity_usd: rest.min_pair_side_liquidity_usd
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: evm-wallets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for EVM API — Wallets. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-erc20-approvals-wallet
+      description: Get ERC20 approvals by wallet
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getwalletapprovals
+      with:
+        chain: tools.chain
+        limit: tools.limit
+        cursor: tools.cursor
+        address: tools.address
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-active-chains-wallet-address
+      description: Get active chains by wallet address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getwalletactivechains
+      with:
+        address: tools.address
+        chains: tools.chains
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-defi-positions-wallet
+      description: Get DeFi positions of a wallet
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getdefipositionssummary
+      with:
+        chain: tools.chain
+        address: tools.address
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-defi-summary-wallet
+      description: Get the DeFi summary of a wallet
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getdefisummary
+      with:
+        chain: tools.chain
+        address: tools.address
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-detailed-defi-positions-protocol
+      description: Get detailed DeFi positions by protocol for a wallet
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getdefipositionsbyprotocol
+      with:
+        chain: tools.chain
+        address: tools.address
+        protocol: tools.protocol
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-complete-decoded-transaction-history
+      description: Get the complete decoded transaction history of a wallet
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getwallethistory
+      with:
+        chain: tools.chain
+        from_block: tools.from_block
+        to_block: tools.to_block
+        from_date: tools.from_date
+        to_date: tools.to_date
+        address: tools.address
+        include_internal_transactions: tools.include_internal_transactions
+        nft_metadata: tools.nft_metadata
+        cursor: tools.cursor
+        order: tools.order
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-wallet-insight-metrics
+      description: Get wallet insight metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getwalletinsight
+      with:
+        address: tools.address
+        chains: tools.chains
+        includeChainBreakdown: tools.includeChainBreakdown
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-wallet-net-worth
+      description: Get wallet net worth
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getwalletnetworth
+      with:
+        chains: tools.chains
+        address: tools.address
+        exclude_spam: tools.exclude_spam
+        exclude_unverified_contracts: tools.exclude_unverified_contracts
+        max_token_inactivity: tools.max_token_inactivity
+        min_pair_side_liquidity_usd: tools.min_pair_side_liquidity_usd
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-detailed-profit-and-loss
+      description: Get detailed profit and loss by wallet address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getwalletprofitability
+      with:
+        address: tools.address
+        days: tools.days
+        chain: tools.chain
+        token_addresses: tools.token_addresses
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-profit-and-loss-summary
+      description: Get profit and loss summary by wallet address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getwalletprofitabilitysummary
+      with:
+        address: tools.address
+        days: tools.days
+        chain: tools.chain
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-summary-stats-wallet-address
+      description: Get summary stats by wallet address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getwalletstats
+      with:
+        chain: tools.chain
+        address: tools.address
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-swap-transactions-wallet-address
+      description: Get swap transactions by wallet address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getswapsbywalletaddress
+      with:
+        chain: tools.chain
+        address: tools.address
+        tokenAddress: tools.tokenAddress
+        cursor: tools.cursor
+        limit: tools.limit
+        fromBlock: tools.fromBlock
+        toBlock: tools.toBlock
+        fromDate: tools.fromDate
+        toDate: tools.toDate
+        order: tools.order
+        transactionTypes: tools.transactionTypes
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-token-balances-prices-wallet
+      description: Get token balances with prices by wallet address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-wallets.getwallettokenbalancesprice
+      with:
+        chain: tools.chain
+        address: tools.address
+        to_block: tools.to_block
+        token_addresses: tools.token_addresses
+        exclude_spam: tools.exclude_spam
+        exclude_unverified_contracts: tools.exclude_unverified_contracts
+        cursor: tools.cursor
+        limit: tools.limit
+        exclude_native: tools.exclude_native
+        max_token_inactivity: tools.max_token_inactivity
+        min_pair_side_liquidity_usd: tools.min_pair_side_liquidity_usd
+      outputParameters:
+      - type: object
+        mapping: $.

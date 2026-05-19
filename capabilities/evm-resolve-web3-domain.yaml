@@ -1,0 +1,220 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: EVM API — Resolve Web3 Domain
+  description: 'EVM API — Resolve Web3 Domain. 4 operations. Lead operation: ENS lookup by domain. Self-contained Naftiko
+    capability covering one Moralis business surface.'
+  tags:
+  - Moralis
+  - Resolve Web3 Domain
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MORALIS_API_KEY: MORALIS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: evm-resolve-web3-domain
+    baseUri: https://deep-index.moralis.io/api/v2.2
+    description: EVM API — Resolve Web3 Domain business capability. Self-contained, no shared references.
+    resources:
+    - name: resolve-ens-domain
+      path: /resolve/ens/{domain}
+      operations:
+      - name: resolveensdomain
+        method: GET
+        description: ENS lookup by domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: domain
+          in: path
+          type: string
+          description: The domain to be resolved
+          required: true
+    - name: resolve-address-domain
+      path: /resolve/{address}/domain
+      operations:
+      - name: resolveaddresstodomain
+        method: GET
+        description: Resolve Address to Unstoppable domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: currency
+          in: query
+          type: string
+          description: The currency to query
+        - name: address
+          in: path
+          type: string
+          description: The address to be resolved
+          required: true
+    - name: resolve-address-reverse
+      path: /resolve/{address}/reverse
+      operations:
+      - name: resolveaddress
+        method: GET
+        description: ENS lookup by address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: address
+          in: path
+          type: string
+          description: The address to be resolved
+          required: true
+    - name: resolve-domain
+      path: /resolve/{domain}
+      operations:
+      - name: resolvedomain
+        method: GET
+        description: Resolve Unstoppable domain
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: currency
+          in: query
+          type: string
+          description: The currency to query
+        - name: domain
+          in: path
+          type: string
+          description: The domain to be resolved
+          required: true
+    authentication:
+      type: apikey
+      key: X-API-Key
+      value: '{{env.MORALIS_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: evm-resolve-web3-domain-rest
+    port: 8080
+    description: REST adapter for EVM API — Resolve Web3 Domain. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/resolve/ens/{domain}
+      name: resolve-ens-domain
+      description: REST surface for resolve-ens-domain.
+      operations:
+      - method: GET
+        name: resolveensdomain
+        description: ENS lookup by domain
+        call: evm-resolve-web3-domain.resolveensdomain
+        with:
+          domain: rest.domain
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/resolve/{address}/domain
+      name: resolve-address-domain
+      description: REST surface for resolve-address-domain.
+      operations:
+      - method: GET
+        name: resolveaddresstodomain
+        description: Resolve Address to Unstoppable domain
+        call: evm-resolve-web3-domain.resolveaddresstodomain
+        with:
+          currency: rest.currency
+          address: rest.address
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/resolve/{address}/reverse
+      name: resolve-address-reverse
+      description: REST surface for resolve-address-reverse.
+      operations:
+      - method: GET
+        name: resolveaddress
+        description: ENS lookup by address
+        call: evm-resolve-web3-domain.resolveaddress
+        with:
+          address: rest.address
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/resolve/{domain}
+      name: resolve-domain
+      description: REST surface for resolve-domain.
+      operations:
+      - method: GET
+        name: resolvedomain
+        description: Resolve Unstoppable domain
+        call: evm-resolve-web3-domain.resolvedomain
+        with:
+          currency: rest.currency
+          domain: rest.domain
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: evm-resolve-web3-domain-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for EVM API — Resolve Web3 Domain. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: ens-lookup-domain
+      description: ENS lookup by domain
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-resolve-web3-domain.resolveensdomain
+      with:
+        domain: tools.domain
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resolve-address-unstoppable-domain
+      description: Resolve Address to Unstoppable domain
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-resolve-web3-domain.resolveaddresstodomain
+      with:
+        currency: tools.currency
+        address: tools.address
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: ens-lookup-address
+      description: ENS lookup by address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-resolve-web3-domain.resolveaddress
+      with:
+        address: tools.address
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resolve-unstoppable-domain
+      description: Resolve Unstoppable domain
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: evm-resolve-web3-domain.resolvedomain
+      with:
+        currency: tools.currency
+        domain: tools.domain
+      outputParameters:
+      - type: object
+        mapping: $.
