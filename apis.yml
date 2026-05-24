@@ -92,6 +92,8 @@ common:
     url: rate-limits/moralis-rate-limits.yml
   - type: FinOps
     url: finops/moralis-finops.yml
+  - type: LLMsTxt
+    url: https://docs.moralis.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
