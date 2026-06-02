@@ -1,0 +1,66 @@
+aid: moralis
+name: Moralis
+review:
+  scope: AsyncAPI 2.6 generation for Moralis realtime / WebSocket surface
+  date: '2026-05-29'
+  reviewer: API Evangelist
+  outcome: no-spec
+  outcome_summary: >
+    No AsyncAPI 2.6 spec was generated. Moralis' two realtime-adjacent surfaces
+    (Streams and Nodes WebSocket) either do not fit AsyncAPI/WebSocket modeling
+    (Streams = webhooks, modeled as REST in apis.yml) or could not be documented
+    without fabrication because Moralis does not publish the exact WSS endpoint
+    URL format, supported eth_subscribe subscription types, or JSON-RPC message
+    schemas in its public docs.
+findings:
+  - id: streams-are-webhooks
+    surface: Moralis Streams API
+    classification: webhook
+    evidence: >
+      docs.moralis.com states Streams enable "real-time access to onchain events
+      through webhooks." Streams are managed via the REST control plane at
+      api.moralis-streams.com and deliver events by HTTP POST to a user-supplied
+      webhook URL. There is no client-initiated WebSocket connection.
+    asyncapi_applicability: >
+      Webhook delivery can technically be modeled in AsyncAPI 3.x, but the user
+      requested AsyncAPI 2.6, where the natural fit is WebSocket / MQTT / Kafka
+      style brokered channels. Streams are already represented in apis.yml as a
+      REST API (moralis:streams).
+    action: none — already covered by existing REST API entry.
+  - id: nodes-websocket-mentioned-but-undocumented
+    surface: Moralis Nodes (RPC)
+    classification: websocket-rpc (claimed, undocumented)
+    evidence: >
+      The Moralis Nodes overview page (https://docs.moralis.com/rpc-nodes)
+      lists "WebSocket Support - Real-time subscriptions and event streaming"
+      as a feature. The chain-specific overview pages
+      (https://docs.moralis.com/rpc-nodes/ethereum/overview,
+       https://docs.moralis.com/rpc-nodes/arbitrum/overview,
+       https://docs.moralis.com/rpc-nodes/base/overview, etc.) enumerate the
+      supported eth_* HTTP JSON-RPC methods but do NOT publish:
+        - the wss:// endpoint URL format (host, path, API-key placement)
+        - the supported eth_subscribe subscription topics
+          (newHeads / logs / newPendingTransactions / syncing)
+        - eth_unsubscribe semantics
+        - any WebSocket connection example or code sample
+      Moralis' llms.txt and llms-full.txt indexes likewise contain no
+      WebSocket-specific pages, no wss:// strings, and no eth_subscribe entries.
+    asyncapi_applicability: >
+      A WSS JSON-RPC node with eth_subscribe would be the canonical AsyncAPI 2.6
+      target, but writing one requires the exact server URL pattern and the
+      subscription-method whitelist. The "wss://site1.moralis-nodes.com/eth/<key>"
+      pattern suggested in the prompt could not be confirmed against Moralis'
+      public documentation and would be fabrication.
+    action: defer — re-attempt once Moralis publishes a Nodes WebSocket reference
+      page or once a user-provided node URL (from the Moralis dashboard) is
+      shared. At that point an AsyncAPI 2.6 spec with channels for newHeads,
+      logs, newPendingTransactions, and syncing can be authored.
+sources_checked:
+  - https://docs.moralis.com
+  - https://docs.moralis.com/llms.txt
+  - https://docs.moralis.com/llms-full.txt
+  - https://docs.moralis.com/rpc-nodes
+  - https://docs.moralis.com/rpc-nodes/ethereum/overview
+  - https://moralis.com/nodes
+  - https://docs.moralis.com/streams-api
+files_changed: []
