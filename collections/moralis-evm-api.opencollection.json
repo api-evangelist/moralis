@@ -1,0 +1,5210 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EVM API",
+    "version": "2.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "NFT",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get NFTs by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:address/nft",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the wallet"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "exclude_spam",
+                "value": "",
+                "type": "query",
+                "description": "Should spam NFTs be excluded from the result?"
+              },
+              {
+                "name": "token_addresses",
+                "value": "",
+                "type": "query",
+                "description": "The addresses to get balances for (optional)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "normalizeMetadata",
+                "value": "",
+                "type": "query",
+                "description": "Should normalized metadata be returned?"
+              },
+              {
+                "name": "media_items",
+                "value": "",
+                "type": "query",
+                "description": "Should preview media data be returned?"
+              },
+              {
+                "name": "include_prices",
+                "value": "",
+                "type": "query",
+                "description": "Should NFT last sale prices be included in the result?"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch all NFTs held by a specified wallet address. Use `token_addresses` to filter by one or many specific contract(s). Each NFT returned includes on-chain metadata as well as off-chain metadata, floor prices, rarity and more where available."
+        },
+        {
+          "info": {
+            "name": "Get Metadata for NFTs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/getMultipleNFTs",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get NFT metadata for one or many NFTs. Accepts an array of up to 25 `tokens`, each requiring `token_address` and `token_id`. Each NFT returned includes on-chain metadata as well as off-chain metadata, floor prices, rarity and more where available."
+        },
+        {
+          "info": {
+            "name": "Get NFT Transfers by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:address/nft/transfers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address of the sender or recipient of the transfers"
+              },
+              {
+                "name": "contract_addresses",
+                "value": "",
+                "type": "query",
+                "description": "List of contract addresses of transfers"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "from_block",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the transfers\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "To get the reserves at this block number"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "The date from where to get the transfers (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get transfers up until this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "include_prices",
+                "value": "",
+                "type": "query",
+                "description": "Should NFT last sale prices be included in the result?"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get NFT transfers for a wallet, with filters like `contract_addresses` and other parameters. Supports ERC-721, ERC-1155 as well as custom contracts such as CryptoPunks and CryptoKitties."
+        },
+        {
+          "info": {
+            "name": "Get NFT collections by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:address/nft/collections",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address of the owner of NFTs in the collections"
+              },
+              {
+                "name": "include_prices",
+                "value": "",
+                "type": "query",
+                "description": "Should NFT last sale prices be included in the result?"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "exclude_spam",
+                "value": "",
+                "type": "query",
+                "description": "Should spam NFTs be excluded from the result?"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "token_counts",
+                "value": "",
+                "type": "query",
+                "description": "Should token counts per collection be included in the response?"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch all NFT Collections held by a specified wallet address. Each Collection returned includes on-chain metadata as well as off-chain metadata, floor prices and more where available."
+        },
+        {
+          "info": {
+            "name": "Get NFTs by contract address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "totalRanges",
+                "value": "",
+                "type": "query",
+                "description": "The number of subranges to split the results into"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query",
+                "description": "The desired subrange to query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "normalizeMetadata",
+                "value": "",
+                "type": "query",
+                "description": "Should normalized metadata be returned?"
+              },
+              {
+                "name": "media_items",
+                "value": "",
+                "type": "query",
+                "description": "Should preview media data be returned?"
+              },
+              {
+                "name": "include_prices",
+                "value": "",
+                "type": "query",
+                "description": "Should NFT last sale prices be included in the result?"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch all NFTs for a given collection. Each NFT returned includes on-chain metadata as well as off-chain metadata, floor prices, rarity and more where available."
+        },
+        {
+          "info": {
+            "name": "Get unique wallet addresses owning NFTs from a contract.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/unique-owners",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get unique wallet addresses owning NFTs from a contract."
+        },
+        {
+          "info": {
+            "name": "Get NFT owners by contract address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/owners",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "normalizeMetadata",
+                "value": "",
+                "type": "query",
+                "description": "Should normalized metadata be returned?"
+              },
+              {
+                "name": "media_items",
+                "value": "",
+                "type": "query",
+                "description": "Should preview media data be returned?"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Identify wallets owning NFTs from a specific contract."
+        },
+        {
+          "info": {
+            "name": "Get NFT transfers by contract address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/transfers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "from_block",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from where to get the transfers\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The maximum block number from where to get the transfers.\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "The date from where to get the transfers (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get transfers up until this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "include_prices",
+                "value": "",
+                "type": "query",
+                "description": "Should NFT last sale prices be included in the result?"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get NFT transfers for a contract, with options to filter by date, token, or other parameters."
+        },
+        {
+          "info": {
+            "name": "Get NFTs by traits",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/nfts-by-traits",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "normalizeMetadata",
+                "value": "",
+                "type": "query",
+                "description": "Should normalized metadata be returned?"
+              },
+              {
+                "name": "media_items",
+                "value": "",
+                "type": "query",
+                "description": "Should preview media data be returned?"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Find NFTs in a contract matching specific traits, perfect for attribute-based searches."
+        },
+        {
+          "info": {
+            "name": "Get NFT traits by collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/traits",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Explore the distinct traits of NFTs in a contract, showcasing their unique attributes."
+        },
+        {
+          "info": {
+            "name": "Get NFT traits by collection paginate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/traits/paginate",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch NFT traits for a contract with pagination for efficient navigation of large collections."
+        },
+        {
+          "info": {
+            "name": "Resync NFT Trait",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/traits/resync",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Refresh trait and rarity data for NFTs in a contract to ensure accuracy."
+        },
+        {
+          "info": {
+            "name": "Get NFT trades by collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/trades",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "from_block",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the transfers\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the trades from"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "marketplace",
+                "value": "opensea",
+                "type": "query",
+                "description": "Marketplace from which to get the trades. See [supported Marketplaces](https://docs.moralis.io/web3-data-api/evm/nft-marketplaces)."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "nft_metadata",
+                "value": "",
+                "type": "query",
+                "description": "Include the NFT Metadata of the NFT Token"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get NFT trades for a given contract with the ability to filter by marketplace."
+        },
+        {
+          "info": {
+            "name": "Get NFT trades by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/:token_id/trades",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "from_block",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the transfers\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the trades from"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "nft_metadata",
+                "value": "",
+                "type": "query",
+                "description": "Include the NFT Metadata of the NFT Token"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The token ID of the NFT contract"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get NFT trades for a specific NFT by specifying a contract addres and token ID."
+        },
+        {
+          "info": {
+            "name": "Get NFT trades by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/nfts/trades",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "from_block",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the transfers\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the trades from"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "nft_metadata",
+                "value": "",
+                "type": "query",
+                "description": "Include the NFT Metadata of the NFT Token"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The owner wallet address"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get NFT trades for a specific wallet address."
+        },
+        {
+          "info": {
+            "name": "Get NFT collection metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/metadata",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "include_prices",
+                "value": "",
+                "type": "query",
+                "description": "Should NFT last sale prices be included in the result?"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch on-chain metadata like name, symbol, and base token URI for an NFT contract. Also returns off-chain metadata, floor prices and more where available."
+        },
+        {
+          "info": {
+            "name": "Get metadata for multiple NFT contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/metadata",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "include_prices",
+                "value": "",
+                "type": "query",
+                "description": "Should NFT last sale prices be included in the result?"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve metadata (name, symbol) for up to 25 NFT contracts in one call. Also returns off-chain metadata, floor prices and more where available."
+        },
+        {
+          "info": {
+            "name": "Get NFT metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/:token_id",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the token"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "normalizeMetadata",
+                "value": "",
+                "type": "query",
+                "description": "Should normalized metadata be returned?"
+              },
+              {
+                "name": "media_items",
+                "value": "",
+                "type": "query",
+                "description": "Should preview media data be returned?"
+              },
+              {
+                "name": "include_prices",
+                "value": "",
+                "type": "query",
+                "description": "Should NFT last sale prices be included in the result?"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch metadata for a specific NFT. Includes on-chain metadata as well as off-chain metadata, floor prices, rarity and more where available."
+        },
+        {
+          "info": {
+            "name": "Get NFT transfers by token ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/:token_id/transfers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the token"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "include_prices",
+                "value": "",
+                "type": "query",
+                "description": "Should NFT last sale prices be included in the result?"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get transfers of a specific NFT given a contract address and token ID."
+        },
+        {
+          "info": {
+            "name": "Get NFT owners by token ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/:token_id/owners",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the token"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "normalizeMetadata",
+                "value": "",
+                "type": "query",
+                "description": "Should normalized metadata be returned?"
+              },
+              {
+                "name": "media_items",
+                "value": "",
+                "type": "query",
+                "description": "Should preview media data be returned?"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List wallets owning a specific NFT, defined by its contract and token ID."
+        },
+        {
+          "info": {
+            "name": "Resync NFT Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/sync",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Initiate indexing for a non-synced NFT contract to make its data available."
+        },
+        {
+          "info": {
+            "name": "Resync NFT metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/:token_id/metadata/resync",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the token"
+              },
+              {
+                "name": "flag",
+                "value": "",
+                "type": "query",
+                "description": "The type of resync to operate"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query",
+                "description": "To define the behaviour of the endpoint"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update an NFT’s metadata, either from its current token URI or a new one. Choose sync for immediate results or async for background processing."
+        },
+        {
+          "info": {
+            "name": "Get NFT sale prices by collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/price",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "days",
+                "value": "",
+                "type": "query",
+                "description": "The number of days to look back to find the lowest price\nIf not provided 7 days will be the default and 365 is the maximum\n"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT collection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch sale prices for NFTs in a contract over a specified number of days. Returns the last sale, lowest sale, highest sale, average sale and total trades within the specified period."
+        },
+        {
+          "info": {
+            "name": "Get NFT sale prices by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/:token_id/price",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "days",
+                "value": "",
+                "type": "query",
+                "description": "The number of days to look back to find the lowest price\nIf not provided 7 days will be the default and 365 is the maximum\n"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT collection"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The token id of the NFT collection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch sale prices for a specific NFT over a specified number of days. Returns the last sale, lowest sale, highest sale, average sale and total trades within the specified period."
+        },
+        {
+          "info": {
+            "name": "Get summary stats by NFT collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/stats",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT collection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get summary stats by NFT collection including total NFT transfers, total tokens and total owners."
+        },
+        {
+          "info": {
+            "name": "Get NFT floor price by contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/floor-price",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get floor price for a given collection. Refreshes every 30 minutes."
+        },
+        {
+          "info": {
+            "name": "Get NFT floor price by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/:token_id/floor-price",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The token ID of the NFT"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the floor price for a specific NFT, defined by its contract and token ID. Refreshes every 30 minutes."
+        },
+        {
+          "info": {
+            "name": "Get historical NFT floor price by contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/floor-price/historical",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "The duration to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get timeseries historical floor prices for a given NFT collection. Refreshes every 30 minutes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get ERC20 token price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/:address/price",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the token contract"
+              },
+              {
+                "name": "exchange",
+                "value": "",
+                "type": "query",
+                "description": "The factory name or address of the token exchange"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number from which the token price should be checked"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is now deprecated as percentage change are included by default"
+              },
+              {
+                "name": "max_token_inactivity",
+                "value": "",
+                "type": "query",
+                "description": "Exclude tokens inactive for more than the given amount of days"
+              },
+              {
+                "name": "min_pair_side_liquidity_usd",
+                "value": "",
+                "type": "query",
+                "description": "Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity on a single side of the pair."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the current or historical price of an ERC20 token in the blockchain’s native currency and USD. Each token returned includes on-chain metadata, as well as off-chain metadata, logos, spam status and more. Additional options to exclude low-liquidity tokens and inactive tokens."
+        },
+        {
+          "info": {
+            "name": "Get swap transactions by token address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/:address/swaps",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The token address to get transaction for"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "fromBlock",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the token transactions\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "toBlock",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the token transactions from"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the token transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "The end date from which to get the token transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "transactionTypes",
+                "value": "",
+                "type": "query",
+                "description": "Array of transaction types. Allowed values are 'buy', 'sell'."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all swap transactions (buy/sell) for a specific ERC20 token."
+        },
+        {
+          "info": {
+            "name": "Get a holders summary by token address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/:tokenAddress/holders",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "tokenAddress",
+                "value": "",
+                "type": "path",
+                "description": "The token address to get transaction for"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns total holders for a given token, as well as aggregated stats holder supply, holder trends, holder distribution and holder acquisition metrics."
+        },
+        {
+          "info": {
+            "name": "Get timeseries holders data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/:tokenAddress/holders/historical",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "tokenAddress",
+                "value": "",
+                "type": "path",
+                "description": "The token address"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "The starting date (format in seconds or datestring accepted by momentjs)\n"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "The ending date (format in seconds or datestring accepted by momentjs)\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)"
+              },
+              {
+                "name": "timeFrame",
+                "value": "",
+                "type": "query",
+                "description": "The time frame to group the data by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Track changes in the holder base of an ERC20 token over time. Supports timeseries data for total holders as well as change metrics such as holder distribution and holder acquisition."
+        },
+        {
+          "info": {
+            "name": "Get Multiple ERC20 token prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/prices",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is now deprecated as percentage change are included by default"
+              },
+              {
+                "name": "max_token_inactivity",
+                "value": "",
+                "type": "query",
+                "description": "Exclude tokens inactive for more than the given amount of days"
+              },
+              {
+                "name": "min_pair_side_liquidity_usd",
+                "value": "",
+                "type": "query",
+                "description": "Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity on a single side of the pair."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the current or historical prices for multiple ERC20 tokens in the blockchain’s native currency and USD. Accepts an array of up to 100 `tokens`, each requiring `token_address` and optional fields such as `to_block` or `exchange`. Each token returned includes on-chain metadata, as well as off-chain metadata, logos, spam status and more. Additional options to exclude low-liquidity tokens and inactive tokens."
+        },
+        {
+          "info": {
+            "name": "Get ERC20 token owners by contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/:token_address/owners",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "token_address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the token contract"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Identify the major holders of an ERC20 token and understand their ownership percentages. Includes known entities, exchanges and wallet labels."
+        },
+        {
+          "info": {
+            "name": "Get ERC20 token balances by wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:address/erc20",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address from which token balances will be checked"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number up to which the balances will be checked."
+              },
+              {
+                "name": "token_addresses",
+                "value": "",
+                "type": "query",
+                "description": "The addresses to get balances for (optional)"
+              },
+              {
+                "name": "exclude_spam",
+                "value": "",
+                "type": "query",
+                "description": "Exclude spam tokens from the result"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get an unpaginated list of token balances, without token prices, for a specific wallet address. Maximum of 2,000 tokens. Each token returned includes on-chain metadata, as well as off-chain metadata, logos, spam status and more."
+        },
+        {
+          "info": {
+            "name": "Get ERC20 token transfers by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:address/erc20/transfers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "from_block",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the transactions\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The maximum block number from which to get the transactions.\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get the transactions up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the wallet"
+              },
+              {
+                "name": "contract_addresses",
+                "value": "",
+                "type": "query",
+                "description": "List of contract addresses of transfers"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all ERC20 token transfers for a given wallet address, sorted by block number (newest first)."
+        },
+        {
+          "info": {
+            "name": "Get ERC20 token metadata by contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/metadata",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "addresses",
+                "value": "",
+                "type": "query",
+                "description": "The addresses to get metadata for"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve metadata (name, symbol, decimals, logo) for an ERC20 token contract, as well as off-chain metadata, total supply, categories, logos, spam status and more."
+        },
+        {
+          "info": {
+            "name": "Get ERC20 token categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/tokens/categories",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get ERC20 token categories"
+        },
+        {
+          "info": {
+            "name": "Get ERC20 token metadata by symbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/metadata/symbols",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "The symbols to get metadata for"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch metadata (name, symbol, decimals, logo) for a list of ERC20 token symbols."
+        },
+        {
+          "info": {
+            "name": "Get ERC20 token transfers by contract address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/:address/transfers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "from_block",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the transfers\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The maximum block number from which to get the transfers.\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get transfers up until this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the token contract"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all ERC20 token transfers for a contract, ordered by block number (newest first)."
+        },
+        {
+          "info": {
+            "name": "Get ERC20 token stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/:address/stats",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the erc20 token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the total number of transfers for a given ERC20. For more detailed tokens stats we recommended to use `getTokenAnalytics` or `getMultipleTokenAnalytics`. For pair stats, we recommend to use `getPairStats`."
+        },
+        {
+          "info": {
+            "name": "Get top traders for a given ERC20 token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/:address/top-gainers",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The ERC20 token address."
+              },
+              {
+                "name": "days",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe in days for which profitability is calculated, Options include 'all', '7', '30' default is 'all'."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List the most profitable wallets that have traded a specific ERC20 token."
+        },
+        {
+          "info": {
+            "name": "Search for tokens based on contract address, pair address, token name or token symbol.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/tokens/search",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "The chains to query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "The query to search"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "isVerifiedContract",
+                "value": "",
+                "type": "query",
+                "description": "True to include only verified contracts"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort by volume1hDesc, volume24hDesc, liquidityDesc, marketCapDesc"
+              },
+              {
+                "name": "boostVerifiedContracts",
+                "value": "",
+                "type": "query",
+                "description": "True to boost verified contracts"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search for tokens using their contract address, pair address, name, or symbol. Cross-chain by default with support to filter by `chains`. Additional options to `sortBy` various metrics, such as market cap, liquidity or volume."
+        },
+        {
+          "info": {
+            "name": "Get OHLCV by pair address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/pairs/:address/ohlcv",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The pair address"
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "query",
+                "description": "The timeframe"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "The currency"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "The starting date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'fromBlock' or 'fromDate'\n* If 'fromDate' and 'fromBlock' are provided, 'fromBlock' will be used.\n"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "The ending date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'toBlock' or 'toDate'\n* If 'toDate' and 'toBlock' are provided, 'toBlock' will be used.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve OHLCV (Open, High, Low, Close, Volume) candlestick data for a token pair."
+        },
+        {
+          "info": {
+            "name": "Get stats by pair address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/pairs/:address/stats",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The pair address"
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Access key statistics for a token pair, such as price, buyers, sellers, liquidity, volume and more."
+        },
+        {
+          "info": {
+            "name": "Get token pairs by address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/:token_address/pairs",
+            "params": [
+              {
+                "name": "token_address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the token"
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List supported trading pairs for a specific ERC20 token. Each pair returned includes price, liquidity, volume and more."
+        },
+        {
+          "info": {
+            "name": "Get aggregated token pair statistics by address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/:token_address/pairs/stats",
+            "params": [
+              {
+                "name": "token_address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the token"
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Summarize statistics across all supported pairs for a token. We recommended to use `getTokenAnalytics` or `getMultipleTokenAnalytics` for more accurate results."
+        },
+        {
+          "info": {
+            "name": "Get new tokens by exchange",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/exchange/:exchangeName/new",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "exchangeName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the exchange"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to use for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List newly added tokens on a specific exchange. Currently only supports tama.meme on Ronin."
+        },
+        {
+          "info": {
+            "name": "Get bonding tokens by exchange",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/exchange/:exchangeName/bonding",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "exchangeName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the exchange"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to use for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Identify tokens in the bonding phase on a specific exchange. Currently only supports tama.meme on Ronin."
+        },
+        {
+          "info": {
+            "name": "Get graduated tokens by exchange",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/exchange/:exchangeName/graduated",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "exchangeName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the exchange"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items to return"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to use for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List tokens that have completed bonding on a specific exchange. Currently only supports tama.meme on Ronin."
+        },
+        {
+          "info": {
+            "name": "Get the token bonding status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/:tokenAddress/bondingStatus",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "tokenAddress",
+                "value": "",
+                "type": "path",
+                "description": "The address of the token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Check the bonding status of a token on an exchange. Currently only supports tama.meme on Ronin."
+        },
+        {
+          "info": {
+            "name": "Get swap transactions by pair address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/pairs/:address/swaps",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The pair address token-transactions are to be retrieved for."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "fromBlock",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the token transactions\n* Provide the param 'fromBlock' or 'fromDate'\n* If 'fromDate' and 'fromBlock' are provided, 'fromBlock' will be used.\n"
+              },
+              {
+                "name": "toBlock",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the token transactions from"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the token transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'fromBlock' or 'fromDate'\n* If 'fromDate' and 'fromBlock' are provided, 'fromBlock' will be used.\n"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "The end date from which to get the token transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'toBlock' or 'toDate'\n* If 'toDate' and 'toBlock' are provided, 'toBlock' will be used.\n"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "transactionTypes",
+                "value": "",
+                "type": "query",
+                "description": "Array of transaction types. Allowed values are 'buy', 'sell', 'addLiquidity', 'removeLiquidity'."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch swap transactions (buy, sell, add/remove liquidity) for a specific token pair."
+        },
+        {
+          "info": {
+            "name": "Get snipers by pair address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/pairs/:address/snipers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The pair address token-transactions are to be retrieved for."
+              },
+              {
+                "name": "blocksAfterCreation",
+                "value": "",
+                "type": "query",
+                "description": "Number of blocks after the creation\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Identify sniper wallets that bought a token within a specified timeframe (`blocksAfterCreation`). Each wallet returned includes detailed information about how much was bought, sold as well as PnL stats and more."
+        },
+        {
+          "info": {
+            "name": "Get trading stats by chain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/volume/chains",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve volume, active wallets and transaction stats for a blockchain over various time periods. Returns data for all chains in a single request."
+        },
+        {
+          "info": {
+            "name": "Get trading stats by categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/volume/categories",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Access volume, buyers, sellers and transaction stats for a blockchain, grouped by category. Filter by `chain`."
+        },
+        {
+          "info": {
+            "name": "Retrieve timeseries trading stats by chain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/volume/timeseries",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "query",
+                "description": "The timeframe to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch timeseries volume, liquidity and FDV for a specific blockchain."
+        },
+        {
+          "info": {
+            "name": "Retrieve timeseries trading stats by category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/volume/timeseries/:categoryId",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "query",
+                "description": "The timeframe to query"
+              },
+              {
+                "name": "categoryId",
+                "value": "",
+                "type": "path",
+                "description": "The category id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch timeseries buy volume, sell volume, liquidity and FDV for a specific category. Optionally filter by `chain`."
+        },
+        {
+          "info": {
+            "name": "Retrieve timeseries trading stats by token addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://deep-index.moralis.io/api/v2.2/tokens/analytics/timeseries",
+            "params": [
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "query",
+                "description": "The timeframe to query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch timeseries buy volume, sell volume, liquidity and FDV for multiple tokens. Accepts an array of up to 200 `tokens`, each requiring `chain` and `tokenAddress`."
+        },
+        {
+          "info": {
+            "name": "Get trending tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/tokens/trending",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List top tokens trending based on trading activity, volume, liquidity and more. By default this returns cross-chain results, including Solana. Optionally filter by `chain` for single chain results."
+        },
+        {
+          "info": {
+            "name": "Get token analytics by token address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/tokens/:tokenAddress/analytics",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "tokenAddress",
+                "value": "",
+                "type": "path",
+                "description": "The token address to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve detailed trading analytics for a specific token, including buy volume, sell volume, buyers, sellers, transactions, liquidity and FDV trends over time."
+        },
+        {
+          "info": {
+            "name": "Get token score by token address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/tokens/:tokenAddress/score",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "tokenAddress",
+                "value": "",
+                "type": "path",
+                "description": "The token address to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a score for a specific token along with detailed metrics including price, volume, liquidity, transaction counts, and supply information."
+        },
+        {
+          "info": {
+            "name": "Get historical token score by token address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/tokens/:tokenAddress/score/historical",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "tokenAddress",
+                "value": "",
+                "type": "path",
+                "description": "The token address to query"
+              },
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "query",
+                "description": "The timeframe to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve historical score data for a specific token over time."
+        },
+        {
+          "info": {
+            "name": "Get token analytics for a list of token addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://deep-index.moralis.io/api/v2.2/tokens/analytics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch analytics for multiple tokens, including buy volume, sell volume, buyers, sellers, transactions, liquidity and FDV trends over time. Accepts an array of up to 200 `tokens`, each requiring `chain` and `tokenAddress`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Balance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get native balance by wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:address/balance",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address from which the native balance will be checked"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number up to which the balances will be checked."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Check the native token balance (e.g. ETH) for a specific wallet."
+        },
+        {
+          "info": {
+            "name": "Get native balance for a set of wallets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/balances",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number on which the balances should be checked"
+              },
+              {
+                "name": "wallet_addresses",
+                "value": "",
+                "type": "query",
+                "description": "The addresses to get metadata for"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve native token balances (e.g. ETH) for one or many wallet addresses in single request."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Wallets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get ERC20 approvals by wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/approvals",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address from which to retrieve active ERC20 token approvals"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List active ERC20 token approvals for a wallet, showing which contracts have access."
+        },
+        {
+          "info": {
+            "name": "Get the complete decoded transaction history of a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/history",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "from_block",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the transactions\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The maximum block number from which to get the transactions.\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get the transactions up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the wallet"
+              },
+              {
+                "name": "include_internal_transactions",
+                "value": "",
+                "type": "query",
+                "description": "If the result should contain the internal transactions."
+              },
+              {
+                "name": "nft_metadata",
+                "value": "",
+                "type": "query",
+                "description": "If the result should contain the nft metadata."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the complete decoded transaction history for a given wallet. All transactions are parsed, decoded, categorized and summarized into human-readable records."
+        },
+        {
+          "info": {
+            "name": "Get token balances with prices by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/tokens",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address from which token balances will be checked"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number up to which the balances will be checked."
+              },
+              {
+                "name": "token_addresses",
+                "value": "",
+                "type": "query",
+                "description": "The addresses to get balances for (optional)"
+              },
+              {
+                "name": "exclude_spam",
+                "value": "",
+                "type": "query",
+                "description": "Exclude spam tokens from the result"
+              },
+              {
+                "name": "exclude_unverified_contracts",
+                "value": "",
+                "type": "query",
+                "description": "Exclude unverified contracts from the result"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "exclude_native",
+                "value": "",
+                "type": "query",
+                "description": "Exclude native balance from the result"
+              },
+              {
+                "name": "max_token_inactivity",
+                "value": "",
+                "type": "query",
+                "description": "Exclude tokens inactive for more than the given amount of days"
+              },
+              {
+                "name": "min_pair_side_liquidity_usd",
+                "value": "",
+                "type": "query",
+                "description": "Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity on a single side of the pair."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch ERC20 and native token balances for a given wallet address, including their USD prices. Each token returned includes on-chain metadata, as well as off-chain metadata, logos, spam status and more. Additional options to exclude spam tokens, low-liquidity tokens and inactive tokens."
+        },
+        {
+          "info": {
+            "name": "Get wallet net worth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/net-worth",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "The chains to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address"
+              },
+              {
+                "name": "exclude_spam",
+                "value": "",
+                "type": "query",
+                "description": "Exclude spam tokens from the result"
+              },
+              {
+                "name": "exclude_unverified_contracts",
+                "value": "",
+                "type": "query",
+                "description": "Exclude unverified contracts from the result"
+              },
+              {
+                "name": "max_token_inactivity",
+                "value": "",
+                "type": "query",
+                "description": "Exclude tokens inactive for more than the given amount of days"
+              },
+              {
+                "name": "min_pair_side_liquidity_usd",
+                "value": "",
+                "type": "query",
+                "description": "Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity on a single side of the pair."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Calculate the total net worth of a wallet in USD, with options to exclude spam tokens for accuracy. Options to query cross-chain using the `chains` parameter, as well as additional options to exclude spam tokens, low-liquidity tokens and inactive tokens."
+        },
+        {
+          "info": {
+            "name": "Get the DeFi summary of a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/defi/summary",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Wallet address"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Summarize a wallet’s DeFi activity, including total USD value, unclaimed rewards and active protocols."
+        },
+        {
+          "info": {
+            "name": "Get detailed DeFi positions by protocol for a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/defi/:protocol/positions",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Wallet address"
+              },
+              {
+                "name": "protocol",
+                "value": "",
+                "type": "path",
+                "description": "The protocol to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch detailed DeFi positions for a given wallet and protocol."
+        },
+        {
+          "info": {
+            "name": "Get DeFi positions of a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/defi/positions",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Wallet address"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a concise overview of a wallet’s DeFi positions across all protocols."
+        },
+        {
+          "info": {
+            "name": "Get active chains by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/chains",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Wallet address"
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "The chains to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List the blockchain networks a wallet is active on, including their first and last seen timestamps. Options to query cross-chain using the `chains` parameter."
+        },
+        {
+          "info": {
+            "name": "Get summary stats by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/stats",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Wallet address"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve key statistics for a wallet, such as total transaction count and activity."
+        },
+        {
+          "info": {
+            "name": "Get profit and loss summary by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/profitability/summary",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address for which profitability summary is to be retrieved."
+              },
+              {
+                "name": "days",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe in days for the profitability summary. Options include 'all', '7', '30', '60', '90' default is 'all'."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a profit and loss summary for a given wallet, over a specified timeframe (`days`)."
+        },
+        {
+          "info": {
+            "name": "Get detailed profit and loss by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/profitability",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address for which profitability is to be retrieved."
+              },
+              {
+                "name": "days",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe in days for which profitability is calculated, Options include 'all', '7', '30', '60', '90' default is 'all'."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "token_addresses",
+                "value": "",
+                "type": "query",
+                "description": "The token addresses list to filter the result with"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a detailed profit and loss breakdown by token for a given wallet, over a specified timeframe (`days`). Optionally filter by `token_addresses` for specific tokens."
+        },
+        {
+          "info": {
+            "name": "Get swap transactions by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/swaps",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address token-transactions are to be retrieved for."
+              },
+              {
+                "name": "tokenAddress",
+                "value": "",
+                "type": "query",
+                "description": "The token address to get transaction for (optional)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "fromBlock",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the token transactions\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "toBlock",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the token transactions from"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the token transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "The end date from which to get the token transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "transactionTypes",
+                "value": "",
+                "type": "query",
+                "description": "Array of transaction types. Allowed values are 'buy', 'sell'."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all swap transactions (buy/sell) for a specific wallet. Optionally filter by `tokenAddress` for specific token swaps."
+        },
+        {
+          "info": {
+            "name": "Get wallet insight metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/insight",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address to get insight for"
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "The chains to query. If not provided, aggregates across all supported chains."
+              },
+              {
+                "name": "includeChainBreakdown",
+                "value": "",
+                "type": "query",
+                "description": "When true, includes a per-chain breakdown array in the response with both native and USD values."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve comprehensive wallet insight metrics including activity age, transfer counts, counterparties, and swap volume."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transaction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get native transactions by wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:address",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "from_block",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the transactions\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The maximum block number from which to get the transactions.\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get the transactions up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the wallet"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "If the result should contain the internal transactions."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get raw native transactions ordered by block number in descending order."
+        },
+        {
+          "info": {
+            "name": "Get decoded transactions by wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:address/verbose",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "from_block",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the transactions\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The maximum block number from which to get the transactions.\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get the transactions up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the wallet"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "If the result should contain the internal transactions."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get ABI-decoded native transactions ordered by block number in descending order."
+        },
+        {
+          "info": {
+            "name": "Get transaction by hash",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/transaction/:transaction_hash",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "transaction_hash",
+                "value": "",
+                "type": "path",
+                "description": "The transaction hash"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "If the result should contain the internal transactions."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the contents of a transaction by the given transaction hash."
+        },
+        {
+          "info": {
+            "name": "Get decoded transaction by hash",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/transaction/:transaction_hash/verbose",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "transaction_hash",
+                "value": "",
+                "type": "path",
+                "description": "The transaction hash"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "If the result should contain the internal transactions."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the ABI-decoded contents of a transaction by the given transaction hash."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Block",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get block by hash",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/block/:block_number_or_hash",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "block_number_or_hash",
+                "value": "",
+                "type": "path",
+                "description": "The block number or block hash"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "If the result should contain the internal transactions."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the contents of a block given the block hash."
+        },
+        {
+          "info": {
+            "name": "Get latest block number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/latestBlockNumber/:chain",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "path",
+                "description": "The chain to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the most recent block number for a specified blockchain."
+        },
+        {
+          "info": {
+            "name": "Get block by date",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/dateToBlock",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Unix date in milliseconds or a datestring (format in seconds or datestring accepted by momentjs)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Find the closest block to a specific date on a blockchain."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Utils",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run contract function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://deep-index.moralis.io/api/v2.2/:address/function",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the contract"
+              },
+              {
+                "name": "function_name",
+                "value": "",
+                "type": "query",
+                "description": "The function name of the contract"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Execute a read-only function from a contract’s ABI to retrieve data from the blockchain."
+        },
+        {
+          "info": {
+            "name": "Get API version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/web3/version",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Check the current version of the Moralis Web3 API."
+        },
+        {
+          "info": {
+            "name": "Get weights of endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/info/endpointWeights",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "View the cost and rate limits for each Moralis API endpoint."
+        },
+        {
+          "info": {
+            "name": "Review contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://deep-index.moralis.io/api/v2.2/contracts-review",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Classify contracts as spam or legitimate based on their characteristics."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Resolve Web3 Domain",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ENS lookup by address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/resolve/:address/reverse",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address to be resolved"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Convert an Ethereum address to its associated ENS domain, if registered."
+        },
+        {
+          "info": {
+            "name": "Resolve Unstoppable domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/resolve/:domain",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "The currency to query"
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "The domain to be resolved"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Map an Unstoppable domain to its corresponding blockchain address."
+        },
+        {
+          "info": {
+            "name": "Resolve Address to Unstoppable domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/resolve/:address/domain",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "The currency to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address to be resolved"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Find the Unstoppable domain linked to a specific blockchain address."
+        },
+        {
+          "info": {
+            "name": "ENS lookup by domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/resolve/ens/:domain",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "The domain to be resolved"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Resolve an ENS domain to its associated Ethereum address."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "DeFi",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get DEX token pair price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:token0_address/:token1_address/price",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the reserves from"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get the price up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "token0_address",
+                "value": "",
+                "type": "path",
+                "description": "The token0 address"
+              },
+              {
+                "name": "token1_address",
+                "value": "",
+                "type": "path",
+                "description": "The token1 address"
+              },
+              {
+                "name": "exchange",
+                "value": "",
+                "type": "query",
+                "description": "The factory name or address of the token exchange"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch the current price of a token pair on Uniswap V2-based DEXs."
+        },
+        {
+          "info": {
+            "name": "Get DEX token pair reserves",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:pair_address/reserves",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the reserves from"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get the reserves up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "pair_address",
+                "value": "",
+                "type": "path",
+                "description": "The liquidity pair address"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve liquidity reserves for a token pair on Uniswap V2-based DEXs."
+        },
+        {
+          "info": {
+            "name": "Get DEX token pair address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:token0_address/:token1_address/pairAddress",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the reserves from"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get the reserves up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "exchange",
+                "value": "",
+                "type": "query",
+                "description": "The factory name or address of the token exchange"
+              },
+              {
+                "name": "token0_address",
+                "value": "",
+                "type": "path",
+                "description": "The token0 address"
+              },
+              {
+                "name": "token1_address",
+                "value": "",
+                "type": "path",
+                "description": "The token1 address"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the pair address for a token0/token1 combination on a DEX, interchangeable order."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Market Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get top ERC20 tokens by market cap",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/market-data/erc20s/top-tokens",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List the top ERC20 tokens ranked by market cap. Currently only supports Ethereum. For more flexibility, we recommend to use getFilteredTokens."
+        },
+        {
+          "info": {
+            "name": "Get top ERC20 tokens by price movements (winners and losers)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/market-data/erc20s/top-movers",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get top ERC20 tokens by price movements (winners and losers). Currently only supports Ethereum. For more flexibility, we recommend to use getFilteredTokens or getTopGainersTokens and getTopLosersTokens."
+        },
+        {
+          "info": {
+            "name": "Get top NFT collections by market cap",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/market-data/nfts/top-collections",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get top NFT collections by their current market cap. Currently only supports Ethereum."
+        },
+        {
+          "info": {
+            "name": "Get top NFT collections by trading volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/market-data/nfts/hottest-collections",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get NFT collections by their 24 hour trading volume. Currently only supports Ethereum."
+        },
+        {
+          "info": {
+            "name": "Get top crypto currencies by market cap",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/market-data/global/market-cap",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get cryptocurrencies by their market cap."
+        },
+        {
+          "info": {
+            "name": "Get top crypto currencies by trading volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/market-data/global/volume",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get cryptocurrencies with the highest 24 hour trading volume."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of tokens that match the specified filters and criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch a list of tokens across multiple chains, filtered and ranked by dynamic on-chain metrics like volume, price change, liquidity, holder composition, and more. Supports advanced filters (e.g. “top 10 whales hold <40%”), category-based inclusion/exclusion (e.g. “exclude stablecoins”), and time-based analytics. Ideal for token discovery, investor research, risk analysis, and portfolio tools. Each token returned includes detailed trading metrics as well as on-chain and off-chain metadata."
+        },
+        {
+          "info": {
+            "name": "Get tokens with rising liquidity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/rising-liquidity",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "one_month_liquidity_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month liquidity change in usd of a token"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "twitter_followers",
+                "value": "",
+                "type": "query",
+                "description": "The minimum twitter followers of a token"
+              },
+              {
+                "name": "one_month_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month volume change in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "one_month_price_percent_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month price percent change of a token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Identify tokens experiencing increasing liquidity on their respective blockchains."
+        },
+        {
+          "info": {
+            "name": "Get tokens with buying pressure",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/buying-pressure",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "one_month_net_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month net volume change in usd of a token"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "twitter_followers",
+                "value": "",
+                "type": "query",
+                "description": "The minimum twitter followers of a token"
+              },
+              {
+                "name": "one_month_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month volume change in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "one_month_price_percent_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month price percent change of a token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List tokens showing strong buying activity based on transaction data."
+        },
+        {
+          "info": {
+            "name": "Get tokens with solid performance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/solid-performers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "one_month_net_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month net volume change in usd of a token"
+              },
+              {
+                "name": "one_week_net_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one week net volume change in usd of a token"
+              },
+              {
+                "name": "one_day_net_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one day net volume change in usd of a token"
+              },
+              {
+                "name": "one_month_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month volume change in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "one_month_price_percent_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month price percent change of a token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Find tokens with consistent performance based on price and volume metrics."
+        },
+        {
+          "info": {
+            "name": "Get tokens with experienced buyers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/experienced-buyers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "one_week_experienced_net_buyers_change",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one week experienced buyers change of a token"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Identify tokens being purchased by experienced or high-volume traders."
+        },
+        {
+          "info": {
+            "name": "Get tokens with risky bets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/risky-bets",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "max_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The maximum market cap in usd of a token"
+              },
+              {
+                "name": "one_week_holders_change",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one week holders change of a token"
+              },
+              {
+                "name": "one_week_net_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one week net volume change in usd of a token"
+              },
+              {
+                "name": "one_month_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month volume change in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "one_month_price_percent_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month price percent change of a token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List tokens with high-risk trading activity based on volatility or other factors."
+        },
+        {
+          "info": {
+            "name": "Get tokens with blue chip",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/blue-chip",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "min_token_age_in_days",
+                "value": "",
+                "type": "query",
+                "description": "The minimum age of token in days"
+              },
+              {
+                "name": "time_frame",
+                "value": "",
+                "type": "query",
+                "description": "The time frame used for price percent change ordering in response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch established, high-value tokens considered stable investments."
+        },
+        {
+          "info": {
+            "name": "Get tokens with top gainers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/top-gainers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "time_frame",
+                "value": "",
+                "type": "query",
+                "description": "The time frame used for price percent change ordering in response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Identify tokens with the highest price increases over a period."
+        },
+        {
+          "info": {
+            "name": "Get tokens with top losers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/top-losers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "time_frame",
+                "value": "",
+                "type": "query",
+                "description": "The time frame used for price percent change ordering in response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List tokens with the largest price decreases over a period."
+        },
+        {
+          "info": {
+            "name": "Get trending tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/trending",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Discover tokens gaining popularity based on trading and social metrics."
+        },
+        {
+          "info": {
+            "name": "Get token details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/token",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "token_address",
+                "value": "",
+                "type": "query",
+                "description": "The address of the token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve comprehensive details for a specific token, including metadata and stats. For more detailed tokens stats we recommended to use `getTokenAnalytics` or `getMultipleTokenAnalytics`. For pair stats, we recommend to use `getPairStats`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Entities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Entities, Organizations or Wallets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/entities/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "The search query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Find entities, organizations, addresses or wallets linked to blockchain addresses. Results are categorised into 3 arrays: entities, addresses, categories."
+        },
+        {
+          "info": {
+            "name": "Get Entity Details By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/entities/:entityId",
+            "params": [
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve details for a specific entity using its unique ID. Returns name, logo, description, external links and related addresses."
+        },
+        {
+          "info": {
+            "name": "Get Entity Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/entities/categories",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List available categories for blockchain entities."
+        },
+        {
+          "info": {
+            "name": "Get Entities By Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/entities/categories/:categoryId",
+            "params": [
+              {
+                "name": "categoryId",
+                "value": "",
+                "type": "path",
+                "description": "The category Id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch entities belonging to a specific category. Each entity returns name, logo, description, external links, total addresses and more."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
