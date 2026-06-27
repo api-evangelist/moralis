@@ -92,7 +92,7 @@ common:
     url: rate-limits/moralis-rate-limits.yml
   - type: FinOps
     url: finops/moralis-finops.yml
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.moralis.com/llms.txt
 maintainers:
   - FN: Kin Lane
