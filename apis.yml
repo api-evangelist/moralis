@@ -80,8 +80,16 @@ apis:
     - type: Documentation
       url: https://moralis.com/datashare
 common:
+  - type: TrustCenter
+    url: security/moralis-trust-center.yml
+  - type: DomainSecurity
+    url: security/moralis-domain-security.yml
+  - type: Authentication
+    url: authentication/moralis-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/MoralisWeb3
+  - url: https://moralis.com/blog/feed/
+    type: Blog
   - type: LinkedIn
     url: https://www.linkedin.com/company/moralisweb3
   - type: Website
