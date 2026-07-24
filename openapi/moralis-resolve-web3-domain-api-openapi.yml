@@ -1,0 +1,239 @@
+openapi: 3.0.0
+info:
+  title: EVM Balance Resolve Web3 Domain API
+  version: '2.2'
+servers:
+- url: https://deep-index.moralis.io/api/v2.2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Resolve Web3 Domain
+paths:
+  /resolve/{address}/reverse:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: ENS lookup by address
+      description: Convert an Ethereum address to its associated ENS domain, if registered.
+      tags:
+      - Resolve Web3 Domain
+      x-tag-sdk: resolve
+      operationId: resolveAddress
+      parameters:
+      - in: path
+        name: address
+        description: The address to be resolved
+        required: true
+        schema:
+          type: string
+          example: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'
+      responses:
+        '200':
+          description: Returns an ENS
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ens'
+      x-mcp-prompt: Provide the Ethereum address to resolve its ENS domain. Use this when users want to find the ENS name for an address or are verifying wallet identities.
+  /resolve/{domain}:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Resolve Unstoppable domain
+      description: Map an Unstoppable domain to its corresponding blockchain address.
+      tags:
+      - Resolve Web3 Domain
+      x-tag-sdk: resolve
+      operationId: resolveDomain
+      parameters:
+      - in: query
+        name: currency
+        description: The currency to query
+        required: false
+        schema:
+          type: string
+          example: eth
+          default: eth
+          enum:
+          - eth
+          - '0x1'
+      - in: path
+        name: domain
+        description: The domain to be resolved
+        required: true
+        schema:
+          type: string
+          example: brad.crypto
+      responses:
+        '200':
+          description: Returns an address
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resolve'
+        '404':
+          description: Returns an address
+          content:
+            application/json:
+              schema:
+                type: object
+      x-mcp-prompt: Enter the Unstoppable domain to resolve its address. Use this when users ask for the address linked to an Unstoppable domain or need domain resolution.
+  /resolve/{address}/domain:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Resolve Address to Unstoppable domain
+      description: Find the Unstoppable domain linked to a specific blockchain address.
+      tags:
+      - Resolve Web3 Domain
+      x-tag-sdk: resolve
+      operationId: resolveAddressToDomain
+      parameters:
+      - in: query
+        name: currency
+        description: The currency to query
+        required: false
+        schema:
+          type: string
+          example: eth
+          default: eth
+          enum:
+          - eth
+          - '0x1'
+      - in: path
+        name: address
+        description: The address to be resolved
+        required: true
+        schema:
+          type: string
+          example: '0x94ef5300cbc0aa600a821ccbc561b057e456ab23'
+      responses:
+        '200':
+          description: Returns an unstoppable domain
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unstoppableDomain'
+        '404':
+          description: Returns an unstoppable domain
+          content:
+            application/json:
+              schema:
+                type: object
+      x-mcp-prompt: Submit the blockchain address to find its Unstoppable domain. Use this when users want to check if an address has an Unstoppable domain or are exploring domain mappings.
+  /resolve/ens/{domain}:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: ENS lookup by domain
+      description: Resolve an ENS domain to its associated Ethereum address.
+      tags:
+      - Resolve Web3 Domain
+      x-tag-sdk: resolve
+      operationId: resolveENSDomain
+      parameters:
+      - in: path
+        name: domain
+        description: The domain to be resolved
+        required: true
+        schema:
+          type: string
+          example: vitalik.eth
+      responses:
+        '200':
+          description: Returns an address
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resolve'
+        '404':
+          description: Returns an address
+          content:
+            application/json:
+              schema:
+                type: object
+      x-mcp-prompt: Provide the ENS domain to resolve its Ethereum address. Use this when users ask for the address behind an ENS domain or need to verify domain ownership.
+components:
+  schemas:
+    resolve:
+      required:
+      - address
+      properties:
+        address:
+          type: string
+          description: Resolved domain address
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+    unstoppableDomain:
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Resolved unstoppable domain address
+          example: sandy.nft
+    ens:
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Resolved ENS address
+          example: Vitalik.eth
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      x-default: test
+x-samples-languages:
+- node
+- javascript
+- csharp
+- curl
+- python
+x-mcp-blacklist:
+- getNFTTraitsByCollectionPaginate
+- getNFTContractMetadata
+- getTokenPrice
+- getNativeBalance
+- getTokenAnalytics
+- resyncNFTRarity
+- syncNFTContract
+- reSyncMetadata
+- runContractFunction
+- web3ApiVersion
+- endpointWeights
+- getWalletTokenBalances
+- getTokenMetadataBySymbol
+- getWalletTransactions
+- getWalletTransactionsVerbose
+- getTransaction
+- getPairPrice
+- reviewContracts
+- getTrendingTokens
+- getWalletTokenTransfers
+- getWalletNFTTransfers
+- getPairReserves
+- getPairAddress
+- getTokenStats
+- resolveAddressToDomain
+- resolveDomain
+- getNFTFloorPriceByToken
+- getBlockStats
+- getNewTokensByExchange
+- getBondingTokensByExchange
+- getGraduatedTokensByExchange
+- getTokenBondingStatus
+- getAggregatedTokenPairStats
+- getTokenCategories
+- getRisingLiquidityTokens
+- getBuyingPressureTokens
+- getSolidPerformersTokens
+- getExperiencedBuyersTokens
+- getRiskyBetsTokens
+- getBlueChipTokens
+- getNFTOwners
+- getNFTTokenIdOwners
+- getContractNFTs
+- getNFTTradesByToken
+- getNFTTransfers

@@ -1,0 +1,1256 @@
+openapi: 3.0.0
+info:
+  title: EVM Balance Discovery API
+  version: '2.2'
+servers:
+- url: https://deep-index.moralis.io/api/v2.2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Discovery
+paths:
+  /discovery/tokens:
+    post:
+      security:
+      - ApiKeyAuth: []
+      summary: Returns a list of tokens that match the specified filters and criteria
+      description: Fetch a list of tokens across multiple chains, filtered and ranked by dynamic on-chain metrics like volume, price change, liquidity, holder composition, and more. Supports advanced filters (e.g. “top 10 whales hold <40%”), category-based inclusion/exclusion (e.g. “exclude stablecoins”), and time-based analytics. Ideal for token discovery, investor research, risk analysis, and portfolio tools. Each token returned includes detailed trading metrics as well as on-chain and off-chain metadata.
+      deprecated: true
+      tags:
+      - Discovery
+      operationId: getFilteredTokens
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chain:
+                  type: string
+                  example: '0x1'
+                  description: The blockchain identifier
+                chains:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/chainListWithSolana'
+                filters:
+                  type: array
+                  description: List of filters to apply
+                  items:
+                    type: object
+                    example:
+                      metric: experiencedBuyers
+                      timeFrame: oneMonth
+                      gt: 100
+                    properties:
+                      metric:
+                        $ref: '#/components/schemas/tokenExplorerMetrics'
+                        example: experiencedBuyers
+                        description: The metric to filter on
+                      timeFrame:
+                        type: string
+                        $ref: '#/components/schemas/tokenExplorerTimeFrames'
+                        example: oneMonth
+                        description: The time frame for the filter
+                      gt:
+                        type: number
+                        example: 10
+                        description: Greater-than value for the filter
+                      lt:
+                        type: number
+                        example: 10
+                        description: Less-than value for the filter
+                      eq:
+                        type: number
+                        example: 10
+                        description: Equal-to value for the filter
+                    required:
+                    - metric
+                    - timeFrame
+                sortBy:
+                  type: object
+                  description: Metric and time frame to sort by
+                  properties:
+                    metric:
+                      type: string
+                      $ref: '#/components/schemas/tokenExplorerMetrics'
+                      example: experiencedBuyers
+                      description: The metric to sort by
+                    timeFrame:
+                      type: string
+                      $ref: '#/components/schemas/tokenExplorerTimeFrames'
+                      example: oneHour
+                      description: The time frame for sorting
+                    type:
+                      type: string
+                      enum:
+                      - ASC
+                      - DESC
+                      example: DESC
+                      description: The order of sorting
+                  required:
+                  - metric
+                  - timeFrame
+                  - type
+                categories:
+                  type: object
+                  description: Categories to filter tokens
+                  properties:
+                    include:
+                      type: array
+                      items:
+                        type: string
+                    exclude:
+                      type: array
+                      items:
+                        type: string
+                timeFramesToReturn:
+                  type: array
+                  items:
+                    type: string
+                    $ref: '#/components/schemas/tokenExplorerTimeFrames'
+                  example: []
+                  description: List of time frames to return in the response
+                metricsToReturn:
+                  type: array
+                  items:
+                    type: string
+                    $ref: '#/components/schemas/tokenExplorerMetrics'
+                  example: []
+                  description: List of metrics to return in the response
+                excludeMetadata:
+                  type: boolean
+                  example: false
+                  description: Whether to exclude metadata from the response
+                limit:
+                  type: number
+                  example: 100
+                  description: Maximum number of results
+              required:
+              - chain
+              - filters
+              - sortBy
+              - limit
+      responses:
+        '200':
+          description: Returns the token details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    type: object
+                    properties:
+                      tokenAddress:
+                        type: string
+                        example: '0x55d398326f99059ff775485246999027b3197955'
+                      chainId:
+                        type: string
+                        example: '0x1'
+                      name:
+                        type: string
+                        example: Tether USD
+                      symbol:
+                        type: string
+                        example: USDT
+                      decimals:
+                        type: number
+                        example: 18
+                      logo:
+                        type: string
+                        example: https://example.com/logo.png
+                      blockNumberMinted:
+                        type: number
+                        example: 176416
+                      usdPrice:
+                        type: number
+                        example: 0.9982436729635321
+                      security:
+                        type: object
+                        properties:
+                          isOpenSource:
+                            type: boolean
+                            example: true
+                          isProxy:
+                            type: boolean
+                            example: false
+                          isMintable:
+                            type: boolean
+                            example: true
+                          hiddenOwner:
+                            type: boolean
+                            example: false
+                          buyTax:
+                            type: string
+                            example: '0'
+                          sellTax:
+                            type: string
+                            example: '0'
+                          cannotBuy:
+                            type: boolean
+                            example: false
+                          cannotSellAll:
+                            type: boolean
+                            example: false
+                          isHoneyPot:
+                            type: boolean
+                            example: false
+                          securityScore:
+                            type: number
+                            example: 70
+                          possibleSpam:
+                            type: boolean
+                            example: false
+                      totalSupply:
+                        type: string
+                        example: '1000000000'
+                      fullyDilutedValue:
+                        type: number
+                        example: 1000000000
+                      circulatingSupply:
+                        type: number
+                        example: 1000000000
+                      marketCap:
+                        type: number
+                        example: 1000000000
+                      totalHolders:
+                        type: number
+                        example: 100000
+                      totalLiquidityUsd:
+                        type: number
+                        example: 100000
+                      links:
+                        $ref: '#/components/schemas/discoveryTokenLinks'
+                      categories:
+                        type: array
+                        items:
+                          type: string
+                  metrics:
+                    type: object
+      x-mcp-prompt: 'Use this endpoint to discover and analyze tokens based on performance, market metrics, holder behavior, liquidity, or category. It supports filtering by chains, categories (e.g., meme, gaming), time-based and snapshot metrics (e.g., volume, market cap, whale percentage), and can sort results by any supported metric.
+
+
+        Use it when a user wants to find trending, risky, stable, or retail-driven tokens — or understand tokens by how they’re held, acquired, or traded.
+
+
+        Examples of questions this endpoint can answer:
+
+        * "Find top tokens by market cap and liquidity across Ethereum and Base."
+
+        * "Show meme tokens with less than 10% whales and over $500k market cap."
+
+        * "List tokens where over 90% of holders acquired via swaps, sorted by liquidity."
+
+        * "Find gaming tokens with rising buyer activity in the past 24 hours on Arbitrum and Polygon."
+
+
+        For best results, always include these safety filters unless the user explicitly opts out:
+
+        - marketCap must be > 0 and < $5 trillion
+
+        - totalLiquidityUsd must be > $500
+
+        - volumeUsd over the past 1 day must be > $1,000
+
+
+        These defaults help avoid dead tokens, scams, and noise.
+
+
+        Return the most relevant tokens based on the filters implied by the prompt. Include useful metrics in the response like `holders`, `marketCap`, `volumeUsd`, or `holderAcquisition` when appropriate.'
+  /discovery/tokens/rising-liquidity:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get tokens with rising liquidity
+      description: Identify tokens experiencing increasing liquidity on their respective blockchains.
+      deprecated: true
+      tags:
+      - Discovery
+      operationId: getRisingLiquidityTokens
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: one_month_liquidity_change_usd
+        description: The minimum one month liquidity change in usd of a token
+        schema:
+          type: number
+          example: 500000
+        required: false
+      - in: query
+        name: min_market_cap
+        description: The minimum market cap in usd of a token
+        schema:
+          type: number
+          example: 100000000
+        required: false
+      - in: query
+        name: twitter_followers
+        description: The minimum twitter followers of a token
+        schema:
+          type: number
+          example: 10000
+        required: false
+      - in: query
+        name: one_month_volume_change_usd
+        description: The minimum one month volume change in usd of a token
+        schema:
+          type: number
+          example: 10000
+        required: false
+      - in: query
+        name: security_score
+        description: The minimum security score of a token
+        schema:
+          type: number
+          example: 70
+        required: false
+      - in: query
+        name: one_month_price_percent_change_usd
+        description: The minimum one month price percent change of a token
+        schema:
+          type: number
+          example: 0
+        required: false
+      responses:
+        '200':
+          description: Returns the token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discoveryTokens'
+      x-mcp-prompt: Request tokens with rising liquidity, specifying the chain if needed. Use this when users ask for tokens with growing liquidity or are looking for investment opportunities.
+  /discovery/tokens/buying-pressure:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get tokens with buying pressure
+      description: List tokens showing strong buying activity based on transaction data.
+      deprecated: true
+      tags:
+      - Discovery
+      operationId: getBuyingPressureTokens
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: one_month_net_volume_change_usd
+        description: The minimum one month net volume change in usd of a token
+        schema:
+          type: number
+          example: 1000000
+        required: false
+      - in: query
+        name: min_market_cap
+        description: The minimum market cap in usd of a token
+        schema:
+          type: number
+          example: 100000000
+        required: false
+      - in: query
+        name: twitter_followers
+        description: The minimum twitter followers of a token
+        schema:
+          type: number
+          example: 10000
+        required: false
+      - in: query
+        name: one_month_volume_change_usd
+        description: The minimum one month volume change in usd of a token
+        schema:
+          type: number
+          example: 10000
+        required: false
+      - in: query
+        name: security_score
+        description: The minimum security score of a token
+        schema:
+          type: number
+          example: 70
+        required: false
+      - in: query
+        name: one_month_price_percent_change_usd
+        description: The minimum one month price percent change of a token
+        schema:
+          type: number
+          example: 0
+        required: false
+      responses:
+        '200':
+          description: Returns the token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discoveryTokens'
+      x-mcp-prompt: Request tokens with high buying pressure, specifying the chain if needed. Use this when users want to find tokens with strong demand or are analyzing market sentiment.
+  /discovery/tokens/solid-performers:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get tokens with solid performance
+      description: Find tokens with consistent performance based on price and volume metrics.
+      deprecated: true
+      tags:
+      - Discovery
+      operationId: getSolidPerformersTokens
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: one_month_net_volume_change_usd
+        description: The minimum one month net volume change in usd of a token
+        schema:
+          type: number
+          example: 100000
+        required: false
+      - in: query
+        name: one_week_net_volume_change_usd
+        description: The minimum one week net volume change in usd of a token
+        schema:
+          type: number
+          example: 10000
+        required: false
+      - in: query
+        name: one_day_net_volume_change_usd
+        description: The minimum one day net volume change in usd of a token
+        schema:
+          type: number
+          example: 0
+        required: false
+      - in: query
+        name: one_month_volume_change_usd
+        description: The minimum one month volume change in usd of a token
+        schema:
+          type: number
+          example: 10000
+        required: false
+      - in: query
+        name: security_score
+        description: The minimum security score of a token
+        schema:
+          type: number
+          example: 80
+        required: false
+      - in: query
+        name: one_month_price_percent_change_usd
+        description: The minimum one month price percent change of a token
+        schema:
+          type: number
+          example: 0
+        required: false
+      responses:
+        '200':
+          description: Returns the token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discoveryTokens'
+      x-mcp-prompt: Request tokens with solid performance, specifying the chain if needed. Use this when users ask for stable, high-performing tokens or want to explore reliable investments.
+  /discovery/tokens/experienced-buyers:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get tokens with experienced buyers
+      description: Identify tokens being purchased by experienced or high-volume traders.
+      deprecated: true
+      tags:
+      - Discovery
+      operationId: getExperiencedBuyersTokens
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: one_week_experienced_net_buyers_change
+        description: The minimum one week experienced buyers change of a token
+        schema:
+          type: number
+          example: 150
+        required: false
+      - in: query
+        name: min_market_cap
+        description: The minimum market cap in usd of a token
+        schema:
+          type: number
+          example: 10000000
+        required: false
+      - in: query
+        name: security_score
+        description: The minimum security score of a token
+        schema:
+          type: number
+          example: 80
+        required: false
+      responses:
+        '200':
+          description: Returns the token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discoveryTokens'
+      x-mcp-prompt: Request tokens with experienced buyers, specifying the chain if needed. Use this when users want to find tokens attracting savvy investors or are tracking whale activity.
+  /discovery/tokens/risky-bets:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get tokens with risky bets
+      description: List tokens with high-risk trading activity based on volatility or other factors.
+      deprecated: true
+      tags:
+      - Discovery
+      operationId: getRiskyBetsTokens
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: max_market_cap
+        description: The maximum market cap in usd of a token
+        schema:
+          type: number
+          example: 10000000
+        required: false
+      - in: query
+        name: one_week_holders_change
+        description: The minimum one week holders change of a token
+        schema:
+          type: number
+          example: 25
+        required: false
+      - in: query
+        name: one_week_net_volume_change_usd
+        description: The minimum one week net volume change in usd of a token
+        schema:
+          type: number
+          example: 500
+        required: false
+      - in: query
+        name: one_month_volume_change_usd
+        description: The minimum one month volume change in usd of a token
+        schema:
+          type: number
+          example: 10000
+        required: false
+      - in: query
+        name: security_score
+        description: The minimum security score of a token
+        schema:
+          type: number
+          example: 70
+        required: false
+      - in: query
+        name: one_month_price_percent_change_usd
+        description: The minimum one month price percent change of a token
+        schema:
+          type: number
+          example: 0
+        required: false
+      responses:
+        '200':
+          description: Returns the token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discoveryTokens'
+      x-mcp-prompt: Request tokens with risky trading activity, specifying the chain if needed. Use this when users ask for high-risk, high-reward tokens or are exploring speculative investments.
+  /discovery/tokens/blue-chip:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get tokens with blue chip
+      description: Fetch established, high-value tokens considered stable investments.
+      deprecated: true
+      tags:
+      - Discovery
+      operationId: getBlueChipTokens
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: min_market_cap
+        description: The minimum market cap in usd of a token
+        schema:
+          type: number
+          example: 150000000
+        required: false
+      - in: query
+        name: security_score
+        description: The minimum security score of a token
+        schema:
+          type: number
+          example: 80
+        required: false
+      - in: query
+        name: min_token_age_in_days
+        description: The minimum age of token in days
+        schema:
+          type: number
+          example: 180
+        required: false
+      - in: query
+        name: time_frame
+        description: The time frame used for price percent change ordering in response
+        required: false
+        schema:
+          $ref: '#/components/schemas/discoverySupportedTimeFrames'
+      responses:
+        '200':
+          description: Returns the token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discoveryTokens'
+      x-mcp-prompt: Request blue-chip tokens, specifying the chain if needed. Use this when users ask for safe, established tokens or want to invest in top-tier cryptocurrencies.
+  /discovery/tokens/top-gainers:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get tokens with top gainers
+      description: Identify tokens with the highest price increases over a period.
+      deprecated: true
+      tags:
+      - Discovery
+      operationId: getTopGainersTokens
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: min_market_cap
+        description: The minimum market cap in usd of a token
+        schema:
+          type: number
+          example: 50000000
+        required: false
+      - in: query
+        name: security_score
+        description: The minimum security score of a token
+        schema:
+          type: number
+          example: 80
+        required: false
+      - in: query
+        name: time_frame
+        description: The time frame used for price percent change ordering in response
+        required: false
+        schema:
+          $ref: '#/components/schemas/discoverySupportedTimeFrames'
+      responses:
+        '200':
+          description: Returns the token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discoveryTokens'
+      x-mcp-prompt: Request top-gaining tokens, specifying the chain and time period if needed. Use this when users want to find tokens with recent price surges or are chasing momentum.
+  /discovery/tokens/top-losers:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get tokens with top losers
+      description: List tokens with the largest price decreases over a period.
+      deprecated: true
+      tags:
+      - Discovery
+      operationId: getTopLosersTokens
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: min_market_cap
+        description: The minimum market cap in usd of a token
+        schema:
+          type: number
+          example: 50000000
+        required: false
+      - in: query
+        name: security_score
+        description: The minimum security score of a token
+        schema:
+          type: number
+          example: 80
+        required: false
+      - in: query
+        name: time_frame
+        description: The time frame used for price percent change ordering in response
+        required: false
+        schema:
+          $ref: '#/components/schemas/discoverySupportedTimeFrames'
+      responses:
+        '200':
+          description: Returns the token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discoveryTokens'
+      x-mcp-prompt: Request top-losing tokens, specifying the chain and time period if needed. Use this when users want to identify underperforming tokens or are looking for buying opportunities.
+  /discovery/tokens/trending:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get trending tokens
+      description: Discover tokens gaining popularity based on trading and social metrics.
+      deprecated: true
+      tags:
+      - Discovery
+      operationId: getTrendingTokens
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: min_market_cap
+        description: The minimum market cap in usd of a token
+        schema:
+          type: number
+          example: 50000000
+        required: false
+      - in: query
+        name: security_score
+        description: The minimum security score of a token
+        schema:
+          type: number
+          example: 80
+        required: false
+      responses:
+        '200':
+          description: Returns the token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discoveryTokens'
+      x-mcp-prompt: Request trending tokens, specifying the chain if needed. Use this when users ask for hot or popular tokens or want to explore market trends.
+  /discovery/token:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get token details
+      description: Retrieve comprehensive details for a specific token, including metadata and stats. For more detailed tokens stats we recommended to use `getTokenAnalytics` or `getMultipleTokenAnalytics`. For pair stats, we recommend to use `getPairStats`.
+      deprecated: true
+      tags:
+      - Discovery
+      operationId: getDiscoveryToken
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: true
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: token_address
+        description: The address of the token
+        schema:
+          type: string
+          example: '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2'
+        required: true
+      responses:
+        '200':
+          description: Returns the token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discoveryToken'
+      x-mcp-prompt: Enter the token contract address to fetch its details. Use this when users ask for in-depth information about a token or need a complete token profile.
+components:
+  schemas:
+    tokenExplorerMetrics:
+      type: string
+      enum:
+      - experiencedBuyers
+      - tokenAge
+      - holders
+      - buyers
+      - sellers
+      - netBuyers
+      - experiencedSellers
+      - netExperiencedBuyers
+      - fullyDilutedValuation
+      - marketCap
+      - usdPrice
+      - usdPricePercentChange
+      - liquidityChange
+      - liquidityChangeUSD
+      - volumeUsd
+      - buyVolumeUsd
+      - sellVolumeUsd
+      - netVolumeUsd
+      - securityScore
+      - totalHolders
+      - totalLiquidityUsd
+    tokenExplorerTimeFrames:
+      type: string
+      enum:
+      - oneMonth
+      - tenMinutes
+      - thirtyMinutes
+      - oneHour
+      - fourHours
+      - twelveHours
+      - oneDay
+      - oneWeek
+    discoveryTokenLinks:
+      type: object
+      required:
+      - bitbucket
+      - discord
+      - facebook
+      - github
+      - instagram
+      - linkedin
+      - medium
+      - reddit
+      - telegram
+      - tiktok
+      - twitter
+      - website
+      - youtube
+      properties:
+        bitbucket:
+          type: string
+          description: The link of the token on the platform
+        discord:
+          type: string
+          description: The link of the token on the platform
+        facebook:
+          type: string
+          description: The link of the token on the platform
+        github:
+          type: string
+          description: The link of the token on the platform
+        instagram:
+          type: string
+          description: The link of the token on the platform
+        linkedin:
+          type: string
+          description: The link of the token on the platform
+        medium:
+          type: string
+          description: The link of the token on the platform
+        reddit:
+          type: string
+          description: The link of the token on the platform
+        telegram:
+          type: string
+          description: The link of the token on the platform
+        tiktok:
+          type: string
+          description: The link of the token on the platform
+        twitter:
+          type: string
+          description: The link of the token on the platform
+        website:
+          type: string
+          description: The link of the token on the platform
+        youtube:
+          type: string
+          description: The link of the token on the platform
+    chainListWithSolana:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+      - solana
+    discoveryToken:
+      type: object
+      required:
+      - chain_id
+      - token_address
+      - token_name
+      - token_symbol
+      - token_logo
+      - block_number
+      - block_timestamp
+      - links
+      - rating
+      - total_number_of_rating
+      - total_liquidity_locked_in_percent
+      - total_supply_locked_in_percent
+      - price_usd
+      - token_age_in_days
+      - on_chain_strength_index
+      - security_score
+      - market_cap
+      - fully_diluted_valuation
+      - twitter_followers
+      - holders_change
+      - liquidity_change_usd
+      - experienced_net_buyers_change
+      - volume_change_usd
+      - net_volume_change_usd
+      - price_percent_change_usd
+      properties:
+        chain_id:
+          type: string
+          description: The chain id of the token
+          example: '0x1'
+        token_address:
+          type: string
+          description: The address of the token
+          example: '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2'
+        token_name:
+          type: string
+          description: The name of the token contract
+          example: Maker
+          nullable: true
+        token_symbol:
+          type: string
+          description: The symbol of the token
+          example: MKR
+          nullable: true
+        token_logo:
+          type: string
+          description: The logo of the token
+          nullable: true
+        block_number:
+          type: number
+          description: The block number of token when it was minted
+          nullable: true
+        block_timestamp:
+          type: string
+          description: The block timestamp of token when it was minted
+          nullable: true
+        links:
+          $ref: '#/components/schemas/discoveryTokenLinks'
+        rating:
+          type: number
+          description: The rating of token by moralis money community members
+          nullable: true
+        total_number_of_rating:
+          type: number
+          description: The total number of moralis money community members that have rated the token
+          nullable: true
+        total_liquidity_locked_in_percent:
+          type: number
+          description: The total amount of liquidity that is locked
+          nullable: true
+        total_supply_locked_in_percent:
+          type: number
+          description: The total amount of supply that is locked
+          nullable: true
+        price_usd:
+          type: number
+          description: The price in USD for the token
+          nullable: true
+        token_age_in_days:
+          type: number
+          description: The number of days since the token was created
+          nullable: true
+        on_chain_strength_index:
+          type: number
+          description: The score of coin determined by various on chain metrics
+          nullable: true
+        security_score:
+          type: number
+          description: The security score (0-100) given to the token based various parameters
+          example: 88
+          nullable: true
+        market_cap:
+          type: number
+          description: The market cap in USD
+          example: 1351767630.85
+          nullable: true
+        fully_diluted_valuation:
+          type: number
+          description: The fully diluted valuation in USD
+          example: 1363915420.28
+          nullable: true
+        twitter_followers:
+          type: number
+          description: The number of followers of the token on twitter
+          example: 255217
+          nullable: true
+        holders_change:
+          $ref: '#/components/schemas/timeFrames'
+        liquidity_change_usd:
+          $ref: '#/components/schemas/timeFrames'
+        experienced_net_buyers_change:
+          $ref: '#/components/schemas/timeFrames'
+        volume_change_usd:
+          $ref: '#/components/schemas/timeFrames'
+        net_volume_change_usd:
+          $ref: '#/components/schemas/timeFrames'
+        price_percent_change_usd:
+          $ref: '#/components/schemas/timeFrames'
+    timeFrames:
+      type: object
+      required:
+      - 1h
+      - 1d
+      - 1w
+      - 1M
+      properties:
+        1h:
+          type: number
+          description: The 1 hour change of the token
+          example: 14
+          nullable: true
+        1d:
+          type: number
+          description: The 1 day change of the token
+          example: 14
+          nullable: true
+        1w:
+          type: number
+          description: The 1 week change of the token
+          example: 162
+          nullable: true
+        1M:
+          type: number
+          description: The 1 month change of the token
+          example: 162
+          nullable: true
+    discoveryTokens:
+      type: array
+      items:
+        required:
+        - chain_id
+        - token_address
+        - token_name
+        - token_symbol
+        - token_logo
+        - price_usd
+        - token_age_in_days
+        - on_chain_strength_index
+        - security_score
+        - market_cap
+        - fully_diluted_valuation
+        - twitter_followers
+        - holders_change
+        - liquidity_change_usd
+        - experienced_net_buyers_change
+        - volume_change_usd
+        - net_volume_change_usd
+        - price_percent_change_usd
+        properties:
+          chain_id:
+            type: string
+            description: The chain id of the token
+            example: '0x1'
+          token_address:
+            type: string
+            description: The address of the token
+            example: '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2'
+          token_name:
+            type: string
+            description: The name of the token contract
+            example: Maker
+            nullable: true
+          token_symbol:
+            type: string
+            description: The symbol of the token
+            example: MKR
+            nullable: true
+          token_logo:
+            type: string
+            description: The logo of the token
+            nullable: true
+          price_usd:
+            type: number
+            description: The price in USD for the token
+            nullable: true
+          token_age_in_days:
+            type: number
+            description: The number of days since the token was created
+            nullable: true
+          on_chain_strength_index:
+            type: number
+            description: The score of coin determined by various on chain metrics
+            nullable: true
+          security_score:
+            type: number
+            description: The security score (0-100) given to the token based various parameters
+            example: 88
+            nullable: true
+          market_cap:
+            type: number
+            description: The market cap in USD
+            example: 1351767630.85
+            nullable: true
+          fully_diluted_valuation:
+            type: number
+            description: The fully diluted valuation in USD
+            example: 1363915420.28
+            nullable: true
+          twitter_followers:
+            type: number
+            description: The number of followers of the token on twitter
+            example: 255217
+            nullable: true
+          holders_change:
+            $ref: '#/components/schemas/timeFrames'
+          liquidity_change_usd:
+            $ref: '#/components/schemas/timeFrames'
+          experienced_net_buyers_change:
+            $ref: '#/components/schemas/timeFrames'
+          volume_change_usd:
+            $ref: '#/components/schemas/timeFrames'
+          net_volume_change_usd:
+            $ref: '#/components/schemas/timeFrames'
+          price_percent_change_usd:
+            $ref: '#/components/schemas/timeFrames'
+    discoverySupportedTimeFrames:
+      type: string
+      example: 1d
+      enum:
+      - 1h
+      - 1d
+      - 1w
+      - 1M
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      x-default: test
+x-samples-languages:
+- node
+- javascript
+- csharp
+- curl
+- python
+x-mcp-blacklist:
+- getNFTTraitsByCollectionPaginate
+- getNFTContractMetadata
+- getTokenPrice
+- getNativeBalance
+- getTokenAnalytics
+- resyncNFTRarity
+- syncNFTContract
+- reSyncMetadata
+- runContractFunction
+- web3ApiVersion
+- endpointWeights
+- getWalletTokenBalances
+- getTokenMetadataBySymbol
+- getWalletTransactions
+- getWalletTransactionsVerbose
+- getTransaction
+- getPairPrice
+- reviewContracts
+- getTrendingTokens
+- getWalletTokenTransfers
+- getWalletNFTTransfers
+- getPairReserves
+- getPairAddress
+- getTokenStats
+- resolveAddressToDomain
+- resolveDomain
+- getNFTFloorPriceByToken
+- getBlockStats
+- getNewTokensByExchange
+- getBondingTokensByExchange
+- getGraduatedTokensByExchange
+- getTokenBondingStatus
+- getAggregatedTokenPairStats
+- getTokenCategories
+- getRisingLiquidityTokens
+- getBuyingPressureTokens
+- getSolidPerformersTokens
+- getExperiencedBuyersTokens
+- getRiskyBetsTokens
+- getBlueChipTokens
+- getNFTOwners
+- getNFTTokenIdOwners
+- getContractNFTs
+- getNFTTradesByToken
+- getNFTTransfers

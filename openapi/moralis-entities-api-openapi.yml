@@ -1,0 +1,360 @@
+openapi: 3.0.0
+info:
+  title: EVM Balance Entities API
+  version: '2.2'
+servers:
+- url: https://deep-index.moralis.io/api/v2.2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Entities
+paths:
+  /entities/search:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Search Entities, Organizations or Wallets
+      description: 'Find entities, organizations, addresses or wallets linked to blockchain addresses. Results are categorised into 3 arrays: entities, addresses, categories.'
+      tags:
+      - Entities
+      x-tag-sdk: entities
+      operationId: searchEntities
+      parameters:
+      - in: query
+        name: query
+        description: The search query
+        required: true
+        schema:
+          type: string
+          example: Doge
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: Returns the search results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchEntitiesResponseCollection'
+      x-mcp-prompt: Provide the search term (e.g., address, entity name, company, organization) to find matching results. Use this when users want to search for blockchain entities or explore related addresses, for example Find me addresses related to BlackRock, or Locate Uniswap addresses on Base.
+  /entities/{entityId}:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get Entity Details By Id
+      description: Retrieve details for a specific entity using its unique ID. Returns name, logo, description, external links and related addresses.
+      tags:
+      - Entities
+      x-tag-sdk: entities
+      operationId: getEntity
+      parameters:
+      - in: path
+        name: entityId
+        description: ''
+        required: true
+        schema:
+          type: string
+          example: '1'
+      responses:
+        '200':
+          description: Returns the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityModelWithAddress'
+      x-mcp-prompt: Enter the entity ID to fetch its details. Use this when users ask for information about a specific blockchain entity or need entity-specific data.
+  /entities/categories:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get Entity Categories
+      description: List available categories for blockchain entities.
+      tags:
+      - Entities
+      x-tag-sdk: entities
+      operationId: getEntityCategories
+      parameters:
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: Returns the entity categories.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/categoryCollection'
+      x-mcp-prompt: Request the list of entity categories. Use this when users want to explore entity classifications or need a list of blockchain categories.
+  /entities/categories/{categoryId}:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get Entities By Category
+      description: Fetch entities belonging to a specific category. Each entity returns name, logo, description, external links, total addresses and more.
+      tags:
+      - Entities
+      x-tag-sdk: entities
+      operationId: getEntitiesByCategory
+      parameters:
+      - in: path
+        name: categoryId
+        description: The category Id
+        required: true
+        schema:
+          type: string
+          example: '1'
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: Returns the entities belonging to the category.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entitiesWithTotalAddressCollection'
+      x-mcp-prompt: Provide the category name to list its entities. Use this when users want to find entities in a specific category or are analyzing category-based activity.
+components:
+  schemas:
+    categoryCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '1'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/categoryModel'
+    addressModel:
+      type: object
+      properties:
+        address:
+          type: string
+          description: The address
+          example: '0x1f98431c8ad98523631ae4a59f267346ea31f984'
+        chain:
+          type: string
+          description: The chain
+          example: ethereum
+        is_multi_chain:
+          type: boolean
+          description: Indicates if the address is multi chain
+          example: false
+        primary_label:
+          type: string
+          description: The primary label
+          example: Uniswap
+    addressModelAdditionalLabels:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/addressModel'
+      properties:
+        additional_labels:
+          type: array
+          items:
+            type: string
+            example:
+            - Uniswap
+            - Uniswap V3
+    categoryModel:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/basicModel'
+      properties:
+        total_entities:
+          type: integer
+          description: The total number of entities
+          example: 100
+    entityModel:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the entity
+          example: Uniswap
+        id:
+          type: string
+          description: The id of the entity
+          example: uniswap
+        logo:
+          type: string
+          description: The logo of the entity
+          example: https://uniswap.io/favicon.ico
+        bio:
+          type: string
+          description: The bio of the entity
+          example: Uniswap is a decentralized finance protocol that is used to exchange cryptocurrencies.
+        description:
+          type: string
+          description: The description of the entity
+          example: Uniswap is a decentralized finance protocol that is used to exchange cryptocurrencies.
+        website:
+          type: string
+          description: The website of the entity
+          example: https://uniswap.io
+        twitter:
+          type: string
+          description: The twitter of the entity
+          example: https://twitter.com/uniswap
+        type:
+          type: string
+          description: The type of the entity
+          example: exchange
+    addressModelWithEntity:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/addressModel'
+      properties:
+        entity:
+          type: object
+          $ref: '#/components/schemas/basicModel'
+    entitiesWithTotalAddressCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '1'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/entityModelWithTotalAddress'
+    basicModel:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name
+          example: Uniswap
+        id:
+          type: string
+          description: The id
+          example: uniswap
+    searchEntitiesResponseCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '1'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        result:
+          type: object
+          properties:
+            entities:
+              type: array
+              items:
+                $ref: '#/components/schemas/entityModel'
+            addresses:
+              type: array
+              items:
+                $ref: '#/components/schemas/addressModelWithEntity'
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/basicModel'
+    entityModelWithTotalAddress:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/entityModel'
+      properties:
+        total_addresses:
+          type: integer
+          description: The total number of addresses
+          example: 100
+    entityModelWithAddress:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/entityModel'
+      properties:
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/addressModelAdditionalLabels'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      x-default: test
+x-samples-languages:
+- node
+- javascript
+- csharp
+- curl
+- python
+x-mcp-blacklist:
+- getNFTTraitsByCollectionPaginate
+- getNFTContractMetadata
+- getTokenPrice
+- getNativeBalance
+- getTokenAnalytics
+- resyncNFTRarity
+- syncNFTContract
+- reSyncMetadata
+- runContractFunction
+- web3ApiVersion
+- endpointWeights
+- getWalletTokenBalances
+- getTokenMetadataBySymbol
+- getWalletTransactions
+- getWalletTransactionsVerbose
+- getTransaction
+- getPairPrice
+- reviewContracts
+- getTrendingTokens
+- getWalletTokenTransfers
+- getWalletNFTTransfers
+- getPairReserves
+- getPairAddress
+- getTokenStats
+- resolveAddressToDomain
+- resolveDomain
+- getNFTFloorPriceByToken
+- getBlockStats
+- getNewTokensByExchange
+- getBondingTokensByExchange
+- getGraduatedTokensByExchange
+- getTokenBondingStatus
+- getAggregatedTokenPairStats
+- getTokenCategories
+- getRisingLiquidityTokens
+- getBuyingPressureTokens
+- getSolidPerformersTokens
+- getExperiencedBuyersTokens
+- getRiskyBetsTokens
+- getBlueChipTokens
+- getNFTOwners
+- getNFTTokenIdOwners
+- getContractNFTs
+- getNFTTradesByToken
+- getNFTTransfers

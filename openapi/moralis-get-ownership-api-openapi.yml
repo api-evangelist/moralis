@@ -1,0 +1,267 @@
+openapi: 3.0.0
+info:
+  title: EVM Balance Get Ownership API
+  version: '2.2'
+servers:
+- url: https://deep-index.moralis.io/api/v2.2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Get Ownership
+paths:
+  /erc20/{token_address}/owners:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get ERC20 token owners by contract
+      description: Identify the major holders of an ERC20 token and understand their ownership percentages. Includes known entities, exchanges and wallet labels.
+      tags:
+      - Get Ownership
+      x-tag-sdk: token
+      operationId: getTokenOwners
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: token_address
+        description: The address of the token contract
+        required: true
+        schema:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: The order of the result, in ascending (ASC) or descending (DESC)
+        required: false
+        schema:
+          $ref: '#/components/schemas/orderList'
+      responses:
+        '200':
+          description: Returns a collection of owners of an ERC20 token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/erc20TokenOwnerCollection'
+      x-mcp-prompt: Enter the token contract address to list its major owners. Use this when users want to know the top holders of a token or analyze ownership concentration.
+components:
+  schemas:
+    erc20TokenOwnerCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        total_supply:
+          type: string
+          description: The total supply of the token
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/erc20TokenOwner'
+    orderList:
+      type: string
+      example: DESC
+      default: DESC
+      enum:
+      - ASC
+      - DESC
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    erc20TokenOwner:
+      required:
+      - owner_address
+      - owner_address_label
+      - balance
+      - balance_formatted
+      - usd_value
+      - is_contract
+      - percentage_relative_to_total_supply
+      properties:
+        owner_address:
+          type: string
+          description: The address of the erc20 token owner
+          example: 0x244...
+        owner_address_label:
+          type: string
+          description: The label of the owner_address
+          example: Coinbase 1
+        balance:
+          type: string
+          description: The amount holding of the ERC20 token
+          example: '57888888888888888888880'
+        balance_formatted:
+          type: string
+          description: The amount holding of the ERC20 token in decimaal
+          example: '5.78'
+        usd_value:
+          type: string
+          description: The USD value of the balance
+          example: '57888888888888888888880'
+        is_contract:
+          type: boolean
+          description: Indicates if the token address is for a contract or not
+        percentage_relative_to_total_supply:
+          type: number
+          example: 10
+          description: The percentage of total supply held by the owner
+        entity:
+          type: string
+          description: The owner address entity
+          example: Opensea
+          nullable: true
+        entity_logo:
+          type: string
+          description: The logo of the owner address entity
+          example: https://opensea.io/favicon.ico
+          nullable: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      x-default: test
+x-samples-languages:
+- node
+- javascript
+- csharp
+- curl
+- python
+x-mcp-blacklist:
+- getNFTTraitsByCollectionPaginate
+- getNFTContractMetadata
+- getTokenPrice
+- getNativeBalance
+- getTokenAnalytics
+- resyncNFTRarity
+- syncNFTContract
+- reSyncMetadata
+- runContractFunction
+- web3ApiVersion
+- endpointWeights
+- getWalletTokenBalances
+- getTokenMetadataBySymbol
+- getWalletTransactions
+- getWalletTransactionsVerbose
+- getTransaction
+- getPairPrice
+- reviewContracts
+- getTrendingTokens
+- getWalletTokenTransfers
+- getWalletNFTTransfers
+- getPairReserves
+- getPairAddress
+- getTokenStats
+- resolveAddressToDomain
+- resolveDomain
+- getNFTFloorPriceByToken
+- getBlockStats
+- getNewTokensByExchange
+- getBondingTokensByExchange
+- getGraduatedTokensByExchange
+- getTokenBondingStatus
+- getAggregatedTokenPairStats
+- getTokenCategories
+- getRisingLiquidityTokens
+- getBuyingPressureTokens
+- getSolidPerformersTokens
+- getExperiencedBuyersTokens
+- getRiskyBetsTokens
+- getBlueChipTokens
+- getNFTOwners
+- getNFTTokenIdOwners
+- getContractNFTs
+- getNFTTradesByToken
+- getNFTTransfers

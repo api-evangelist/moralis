@@ -1,0 +1,348 @@
+openapi: 3.0.0
+info:
+  title: EVM Balance Utils API
+  version: '2.2'
+servers:
+- url: https://deep-index.moralis.io/api/v2.2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Utils
+paths:
+  /{address}/function:
+    post:
+      security:
+      - ApiKeyAuth: []
+      summary: Run contract function
+      description: Execute a read-only function from a contract’s ABI to retrieve data from the blockchain.
+      tags:
+      - Utils
+      x-tag-sdk: utils
+      operationId: runContractFunction
+      requestBody:
+        description: Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunContractDto'
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address of the contract
+        required: true
+        schema:
+          type: string
+          example: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+      - in: query
+        name: function_name
+        description: The function name of the contract
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns response of the function executed
+          content:
+            application/json:
+              schema:
+                type: string
+      x-mcp-prompt: Enter the contract address, function name, and parameters to run the contract function. Use this when users want to query a smart contract or retrieve on-chain data.
+  /web3/version:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get API version
+      description: Check the current version of the Moralis Web3 API.
+      operationId: web3ApiVersion
+      tags:
+      - Utils
+      x-tag-sdk: utils
+      responses:
+        '200':
+          description: Get the current version of the Moralis Web3 API.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/web3version'
+      x-mcp-prompt: Request the current Moralis Web3 API version. Use this when users ask about the API version or need to verify compatibility.
+  /info/endpointWeights:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get weights of endpoints
+      description: View the cost and rate limits for each Moralis API endpoint.
+      operationId: endpointWeights
+      tags:
+      - Utils
+      x-tag-sdk: utils
+      responses:
+        '200':
+          description: The cost and rate limit for each API endpoint.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/endpointWeights'
+      x-mcp-prompt: Request the cost and rate limit details for Moralis API endpoints. Use this when users ask about API usage limits or need to optimize their requests.
+  /contracts-review:
+    post:
+      security:
+      - ApiKeyAuth: []
+      summary: Review contracts
+      description: Classify contracts as spam or legitimate based on their characteristics.
+      tags:
+      - Utils
+      x-tag-sdk: utils
+      operationId: reviewContracts
+      requestBody:
+        description: Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractsReviewDto'
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      responses:
+        '200':
+          description: Returns a message acknowledging the report
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Submission successful
+      x-mcp-prompt: Provide the contract address to review its spam status. Use this when users ask if a contract is safe or want to verify a contract’s legitimacy.
+components:
+  schemas:
+    contractsReviewItem:
+      required:
+      - contract_address
+      - reason
+      - report_type
+      - contract_type
+      properties:
+        contract_address:
+          type: string
+          description: The contract address
+          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
+        reason:
+          type: string
+          description: The reason for the contract being spam
+          example: 100
+        report_type:
+          type: string
+          enum:
+          - spam
+          - not_spam
+          description: This can be spam or not_spam
+          example: spam
+        contract_type:
+          type: string
+          enum:
+          - ERC20
+          - NFT
+          description: This can be ERC20, or NFT
+          example: ERC20
+    web3version:
+      required:
+      - version
+      properties:
+        version:
+          type: string
+          description: The version of the API
+          example: 1.0.0
+    ContractsReviewDto:
+      required:
+      - contracts
+      properties:
+        contracts:
+          type: array
+          maxItems: 25
+          description: The contracts to be reported
+          example:
+          - contract_address: '0xa4991609c508b6d4fb7156426db0bd49fe298bd8'
+            report_type: spam
+            contract_type: ERC20
+            reason: The contract contains shady code
+          items:
+            $ref: '#/components/schemas/contractsReviewItem'
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    RunContractDto:
+      required:
+      - abi
+      properties:
+        abi:
+          type: array
+          items:
+            type: object
+          description: The contract ABI
+          example: []
+        params:
+          type: object
+          description: The params for the given function
+          example: {}
+    endpointWeights:
+      required:
+      - endpoint
+      - path
+      - price
+      - rateLimitCost
+      properties:
+        endpoint:
+          type: string
+          description: endpoint
+          example: endpointWeights
+        path:
+          type: string
+          description: The path to the endpoint
+          example: /info/endpointWeights
+        rateLimitCost:
+          type: string
+          description: The number of hits the request counts towards rate limiting
+          example: 1
+        price:
+          type: string
+          description: The number of compute units the request counts towards billing
+          example: 0
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      x-default: test
+x-samples-languages:
+- node
+- javascript
+- csharp
+- curl
+- python
+x-mcp-blacklist:
+- getNFTTraitsByCollectionPaginate
+- getNFTContractMetadata
+- getTokenPrice
+- getNativeBalance
+- getTokenAnalytics
+- resyncNFTRarity
+- syncNFTContract
+- reSyncMetadata
+- runContractFunction
+- web3ApiVersion
+- endpointWeights
+- getWalletTokenBalances
+- getTokenMetadataBySymbol
+- getWalletTransactions
+- getWalletTransactionsVerbose
+- getTransaction
+- getPairPrice
+- reviewContracts
+- getTrendingTokens
+- getWalletTokenTransfers
+- getWalletNFTTransfers
+- getPairReserves
+- getPairAddress
+- getTokenStats
+- resolveAddressToDomain
+- resolveDomain
+- getNFTFloorPriceByToken
+- getBlockStats
+- getNewTokensByExchange
+- getBondingTokensByExchange
+- getGraduatedTokensByExchange
+- getTokenBondingStatus
+- getAggregatedTokenPairStats
+- getTokenCategories
+- getRisingLiquidityTokens
+- getBuyingPressureTokens
+- getSolidPerformersTokens
+- getExperiencedBuyersTokens
+- getRiskyBetsTokens
+- getBlueChipTokens
+- getNFTOwners
+- getNFTTokenIdOwners
+- getContractNFTs
+- getNFTTradesByToken
+- getNFTTransfers

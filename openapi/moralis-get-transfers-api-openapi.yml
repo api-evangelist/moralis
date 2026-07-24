@@ -1,0 +1,680 @@
+openapi: 3.0.0
+info:
+  title: EVM Balance Get Transfers API
+  version: '2.2'
+servers:
+- url: https://deep-index.moralis.io/api/v2.2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Get Transfers
+paths:
+  /{address}/nft/transfers:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFT Transfers by wallet address
+      description: Get NFT transfers for a wallet, with filters like `contract_addresses` and other parameters. Supports ERC-721, ERC-1155 as well as custom contracts such as CryptoPunks and CryptoKitties.
+      tags:
+      - Get Transfers
+      x-mcp-prompt: Input the wallet address for NFT transfer history. Add filters like `contract_addresses` or date ranges if needed. Use this when users ask about a wallet’s NFT transaction history or want to track NFT movements.
+      x-tag-sdk: nft
+      operationId: getWalletNFTTransfers
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The wallet address of the sender or recipient of the transfers
+        required: true
+        schema:
+          type: string
+          example: '0xcB1C1FdE09f811B294172696404e88E658659905'
+      - in: query
+        name: contract_addresses
+        description: List of contract addresses of transfers
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: format
+        description: The format of the token ID
+        required: false
+        schema:
+          type: string
+          example: decimal
+          default: decimal
+          enum:
+          - decimal
+          - hex
+      - in: query
+        name: from_block
+        description: 'The minimum block number from which to get the transfers
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: to_block
+        description: To get the reserves at this block number
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: from_date
+        description: 'The date from where to get the transfers (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: to_date
+        description: 'Get transfers up until this date (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: include_prices
+        description: Should NFT last sale prices be included in the result?
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: order
+        description: The order of the result, in ascending (ASC) or descending (DESC)
+        required: false
+        schema:
+          $ref: '#/components/schemas/orderList'
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns a collection of NFT transfers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nftTransferCollection'
+  /nft/{address}/transfers:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFT transfers by contract address
+      description: Get NFT transfers for a contract, with options to filter by date, token, or other parameters.
+      tags:
+      - Get Transfers
+      x-tag-sdk: nft
+      operationId: getNFTContractTransfers
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: from_block
+        description: 'The minimum block number from where to get the transfers
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: to_block
+        description: 'The maximum block number from where to get the transfers.
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: from_date
+        description: 'The date from where to get the transfers (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: to_date
+        description: 'Get transfers up until this date (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: path
+        name: address
+        description: The address of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '0x306b1ea3ecdf94ab739f1910bbda052ed4a9f949'
+      - in: query
+        name: format
+        description: The format of the token ID
+        required: false
+        schema:
+          type: string
+          example: decimal
+          default: decimal
+          enum:
+          - decimal
+          - hex
+      - in: query
+        name: include_prices
+        description: Should NFT last sale prices be included in the result?
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: order
+        description: The order of the result, in ascending (ASC) or descending (DESC)
+        required: false
+        schema:
+          $ref: '#/components/schemas/orderList'
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns a collection of NFT transfers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nftTransferCollection'
+      x-mcp-prompt: Input the contract address for NFT transfer data. Specify filters like date or token ID if needed. Use this when users request transfer history for a specific NFT collection or want to monitor trading activity.
+  /nft/{address}/{token_id}/transfers:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFT transfers by token ID
+      description: Get transfers of a specific NFT given a contract address and token ID.
+      tags:
+      - Get Transfers
+      x-tag-sdk: nft
+      operationId: getNFTTransfers
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '0x524cab2ec69124574082676e6f654a18df49a048'
+      - in: path
+        name: token_id
+        description: The ID of the token
+        required: true
+        schema:
+          type: string
+          example: '1'
+      - in: query
+        name: format
+        description: The format of the token ID
+        required: false
+        schema:
+          type: string
+          example: decimal
+          default: decimal
+          enum:
+          - decimal
+          - hex
+      - in: query
+        name: include_prices
+        description: Should NFT last sale prices be included in the result?
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: order
+        description: The order of the result, in ascending (ASC) or descending (DESC)
+        required: false
+        schema:
+          $ref: '#/components/schemas/orderList'
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns a collection of NFT transfers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nftTransferCollection'
+      x-mcp-prompt: Provide the contract address and token ID to see the NFT’s transfer history. Use this when users want to track the ownership history of a specific NFT.
+components:
+  schemas:
+    nftTransferCollection:
+      required:
+      - page
+      - page_size
+      - cursor
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/nftTransfer'
+        block_exists:
+          type: boolean
+          description: Indicator if the block exists
+          example: true
+        index_complete:
+          type: boolean
+          description: Indicator if the block is fully indexed
+          example: true
+    orderList:
+      type: string
+      example: DESC
+      default: DESC
+      enum:
+      - ASC
+      - DESC
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    nftTransfer:
+      required:
+      - token_address
+      - token_id
+      - transaction_hash
+      - log_index
+      - contract_type
+      - block_timestamp
+      - block_number
+      - block_hash
+      - possible_spam
+      properties:
+        token_address:
+          type: string
+          description: The address of the NFT contract
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        token_id:
+          type: string
+          description: The token ID of the NFT
+          example: '15'
+        token_name:
+          type: string
+          example: Tether USD
+        token_symbol:
+          type: string
+          example: USDT
+        from_address_entity:
+          type: string
+          description: The from address entity
+          example: Opensea
+        from_address_entity_logo:
+          type: string
+          description: The logo of the from address entity
+          example: https://opensea.io/favicon.ico
+        from_address:
+          type: string
+          description: The address that sent the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        from_address_label:
+          type: string
+          nullable: true
+          description: The label of the from address
+          example: Binance 1
+        to_address_entity:
+          type: string
+          description: The to address entity
+          example: Beaver Build
+        to_address_entity_logo:
+          type: string
+          description: The logo of the to address entity
+          example: https://beaverbuild.com/favicon.ico
+        to_address:
+          type: string
+          description: The address that received the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        to_address_label:
+          type: string
+          nullable: true
+          description: The label of the to address
+          example: Binance 2
+        value:
+          type: string
+          description: The value that was sent in the transaction (ETH/BNB/etc..)
+          example: '1000000000000000'
+        amount:
+          type: string
+          description: The number of tokens transferred
+          example: '1'
+        contract_type:
+          type: string
+          description: The type of NFT contract standard
+          example: ERC721
+        block_number:
+          type: string
+          description: The block number of the transaction
+          example: '88256'
+        block_timestamp:
+          type: string
+          description: The block timestamp
+          example: '2021-06-04T16:00:15'
+        block_hash:
+          type: string
+          description: The block hash of the transaction
+        transaction_hash:
+          type: string
+          description: The transaction hash
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        transaction_type:
+          type: string
+          description: The transaction type
+        transaction_index:
+          type: integer
+          description: The transaction index
+        log_index:
+          type: integer
+          description: The log index
+        operator:
+          type: string
+          description: The operator present only for ERC1155 transfers
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_collection:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: 'false'
+        last_sale:
+          type: object
+          description: Details about the most recent sale involving this token.
+          nullable: true
+          required:
+          - transaction_hash
+          - block_timestamp
+          - price
+          - price_formatted
+          - buyer_address
+          - seller_address
+          - payment_token
+          properties:
+            transaction_hash:
+              type: string
+              description: The transaction hash of the last sale
+              example: '0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c'
+            block_timestamp:
+              type: string
+              description: The block timestamp of the last sale
+              example: '2023-04-04T15:59:11.000Z'
+            buyer_address:
+              type: string
+              description: The buyer address of the last sale
+              example: '0xcb1c1fde09f811b294172696404e88e658659905'
+            seller_address:
+              type: string
+              description: The seller address of the last sale
+              example: '0x497a7dee2f13db161eb2fec060fa783cb041419f'
+            price:
+              type: string
+              description: The price of the last sale
+              example: '7300000000000000'
+            price_formatted:
+              type: string
+              description: The formatted price of the last sale
+              example: '0.0073'
+            usd_price_at_sale:
+              type: string
+              description: The USD price of the last sale
+              example: '13.61'
+            current_usd_value:
+              type: string
+              description: The USD price of the last sale at the current value
+              example: '15.53'
+            token_address:
+              type: string
+              description: The token address that is sold
+              example: '0xe8778996e096b39705c6a0a937eb587a1ebbda17'
+            token_id:
+              type: string
+              description: The token ID that is sold
+              example: '170'
+            payment_token:
+              type: object
+              description: The ERC20 token that is being traded with
+              required:
+              - token_name
+              - token_symbol
+              - token_logo
+              - token_decimals
+              - token_address
+              properties:
+                token_name:
+                  type: string
+                  description: The token name
+                  example: Ether
+                token_symbol:
+                  type: string
+                  description: The token symbol
+                  example: ETH
+                token_logo:
+                  type: string
+                  description: The token logo
+                  example: https://cdn.moralis.io/eth/0x.png
+                token_decimals:
+                  type: string
+                  description: The token decimals
+                  example: '18'
+                token_address:
+                  type: string
+                  description: The token address
+                  example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      x-default: test
+x-samples-languages:
+- node
+- javascript
+- csharp
+- curl
+- python
+x-mcp-blacklist:
+- getNFTTraitsByCollectionPaginate
+- getNFTContractMetadata
+- getTokenPrice
+- getNativeBalance
+- getTokenAnalytics
+- resyncNFTRarity
+- syncNFTContract
+- reSyncMetadata
+- runContractFunction
+- web3ApiVersion
+- endpointWeights
+- getWalletTokenBalances
+- getTokenMetadataBySymbol
+- getWalletTransactions
+- getWalletTransactionsVerbose
+- getTransaction
+- getPairPrice
+- reviewContracts
+- getTrendingTokens
+- getWalletTokenTransfers
+- getWalletNFTTransfers
+- getPairReserves
+- getPairAddress
+- getTokenStats
+- resolveAddressToDomain
+- resolveDomain
+- getNFTFloorPriceByToken
+- getBlockStats
+- getNewTokensByExchange
+- getBondingTokensByExchange
+- getGraduatedTokensByExchange
+- getTokenBondingStatus
+- getAggregatedTokenPairStats
+- getTokenCategories
+- getRisingLiquidityTokens
+- getBuyingPressureTokens
+- getSolidPerformersTokens
+- getExperiencedBuyersTokens
+- getRiskyBetsTokens
+- getBlueChipTokens
+- getNFTOwners
+- getNFTTokenIdOwners
+- getContractNFTs
+- getNFTTradesByToken
+- getNFTTransfers

@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  title: EVM Balance Get Unique Owners API
+  version: '2.2'
+servers:
+- url: https://deep-index.moralis.io/api/v2.2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Get Unique Owners
+paths:
+  /nft/{address}/unique-owners:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get unique wallet addresses owning NFTs from a contract.
+      description: Get unique wallet addresses owning NFTs from a contract.
+      tags:
+      - Get Unique Owners
+      x-tag-sdk: nft
+      operationId: getUniqueOwnersByCollection
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '0x306b1ea3ecdf94ab739f1910bbda052ed4a9f949'
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns a collection of unique NFT owners
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/uniqueOwnersByCollection'
+      x-mcp-prompt: Enter the contract address to list its unique NFT owners. Use this when users want to know how many unique wallets own NFTs.
+components:
+  schemas:
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    uniqueOwnersByCollection:
+      required:
+      - walletAddresses
+      - page
+      - pageSize
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        pageSize:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        walletAddresses:
+          type: array
+          items:
+            type: string
+          description: Array of wallet addresses
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      x-default: test
+x-samples-languages:
+- node
+- javascript
+- csharp
+- curl
+- python
+x-mcp-blacklist:
+- getNFTTraitsByCollectionPaginate
+- getNFTContractMetadata
+- getTokenPrice
+- getNativeBalance
+- getTokenAnalytics
+- resyncNFTRarity
+- syncNFTContract
+- reSyncMetadata
+- runContractFunction
+- web3ApiVersion
+- endpointWeights
+- getWalletTokenBalances
+- getTokenMetadataBySymbol
+- getWalletTransactions
+- getWalletTransactionsVerbose
+- getTransaction
+- getPairPrice
+- reviewContracts
+- getTrendingTokens
+- getWalletTokenTransfers
+- getWalletNFTTransfers
+- getPairReserves
+- getPairAddress
+- getTokenStats
+- resolveAddressToDomain
+- resolveDomain
+- getNFTFloorPriceByToken
+- getBlockStats
+- getNewTokensByExchange
+- getBondingTokensByExchange
+- getGraduatedTokensByExchange
+- getTokenBondingStatus
+- getAggregatedTokenPairStats
+- getTokenCategories
+- getRisingLiquidityTokens
+- getBuyingPressureTokens
+- getSolidPerformersTokens
+- getExperiencedBuyersTokens
+- getRiskyBetsTokens
+- getBlueChipTokens
+- getNFTOwners
+- getNFTTokenIdOwners
+- getContractNFTs
+- getNFTTradesByToken
+- getNFTTransfers

@@ -1,0 +1,382 @@
+openapi: 3.0.0
+info:
+  title: EVM Balance Get Floor Price API
+  version: '2.2'
+servers:
+- url: https://deep-index.moralis.io/api/v2.2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Get Floor Price
+paths:
+  /nft/{address}/floor-price:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFT floor price by contract
+      description: Get floor price for a given collection. Refreshes every 30 minutes.
+      tags:
+      - Get Floor Price
+      x-tag-sdk: nft
+      operationId: getNFTFloorPriceByContract
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+      responses:
+        '200':
+          description: Returns the conract's floor price
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contractFloorPrice'
+      x-mcp-prompt: Enter the contract address to get its NFT floor price. Use this when users ask for the minimum price of a collection or are assessing its market value.
+  /nft/{address}/{token_id}/floor-price:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFT floor price by token
+      description: Get the floor price for a specific NFT, defined by its contract and token ID. Refreshes every 30 minutes.
+      tags:
+      - Get Floor Price
+      x-tag-sdk: nft
+      operationId: getNFTFloorPriceByToken
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+      - in: path
+        name: token_id
+        description: The token ID of the NFT
+        required: true
+        schema:
+          type: string
+          example: '2441'
+      responses:
+        '200':
+          description: Returns the token's floor price
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokenFloorPrice'
+      x-mcp-prompt: Provide the contract address and token ID to fetch the NFT’s floor price. Use this when users want the floor price for a specific NFT or are comparing token values.
+  /nft/{address}/floor-price/historical:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get historical NFT floor price by contract
+      description: Get timeseries historical floor prices for a given NFT collection. Refreshes every 30 minutes.
+      tags:
+      - Get Floor Price
+      x-tag-sdk: nft
+      operationId: getNFTHistoricalFloorPriceByContract
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: interval
+        description: The duration to query
+        required: true
+        schema:
+          $ref: '#/components/schemas/nftFloorPriceIntervalList'
+      - in: path
+        name: address
+        description: The address of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the conract's historical floor price
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/historicalContractFloorResponse'
+      x-mcp-prompt: Enter the contract address and time period to view historical floor prices. Use this when users want to analyze a collection’s price trends or need historical market data.
+components:
+  schemas:
+    marketplace:
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the marketplace
+          example: blur
+        logo:
+          type: string
+          description: The logo of the marketplace
+          example: https://cdn.moralis.io/marketplaces/blur.png
+    tokenFloorPrice:
+      required:
+      - address
+      - token_id
+      properties:
+        address:
+          type: string
+          description: The address of the NFT contract
+          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+        token_id:
+          type: string
+          description: The token ID of the NFT
+          example: '2441'
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '0.2176'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '564.24'
+        currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        marketplace:
+          $ref: '#/components/schemas/marketplace'
+          description: The marketplace in which the floor price is present
+        last_updated:
+          type: string
+          description: The timestamp of when the floor price was last updated
+          example: '2024-08-21T15:59:11.000Z'
+    historicalContractFloorPrice:
+      required:
+      - timestamp
+      properties:
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '0.2176'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '564.24'
+        currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        marketplace:
+          type: string
+          description: The marketplace in which the floor price is present
+          example: blur
+        timestamp:
+          type: string
+          description: The timestamp of when the floor price was last updated
+          example: '2024-08-21T15:59:11.000Z'
+    nftFloorPriceIntervalList:
+      type: string
+      example: 1d
+      default: 1d
+      enum:
+      - 1d
+      - 7d
+      - 30d
+      - 60d
+      - 90d
+      - 1y
+      - all
+    historicalContractFloorResponse:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '1'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/historicalContractFloorPrice'
+          description: List of historical contract floor prices at various intervals.
+    contractFloorPrice:
+      required:
+      - address
+      - last_updated
+      properties:
+        address:
+          type: string
+          description: The address of the NFT contract
+          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '0.2176'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '564.24'
+        currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        marketplace:
+          $ref: '#/components/schemas/marketplace'
+          description: The marketplace in which the floor price is present
+        last_updated:
+          type: string
+          description: The timestamp of when the floor price was last updated
+          example: '2024-08-21T15:59:11.000Z'
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      x-default: test
+x-samples-languages:
+- node
+- javascript
+- csharp
+- curl
+- python
+x-mcp-blacklist:
+- getNFTTraitsByCollectionPaginate
+- getNFTContractMetadata
+- getTokenPrice
+- getNativeBalance
+- getTokenAnalytics
+- resyncNFTRarity
+- syncNFTContract
+- reSyncMetadata
+- runContractFunction
+- web3ApiVersion
+- endpointWeights
+- getWalletTokenBalances
+- getTokenMetadataBySymbol
+- getWalletTransactions
+- getWalletTransactionsVerbose
+- getTransaction
+- getPairPrice
+- reviewContracts
+- getTrendingTokens
+- getWalletTokenTransfers
+- getWalletNFTTransfers
+- getPairReserves
+- getPairAddress
+- getTokenStats
+- resolveAddressToDomain
+- resolveDomain
+- getNFTFloorPriceByToken
+- getBlockStats
+- getNewTokensByExchange
+- getBondingTokensByExchange
+- getGraduatedTokensByExchange
+- getTokenBondingStatus
+- getAggregatedTokenPairStats
+- getTokenCategories
+- getRisingLiquidityTokens
+- getBuyingPressureTokens
+- getSolidPerformersTokens
+- getExperiencedBuyersTokens
+- getRiskyBetsTokens
+- getBlueChipTokens
+- getNFTOwners
+- getNFTTokenIdOwners
+- getContractNFTs
+- getNFTTradesByToken
+- getNFTTransfers

@@ -1,0 +1,4343 @@
+openapi: 3.0.0
+info:
+  title: EVM Balance Token API
+  version: '2.2'
+servers:
+- url: https://deep-index.moralis.io/api/v2.2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Token
+paths:
+  /erc20/{address}/price:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get ERC20 token price
+      description: Retrieve the current or historical price of an ERC20 token in the blockchain’s native currency and USD. Each token returned includes on-chain metadata, as well as off-chain metadata, logos, spam status and more. Additional options to exclude low-liquidity tokens and inactive tokens.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getTokenPrice
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address of the token contract
+        required: true
+        schema:
+          type: string
+          example: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+      - in: query
+        name: exchange
+        description: The factory name or address of the token exchange
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: to_block
+        description: The block number from which the token price should be checked
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: include
+        description: This parameter is now deprecated as percentage change are included by default
+        required: false
+        deprecated: true
+        schema:
+          type: string
+          example: ''
+          default: ''
+          enum:
+          - percent_change
+      - in: query
+        name: max_token_inactivity
+        description: Exclude tokens inactive for more than the given amount of days
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: min_pair_side_liquidity_usd
+        description: Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity on a single side of the pair.
+        required: false
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Returns the price denominated in the blockchain's native token and USD for a given token contract address
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/erc20Price'
+      x-mcp-prompt: Enter the token contract address to fetch its price. Use this when users ask for the current price of an ERC20 token or the historical price of a token at a point in time, or simply need price data for trading.
+  /erc20/{address}/swaps:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get swap transactions by token address
+      description: Get all swap transactions (buy/sell) for a specific ERC20 token.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getSwapsByTokenAddress
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The token address to get transaction for
+        required: true
+        schema:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: order
+        description: The order of the result, in ascending (ASC) or descending (DESC)
+        required: false
+        schema:
+          $ref: '#/components/schemas/orderList'
+      - in: query
+        name: fromBlock
+        description: 'The minimum block number from which to get the token transactions
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: toBlock
+        description: The block number to get the token transactions from
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: fromDate
+        description: 'The start date from which to get the token transactions (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: toDate
+        description: 'The end date from which to get the token transactions (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: transactionTypes
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Array of transaction types. Allowed values are 'buy', 'sell'.
+      responses:
+        '200':
+          description: Returns swap transactions by wallet address.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSwapsByWalletAddressResponse'
+      x-mcp-prompt: Provide the token contract address to view its swap transactions. Use this when users want to track trading activity for a token or analyze swap volume.
+  /erc20/{tokenAddress}/holders:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get a holders summary by token address
+      description: Returns total holders for a given token, as well as aggregated stats holder supply, holder trends, holder distribution and holder acquisition metrics.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getTokenHolders
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: tokenAddress
+        description: The token address to get transaction for
+        required: true
+        schema:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+      responses:
+        '200':
+          description: Returns token holder summary result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenHolderSummaryResult'
+      x-mcp-prompt: Enter the token contract address to retrieve its total holders as well as detailde holder metrics. Use this when users ask who holds a token or want to analyze its activity, distribution or trends.
+  /erc20/{tokenAddress}/holders/historical:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get timeseries holders data
+      description: Track changes in the holder base of an ERC20 token over time. Supports timeseries data for total holders as well as change metrics such as holder distribution and holder acquisition.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getHistoricalTokenHolders
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: tokenAddress
+        description: The token address
+        required: true
+        schema:
+          type: string
+          example: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+      - in: query
+        name: fromDate
+        description: 'The starting date (format in seconds or datestring accepted by momentjs)
+
+          '
+        required: true
+        schema:
+          type: string
+          example: '2025-01-01T10:00:00'
+      - in: query
+        name: toDate
+        description: 'The ending date (format in seconds or datestring accepted by momentjs)
+
+          '
+        required: true
+        schema:
+          type: string
+          example: '2025-02-01T11:00:00'
+      - in: query
+        name: limit
+        description: The number of results to return
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page)
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: timeFrame
+        description: The time frame to group the data by
+        required: true
+        schema:
+          type: string
+          example: 1d
+          default: 1min
+          enum:
+          - 1min
+          - 5min
+          - 10min
+          - 30min
+          - 1h
+          - 4h
+          - 12h
+          - 1d
+          - 1w
+          - 1m
+      responses:
+        '200':
+          description: Returns token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenHolderTimelineResult'
+      x-mcp-prompt: Provide the token contract address and time period to view timeseries historical holder changes. Use this when users want to see how a token’s holder base has evolved over time.
+  /erc20/prices:
+    post:
+      security:
+      - ApiKeyAuth: []
+      summary: Get Multiple ERC20 token prices
+      description: Retrieve the current or historical prices for multiple ERC20 tokens in the blockchain’s native currency and USD. Accepts an array of up to 100 `tokens`, each requiring `token_address` and optional fields such as `to_block` or `exchange`. Each token returned includes on-chain metadata, as well as off-chain metadata, logos, spam status and more. Additional options to exclude low-liquidity tokens and inactive tokens.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getMultipleTokenPrices
+      requestBody:
+        description: Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetMultipleTokenPricesDto'
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: include
+        description: This parameter is now deprecated as percentage change are included by default
+        required: false
+        deprecated: true
+        schema:
+          type: string
+          example: ''
+          default: ''
+          enum:
+          - percent_change
+      - in: query
+        name: max_token_inactivity
+        description: Exclude tokens inactive for more than the given amount of days
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: min_pair_side_liquidity_usd
+        description: Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity on a single side of the pair.
+        required: false
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Returns an array of token prices denominated in the blockchain's native token and USD for a given token contract address
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/erc20Price'
+      x-mcp-prompt: Submit a list of token contract addresses to retrieve their prices. Use this when users need price data for one or many tokens or are comparing market values.
+  /erc20/{token_address}/owners:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get ERC20 token owners by contract
+      description: Identify the major holders of an ERC20 token and understand their ownership percentages. Includes known entities, exchanges and wallet labels.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getTokenOwners
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: token_address
+        description: The address of the token contract
+        required: true
+        schema:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: The order of the result, in ascending (ASC) or descending (DESC)
+        required: false
+        schema:
+          $ref: '#/components/schemas/orderList'
+      responses:
+        '200':
+          description: Returns a collection of owners of an ERC20 token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/erc20TokenOwnerCollection'
+      x-mcp-prompt: Enter the token contract address to list its major owners. Use this when users want to know the top holders of a token or analyze ownership concentration.
+  /{address}/erc20:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get ERC20 token balances by wallet
+      description: Get an unpaginated list of token balances, without token prices, for a specific wallet address. Maximum of 2,000 tokens. Each token returned includes on-chain metadata, as well as off-chain metadata, logos, spam status and more.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getWalletTokenBalances
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address from which token balances will be checked
+        required: true
+        schema:
+          type: string
+          example: '0xcB1C1FdE09f811B294172696404e88E658659905'
+      - in: query
+        name: to_block
+        description: The block number up to which the balances will be checked.
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: token_addresses
+        description: The addresses to get balances for (optional)
+        required: false
+        schema:
+          type: array
+          maxItems: 10
+          items:
+            type: string
+      - in: query
+        name: exclude_spam
+        description: Exclude spam tokens from the result
+        required: false
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: Returns token balances for a specific address
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/erc20TokenBalance'
+      x-mcp-prompt: Provide the wallet address to fetch its ERC20 token balances. Use this when users ask for a wallet’s token holdings or want to check their portfolio.
+  /{address}/erc20/transfers:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get ERC20 token transfers by wallet address
+      description: Get all ERC20 token transfers for a given wallet address, sorted by block number (newest first).
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getWalletTokenTransfers
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: from_block
+        description: 'The minimum block number from which to get the transactions
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: to_block
+        description: 'The maximum block number from which to get the transactions.
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: from_date
+        description: 'The start date from which to get the transactions (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: to_date
+        description: 'Get the transactions up to this date (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        schema:
+          type: string
+      - in: path
+        name: address
+        description: The address of the wallet
+        required: true
+        schema:
+          type: string
+          example: '0xcB1C1FdE09f811B294172696404e88E658659905'
+      - in: query
+        name: contract_addresses
+        description: List of contract addresses of transfers
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: order
+        description: The order of the result, in ascending (ASC) or descending (DESC)
+        required: false
+        schema:
+          $ref: '#/components/schemas/orderList'
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns a collection of token transactions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/erc20TransactionCollection'
+      x-mcp-prompt: Input the wallet address to view its ERC20 token transactions. Use this when users want to track a wallet’s token activity or review transaction history.
+  /erc20/metadata:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get ERC20 token metadata by contract
+      description: Retrieve metadata (name, symbol, decimals, logo) for an ERC20 token contract, as well as off-chain metadata, total supply, categories, logos, spam status and more.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getTokenMetadata
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: addresses
+        description: The addresses to get metadata for
+        required: true
+        schema:
+          type: array
+          maxItems: 10
+          items:
+            type: string
+            example: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+      responses:
+        '200':
+          description: Get the metadata for a given ERC20 token contract address (name, symbol, decimals, logo).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/erc20Metadata'
+      x-mcp-prompt: Enter the token contract address to fetch its metadata. Use this when users need basic information about a token or are verifying contract details.
+  /tokens/categories:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get ERC20 token categories
+      description: ''
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getTokenCategories
+      responses:
+        '200':
+          description: Returns a list of ERC20 token categories, such as stablecoin, meme, governance, and more. Use this endpoint to explore available token categories for filtering or analytics.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/erc20Categories'
+  /erc20/metadata/symbols:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get ERC20 token metadata by symbols
+      description: Fetch metadata (name, symbol, decimals, logo) for a list of ERC20 token symbols.
+      deprecated: true
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getTokenMetadataBySymbol
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: symbols
+        description: The symbols to get metadata for
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+            example: LINK
+      responses:
+        '200':
+          description: Returns metadata for a given token contract address (name, symbol, decimals, logo).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/erc20Metadata'
+      x-mcp-prompt: Provide a list of token symbols to retrieve their metadata. Use this when users request metadata for tokens by symbol or are exploring multiple tokens.
+  /erc20/{address}/transfers:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get ERC20 token transfers by contract address
+      description: Get all ERC20 token transfers for a contract, ordered by block number (newest first).
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getTokenTransfers
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: from_block
+        description: 'The minimum block number from which to get the transfers
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: to_block
+        description: 'The maximum block number from which to get the transfers.
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: from_date
+        description: 'The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: to_date
+        description: 'Get transfers up until this date (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        schema:
+          type: string
+      - in: path
+        name: address
+        description: The address of the token contract
+        required: true
+        schema:
+          type: string
+          example: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: order
+        description: The order of the result, in ascending (ASC) or descending (DESC)
+        required: false
+        schema:
+          $ref: '#/components/schemas/orderList'
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns a collection of token contract transactions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/erc20TransactionCollection'
+      x-mcp-prompt: Enter the token contract address to list its transactions. Use this when users want to track all transactions for a token or analyze its activity.
+  /erc20/{address}/stats:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get ERC20 token stats
+      description: Get the total number of transfers for a given ERC20. For more detailed tokens stats we recommended to use `getTokenAnalytics` or `getMultipleTokenAnalytics`. For pair stats, we recommend to use `getPairStats`.
+      deprecated: true
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getTokenStats
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address of the erc20 token
+        required: true
+        schema:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+      responses:
+        '200':
+          description: Returns the stats for the erc20 token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/erc20TokenStat'
+      x-mcp-prompt: Provide the token contract address to fetch the total number of transfers for this token. Use this when users ask how many transfers a given token has.
+  /erc20/{address}/top-gainers:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get top traders for a given ERC20 token
+      description: List the most profitable wallets that have traded a specific ERC20 token.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getTopProfitableWalletPerToken
+      parameters:
+      - in: path
+        name: address
+        required: true
+        schema:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        description: The ERC20 token address.
+      - in: query
+        name: days
+        required: false
+        schema:
+          type: string
+        description: Timeframe in days for which profitability is calculated, Options include 'all', '7', '30' default is 'all'.
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      responses:
+        '200':
+          description: Successful response with top profitable wallets.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletTopProfitableWalletPerTokenResponse'
+      x-mcp-prompt: Provide the token contract address to find its top profitable wallets. Use this when users ask who’s profiting most from a token or want to analyze successful traders.
+  /tokens/search:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Search for tokens based on contract address, pair address, token name or token symbol.
+      description: Search for tokens using their contract address, pair address, name, or symbol. Cross-chain by default with support to filter by `chains`. Additional options to `sortBy` various metrics, such as market cap, liquidity or volume.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: searchTokens
+      parameters:
+      - in: query
+        name: chains
+        description: The chains to query
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: query
+        description: The query to search
+        required: true
+        schema:
+          type: string
+          example: pepe
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: isVerifiedContract
+        description: True to include only verified contracts
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - in: query
+        name: sortBy
+        description: Sort by volume1hDesc, volume24hDesc, liquidityDesc, marketCapDesc
+        required: false
+        schema:
+          type: string
+          example: volume1hDesc
+          default: volume1hDesc
+          enum:
+          - volume1hDesc
+          - volume24hDesc
+          - liquidityDesc
+          - marketCapDesc
+      - in: query
+        name: boostVerifiedContracts
+        description: True to boost verified contracts
+        required: false
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: Returns the search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    example: 10000
+                  result:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        tokenAddress:
+                          type: string
+                          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+                        chainId:
+                          type: string
+                          example: '0x1'
+                        name:
+                          type: string
+                          example: Pepe
+                        symbol:
+                          type: string
+                          example: PEPE
+                        blockNumber:
+                          type: integer
+                          example: 17046105
+                        blockTimestamp:
+                          type: integer
+                          example: 1681483883
+                        usdPrice:
+                          type: number
+                          format: float
+                          example: 2.4509478199144e-05
+                        marketCap:
+                          type: number
+                          format: float
+                          example: 9825629287.860994
+                        experiencedNetBuyers:
+                          type: object
+                          properties:
+                            oneHour:
+                              type: integer
+                              example: 31
+                            oneDay:
+                              type: integer
+                              example: 51
+                            oneWeek:
+                              type: integer
+                              example: 77
+                        netVolumeUsd:
+                          type: object
+                          properties:
+                            oneHour:
+                              type: number
+                              format: float
+                              example: 188552.0639107914
+                            oneDay:
+                              type: number
+                              format: float
+                              example: 1188552.0639107914
+                        liquidityChangeUSD:
+                          type: object
+                          properties:
+                            oneHour:
+                              type: number
+                              format: float
+                              example: -287308.4496394396
+                            oneDay:
+                              type: number
+                              format: float
+                              example: -387308.4496394396
+                        usdPricePercentChange:
+                          type: object
+                          properties:
+                            oneHour:
+                              type: number
+                              format: float
+                              example: 1.079210724244654
+                            oneDay:
+                              type: number
+                              format: float
+                              example: 2.079210724244654
+                        volumeUsd:
+                          type: object
+                          properties:
+                            oneHour:
+                              type: number
+                              format: float
+                              example: 188552.0639107914
+                            oneDay:
+                              type: number
+                              format: float
+                              example: 76927981.5281831
+                        securityScore:
+                          type: integer
+                          example: 92
+                        logo:
+                          type: string
+                          nullable: true
+                          example: https://adds-token-info-29a861f.s3.eu-central-1.amazonaws.com/marketing/evm/0x6982508145454ce325ddbe47a25d4ec3d2311933_icon.png
+                        isVerifiedContract:
+                          type: boolean
+                          example: false
+                        fullyDilutedValuation:
+                          type: number
+                          format: float
+                          example: 71242582.97741453
+                        totalHolders:
+                          type: number
+                          format: float
+                          example: 18908
+                        totalLiquidityUsd:
+                          type: number
+                          format: float
+                          example: 18908.234
+                        implementations:
+                          type: array
+                          items:
+                            description: The token addresses of the same symbol from another chains
+                            required:
+                            - chainId
+                            - address
+                            properties:
+                              chainId:
+                                type: string
+                                description: The chain id
+                                example: '0x1'
+                              chain:
+                                type: string
+                                description: The chain name
+                                example: eth
+                              chainName:
+                                type: string
+                                description: The chain name
+                                example: Ethereum
+                              address:
+                                type: string
+                                description: The token address
+                                example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+      x-mcp-prompt: Enter the contract address, pair address, token name, or symbol to search for tokens. Use this when users want to find tokens by name or address or are exploring token options. Use this when users ask questions only referencing a token name or symbol and where the token address is required.
+  /pairs/{address}/ohlcv:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get OHLCV by pair address
+      description: Retrieve OHLCV (Open, High, Low, Close, Volume) candlestick data for a token pair.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getPairCandlesticks
+      parameters:
+      - in: path
+        name: address
+        description: The pair address
+        required: true
+        schema:
+          type: string
+          example: '0xa43fe16908251ee70ef74718545e4fe6c5ccec9f'
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: timeframe
+        description: The timeframe
+        required: true
+        schema:
+          type: string
+          example: 1h
+          default: 1h
+          enum:
+          - 1s
+          - 10s
+          - 30s
+          - 1min
+          - 5min
+          - 10min
+          - 30min
+          - 1h
+          - 4h
+          - 12h
+          - 1d
+          - 1w
+          - 1M
+      - in: query
+        name: currency
+        description: The currency
+        required: true
+        schema:
+          type: string
+          example: usd
+          default: usd
+          enum:
+          - usd
+          - native
+      - in: query
+        name: fromDate
+        description: 'The starting date (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''fromBlock'' or ''fromDate''
+
+          * If ''fromDate'' and ''fromBlock'' are provided, ''fromBlock'' will be used.
+
+          '
+        required: true
+        schema:
+          type: string
+          example: '2025-01-01T10:00:00.000'
+      - in: query
+        name: toDate
+        description: 'The ending date (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''toBlock'' or ''toDate''
+
+          * If ''toDate'' and ''toBlock'' are provided, ''toBlock'' will be used.
+
+          '
+        required: true
+        schema:
+          type: string
+          example: '2025-01-02T10:00:00.000'
+      - in: query
+        name: limit
+        description: The number of results to return
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page)
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the OHLCV data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/candleSticksResponse'
+      x-mcp-prompt: Enter the token pair address and time frame to fetch OHLCV data. Use this when users want candlestick data for a token pair or are building trading charts.
+  /pairs/{address}/stats:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get stats by pair address
+      description: Access key statistics for a token pair, such as price, buyers, sellers, liquidity, volume and more.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getPairStats
+      parameters:
+      - in: path
+        name: address
+        description: The pair address
+        required: true
+        schema:
+          type: string
+          example: '0xa43fe16908251ee70ef74718545e4fe6c5ccec9f'
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      responses:
+        '200':
+          description: Returns the pair stats.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pairStatsResponse'
+      x-mcp-prompt: Provide the token pair address to retrieve its stats. Use this when users need performance metrics for a token pair or are evaluating DEX pools.
+  /erc20/{token_address}/pairs:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get token pairs by address
+      description: List supported trading pairs for a specific ERC20 token. Each pair returned includes price, liquidity, volume and more.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getTokenPairs
+      parameters:
+      - in: path
+        name: token_address
+        description: The address of the token
+        required: true
+        schema:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+      - in: query
+        name: chain
+        description: The chain to query
+        required: true
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: limit
+        description: The number of results to return
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page)
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the supported pairs for the token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokenSupportedPairsResponse'
+      x-mcp-prompt: Enter the token address to fetch its supported pairs. Use this when users want to find trading pairs for a token or are setting up DEX interactions.
+  /erc20/{token_address}/pairs/stats:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get aggregated token pair statistics by address
+      description: Summarize statistics across all supported pairs for a token. We recommended to use `getTokenAnalytics` or `getMultipleTokenAnalytics` for more accurate results.
+      deprecated: true
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getAggregatedTokenPairStats
+      parameters:
+      - in: path
+        name: token_address
+        description: The address of the token
+        required: true
+        schema:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+      - in: query
+        name: chain
+        description: The chain to query
+        required: true
+        schema:
+          $ref: '#/components/schemas/chainList'
+      responses:
+        '200':
+          description: Returns the statistics for supported pairs of the token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokenSupportedPairsStatsResponse'
+      x-mcp-prompt: Provide the token address to view aggregated pair statistics. Use this when users want a token’s overall pair performance or are analyzing its DEX activity.
+  /erc20/exchange/{exchangeName}/new:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get new tokens by exchange
+      description: List newly added tokens on a specific exchange. Currently only supports tama.meme on Ronin.
+      deprecated: true
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getNewTokensByExchange
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: true
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: exchangeName
+        description: The name of the exchange
+        required: true
+        schema:
+          type: string
+          example: tama.meme
+      - in: query
+        name: limit
+        description: The maximum number of items to return
+        required: false
+        schema:
+          type: integer
+          default: 100
+      - in: query
+        name: cursor
+        description: The cursor to use for pagination
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the new tokens for the specified exchange.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/newTokensByExchangeResponse'
+      x-mcp-prompt: Specify the exchange to fetch its newly added tokens. Use this when users ask for new tokens on an exchange or want to explore recent listings.
+  /erc20/exchange/{exchangeName}/bonding:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get bonding tokens by exchange
+      description: Identify tokens in the bonding phase on a specific exchange. Currently only supports tama.meme on Ronin.
+      deprecated: true
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getBondingTokensByExchange
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: true
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: exchangeName
+        description: The name of the exchange
+        required: true
+        schema:
+          type: string
+          example: tama.meme
+      - in: query
+        name: limit
+        description: The maximum number of items to return
+        required: false
+        schema:
+          type: integer
+          default: 100
+      - in: query
+        name: cursor
+        description: The cursor to use for pagination
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the bonding tokens for the specified exchange.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bondingTokensByExchangeResponse'
+      x-mcp-prompt: Specify the exchange to list its bonding tokens. Use this when users want to find tokens in the bonding phase or are tracking exchange activity.
+  /erc20/exchange/{exchangeName}/graduated:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get graduated tokens by exchange
+      description: List tokens that have completed bonding on a specific exchange. Currently only supports tama.meme on Ronin.
+      deprecated: true
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getGraduatedTokensByExchange
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: true
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: exchangeName
+        description: The name of the exchange
+        required: true
+        schema:
+          type: string
+          example: tama.meme
+      - in: query
+        name: limit
+        description: The maximum number of items to return
+        required: false
+        schema:
+          type: integer
+          default: 100
+      - in: query
+        name: cursor
+        description: The cursor to use for pagination
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the graduated tokens for the specified exchange.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/graduatedTokensByExchangeResponse'
+      x-mcp-prompt: Specify the exchange to fetch its graduated tokens. Use this when users ask for tokens that have graduated or want to analyze post-bonding performance.
+  /erc20/{tokenAddress}/bondingStatus:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get the token bonding status
+      description: Check the bonding status of a token on an exchange. Currently only supports tama.meme on Ronin.
+      deprecated: true
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getTokenBondingStatus
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: true
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: tokenAddress
+        description: The address of the token
+        required: true
+        schema:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+      responses:
+        '200':
+          description: Returns the bonding status of the token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokenBondingStatusResponse'
+      x-mcp-prompt: Enter the token address and exchange to check its bonding status. Use this when users want to verify a token’s bonding progress or are monitoring exchange listings.
+  /pairs/{address}/swaps:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get swap transactions by pair address
+      description: Fetch swap transactions (buy, sell, add/remove liquidity) for a specific token pair.
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getSwapsByPairAddress
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The pair address token-transactions are to be retrieved for.
+        required: true
+        schema:
+          type: string
+          example: '0xa43fe16908251ee70ef74718545e4fe6c5ccec9f'
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: fromBlock
+        description: 'The minimum block number from which to get the token transactions
+
+          * Provide the param ''fromBlock'' or ''fromDate''
+
+          * If ''fromDate'' and ''fromBlock'' are provided, ''fromBlock'' will be used.
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: toBlock
+        description: The block number to get the token transactions from
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: fromDate
+        description: 'The start date from which to get the token transactions (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''fromBlock'' or ''fromDate''
+
+          * If ''fromDate'' and ''fromBlock'' are provided, ''fromBlock'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: toDate
+        description: 'The end date from which to get the token transactions (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''toBlock'' or ''toDate''
+
+          * If ''toDate'' and ''toBlock'' are provided, ''toBlock'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        description: The order of the result, in ascending (ASC) or descending (DESC)
+        required: false
+        schema:
+          $ref: '#/components/schemas/orderList'
+      - name: transactionTypes
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Array of transaction types. Allowed values are 'buy', 'sell', 'addLiquidity', 'removeLiquidity'.
+      responses:
+        '200':
+          description: Returns swap transactions by pair address.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSwapsByPairAddressResponse'
+      x-mcp-prompt: Enter the token pair address to list its swap transactions. Use this when users want to analyze swap activity for a token pair or track liquidity changes.
+  /pairs/{address}/snipers:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get snipers by pair address
+      description: Identify sniper wallets that bought a token within a specified timeframe (`blocksAfterCreation`). Each wallet returned includes detailed information about how much was bought, sold as well as PnL stats and more.
+      deprecated: true
+      tags:
+      - Token
+      x-tag-sdk: token
+      operationId: getSnipersByPairAddress
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The pair address token-transactions are to be retrieved for.
+        required: true
+        schema:
+          type: string
+          example: '0xa3c2076eb97d573cc8842f1db1ecdf7b6f77ba27'
+      - in: query
+        name: blocksAfterCreation
+        description: 'Number of blocks after the creation
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 1000
+          default: 3
+      responses:
+        '200':
+          description: Returns snipers by pair address.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSnipersResponse'
+      x-mcp-prompt: Provide the token pair address to list its sniper wallets. Use this when users want to identify snipers for a token pair or are monitoring aggressive trading.
+  /volume/chains:
+    get:
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Token
+      x-tag-sdk: token
+      summary: Get trading stats by chain
+      description: Retrieve volume, active wallets and transaction stats for a blockchain over various time periods. Returns data for all chains in a single request.
+      deprecated: true
+      operationId: getVolumeStatsByChain
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VolumeChainsResponse'
+      x-mcp-prompt: Specify the chain and time period to fetch volume, participant and transaction stats. Use this when users ask for chain-wide volume data or want to analyze blockchain activity.
+  /volume/categories:
+    get:
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Token
+      x-tag-sdk: token
+      summary: Get trading stats by categories
+      description: Access volume, buyers, sellers and transaction stats for a blockchain, grouped by category. Filter by `chain`.
+      deprecated: true
+      operationId: getVolumeStatsByCategory
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VolumeCategoriesResponse'
+      x-mcp-prompt: Provide the chain to retrieve volume, participant and transaction stats. Use this when users want category-specific chain data or are analyzing segmented activity.
+  /volume/timeseries:
+    get:
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Token
+      x-tag-sdk: token
+      summary: Retrieve timeseries trading stats by chain
+      description: Fetch timeseries volume, liquidity and FDV for a specific blockchain.
+      deprecated: true
+      operationId: getTimeSeriesVolume
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: timeframe
+        description: The timeframe to query
+        required: true
+        schema:
+          type: string
+          example: 1d
+          default: 7d
+          enum:
+          - 1d
+          - 7d
+          - 30d
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeSeriesVolumeResponse'
+      x-mcp-prompt: Specify the chain and time range to retrieve timeseries volume, liquidity and FDV data. Use this when users want historical volume trends, fdv trends or liquidity trends for a chain or are building analytics dashboards.
+  /volume/timeseries/{categoryId}:
+    get:
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Token
+      x-tag-sdk: token
+      summary: Retrieve timeseries trading stats by category
+      description: Fetch timeseries buy volume, sell volume, liquidity and FDV for a specific category. Optionally filter by `chain`.
+      deprecated: true
+      operationId: getTimeSeriesVolumeByCategory
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: timeframe
+        description: The timeframe to query
+        required: true
+        schema:
+          type: string
+          example: 1d
+          default: 1d
+          enum:
+          - 1d
+          - 7d
+          - 30d
+      - in: path
+        name: categoryId
+        description: The category id
+        required: true
+        schema:
+          type: string
+          example: '1'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeSeriesVolumeByCategoryResponse'
+      x-mcp-prompt: Provide the chain, category, and time range for timeseries volume data. Use this when users want category-specific volume trends or are analyzing segmented chain data.
+  /tokens/analytics/timeseries:
+    post:
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Token
+      x-tag-sdk: token
+      summary: Retrieve timeseries trading stats by token addresses
+      description: Fetch timeseries buy volume, sell volume, liquidity and FDV for multiple tokens. Accepts an array of up to 200 `tokens`, each requiring `chain` and `tokenAddress`.
+      operationId: getTimeSeriesTokenAnalytics
+      parameters:
+      - in: query
+        name: timeframe
+        description: The timeframe to query
+        required: true
+        schema:
+          type: string
+          example: 1d
+          default: 1d
+          enum:
+          - 1d
+          - 7d
+          - 30d
+      requestBody:
+        description: Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetTimeSeriesTokenAnalyticsDto'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeSeriesByTokensData'
+      x-mcp-prompt: Enter the token addresses and time range to fetch timeseries volume, liquidity and FDV data. Use this when users want historical volume data for specific tokens or are tracking token performance.
+  /tokens/trending:
+    get:
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Token
+      x-tag-sdk: token
+      summary: Get trending tokens
+      operationId: getTrendingTokensV2
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    chainId:
+                      type: string
+                      example: solana
+                    tokenAddress:
+                      type: string
+                      example: 7E448GypzBbahPkoUaATMBdYpeycnzyZ1g43myWogxAd
+                    name:
+                      type: string
+                      example: xyz
+                    symbol:
+                      type: string
+                      example: XYZ
+                    uniqueName:
+                      type: string
+                      example: virtual-protocol-1
+                    decimals:
+                      type: integer
+                      example: 6
+                    logo:
+                      type: string
+                      format: uri
+                      example: https://cdn.moralis.io/defi/uniswap.png
+                    usdPrice:
+                      type: number
+                      example: 0.0111320624006
+                    createdAt:
+                      type: integer
+                      example: 1738170099
+                    marketCap:
+                      type: integer
+                      example: 11131944
+                    liquidityUsd:
+                      type: integer
+                      example: 293609
+                    holders:
+                      type: integer
+                      example: 13936
+                    pricePercentChange:
+                      type: object
+                      properties:
+                        1h:
+                          type: number
+                          example: 7.443570618670547
+                        4h:
+                          type: number
+                          example: 12.766468433317087
+                        12h:
+                          type: number
+                          example: 12.766468433317087
+                        24h:
+                          type: number
+                          example: 12.766468433317087
+                    totalVolume:
+                      type: object
+                      properties:
+                        1h:
+                          type: integer
+                          example: 19417994
+                        4h:
+                          type: integer
+                          example: 34480779
+                        12h:
+                          type: integer
+                          example: 34480779
+                        24h:
+                          type: integer
+                          example: 34480779
+                    transactions:
+                      type: object
+                      properties:
+                        1h:
+                          type: integer
+                          example: 51374
+                        4h:
+                          type: integer
+                          example: 99451
+                        12h:
+                          type: integer
+                          example: 99451
+                        24h:
+                          type: integer
+                          example: 99451
+                    buyTransactions:
+                      type: object
+                      properties:
+                        1h:
+                          type: integer
+                          example: 27703
+                        4h:
+                          type: integer
+                          example: 54496
+                        12h:
+                          type: integer
+                          example: 54496
+                        24h:
+                          type: integer
+                          example: 54496
+                    sellTransactions:
+                      type: object
+                      properties:
+                        1h:
+                          type: integer
+                          example: 23671
+                        4h:
+                          type: integer
+                          example: 44955
+                        12h:
+                          type: integer
+                          example: 44955
+                        24h:
+                          type: integer
+                          example: 44955
+                    buyers:
+                      type: object
+                      properties:
+                        1h:
+                          type: integer
+                          example: 14267
+                        4h:
+                          type: integer
+                          example: 25751
+                        12h:
+                          type: integer
+                          example: 25751
+                        24h:
+                          type: integer
+                          example: 25751
+                    sellers:
+                      type: object
+                      properties:
+                        1h:
+                          type: integer
+                          example: 11100
+                        4h:
+                          type: integer
+                          example: 19055
+                        12h:
+                          type: integer
+                          example: 19055
+                        24h:
+                          type: integer
+                          example: 19055
+      description: List top tokens trending based on trading activity, volume, liquidity and more. By default this returns cross-chain results, including Solana. Optionally filter by `chain` for single chain results.
+      x-mcp-prompt: Request trending tokens, specifying the chain if needed. Use this when users ask for currently popular tokens or want to explore current market trends. What are the top tokens right now? What are the trending tokens in the last 24 hours?
+  /tokens/{tokenAddress}/analytics:
+    get:
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Token
+      x-tag-sdk: token
+      summary: Get token analytics by token address
+      description: Retrieve detailed trading analytics for a specific token, including buy volume, sell volume, buyers, sellers, transactions, liquidity and FDV trends over time.
+      operationId: getTokenAnalytics
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: path
+        name: tokenAddress
+        description: The token address to query
+        required: true
+        schema:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAnalyticsData'
+      x-mcp-prompt: Provide the token address and time period to fetch its trading analytics. Use this when users want in-depth token performance data or are analyzing a token's market behavior.
+  /tokens/{tokenAddress}/score:
+    get:
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Token
+      x-tag-sdk: token
+      summary: Get token score by token address
+      description: Retrieve a score for a specific token along with detailed metrics including price, volume, liquidity, transaction counts, and supply information.
+      operationId: getTokenScore
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: path
+        name: tokenAddress
+        description: The token address to query
+        required: true
+        schema:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenScoreResponse'
+      x-mcp-prompt: Provide the token address to fetch its internal score and metrics. Use this when users want to evaluate a token's performance metrics or need scoring data for analysis.
+  /tokens/{tokenAddress}/score/historical:
+    get:
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Token
+      x-tag-sdk: token
+      summary: Get historical token score by token address
+      description: Retrieve historical score data for a specific token over time.
+      operationId: getHistoricalTokenScore
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainListWithSolana'
+      - in: path
+        name: tokenAddress
+        description: The token address to query
+        required: true
+        schema:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+      - in: query
+        name: timeframe
+        description: The timeframe to query
+        required: true
+        schema:
+          type: string
+          example: 1d
+          default: 1d
+          enum:
+          - 1d
+          - 7d
+          - 30d
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalTokenScoreResponse'
+      x-mcp-prompt: Provide the token address and timeframe to fetch its historical score data. Use this when users want to track a token's score over time.
+  /tokens/analytics:
+    post:
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Token
+      x-tag-sdk: token
+      summary: Get token analytics for a list of token addresses
+      description: Fetch analytics for multiple tokens, including buy volume, sell volume, buyers, sellers, transactions, liquidity and FDV trends over time. Accepts an array of up to 200 `tokens`, each requiring `chain` and `tokenAddress`.
+      operationId: getMultipleTokenAnalytics
+      requestBody:
+        description: Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetMultipleTokenAnalyticsDto'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultipleTokenAnalyticsData'
+      x-mcp-prompt: Submit a list of token addresses and time period to retrieve their analytics. Use this when users want performance data for multiple tokens or are comparing token metrics.
+components:
+  schemas:
+    tokenPriceItem:
+      required:
+      - token_address
+      properties:
+        token_address:
+          type: string
+          description: The contract address
+          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
+        exchange:
+          type: string
+          description: The exchange
+          example: uniswapv3
+        to_block:
+          type: string
+          description: The block number
+          example: 12526958
+    MultipleTokenAnalyticsData:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenAnalyticsData'
+    getSnipersResponse:
+      required:
+      - result
+      - transactionHash
+      - blockNumber
+      - blockTimestamp
+      properties:
+        transactionHash:
+          type: string
+          example: '0x2bfcba4715774420936669cd0ff2241d70e9abecab76c9db813602015b3134ad'
+        blockTimestamp:
+          type: string
+          example: '2022-02-22T00:00:00Z'
+        blockNumber:
+          type: number
+          example: 21093423
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/getSnipersResult'
+    VolumeChainsResponse:
+      type: object
+      properties:
+        chains:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChainData'
+    SupportedPairTokenInfo:
+      type: object
+      properties:
+        token_address:
+          type: string
+          description: The token address
+        token_name:
+          type: string
+          description: The token name
+        token_symbol:
+          type: string
+          description: The token symbol
+        token_logo:
+          type: string
+          description: The token logo
+        token_decimals:
+          type: string
+          description: The token decimals
+        pair_token_type:
+          type: string
+        liquidity_usd:
+          type: string
+    TimeSeriesByTokensData:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesVolumeByTokenResponse'
+    bondingTokensByExchangeResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: The total number of matches for this query
+          example: 10
+        page:
+          type: integer
+          description: The page of the current result
+          example: 1
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: 100
+        cursor:
+          type: string
+          description: The cursor to use for the next page
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              tokenAddress:
+                type: string
+                description: The address of the token
+                example: '0x6b175474e89094c44da98b954eedeac495271d0f'
+              name:
+                type: string
+                nullable: true
+                description: The name of the token
+                example: Test Token
+              symbol:
+                type: string
+                nullable: true
+                description: The symbol of the token
+                example: TEST
+              logo:
+                type: string
+                nullable: true
+                description: The logo URL of the token
+                example: https://example.com/logo.png
+              decimals:
+                type: integer
+                nullable: true
+                description: The number of decimals of the token
+                example: 18
+              priceNative:
+                type: string
+                nullable: true
+                description: The price in the native currency
+                example: '0.5'
+              priceUsd:
+                type: string
+                nullable: true
+                description: The price in USD
+                example: '2.0'
+              liquidity:
+                type: string
+                nullable: true
+                description: The liquidity in USD
+                example: '500000'
+              fullyDilutedValuation:
+                type: string
+                nullable: true
+                description: The fully diluted valuation in USD
+                example: '2000000'
+              bondingCurveProgress:
+                type: number
+                description: The bonding curve progress as a percentage
+                example: 50
+    getSwapsByPairAddressResponse:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        pageSize:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        exchangeAddress:
+          type: string
+          example: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
+        exchangeName:
+          type: string
+          example: Uniswap v2
+        exchangeLogo:
+          type: string
+          example: https://entities-logos.s3.us-east-1.amazonaws.com/uniswap.png
+        pairLabel:
+          type: string
+          example: BRETT/WETH
+        pairAddress:
+          type: string
+          example: '0x36a46dff597c5a444bbc521d26787f57867d2214'
+        baseToken:
+          $ref: '#/components/schemas/TokenTransactionTokenMetadata'
+        quoteToken:
+          $ref: '#/components/schemas/TokenTransactionTokenMetadata'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/swapsByPairAddressResult'
+    graduatedTokensByExchangeResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: The total number of matches for this query
+          example: 10
+        page:
+          type: integer
+          description: The page of the current result
+          example: 1
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: 100
+        cursor:
+          type: string
+          description: The cursor to use for the next page
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              tokenAddress:
+                type: string
+                description: The address of the token
+                example: '0x6b175474e89094c44da98b954eedeac495271d0f'
+              name:
+                type: string
+                nullable: true
+                description: The name of the token
+                example: Test Token
+              symbol:
+                type: string
+                nullable: true
+                description: The symbol of the token
+                example: TEST
+              logo:
+                type: string
+                nullable: true
+                description: The logo URL of the token
+                example: https://example.com/logo.png
+              decimals:
+                type: integer
+                nullable: true
+                description: The number of decimals of the token
+                example: 18
+              priceNative:
+                type: string
+                nullable: true
+                description: The price in the native currency
+                example: '0.5'
+              priceUsd:
+                type: string
+                nullable: true
+                description: The price in USD
+                example: '2.0'
+              liquidity:
+                type: string
+                nullable: true
+                description: The liquidity in USD
+                example: '500000'
+              fullyDilutedValuation:
+                type: string
+                nullable: true
+                description: The fully diluted valuation in USD
+                example: '2000000'
+              graduatedAt:
+                type: string
+                description: The timestamp when the token graduated in ISO format
+                example: '2023-01-15T12:30:45.000Z'
+    TokenScoreSupply:
+      type: object
+      properties:
+        total:
+          type: number
+          example: 420689899653542.56
+        top10Percent:
+          type: number
+          example: 41.03
+    tokenSupportedPairsResponse:
+      type: object
+      required:
+      - result
+      - page
+      - page_size
+      - cursor
+      properties:
+        pairs:
+          type: array
+          items:
+            $ref: '#/components/schemas/supportedPairInfo'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '50'
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+    erc20Categories:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The name of the category
+                example: Stablecoin
+              id:
+                type: string
+                description: The unique identifier of the category
+                example: stablecoin
+            required:
+            - name
+            - id
+      required:
+      - categories
+    supportedPairInfo:
+      type: object
+      properties:
+        exchange_address:
+          type: string
+        exchange_name:
+          type: string
+        exchange_logo:
+          type: string
+        pair_label:
+          type: string
+        pair_address:
+          type: string
+        usd_price:
+          type: number
+        usd_price_24hr:
+          type: number
+        usd_price_24hr_percent_change:
+          type: number
+        usd_price_24hr_usd_change:
+          type: number
+        liquidity_usd:
+          type: number
+        inactive_pair:
+          type: boolean
+          description: Pair without 24h volume are set as inactive
+        base_token:
+          type: string
+        quote_token:
+          type: string
+        volume_24h_native:
+          type: number
+        volume_24h_usd:
+          type: number
+        pair:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportedPairTokenInfo'
+    discoveryTokenLinks:
+      type: object
+      required:
+      - bitbucket
+      - discord
+      - facebook
+      - github
+      - instagram
+      - linkedin
+      - medium
+      - reddit
+      - telegram
+      - tiktok
+      - twitter
+      - website
+      - youtube
+      properties:
+        bitbucket:
+          type: string
+          description: The link of the token on the platform
+        discord:
+          type: string
+          description: The link of the token on the platform
+        facebook:
+          type: string
+          description: The link of the token on the platform
+        github:
+          type: string
+          description: The link of the token on the platform
+        instagram:
+          type: string
+          description: The link of the token on the platform
+        linkedin:
+          type: string
+          description: The link of the token on the platform
+        medium:
+          type: string
+          description: The link of the token on the platform
+        reddit:
+          type: string
+          description: The link of the token on the platform
+        telegram:
+          type: string
+          description: The link of the token on the platform
+        tiktok:
+          type: string
+          description: The link of the token on the platform
+        twitter:
+          type: string
+          description: The link of the token on the platform
+        website:
+          type: string
+          description: The link of the token on the platform
+        youtube:
+          type: string
+          description: The link of the token on the platform
+    erc20Metadata:
+      type: object
+      required:
+      - address
+      - name
+      - symbol
+      - decimals
+      - created_at
+      - possible_spam
+      properties:
+        address:
+          type: string
+          description: The address of the token contract
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        address_label:
+          type: string
+          nullable: true
+          description: The label of the address
+          example: Binance 1
+        name:
+          type: string
+          description: The name of the token contract
+          example: Kylin Network
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: KYL
+        decimals:
+          type: string
+          description: The number of decimals on the token
+          example: '18'
+        logo:
+          type: string
+          nullable: true
+          description: The logo of the token
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        logo_hash:
+          type: string
+          nullable: true
+          description: The logo hash
+          example: ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d
+        thumbnail:
+          type: string
+          nullable: true
+          description: The thumbnail of the logo
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png
+        total_supply:
+          type: string
+          nullable: false
+          description: Total tokens created minus any that have been burned
+          example: '420689899999994793099999999997400'
+        total_supply_formatted:
+          type: string
+          nullable: false
+          description: Total tokens created minus any that have been burned (decimal formatted)
+          example: '420689899999994.7930999999999974'
+        implementations:
+          type: array
+          items:
+            description: The token addresses of the same symbol from another chains
+            required:
+            - chainId
+            - address
+            properties:
+              chainId:
+                type: string
+                description: The chain id
+                example: '0x1'
+              chain:
+                type: string
+                description: The chain name
+                example: eth
+              chainName:
+                type: string
+                description: The chain name
+                example: Ethereum
+              address:
+                type: string
+                description: The token address
+                example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        fully_diluted_valuation:
+          type: string
+          nullable: false
+          description: Fully Diluted Valuation (FDV), this represents the token's Current Price x Total Supply
+          example: '3407271444.05'
+        block_number:
+          type: string
+        validated:
+          type: number
+        created_at:
+          type: string
+          description: The timestamp of when the erc20 token was created
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_contract:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: false
+        categories:
+          type: array
+          items:
+            type: string
+          nullable: true
+          description: Categories of the token
+          example:
+          - stablecoin
+        links:
+          $ref: '#/components/schemas/discoveryTokenLinks'
+        circulating_supply:
+          type: string
+          description: The circulating supply of the token
+          example: '4206864.7489303'
+        market_cap:
+          type: string
+          description: The market cap of the token
+          example: '3407271444.05'
+    TimeSeriesVolumeByTokenResponse:
+      type: object
+      properties:
+        chainId:
+          type: string
+          example: '0x1'
+        tokenAddress:
+          type: string
+          example: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+        timeseries:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesByTokenData'
+    orderList:
+      type: string
+      example: DESC
+      default: DESC
+      enum:
+      - ASC
+      - DESC
+    TimeSeriesVolumeByCategoryResponse:
+      type: object
+      properties:
+        timeseries:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesByCategoryData'
+    TimeSeriesVolumeResponse:
+      type: object
+      properties:
+        timeseries:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesData'
+    TokenHolderSupplyChange:
+      required:
+      - supply
+      - supplyPercent
+      properties:
+        supply:
+          type: string
+          description: Net holder change
+          example: '10'
+        supplyPercent:
+          type: number
+          description: The percentage change
+          example: '0.10'
+    erc20TokenOwnerCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        total_supply:
+          type: string
+          description: The total supply of the token
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/erc20TokenOwner'
+    TimeSeriesData:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          example: '2022-02-22T00:00:00Z'
+        volume:
+          type: number
+          example: 4565
+        liquidityUsd:
+          type: number
+          example: 4565
+        fullyDilutedValuation:
+          type: number
+          example: 4565
+    TokenHolderTimelineArray:
+      required:
+      - timestamp
+      - totalHolders
+      - netHolderChange
+      - holderPercentChange
+      - holdersIn
+      - holdersOut
+      - newHoldersByAcquisition
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp of the holder change ISO 8601 format
+          example: '2021-05-07T11:08:35.000Z'
+        totalHolders:
+          type: integer
+          description: The total holders of the token
+          example: '100'
+        netHolderChange:
+          type: integer
+          description: The net holder change
+        holderPercentChange:
+          type: integer
+          description: The holder percentage change
+        newHoldersByAcquisition:
+          type: object
+          description: The new holders by acquisition
+          $ref: '#/components/schemas/TokenHolderSummaryHolderByAcquisition'
+        holdersIn:
+          type: object
+          description: The holders in by category
+          $ref: '#/components/schemas/TokenHolderCategory'
+        holdersOut:
+          type: object
+          description: The holders in by category
+          $ref: '#/components/schemas/TokenHolderCategory'
+    erc20TokenBalance:
+      required:
+      - token_address
+      - name
+      - symbol
+      - decimals
+      - balance
+      - possible_spam
+      properties:
+        token_address:
+          type: string
+          description: The address of the token contract
+          example: '0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09'
+        name:
+          type: string
+          description: The name of the token contract
+          example: Kylin Network
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: KYL
+        logo:
+          type: string
+          description: The logo of the token
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        thumbnail:
+          type: string
+          description: The thumbnail of the logo
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png
+        decimals:
+          type: integer
+          description: The number of decimals on the token
+          example: 18
+        balance:
+          type: string
+          description: Timestamp of when the contract was last synced with the node
+          example: '123456789'
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_contract:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: 'false'
+    tokenSupportedPairsStatsResponse:
+      type: object
+      properties:
+        total_liquidity_usd:
+          type: string
+        total_active_pairs:
+          type: string
+        total_active_dexes:
+          type: string
+    TokenHolderSummaryHolderByAcquisition:
+      required:
+      - swap
+      - transfer
+      - airdrop
+      properties:
+        swap:
+          type: number
+          description: Number of wallets with first interaction as a swap
+          example: '10'
+        transfer:
+          type: number
+          description: Number of wallets with first interaction as a transfer
+          example: '10'
+        airdrop:
+          type: number
+          description: Number of wallets with first interaction as a airdrop
+          example: '10'
+    ohlcv:
+      type: object
+      properties:
+        timestamp:
+          type: string
+        open:
+          type: number
+        high:
+          type: number
+        low:
+          type: number
+        close:
+          type: number
+        volume:
+          type: number
+        trades:
+          type: number
+    TokenHolderTimelineResult:
+      required:
+      - result
+      nullable: true
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '1'
+        pageSize:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenHolderTimelineArray'
+    GetTimeSeriesTokenAnalyticsDto:
+      required:
+      - tokens
+      properties:
+        tokens:
+          type: array
+          maxItems: 30
+          description: The tokens to be fetched
+          example:
+          - chain: '0x1'
+            tokenAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+          - chain: solana
+            tokenAddress: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+          items:
+            $ref: '#/components/schemas/tokenAndChainItem'
+    newTokensByExchangeResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: The total number of matches for this query
+          example: 10
+        page:
+          type: integer
+          description: The page of the current result
+          example: 1
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: 100
+        cursor:
+          type: string
+          description: The cursor to use for the next page
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              tokenAddress:
+                type: string
+                description: The address of the token
+                example: '0x6b175474e89094c44da98b954eedeac495271d0f'
+              name:
+                type: string
+                nullable: true
+                description: The name of the token
+                example: Test Token
+              symbol:
+                type: string
+                nullable: true
+                description: The symbol of the token
+                example: TEST
+              logo:
+                type: string
+                nullable: true
+                description: The logo URL of the token
+                example: https://example.com/logo.png
+              decimals:
+                type: integer
+                nullable: true
+                description: The number of decimals of the token
+                example: 18
+              priceNative:
+                type: string
+                nullable: true
+                description: The price in the native currency
+                example: '0.5'
+              priceUsd:
+                type: string
+                nullable: true
+                description: The price in USD
+                example: '2.0'
+              liquidity:
+                type: string
+                nullable: true
+                description: The liquidity in USD
+                example: '500000'
+              fullyDilutedValuation:
+                type: string
+                nullable: true
+                description: The fully diluted valuation in USD
+                example: '2000000'
+              createdAt:
+                type: string
+                description: The timestamp when the token was created
+                example: '2023-01-20T09:39:55.818Z'
+    erc20Price:
+      required:
+      - usdPrice
+      - possibleSpam
+      - verifiedContract
+      properties:
+        tokenName:
+          type: string
+          description: The name of the token
+          example: Kylin Network
+        tokenSymbol:
+          type: string
+          description: The symbol of the token
+          example: KYL
+        tokenLogo:
+          type: string
+          description: The logo of the token
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        tokenDecimals:
+          type: string
+          description: The number of decimals of the token
+          example: '18'
+        nativePrice:
+          $ref: '#/components/schemas/nativeErc20Price'
+        usdPrice:
+          type: number
+          format: double
+          description: The price in USD for the token
+          example: 19.722370676
+        usdPriceFormatted:
+          type: string
+          description: The price in USD for the token in string format
+          example: '19.722370676'
+        24hrPercentChange:
+          type: string
+          description: The 24hr percent change of the token
+          example: '-0.8842730258590583'
+        exchangeAddress:
+          type: string
+          description: The address of the exchange used to calculate the price
+          example: '0x1f98431c8ad98523631ae4a59f267346ea31f984'
+        exchangeName:
+          type: string
+          description: The name of the exchange used to calculate the price
+          example: Uniswap v3
+        tokenAddress:
+          type: string
+          description: The address of the token
+          example: '0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c'
+        toBlock:
+          type: string
+          description: toBlock
+          example: '16314545'
+        possibleSpam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verifiedContract:
+          type: boolean
+          description: Indicates if the contract is verified
+          example: true
+        pairAddress:
+          type: string
+          description: The address of the pair
+          example: '0x1f98431c8ad98523631ae4a59f267346ea31f984'
+        pairTotalLiquidityUsd:
+          type: string
+          description: The total liquidity in USD of the pair
+          example: '123.45'
+        usdPrice24h:
+          type: number
+          description: The USD price 24 hours ago
+          example: 1
+        usdPrice24hrUsdChange:
+          type: number
+          description: The USD change in price over the last 24 hours
+          example: -8.615972490000345e-05
+        usdPrice24hrPercentChange:
+          type: number
+          description: The percent change in USD price over the last 24 hours
+          example: -0.008615972490000345
+        securityScore:
+          type: number
+          description: A number between 0 and 100 that defines the trust level of this specific token
+          example: 1
+    erc20TokenStat:
+      required:
+      - transfers
+      properties:
+        transfers:
+          type: object
+          description: ERC20 Token transfer stats
+          required:
+          - total
+          properties:
+            total:
+              type: string
+              description: The number of transfers of the token
+              example: '1000'
+    GetMultipleTokenAnalyticsDto:
+      required:
+      - tokens
+      properties:
+        tokens:
+          type: array
+          maxItems: 30
+          description: The tokens to be fetched
+          example:
+          - chain: '0x1'
+            tokenAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+          - chain: solana
+            tokenAddress: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+          items:
+            $ref: '#/components/schemas/tokenAndChainItem'
+    TokenAnalyticsData:
+      type: object
+      properties:
+        chainId:
+          type: string
+          description: The chain ID
+          example: '0x1'
+        categoryId:
+          type: string
+          example: '0x1'
+        totalBuyVolume:
+          $ref: '#/components/schemas/VolumeData'
+        totalSellVolume:
+          $ref: '#/components/schemas/VolumeData'
+        totalBuyers:
+          $ref: '#/components/schemas/VolumeData'
+        totalSellers:
+          $ref: '#/components/schemas/VolumeData'
+        totalBuys:
+          $ref: '#/components/schemas/VolumeData'
+        totalSells:
+          $ref: '#/components/schemas/VolumeData'
+        uniqueWallets:
+          $ref: '#/components/schemas/VolumeData'
+        pricePercentChange:
+          $ref: '#/components/schemas/VolumeData'
+        usdPrice:
+          type: string
+          example: '530'
+        totalLiquidity:
+          type: string
+          example: '530'
+        totalFullyDilutedValuation:
+          type: string
+          example: '530'
+    VolumeCategoriesResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoriesData'
+    TokenHolderSummaryResult:
+      required:
+      - totalHolders
+      - holderSupply
+      - holderChange
+      - holdersByAcquisition
+      - holderDistribution
+      properties:
+        totalHolders:
+          type: number
+          description: The total holders of the token
+          example: '99999'
+        holderSupply:
+          type: object
+          description: The holder supply
+          $ref: '#/components/schemas/TokenHolderSummarySupply'
+        holderChange:
+          type: object
+          description: The holder change
+          $ref: '#/components/schemas/TokenHolderSummaryHolderChange'
+        holdersByAcquisition:
+          type: object
+          description: The holder change
+          $ref: '#/components/schemas/TokenHolderSummaryHolderByAcquisition'
+        holderDistribution:
+          type: object
+          description: The holder distribution
+          $ref: '#/components/schemas/TokenHolderCategory'
+    TimeSeriesByCategoryData:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          example: '2022-02-22T00:00:00Z'
+        buyVolume:
+          type: number
+          example: 4565
+        sellVolume:
+          type: number
+          example: 4565
+        liquidityUsd:
+          type: number
+          example: 4565
+        fullyDilutedValuation:
+          type: number
+          example: 4565
+    erc20Transaction:
+      required:
+      - token_name
+      - token_symbol
+      - token_decimals
+      - value_decimal
+      - transaction_hash
+      - address
+      - block_timestamp
+      - block_number
+      - block_hash
+      - from_address
+      - value
+      - transaction_index
+      - log_index
+      - possible_spam
+      - verified_contract
+      properties:
+        token_name:
+          type: string
+          example: Tether USD
+        token_symbol:
+          type: string
+          example: USDT
+        token_logo:
+          type: string
+          example: cdn.moralis.io/325/large/Tether-logo.png?1598003707
+        token_decimals:
+          type: string
+          example: '6'
+        transaction_hash:
+          type: string
+          description: The transaction hash
+          example: '0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09'
+        address:
+          type: string
+          description: The address of the token
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        block_timestamp:
+          type: string
+          description: The block timestamp
+          example: '2021-04-02T10:07:54.000Z'
+        block_number:
+          type: string
+          description: The block number
+          example: 12526958
+        block_hash:
+          type: string
+          description: The block hash
+          example: '0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86'
+        to_address_entity:
+          type: string
+          description: The to address entity
+          example: Beaver Build
+        to_address_entity_logo:
+          type: string
+          description: The logo of the to address entity
+          example: https://beaverbuild.com/favicon.ico
+        to_address:
+          type: string
+          description: The recipient
+          example: '0x62AED87d21Ad0F3cdE4D147Fdcc9245401Af0044'
+        to_address_label:
+          type: string
+          nullable: true
+          description: The label of the to address
+          example: Binance 2
+        from_address_entity:
+          type: string
+          description: The from address entity
+          example: Opensea
+        from_address_entity_logo:
+          type: string
+          description: The logo of the from address entity
+          example: https://opensea.io/favicon.ico
+        from_address:
+          type: string
+          description: The sender
+          example: '0xd4a3BebD824189481FC45363602b83C9c7e9cbDf'
+        from_address_label:
+          type: string
+          nullable: true
+          description: The label of the from address
+          example: Binance 1
+        value:
+          type: string
+          description: The value that was transfered (in wei)
+          example: 650000000000000000
+        transaction_index:
+          type: integer
+          description: The transaction index of the transfer within the block
+          example: 12
+        log_index:
+          type: integer
+          description: The log index of the transfer within the block
+          example: 2
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_contract:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: 'false'
+    TokenHolderSummarySupply:
+      required:
+      - top10
+      - top25
+      - top50
+      - top100
+      - top250
+      - top500
+      properties:
+        top10:
+          type: object
+          description: The holder breakdown of the top 10 holders
+          $ref: '#/components/schemas/TokenHolderSupplyChange'
+        top25:
+          type: object
+          description: The holder breakdown of the top 25 holders
+          $ref: '#/components/schemas/TokenHolderSupplyChange'
+        top50:
+          type: object
+          description: The holder breakdown of the top 10 holders
+          $ref: '#/components/schemas/TokenHolderSupplyChange'
+        top100:
+          type: object
+          description: The holder breakdown of the top 10 holders
+          $ref: '#/components/schemas/TokenHolderSupplyChange'
+        top250:
+          type: object
+          description: The holder breakdown of the top 250 holders
+          $ref: '#/components/schemas/TokenHolderSupplyChange'
+        top500:
+          type: object
+          description: The holder breakdown of the top 500 holders
+          $ref: '#/components/schemas/TokenHolderSupplyChange'
+    TokenScoreResponse:
+      type: object
+      properties:
+        tokenAddress:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        chainId:
+          type: string
+          example: '0x1'
+        score:
+          type: integer
+          example: 94
+        updatedAt:
+          type: string
+          example: '2025-12-03T21:10:28Z'
+        metrics:
+          nullable: true
+          $ref: '#/components/schemas/TokenScoreMetrics'
+    TokenHolderSummaryHolderChange:
+      required:
+      - 5min
+      - 1h
+      - 6h
+      - 24h
+      - 7d
+      - 3d
+      - 30d
+      properties:
+        5min:
+          type: object
+          description: The holder change in the last 5 minutes
+          $ref: '#/components/schemas/TokenHolderChange'
+        1h:
+          type: object
+          description: Net holder change in the last 1 hour
+          $ref: '#/components/schemas/TokenHolderChange'
+        6h:
+          type: object
+          description: Net holder change in the last 6 hour
+          $ref: '#/components/schemas/TokenHolderChange'
+        24h:
+          type: object
+          description: Net holder change in the last 24 hour
+          $ref: '#/components/schemas/TokenHolderChange'
+        3d:
+          type: object
+          description: Net holder change in the last 3 days
+          $ref: '#/components/schemas/TokenHolderChange'
+        7d:
+          type: object
+          description: Net holder change in the last 7 days
+          $ref: '#/components/schemas/TokenHolderChange'
+        30d:
+          type: object
+          description: Net holder change in the last 30 days
+          $ref: '#/components/schemas/TokenHolderChange'
+    TokenScoreVolumeUsd:
+      type: object
+      properties:
+        10m:
+          type: number
+          example: 17506.72
+        30m:
+          type: number
+          example: 974862.35
+        1h:
+          type: number
+          example: 88701.15
+        4h:
+          type: number
+          example: 84547204.23
+        12h:
+          type: number
+          example: 974862.35
+        1d:
+          type: number
+          example: 1971902.13
+        7d:
+          type: number
+          example: 4571941.67
+        30d:
+          type: number
+          example: 445.57
+    chainListWithSolana:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+      - solana
+    TopProfitableWalletPerTokenResponse:
+      required:
+      - avg_buy_price_usd
+      - avg_cost_of_quantity_sold
+      - avg_sell_price_usd
+      - count_of_trades
+      - realized_profit_percentage
+      - realized_profit_usd
+      - total_sold_usd
+      - total_tokens_bought
+      - total_tokens_sold
+      - total_usd_invested
+      - address
+      properties:
+        avg_buy_price_usd:
+          type: string
+          description: Average buy price in USD.
+        avg_cost_of_quantity_sold:
+          type: string
+          description: Average cost of quantity sold.
+        avg_sell_price_usd:
+          type: string
+          description: Average sell price in USD.
+        count_of_trades:
+          type: number
+          description: Total number of trades.
+        realized_profit_percentage:
+          type: number
+          description: Realized profit as a percentage.
+        realized_profit_usd:
+          type: string
+          description: Realized profit in USD.
+        total_sold_usd:
+          type: string
+          description: Total amount in USD for sold tokens.
+        total_tokens_bought:
+          type: string
+          description: Total number of tokens bought.
+        total_tokens_sold:
+          type: string
+          description: Total number of tokens sold.
+        total_usd_invested:
+          type: string
+          description: Total amount of USD invested.
+        address:
+          type: string
+          description: The wallet address.
+    candleSticksResponse:
+      type: object
+      required:
+      - page
+      - cursor
+      - pairAddress
+      - timeframe
+      - currency
+      - result
+      properties:
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        pairAddress:
+          type: string
+          description: The pair address
+          example: '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640'
+        tokenAddress:
+          type: string
+          description: The token address
+          example: '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640'
+        timeframe:
+          type: string
+          description: The timeframe
+          example: 30min
+        currency:
+          type: string
+          description: The currency
+          example: usd
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/ohlcv'
+    TokenHolderChange:
+      required:
+      - change
+      - changePercent
+      properties:
+        change:
+          type: number
+          description: Net holder change
+          example: '10'
+        changePercent:
+          type: number
+          description: The percentage change
+          example: '0.10'
+    WalletTopProfitableWalletPerTokenResponse:
+      required:
+      - name
+      - symbol
+      - decimals
+      - logo
+      - possible_spam
+      - result
+      properties:
+        name:
+          type: string
+          description: The name of the token contract
+          example: Kylin Network
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: KYL
+        decimals:
+          type: integer
+          description: The number of decimals on the token
+          example: 18
+        logo:
+          type: string
+          description: The logo of the token
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopProfitableWalletPerTokenResponse'
+          description: List of top profitable wallets per token.
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    TimeSeriesByTokenData:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          example: '2022-02-22T00:00:00Z'
+        buyVolume:
+          type: number
+          example: 4565
+        sellVolume:
+          type: number
+          example: 4565
+        liquidityUsd:
+          type: number
+          example: 4565
+        fullyDilutedValuation:
+          type: number
+          example: 4565
+    VolumeData:
+      type: object
+      properties:
+        5m:
+          type: number
+          format: double
+          example: 6516719.425429553
+        1h:
+          type: number
+          format: double
+          example: 137489621.30780438
+        6h:
+          type: number
+          format: double
+          example: 585436101.0503464
+        24h:
+          type: number
+          format: double
+          example: 2668170156.0409784
+    getSwapsByWalletAddressResponse:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/swapsByWalletAddressResult'
+    nativeErc20Price:
+      required:
+      - value
+      - decimals
+      - name
+      - symbol
+      - address
+      properties:
+        value:
+          type: string
+          description: The native price of the token
+          example: '8409770570506626'
+        decimals:
+          type: integer
+          description: The number of decimals on the token
+          example: 18
+        name:
+          type: string
+          description: The name of the token
+          example: Ether
+        symbol:
+          type: string
+          description: The symbol of the token
+          example: ETH
+        address:
+          type: string
+          description: The address of the native token
+    TokenScoreMetrics:
+      type: object
+      properties:
+        usdPrice:
+          type: number
+          example: 6.47147501365255e-06
+        liquidityUsd:
+          type: number
+          example: 10890420.9
+        volumeUsd:
+          $ref: '#/components/schemas/TokenScoreVolumeUsd'
+        transactions:
+          $ref: '#/components/schemas/TokenScoreTransactions'
+        supply:
+          $ref: '#/components/schemas/TokenScoreSupply'
+    tokenAndChainItem:
+      required:
+      - chain
+      - tokenAddress
+      properties:
+        chain:
+          type: string
+          description: The chain to query
+          $ref: '#/components/schemas/chainList'
+        tokenAddress:
+          type: string
+          description: The token address
+          example: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+    TokenTransactionTokenMetadata:
+      type: object
+      properties:
+        address:
+          type: string
+          description: The address of the token
+          example: '0x003dde3494f30d861d063232c6a8c04394b686ff'
+        name:
+          type: string
+          description: The name of the token
+          example: BRETT
+        symbol:
+          type: string
+          description: The symbol of the token
+          example: BRETT
+        logo:
+          type: string
+          description: The URL of the token's logo
+          example: https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png
+        amount:
+          type: string
+          description: The amount of the token
+          example: '14811.98'
+        usdPrice:
+          type: number
+          description: The amount of the token
+          example: 0.078634
+        usdAmount:
+          type: number
+          description: The amount of the token
+          example: 1155.33
+      required:
+      - address
+      - name
+      - symbol
+      - logo
+      - amount
+      - usdPrice
+      - usdAmount
+    swapsByWalletAddressResult:
+      type: object
+      required:
+      - transactionHash
+      - transactionIndex
+      - transactionType
+      - blockTimestamp
+      - blockNumber
+      - subCategory
+      - walletAddress
+      - walletAddressLabel
+      - entity
+      - entityLogo
+      - pairAddress
+      - pairLabel
+      - exchangeAddress
+      - exchangeName
+      - exchangeLogo
+      - bought
+      - sold
+      - baseQuotePrice
+      - totalValueUsd
+      properties:
+        transactionHash:
+          type: string
+          example: '0x2bfcba4715774420936669cd0ff2241d70e9abecab76c9db813602015b3134ad'
+        transactionIndex:
+          type: integer
+          example: 1
+        transactionType:
+          type: string
+          example: buy
+        blockTimestamp:
+          type: string
+          example: '2022-02-22T00:00:00Z'
+        blockNumber:
+          type: number
+          example: 21093423
+        subCategory:
+          type: string
+          example: accumulation
+        walletAddress:
+          type: string
+          example: '0x2bfcba4715774420936669cd0ff2241d70e9abec'
+        walletAddressLabel:
+          type: string
+          example: Murad Wallet
+        entity:
+          type: string
+          example: Murad
+        entityLogo:
+          type: string
+          example: https://entities-logos.s3.us-east-1.amazonaws.com/murad.png
+        pairAddress:
+          type: string
+          example: '0x36a46dff597c5a444bbc521d26787f57867d2214'
+        pairLabel:
+          type: string
+          example: BRETT/WETH
+        exchangeAddress:
+          type: string
+          example: '0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f'
+        exchangeName:
+          type: string
+          example: Uniswap v2
+        exchangeLogo:
+          type: string
+          example: https://entities-logos.s3.us-east-1.amazonaws.com/uniswap.png
+        bought:
+          $ref: '#/components/schemas/TokenTransactionTokenMetadata'
+        sold:
+          $ref: '#/components/schemas/TokenTransactionTokenMetadata'
+        baseQuotePrice:
+          type: string
+          example: '0.00003376480687'
+        totalValueUsd:
+          type: number
+          example: 1165
+    HistoricalTokenScoreResponse:
+      type: object
+      properties:
+        chainId:
+          type: string
+          example: '0x1'
+        tokenAddress:
+          type: string
+          example: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+        timeseries:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                example: '2022-02-22T00:00:00Z'
+              score:
+                type: number
+                example: 85
+    candleSummary:
+      type: object
+      required:
+      - 5min
+      - 1h
+      - 4h
+      - 24h
+      properties:
+        5min:
+          type: number
+          nullable: true
+        1h:
+          type: number
+          nullable: true
+        4h:
+          type: number
+          nullable: true
+        24h:
+          type: number
+          nullable: true
+    swapsByPairAddressResult:
+      type: object
+      required:
+      - transactionHash
+      - transactionIndex
+      - transactionType
+      - subCategory
+      - blockTimestamp
+      - walletAddress
+      - baseTokenAmount
+      - quoteTokenAmount
+      - baseTokenPriceUsd
+      - quoteTokenPriceUsd
+      - totalValueUsd
+      - baseQuotePrice
+      - blockNumber
+      properties:
+        transactionHash:
+          type: string
+          example: '0x2bfcba4715774420936669cd0ff2241d70e9abecab76c9db813602015b3134ad'
+        transactionIndex:
+          type: integer
+          example: 1
+        transactionType:
+          type: string
+          example: buy
+        blockTimestamp:
+          type: string
+          example: '2022-02-22T00:00:00Z'
+        blockNumber:
+          type: number
+          example: 21093423
+        subCategory:
+          type: string
+          example: accumulation
+        walletAddress:
+          type: string
+          example: '0x2bfcba4715774420936669cd0ff2241d70e9abec'
+        baseTokenAmount:
+          type: string
+          example: '1481.00'
+        quoteTokenAmount:
+          type: string
+          example: '0.634'
+        baseTokenPriceUsd:
+          type: number
+          example: 0.0734634
+        quoteTokenPriceUsd:
+          type: number
+          example: 23330
+        baseQuotePrice:
+          type: string
+          example: '0.00003376480687'
+        totalValueUsd:
+          type: number
+          example: 1165
+    ChainData:
+      type: object
+      properties:
+        chainId:
+          type: string
+          example: '0x1'
+        totalVolume:
+          $ref: '#/components/schemas/VolumeData'
+        activeWallets:
+          $ref: '#/components/schemas/VolumeData'
+        totalTransactions:
+          $ref: '#/components/schemas/VolumeData'
+    CategoriesData:
+      type: object
+      properties:
+        categoryId:
+          type: string
+          example: '0x1'
+        totalBuyVolume:
+          $ref: '#/components/schemas/VolumeData'
+        totalSellVolume:
+          $ref: '#/components/schemas/VolumeData'
+        totalBuyers:
+          $ref: '#/components/schemas/VolumeData'
+        totalSellers:
+          $ref: '#/components/schemas/VolumeData'
+        totalBuys:
+          $ref: '#/components/schemas/VolumeData'
+        totalSells:
+          $ref: '#/components/schemas/VolumeData'
+        uniqueWallets:
+          $ref: '#/components/schemas/VolumeData'
+    erc20TokenOwner:
+      required:
+      - owner_address
+      - owner_address_label
+      - balance
+      - balance_formatted
+      - usd_value
+      - is_contract
+      - percentage_relative_to_total_supply
+      properties:
+        owner_address:
+          type: string
+          description: The address of the erc20 token owner
+          example: 0x244...
+        owner_address_label:
+          type: string
+          description: The label of the owner_address
+          example: Coinbase 1
+        balance:
+          type: string
+          description: The amount holding of the ERC20 token
+          example: '57888888888888888888880'
+        balance_formatted:
+          type: string
+          description: The amount holding of the ERC20 token in decimaal
+          example: '5.78'
+        usd_value:
+          type: string
+          description: The USD value of the balance
+          example: '57888888888888888888880'
+        is_contract:
+          type: boolean
+          description: Indicates if the token address is for a contract or not
+        percentage_relative_to_total_supply:
+          type: number
+          example: 10
+          description: The percentage of total supply held by the owner
+        entity:
+          type: string
+          description: The owner address entity
+          example: Opensea
+          nullable: true
+        entity_logo:
+          type: string
+          description: The logo of the owner address entity
+          example: https://opensea.io/favicon.ico
+          nullable: true
+    TokenScoreTransactions:
+      type: object
+      properties:
+        10m:
+          type: number
+          example: 54
+        30m:
+          type: number
+          example: 132
+        1h:
+          type: number
+          example: 3040
+        4h:
+          type: number
+          example: 85301
+        12h:
+          type: number
+          example: 1602
+        1d:
+          type: number
+          example: 602
+        7d:
+          type: number
+          example: 15328
+        30d:
+          type: number
+          example: 25
+    getSnipersResult:
+      type: object
+      required:
+      - walletAddress
+      - totalTokensSniped
+      - totalSnipedUsd
+      - totalSnipedTransactions
+      - totalTokensSold
+      - totalSoldUsd
+      - totalSellTransactions
+      - currentBalance
+      - currentBalanceUsdValue
+      - realizedProfitPercentage
+      - realizedProfitUsd
+      properties:
+        walletAddress:
+          type: string
+          example: '0x2bfcba4715774420936669cd0ff2241d70e9abec'
+        totalTokensSniped:
+          type: number
+          example: 0
+        totalSnipedUsd:
+          type: number
+          example: 0
+        totalSnipedTransactions:
+          type: number
+          example: 0
+        totalTokensSold:
+          type: number
+          example: 0
+        totalSoldUsd:
+          type: number
+          example: 0
+        totalSellTransactions:
+          type: number
+          example: 0
+        currentBalance:
+          type: number
+          example: 0
+        currentBalanceUsdValue:
+          type: number
+          example: 0
+        realizedProfitPercentage:
+          type: number
+          example: 0
+        realizedProfitUsd:
+          type: number
+          example: 0
+        snipedTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/getSnipersTransactions'
+        sellTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/getSnipersTransactions'
+    pairStatsResponse:
+      type: object
+      required:
+      - tokenAddress
+      - tokenName
+      - tokenSymbol
+      - tokenLogo
+      - pairCreated
+      - pairLabel
+      - pairAddress
+      - exchange
+      - exchangeAddress
+      - exchangeLogo
+      - exchangeUrl
+      - currentUsdPrice
+      - currentNativePrice
+      - totalLiquidityUsd
+      - pricePercentChange
+      - liquidityPercentChange
+      - buys
+      - sells
+      - totalVolume
+      - buyVolume
+      - sellVolume
+      - buyers
+      - sellers
+      properties:
+        tokenAddress:
+          type: string
+          description: The token address
+          example: '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640'
+        tokenName:
+          type: string
+          description: The token name
+          example: Wrapped Ether
+          nullable: true
+        tokenSymbol:
+          type: string
+          description: The token symbol
+          example: WETH
+          nullable: true
+        tokenLogo:
+          type: string
+          description: The token image
+          example: https://cdn.moralis.io/coins/images/2518/large/weth.png?1595348880
+          nullable: true
+        pairCreated:
+          type: string
+          description: The time when the pair was created
+          example: '2021-04-02T10:07:54.000Z'
+          nullable: true
+        pairLabel:
+          type: string
+          description: The pair label
+          example: WETH/PEPE
+          nullable: true
+        pairAddress:
+          type: string
+          description: The pair address
+          example: '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640'
+        exchange:
+          type: string
+          description: The exchange name
+          example: Uniswap v2
+          nullable: true
+        exchangeAddress:
+          type: string
+          description: The exchange address
+          example: '0x101cc05f4a51c0319f570d5e146a8c625198e222'
+        exchangeLogo:
+          type: string
+          description: The exchange logo
+          example: uniswap.png
+          nullable: true
+        exchangeUrl:
+          type: string
+          description: The exchange url
+          example: app.uniswap.com
+          nullable: true
+        currentUsdPrice:
+          type: string
+          description: The current usd price
+          example: '0.00000194'
+          nullable: true
+        currentNativePrice:
+          type: string
+          description: The current native price
+          example: '0.0000000042'
+          nullable: true
+        totalLiquidityUsd:
+          type: string
+          description: The total liquidity in usd
+          example: '43345522'
+          nullable: true
+        pricePercentChange:
+          type: object
+          $ref: '#/components/schemas/candleSummary'
+        liquidityPercentChange:
+          type: object
+          $ref: '#/components/schemas/candleSummary'
+        buys:
+          type: object
+          $ref: '#/components/schemas/candleSummary'
+        sells:
+          type: object
+          $ref: '#/components/schemas/candleSummary'
+        totalVolume:
+          type: object
+          $ref: '#/components/schemas/candleSummary'
+        buyVolume:
+          type: object
+          $ref: '#/components/schemas/candleSummary'
+        sellVolume:
+          type: object
+          $ref: '#/components/schemas/candleSummary'
+        buyers:
+          type: object
+          $ref: '#/components/schemas/candleSummary'
+        sellers:
+          type: object
+          $ref: '#/components/schemas/candleSummary'
+    GetMultipleTokenPricesDto:
+      required:
+      - tokens
+      properties:
+        tokens:
+          type: array
+          maxItems: 30
+          description: The tokens to be fetched
+          example:
+          - token_address: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+          - token_address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+          - token_address: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84'
+            exchange: uniswapv2
+            to_block: '16314545'
+          - token_address: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+          items:
+            $ref: '#/components/schemas/tokenPriceItem'
+    getSnipersTransactions:
+      type: object
+      required:
+      - transactionHash
+      - blocksAfterCreation
+      - transactionTimestamp
+      properties:
+        transactionHash:
+          type: string
+          example: '0x2bfcba4715774420936669cd0ff2241d70e9abec'
+        blocksAfterCreation:
+          type: integer
+          example: 0
+        transactionTimestamp:
+          type: number
+          example: 0
+    tokenBondingStatusResponse:
+      type: object
+      required:
+      - tokenAddress
+      - exchangeName
+      properties:
+        tokenAddress:
+          type: string
+          example: '0x6b175474e89094c44da98b954eedeac495271d0f'
+        exchangeName:
+          type: string
+          example: tama.meme
+        bondingProgress:
+          type: number
+          nullable: true
+          example: 99.99
+        graduatedAt:
+          type: string
+          nullable: true
+          example: '2022-01-20T09:39:55.818Z'
+    erc20TransactionCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/erc20Transaction'
+    TokenHolderCategory:
+      required:
+      - whales
+      - sharks
+      - dolphins
+      - fish
+      - octopus
+      - crabs
+      - shrimps
+      properties:
+        whales:
+          type: integer
+          description: Number of wallets in the category
+          example: '100'
+        sharks:
+          type: integer
+          description: Number of wallets in the category
+          example: '100'
+        dolphins:
+          type: integer
+          description: Number of wallets in the category
+          example: '100'
+        fish:
+          type: integer
+          description: Number of wallets in the category
+          example: '100'
+        octopus:
+          type: integer
+          description: Number of wallets in the category
+          example: '100'
+        crabs:
+          type: integer
+          description: Number of wallets in the category
+          example: '100'
+        shrimps:
+          type: integer
+          description: Number of wallets in the category
+          example: '100'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      x-default: test
+x-samples-languages:
+- node
+- javascript
+- csharp
+- curl
+- python
+x-mcp-blacklist:
+- getNFTTraitsByCollectionPaginate
+- getNFTContractMetadata
+- getTokenPrice
+- getNativeBalance
+- getTokenAnalytics
+- resyncNFTRarity
+- syncNFTContract
+- reSyncMetadata
+- runContractFunction
+- web3ApiVersion
+- endpointWeights
+- getWalletTokenBalances
+- getTokenMetadataBySymbol
+- getWalletTransactions
+- getWalletTransactionsVerbose
+- getTransaction
+- getPairPrice
+- reviewContracts
+- getTrendingTokens
+- getWalletTokenTransfers
+- getWalletNFTTransfers
+- getPairReserves
+- getPairAddress
+- getTokenStats
+- resolveAddressToDomain
+- resolveDomain
+- getNFTFloorPriceByToken
+- getBlockStats
+- getNewTokensByExchange
+- getBondingTokensByExchange
+- getGraduatedTokensByExchange
+- getTokenBondingStatus
+- getAggregatedTokenPairStats
+- getTokenCategories
+- getRisingLiquidityTokens
+- getBuyingPressureTokens
+- getSolidPerformersTokens
+- getExperiencedBuyersTokens
+- getRiskyBetsTokens
+- getBlueChipTokens
+- getNFTOwners
+- getNFTTokenIdOwners
+- getContractNFTs
+- getNFTTradesByToken
+- getNFTTransfers

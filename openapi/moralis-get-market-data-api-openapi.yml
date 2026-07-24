@@ -1,0 +1,1769 @@
+openapi: 3.0.0
+info:
+  title: EVM Balance Get Market Data API
+  version: '2.2'
+servers:
+- url: https://deep-index.moralis.io/api/v2.2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Get Market Data
+paths:
+  /nft/{address}/nfts-by-traits:
+    post:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFTs by traits
+      description: Find NFTs in a contract matching specific traits, perfect for attribute-based searches.
+      tags:
+      - Get Market Data
+      x-tag-sdk: nft
+      operationId: getNFTByContractTraits
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '0x524cab2ec69124574082676e6f654a18df49a048'
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 100
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        schema:
+          type: string
+      - in: query
+        name: format
+        description: The format of the token ID
+        required: false
+        schema:
+          type: string
+          example: decimal
+          default: decimal
+          enum:
+          - decimal
+          - hex
+      - in: query
+        name: normalizeMetadata
+        description: Should normalized metadata be returned?
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - in: query
+        name: media_items
+        description: Should preview media data be returned?
+        required: false
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        description: Body
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                traits:
+                  type: object
+                  minItems: 1
+                  maxItems: 25
+              example:
+                traits:
+                  Legendary: Astronaut
+              required:
+              - traits
+      responses:
+        '200':
+          description: Returns a collection of NFTs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nftCollection'
+      x-mcp-prompt: Provide the contract address and trait filters to find matching NFTs. Use this when users ask for NFTs with specific attributes (e.g., rare traits) or are searching for unique items in a collection.
+  /nft/{address}/traits:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFT traits by collection
+      description: Explore the distinct traits of NFTs in a contract, showcasing their unique attributes.
+      tags:
+      - Get Market Data
+      x-tag-sdk: nft
+      operationId: getNFTTraitsByCollection
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '0x524cab2ec69124574082676e6f654a18df49a048'
+      responses:
+        '200':
+          description: Returns the traits
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/groupedTraitCollection'
+      x-mcp-prompt: Enter the contract address to retrieve its NFT traits. Use this when users want to understand the trait distribution of a collection or analyze NFT characteristics.
+  /nft/{address}/traits/paginate:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFT traits by collection paginate
+      description: Fetch NFT traits for a contract with pagination for efficient navigation of large collections.
+      tags:
+      - Get Market Data
+      x-tag-sdk: nft
+      operationId: getNFTTraitsByCollectionPaginate
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '0x524cab2ec69124574082676e6f654a18df49a048'
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: order
+        description: The order of the result, in ascending (ASC) or descending (DESC)
+        required: false
+        schema:
+          $ref: '#/components/schemas/orderList'
+      responses:
+        '200':
+          description: Returns the traits
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/traitCollection'
+      x-mcp-prompt: Submit the contract address and pagination settings like `limit` or `cursor` for NFT traits. Use this when users need paginated trait data for large NFT collections or are building trait-based analytics.
+  /nft/{address}/traits/resync:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Resync NFT Trait
+      description: Refresh trait and rarity data for NFTs in a contract to ensure accuracy.
+      tags:
+      - Get Market Data
+      x-tag-sdk: nft
+      operationId: resyncNFTRarity
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '0x524cab2ec69124574082676e6f654a18df49a048'
+      responses:
+        '202':
+          description: The resync request was received and will be executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/metadataResync'
+      x-mcp-prompt: Provide the contract address to resync its NFT trait data. Use this when users report outdated rarity data or want to ensure the latest trait information for a collection.
+  /nft/{address}/trades:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFT trades by collection
+      description: Get NFT trades for a given contract with the ability to filter by marketplace.
+      tags:
+      - Get Market Data
+      x-tag-sdk: nft
+      operationId: getNFTTrades
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: from_block
+        description: 'The minimum block number from which to get the transfers
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: to_block
+        description: The block number to get the trades from
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: from_date
+        description: 'The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: to_date
+        description: 'The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: marketplace
+        description: Marketplace from which to get the trades. See [supported Marketplaces](https://docs.moralis.io/web3-data-api/evm/nft-marketplaces).
+        example: opensea
+        required: false
+        schema:
+          type: string
+          example: opensea
+          default: opensea
+          enum:
+          - opensea
+          - blur
+          - looksrare
+          - x2y2
+          - 0xprotocol
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: nft_metadata
+        description: Include the NFT Metadata of the NFT Token
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - in: path
+        name: address
+        description: The address of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '0x524cab2ec69124574082676e6f654a18df49a048'
+      responses:
+        '200':
+          description: Returns the trades
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tradeCollection'
+      x-mcp-prompt: Enter the contract address to fetch NFT trade data. Optionally, include a marketplace filter. Use this when users ask for trading history of a collection or want to analyze marketplace activity.
+  /nft/{address}/{token_id}/trades:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFT trades by token
+      description: Get NFT trades for a specific NFT by specifying a contract addres and token ID.
+      tags:
+      - Get Market Data
+      x-tag-sdk: nft
+      operationId: getNFTTradesByToken
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: from_block
+        description: 'The minimum block number from which to get the transfers
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: to_block
+        description: The block number to get the trades from
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: from_date
+        description: 'The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: to_date
+        description: 'The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: nft_metadata
+        description: Include the NFT Metadata of the NFT Token
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - in: path
+        name: address
+        description: The address of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '0x524cab2ec69124574082676e6f654a18df49a048'
+      - in: path
+        name: token_id
+        description: The token ID of the NFT contract
+        required: true
+        schema:
+          type: string
+          example: '123'
+      responses:
+        '200':
+          description: Returns the trades
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tradeCollection'
+      x-mcp-prompt: Provide the contract address and token ID to view the NFT’s trade history. Use this when users want trade details for a specific NFT or are tracking its market activity.
+  /wallets/{address}/nfts/trades:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFT trades by wallet address
+      description: Get NFT trades for a specific wallet address.
+      tags:
+      - Get Market Data
+      x-tag-sdk: nft
+      operationId: getNFTTradesByWallet
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: from_block
+        description: 'The minimum block number from which to get the transfers
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: to_block
+        description: The block number to get the trades from
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: from_date
+        description: 'The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''from_block'' or ''from_date''
+
+          * If ''from_date'' and ''from_block'' are provided, ''from_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: to_date
+        description: 'The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: cursor
+        description: The cursor returned in the previous response (used for getting the next page).
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: limit
+        description: The desired page size of the result.
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: nft_metadata
+        description: Include the NFT Metadata of the NFT Token
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - in: path
+        name: address
+        description: The owner wallet address
+        required: true
+        schema:
+          type: string
+          example: '0xcB1C1FdE09f811B294172696404e88E658659905'
+      responses:
+        '200':
+          description: Returns the trades
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tradeCollection'
+      x-mcp-prompt: Input the wallet address to retrieve its NFT trade history. Use this when users ask about a wallet’s NFT trading activity or want to review their buy/sell history.
+  /nft/{address}/price:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFT sale prices by collection
+      description: Fetch sale prices for NFTs in a contract over a specified number of days. Returns the last sale, lowest sale, highest sale, average sale and total trades within the specified period.
+      tags:
+      - Get Market Data
+      x-tag-sdk: nft
+      operationId: getNFTContractSalePrices
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: days
+        description: 'The number of days to look back to find the lowest price
+
+          If not provided 7 days will be the default and 365 is the maximum
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: path
+        name: address
+        description: The address of the NFT collection
+        required: true
+        schema:
+          type: string
+          example: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D'
+      responses:
+        '200':
+          description: Returns the sold price details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/soldPrice'
+      x-mcp-prompt: Enter the contract address and time period to retrieve NFT sale prices. Use this when users ask for recent sale prices of a collection or are analyzing market trends.
+  /nft/{address}/{token_id}/price:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get NFT sale prices by token
+      description: Fetch sale prices for a specific NFT over a specified number of days. Returns the last sale, lowest sale, highest sale, average sale and total trades within the specified period.
+      tags:
+      - Get Market Data
+      x-tag-sdk: nft
+      operationId: getNFTSalePrices
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: days
+        description: 'The number of days to look back to find the lowest price
+
+          If not provided 7 days will be the default and 365 is the maximum
+
+          '
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: path
+        name: address
+        description: The address of the NFT collection
+        required: true
+        schema:
+          type: string
+          example: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D'
+      - in: path
+        name: token_id
+        description: The token id of the NFT collection
+        required: true
+        schema:
+          type: string
+          example: '1'
+      responses:
+        '200':
+          description: Returns the sold price details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/soldPrice'
+      x-mcp-prompt: Provide the contract address, token ID, and time period for NFT sale prices. Use this when users want sale history for a specific NFT or are tracking its value.
+  /erc20/{address}/price:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get ERC20 token price
+      description: Retrieve the current or historical price of an ERC20 token in the blockchain’s native currency and USD. Each token returned includes on-chain metadata, as well as off-chain metadata, logos, spam status and more. Additional options to exclude low-liquidity tokens and inactive tokens.
+      tags:
+      - Get Market Data
+      x-tag-sdk: token
+      operationId: getTokenPrice
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: path
+        name: address
+        description: The address of the token contract
+        required: true
+        schema:
+          type: string
+          example: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+      - in: query
+        name: exchange
+        description: The factory name or address of the token exchange
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: to_block
+        description: The block number from which the token price should be checked
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: include
+        description: This parameter is now deprecated as percentage change are included by default
+        required: false
+        deprecated: true
+        schema:
+          type: string
+          example: ''
+          default: ''
+          enum:
+          - percent_change
+      - in: query
+        name: max_token_inactivity
+        description: Exclude tokens inactive for more than the given amount of days
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: min_pair_side_liquidity_usd
+        description: Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity on a single side of the pair.
+        required: false
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Returns the price denominated in the blockchain's native token and USD for a given token contract address
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/erc20Price'
+      x-mcp-prompt: Enter the token contract address to fetch its price. Use this when users ask for the current price of an ERC20 token or the historical price of a token at a point in time, or simply need price data for trading.
+  /erc20/prices:
+    post:
+      security:
+      - ApiKeyAuth: []
+      summary: Get Multiple ERC20 token prices
+      description: Retrieve the current or historical prices for multiple ERC20 tokens in the blockchain’s native currency and USD. Accepts an array of up to 100 `tokens`, each requiring `token_address` and optional fields such as `to_block` or `exchange`. Each token returned includes on-chain metadata, as well as off-chain metadata, logos, spam status and more. Additional options to exclude low-liquidity tokens and inactive tokens.
+      tags:
+      - Get Market Data
+      x-tag-sdk: token
+      operationId: getMultipleTokenPrices
+      requestBody:
+        description: Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetMultipleTokenPricesDto'
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: include
+        description: This parameter is now deprecated as percentage change are included by default
+        required: false
+        deprecated: true
+        schema:
+          type: string
+          example: ''
+          default: ''
+          enum:
+          - percent_change
+      - in: query
+        name: max_token_inactivity
+        description: Exclude tokens inactive for more than the given amount of days
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: min_pair_side_liquidity_usd
+        description: Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity on a single side of the pair.
+        required: false
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Returns an array of token prices denominated in the blockchain's native token and USD for a given token contract address
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/erc20Price'
+      x-mcp-prompt: Submit a list of token contract addresses to retrieve their prices. Use this when users need price data for one or many tokens or are comparing market values.
+components:
+  schemas:
+    tokenPriceItem:
+      required:
+      - token_address
+      properties:
+        token_address:
+          type: string
+          description: The contract address
+          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
+        exchange:
+          type: string
+          description: The exchange
+          example: uniswapv3
+        to_block:
+          type: string
+          description: The block number
+          example: 12526958
+    traitCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/trait'
+    nftCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/nft'
+    mediaCollection:
+      properties:
+        low:
+          description: Preview media file, lowest quality (for images 100px x 100px)
+          $ref: '#/components/schemas/mediaItem'
+        medium:
+          description: Preview media file, medium quality (for images 250px x 250px)
+          $ref: '#/components/schemas/mediaItem'
+        high:
+          description: Preview media file, highest quality (for images 500px x 500px)
+          $ref: '#/components/schemas/mediaItem'
+      required:
+      - original
+      - low
+      - medium
+      - high
+    orderList:
+      type: string
+      example: DESC
+      default: DESC
+      enum:
+      - ASC
+      - DESC
+    groupedTraitCollection:
+      required:
+      - result
+      properties:
+        traits:
+          type: array
+          items:
+            $ref: '#/components/schemas/groupedTrait'
+    trait:
+      required:
+      - trait_type
+      - trait_value
+      - count
+      - percentage
+      - rarity_label
+      properties:
+        trait_type:
+          type: string
+          description: The trait type
+          example: Background
+        trait_value:
+          type: string
+          description: The trait value
+          example: Lavendar
+        count:
+          type: number
+          description: The total NFT in the collection with this trait
+          example: 18593
+        percentage:
+          type: number
+          description: The rarity percentage of the trait
+          example: 85.8
+        rarity_label:
+          type: string
+          description: The rarity label of the trait
+          example: Top 4% trait
+    erc20Price:
+      required:
+      - usdPrice
+      - possibleSpam
+      - verifiedContract
+      properties:
+        tokenName:
+          type: string
+          description: The name of the token
+          example: Kylin Network
+        tokenSymbol:
+          type: string
+          description: The symbol of the token
+          example: KYL
+        tokenLogo:
+          type: string
+          description: The logo of the token
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        tokenDecimals:
+          type: string
+          description: The number of decimals of the token
+          example: '18'
+        nativePrice:
+          $ref: '#/components/schemas/nativeErc20Price'
+        usdPrice:
+          type: number
+          format: double
+          description: The price in USD for the token
+          example: 19.722370676
+        usdPriceFormatted:
+          type: string
+          description: The price in USD for the token in string format
+          example: '19.722370676'
+        24hrPercentChange:
+          type: string
+          description: The 24hr percent change of the token
+          example: '-0.8842730258590583'
+        exchangeAddress:
+          type: string
+          description: The address of the exchange used to calculate the price
+          example: '0x1f98431c8ad98523631ae4a59f267346ea31f984'
+        exchangeName:
+          type: string
+          description: The name of the exchange used to calculate the price
+          example: Uniswap v3
+        tokenAddress:
+          type: string
+          description: The address of the token
+          example: '0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c'
+        toBlock:
+          type: string
+          description: toBlock
+          example: '16314545'
+        possibleSpam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verifiedContract:
+          type: boolean
+          description: Indicates if the contract is verified
+          example: true
+        pairAddress:
+          type: string
+          description: The address of the pair
+          example: '0x1f98431c8ad98523631ae4a59f267346ea31f984'
+        pairTotalLiquidityUsd:
+          type: string
+          description: The total liquidity in USD of the pair
+          example: '123.45'
+        usdPrice24h:
+          type: number
+          description: The USD price 24 hours ago
+          example: 1
+        usdPrice24hrUsdChange:
+          type: number
+          description: The USD change in price over the last 24 hours
+          example: -8.615972490000345e-05
+        usdPrice24hrPercentChange:
+          type: number
+          description: The percent change in USD price over the last 24 hours
+          example: -0.008615972490000345
+        securityScore:
+          type: number
+          description: A number between 0 and 100 that defines the trust level of this specific token
+          example: 1
+    mediaItem:
+      properties:
+        width:
+          type: integer
+          description: The width of the preview image.
+        height:
+          type: integer
+          description: The height of the preview image.
+        url:
+          type: string
+          description: The url of the preview file.
+      required:
+      - width
+      - height
+      - url
+    groupedTrait:
+      required:
+      - trait_type
+      - values
+      properties:
+        trait_type:
+          type: string
+          description: The trait type
+          example: Background
+        values:
+          type: array
+          items:
+            description: The trait values
+            required:
+            - trait_value
+            - count
+            - percentage
+            - rarity_label
+            properties:
+              trait_value:
+                type: string
+                description: The trait value
+                example: Lavendar
+              count:
+                type: number
+                description: The total NFT in the collection with this trait
+                example: 18593
+              percentage:
+                type: number
+                description: The rarity percentage of the trait
+                example: 85.8
+              rarity_label:
+                type: string
+                description: The rarity label of the trait
+                example: Top 4% trait
+    tradeCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/trade'
+    normalizedMetadata:
+      properties:
+        name:
+          type: string
+          description: The name or title of the NFT
+          example: Moralis Mug
+        description:
+          type: string
+          description: A detailed description of the NFT
+          example: Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.
+        image:
+          type: string
+          description: The URL of the NFT's image
+          example: https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png
+        external_link:
+          type: string
+          description: A link to additional information
+          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+        external_url:
+          type: string
+          description: A link to additional information
+          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+        animation_url:
+          type: string
+          description: An animated version of the NFT's image
+          example: https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/normalizedMetadataAttribute'
+    trade:
+      required:
+      - transaction_hash
+      - transaction_index
+      - token_ids
+      - seller_address
+      - buyer_address
+      - token_address
+      - marketplace_address
+      - price
+      - block_timestamp
+      - block_number
+      - block_hash
+      properties:
+        transaction_hash:
+          type: string
+          description: The transaction hash
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        transaction_index:
+          type: string
+          description: The transaction index
+        token_ids:
+          type: array
+          items:
+            type: string
+            example: '15'
+          description: The token ID(s) traded
+          example:
+          - '15'
+          - '54'
+        seller_address:
+          type: string
+          description: The address that sold the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        buyer_address:
+          type: string
+          description: The address that bought the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        token_address:
+          type: string
+          description: The address of the NFT contract
+          example: '0x4ad3785ec7eed7589fa86538244a4530f962434f'
+        marketplace_address:
+          type: string
+          description: The address of the contract that traded the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        price_token_address:
+          type: string
+          description: The address of the token used to pay for the NFT
+          example: '0x60e4d786628fea6478f785a6d7e704777c86a7c6'
+        price:
+          type: string
+          description: The value that was sent in the transaction (ETH/BNB/etc..)
+          example: '1000000000000000'
+        block_timestamp:
+          type: string
+          description: The block timestamp
+          example: '2021-06-04T16:00:15'
+        block_number:
+          type: string
+          description: The block number of the transaction
+          example: '13680123'
+        block_hash:
+          type: string
+          description: The block hash
+          example: '0x4a7c916ca4a970358b9df90051008f729685ff05e9724a9dddba32630c37cb96'
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    nativeErc20Price:
+      required:
+      - value
+      - decimals
+      - name
+      - symbol
+      - address
+      properties:
+        value:
+          type: string
+          description: The native price of the token
+          example: '8409770570506626'
+        decimals:
+          type: integer
+          description: The number of decimals on the token
+          example: 18
+        name:
+          type: string
+          description: The name of the token
+          example: Ether
+        symbol:
+          type: string
+          description: The symbol of the token
+          example: ETH
+        address:
+          type: string
+          description: The address of the native token
+    nft:
+      required:
+      - token_address
+      - token_id
+      - contract_type
+      - name
+      - symbol
+      - possible_spam
+      properties:
+        token_address:
+          type: string
+          description: The address of the NFT contract
+          example: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'
+        token_id:
+          type: string
+          description: The token ID of the NFT
+          example: '15'
+        owner_of:
+          type: string
+          description: The wallet address of the owner of the NFT
+          example: '0x9c83ff0f1c8924da96cb2fcb7e093f78eb2e316b'
+        token_hash:
+          type: string
+          description: The token hash
+          example: 502cee781b0fb40ea02508b21d319ced
+        block_number:
+          type: string
+          description: The block number when the amount or owner changed
+          example: '88256'
+        block_number_minted:
+          type: string
+          description: The block number when the NFT was minted
+          example: '88256'
+        contract_type:
+          type: string
+          description: The type of NFT contract standard
+          example: ERC721
+        token_uri:
+          type: string
+          description: The URI to the metadata of the token
+        metadata:
+          type: string
+          description: The metadata of the token
+        normalized_metadata:
+          $ref: '#/components/schemas/normalizedMetadata'
+          description: A normalized metadata version of the NFT's metadata.
+        media:
+          $ref: '#/components/schemas/media'
+          description: A set of links to 'thumbnail / preview' media files
+        minter_address:
+          type: string
+          description: The address that minted the NFT
+          example: '0x9c83ff0f1c8924da96cb2fcb7e093f78eb2e316b'
+        last_token_uri_sync:
+          type: string
+          description: When the token_uri was last updated
+        last_metadata_sync:
+          type: string
+          description: When the metadata was last updated
+        amount:
+          type: string
+          description: The quantity of this item that the user owns (used by ERC1155)
+          example: '1'
+        name:
+          type: string
+          description: The name of the NFT contract
+          example: CryptoKitties
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: RARI
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_collection:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: 'false'
+        rarity_rank:
+          type: number
+          description: The rarity rank
+          example: 21669
+        rarity_percentage:
+          type: number
+          description: The rarity percentage
+          example: 98
+        rarity_label:
+          type: string
+          description: The rarity label
+          example: Top 98%
+        last_sale:
+          type: object
+          description: Details about the most recent sale involving this token.
+          nullable: true
+          required:
+          - transaction_hash
+          - block_timestamp
+          - price
+          - price_formatted
+          - buyer_address
+          - seller_address
+          - payment_token
+          properties:
+            transaction_hash:
+              type: string
+              description: The transaction hash of the last sale
+              example: '0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c'
+            block_timestamp:
+              type: string
+              description: The block timestamp of the last sale
+              example: '2023-04-04T15:59:11.000Z'
+            buyer_address:
+              type: string
+              description: The buyer address of the last sale
+              example: '0xcb1c1fde09f811b294172696404e88e658659905'
+            seller_address:
+              type: string
+              description: The seller address of the last sale
+              example: '0x497a7dee2f13db161eb2fec060fa783cb041419f'
+            price:
+              type: string
+              description: The price of the last sale
+              example: '7300000000000000'
+            price_formatted:
+              type: string
+              description: The formatted price of the last sale
+              example: '0.0073'
+            usd_price_at_sale:
+              type: string
+              description: The USD price of the last sale
+              example: '13.61'
+            current_usd_value:
+              type: string
+              description: The USD price of the last sale at the current value
+              example: '15.53'
+            token_address:
+              type: string
+              description: The token address that is sold
+              example: '0xe8778996e096b39705c6a0a937eb587a1ebbda17'
+            token_id:
+              type: string
+              description: The token ID that is sold
+              example: '170'
+            payment_token:
+              type: object
+              description: The ERC20 token that is being traded with
+              required:
+              - token_name
+              - token_symbol
+              - token_logo
+              - token_decimals
+              - token_address
+              properties:
+                token_name:
+                  type: string
+                  description: The token name
+                  example: Ether
+                token_symbol:
+                  type: string
+                  description: The token symbol
+                  example: ETH
+                token_logo:
+                  type: string
+                  description: The token logo
+                  example: https://cdn.moralis.io/eth/0x.png
+                token_decimals:
+                  type: string
+                  description: The token decimals
+                  example: '18'
+                token_address:
+                  type: string
+                  description: The token address
+                  example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+        list_price:
+          type: object
+          properties:
+            listed:
+              type: boolean
+              description: Indicates if the NFT is listed for sale
+              example: true
+            price:
+              type: string
+              description: The price of the NFT
+              example: '27008'
+            price_currency:
+              type: string
+              description: The currency of the price
+              example: eth
+            price_usd:
+              type: string
+              description: The price of the NFT in USD
+              example: '13.61'
+            marketplace:
+              type: string
+              description: The marketplace where the NFT is listed
+              example: opensea
+        floor_price:
+          type: string
+          description: The floor price of collection the NFT belongs to
+          example: '12345'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '12345.4899'
+        floor_price_currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+    normalizedMetadataAttribute:
+      properties:
+        trait_type:
+          type: string
+          description: The trait title or descriptor
+          example: Eye Color
+        value:
+          type: object
+          description: The value of the attribute
+          example: hazel
+        display_type:
+          type: string
+          description: The type the attribute value should be displayed as
+          example: string
+        max_value:
+          type: number
+          description: For numeric values, the upper range
+          example: 100
+        trait_count:
+          type: number
+          description: The number of possible values for this trait
+          example: 7
+        order:
+          type: number
+          description: Order the trait should appear in the attribute list.
+          example: 1
+    GetMultipleTokenPricesDto:
+      required:
+      - tokens
+      properties:
+        tokens:
+          type: array
+          maxItems: 30
+          description: The tokens to be fetched
+          example:
+          - token_address: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+          - token_address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+          - token_address: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84'
+            exchange: uniswapv2
+            to_block: '16314545'
+          - token_address: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+          items:
+            $ref: '#/components/schemas/tokenPriceItem'
+    soldPrice:
+      required:
+      - last_sale
+      - highest_sale
+      - lowest_sale
+      - average_sale
+      properties:
+        last_sale:
+          type: object
+          description: The sales price of the NFT collection
+          nullable: true
+          required:
+          - transaction_hash
+          - block_timestamp
+          - price
+          - price_formatted
+          - buyer_address
+          - seller_address
+          - payment_token
+          properties:
+            transaction_hash:
+              type: string
+              description: The transaction hash of the last sale
+            block_timestamp:
+              type: string
+              description: The block timestamp of the last sale
+            buyer_address:
+              type: string
+              description: The buyer address of the last sale
+            seller_address:
+              type: string
+              description: The seller address of the last sale
+            price:
+              type: string
+              description: The price of the last sale
+            price_formatted:
+              type: string
+              description: The formatted price of the last sale
+            usd_price_at_sale:
+              type: string
+              description: The USD price of the last sale at sale time
+            current_usd_value:
+              type: string
+              description: The USD price of the last sale at the current value
+            token_id:
+              type: string
+              description: The token ID that is sold
+            payment_token:
+              type: object
+              description: The ERC20 token that is being traded with
+              required:
+              - token_name
+              - token_symbol
+              - token_logo
+              - token_decimals
+              - token_address
+              properties:
+                token_name:
+                  type: string
+                  description: The token name
+                token_symbol:
+                  type: string
+                  description: The token symbol
+                token_logo:
+                  type: string
+                  description: The token logo
+                token_decimals:
+                  type: string
+                  description: The token decimals
+                token_address:
+                  type: string
+                  description: The token address
+        lowest_sale:
+          type: object
+          description: The lowest sale of the NFT collection
+          nullable: true
+          required:
+          - transaction_hash
+          - block_timestamp
+          - price
+          - price_formatted
+          - payment_token
+          properties:
+            transaction_hash:
+              type: string
+              description: The transaction hash of the last sale
+            block_timestamp:
+              type: string
+              description: The block timestamp of the last sale
+            buyer_address:
+              type: string
+              description: The buyer address of the last sale
+            seller_address:
+              type: string
+              description: The seller address of the last sale
+            price:
+              type: string
+              description: The price of the last sale
+            price_formatted:
+              type: string
+              description: The formatted price of the last sale
+            usd_price_at_sale:
+              type: string
+              description: The USD price of the last sale at sale time
+            current_usd_value:
+              type: string
+              description: The USD price of the last sale at the current value
+            token_id:
+              type: string
+              description: The token ID that is sold
+            payment_token:
+              type: object
+              description: The ERC20 token that is being traded with
+              required:
+              - token_name
+              - token_symbol
+              - token_logo
+              - token_decimals
+              - token_address
+              properties:
+                token_name:
+                  type: string
+                  description: The token name
+                token_symbol:
+                  type: string
+                  description: The token symbol
+                token_logo:
+                  type: string
+                  description: The token logo
+                token_decimals:
+                  type: string
+                  description: The token decimals
+                token_address:
+                  type: string
+                  description: The token address
+        highest_sale:
+          type: object
+          description: The highest sale of the NFT collection
+          nullable: true
+          required:
+          - transaction_hash
+          - block_timestamp
+          - price
+          - price_formatted
+          - payment_token
+          properties:
+            transaction_hash:
+              type: string
+              description: The transaction hash of the last sale
+            block_timestamp:
+              type: string
+              description: The block timestamp of the last sale
+            buyer_address:
+              type: string
+              description: The buyer address of the last sale
+            seller_address:
+              type: string
+              description: The seller address of the last sale
+            price:
+              type: string
+              description: The price of the last sale
+            price_formatted:
+              type: string
+              description: The formatted price of the last sale
+            usd_price_at_sale:
+              type: string
+              description: The USD price of the last sale at sale time
+            current_usd_value:
+              type: string
+              description: The USD price of the last sale at the current value
+            token_id:
+              type: string
+              description: The token ID that is sold
+            payment_token:
+              type: object
+              description: The ERC20 token that is being traded with
+              required:
+              - token_name
+              - token_symbol
+              - token_logo
+              - token_decimals
+              - token_address
+              properties:
+                token_name:
+                  type: string
+                  description: The token name
+                token_symbol:
+                  type: string
+                  description: The token symbol
+                token_logo:
+                  type: string
+                  description: The token logo
+                token_decimals:
+                  type: string
+                  description: The token decimals
+                token_address:
+                  type: string
+                  description: The token address
+        average_sale:
+          type: object
+          description: The average sale of the NFT collection
+          nullable: true
+          required:
+          - price
+          - price_formatted
+          properties:
+            price:
+              type: string
+              description: The price of the average sale
+            price_formatted:
+              type: string
+              description: The formatted price of the average sale
+            current_usd_value:
+              type: string
+              description: The USD price of the last sale at the current value
+        total_trades:
+          type: number
+          description: The total trades in the timeframe
+          nullable: true
+        message:
+          type: string
+          description: The error message (if any)
+    metadataResync:
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          description: The status of the resync request
+    media:
+      properties:
+        mimetype:
+          type: string
+          description: The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types]
+        category:
+          enum:
+          - image
+          - audio
+          - video
+        status:
+          enum:
+          - success
+          - processing
+          - unsupported_media
+          - invalid_url
+          - host_unavailable
+          - temporarily_unavailable
+          description: <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
+        original_media_url:
+          type: string
+          description: The url of the original media file.
+        updatedAt:
+          type: string
+          description: The timestamp of the last update to this NFT media record.
+        parent_hash:
+          type: string
+          description: Hash value of the original media file.
+        media_collection:
+          description: Preview item associated with the original
+          $ref: '#/components/schemas/mediaCollection'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      x-default: test
+x-samples-languages:
+- node
+- javascript
+- csharp
+- curl
+- python
+x-mcp-blacklist:
+- getNFTTraitsByCollectionPaginate
+- getNFTContractMetadata
+- getTokenPrice
+- getNativeBalance
+- getTokenAnalytics
+- resyncNFTRarity
+- syncNFTContract
+- reSyncMetadata
+- runContractFunction
+- web3ApiVersion
+- endpointWeights
+- getWalletTokenBalances
+- getTokenMetadataBySymbol
+- getWalletTransactions
+- getWalletTransactionsVerbose
+- getTransaction
+- getPairPrice
+- reviewContracts
+- getTrendingTokens
+- getWalletTokenTransfers
+- getWalletNFTTransfers
+- getPairReserves
+- getPairAddress
+- getTokenStats
+- resolveAddressToDomain
+- resolveDomain
+- getNFTFloorPriceByToken
+- getBlockStats
+- getNewTokensByExchange
+- getBondingTokensByExchange
+- getGraduatedTokensByExchange
+- getTokenBondingStatus
+- getAggregatedTokenPairStats
+- getTokenCategories
+- getRisingLiquidityTokens
+- getBuyingPressureTokens
+- getSolidPerformersTokens
+- getExperiencedBuyersTokens
+- getRiskyBetsTokens
+- getBlueChipTokens
+- getNFTOwners
+- getNFTTokenIdOwners
+- getContractNFTs
+- getNFTTradesByToken
+- getNFTTransfers

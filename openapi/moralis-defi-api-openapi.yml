@@ -1,0 +1,597 @@
+openapi: 3.0.0
+info:
+  title: EVM Balance DeFi API
+  version: '2.2'
+servers:
+- url: https://deep-index.moralis.io/api/v2.2
+security:
+- ApiKeyAuth: []
+tags:
+- name: DeFi
+paths:
+  /{token0_address}/{token1_address}/price:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get DEX token pair price
+      description: Fetch the current price of a token pair on Uniswap V2-based DEXs.
+      deprecated: true
+      tags:
+      - DeFi
+      x-tag-sdk: defi
+      operationId: getPairPrice
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: to_block
+        description: The block number to get the reserves from
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: to_date
+        description: 'Get the price up to this date (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        schema:
+          type: string
+      - in: path
+        name: token0_address
+        description: The token0 address
+        required: true
+        schema:
+          type: string
+          example: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84'
+      - in: path
+        name: token1_address
+        description: The token1 address
+        required: true
+        schema:
+          type: string
+          example: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+      - in: query
+        name: exchange
+        description: The factory name or address of the token exchange
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the pair price
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pair_address:
+                    type: string
+                    example: '0x4028daac072e492d34a3afdbef0ba7e35d8b55c4'
+                  pair_label:
+                    type: string
+                    example: stETH/WETH
+                  exchange:
+                    type: string
+                    example: Uniswap v2
+                  quote_price:
+                    type: string
+                    example: '1.000094331827400707'
+                  price_usd:
+                    type: string
+                    example: '2905.023454928171304346'
+                  base_token:
+                    $ref: '#/components/schemas/erc20Metadata'
+                  quote_token:
+                    $ref: '#/components/schemas/erc20Metadata'
+      x-mcp-prompt: Enter the token pair address to retrieve its price. Use this when users ask for the price of a DEX token pair or are analyzing trading opportunities.
+  /{pair_address}/reserves:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get DEX token pair reserves
+      description: Retrieve liquidity reserves for a token pair on Uniswap V2-based DEXs.
+      deprecated: true
+      tags:
+      - DeFi
+      x-tag-sdk: defi
+      operationId: getPairReserves
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: to_block
+        description: The block number to get the reserves from
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: to_date
+        description: 'Get the reserves up to this date (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        schema:
+          type: string
+      - in: path
+        name: pair_address
+        description: The liquidity pair address
+        required: true
+        schema:
+          type: string
+          example: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974'
+      responses:
+        '200':
+          description: Returns the pair reserves
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reserve0:
+                    type: string
+                    example: '220969226548536862025877'
+                  reserve1:
+                    type: string
+                    example: '844810441191293211036'
+      x-mcp-prompt: Provide the token pair address to fetch its liquidity reserves. Use this when users need liquidity data for a token pair or are assessing pool health.
+  /{token0_address}/{token1_address}/pairAddress:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get DEX token pair address
+      description: Get the pair address for a token0/token1 combination on a DEX, interchangeable order.
+      deprecated: true
+      tags:
+      - DeFi
+      x-tag-sdk: defi
+      operationId: getPairAddress
+      parameters:
+      - in: query
+        name: chain
+        description: The chain to query
+        required: false
+        schema:
+          $ref: '#/components/schemas/chainList'
+      - in: query
+        name: to_block
+        description: The block number to get the reserves from
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: to_date
+        description: 'Get the reserves up to this date (format in seconds or datestring accepted by momentjs)
+
+          * Provide the param ''to_block'' or ''to_date''
+
+          * If ''to_date'' and ''to_block'' are provided, ''to_block'' will be used.
+
+          '
+        schema:
+          type: string
+      - in: query
+        name: exchange
+        description: The factory name or address of the token exchange
+        required: true
+        schema:
+          type: string
+          example: uniswapv2
+          enum:
+          - uniswapv2
+          - uniswapv3
+          - sushiswapv2
+          - pancakeswapv2
+          - pancakeswapv1
+          - quickswap
+      - in: path
+        name: token0_address
+        description: The token0 address
+        required: true
+        schema:
+          type: string
+          example: '0x2b591e99afe9f32eaa6214f7b7629768c40eeb39'
+      - in: path
+        name: token1_address
+        description: The token1 address
+        required: true
+        schema:
+          type: string
+          example: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+      responses:
+        '200':
+          description: Returns the pair address of the two tokens.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/reservesCollection'
+      x-mcp-prompt: Enter the addresses of token0 and token1 to fetch their pair address. Use this when users need the pair address for a token combination or are setting up DEX trading.
+components:
+  schemas:
+    discoveryTokenLinks:
+      type: object
+      required:
+      - bitbucket
+      - discord
+      - facebook
+      - github
+      - instagram
+      - linkedin
+      - medium
+      - reddit
+      - telegram
+      - tiktok
+      - twitter
+      - website
+      - youtube
+      properties:
+        bitbucket:
+          type: string
+          description: The link of the token on the platform
+        discord:
+          type: string
+          description: The link of the token on the platform
+        facebook:
+          type: string
+          description: The link of the token on the platform
+        github:
+          type: string
+          description: The link of the token on the platform
+        instagram:
+          type: string
+          description: The link of the token on the platform
+        linkedin:
+          type: string
+          description: The link of the token on the platform
+        medium:
+          type: string
+          description: The link of the token on the platform
+        reddit:
+          type: string
+          description: The link of the token on the platform
+        telegram:
+          type: string
+          description: The link of the token on the platform
+        tiktok:
+          type: string
+          description: The link of the token on the platform
+        twitter:
+          type: string
+          description: The link of the token on the platform
+        website:
+          type: string
+          description: The link of the token on the platform
+        youtube:
+          type: string
+          description: The link of the token on the platform
+    erc20Metadata:
+      type: object
+      required:
+      - address
+      - name
+      - symbol
+      - decimals
+      - created_at
+      - possible_spam
+      properties:
+        address:
+          type: string
+          description: The address of the token contract
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        address_label:
+          type: string
+          nullable: true
+          description: The label of the address
+          example: Binance 1
+        name:
+          type: string
+          description: The name of the token contract
+          example: Kylin Network
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: KYL
+        decimals:
+          type: string
+          description: The number of decimals on the token
+          example: '18'
+        logo:
+          type: string
+          nullable: true
+          description: The logo of the token
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        logo_hash:
+          type: string
+          nullable: true
+          description: The logo hash
+          example: ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d
+        thumbnail:
+          type: string
+          nullable: true
+          description: The thumbnail of the logo
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png
+        total_supply:
+          type: string
+          nullable: false
+          description: Total tokens created minus any that have been burned
+          example: '420689899999994793099999999997400'
+        total_supply_formatted:
+          type: string
+          nullable: false
+          description: Total tokens created minus any that have been burned (decimal formatted)
+          example: '420689899999994.7930999999999974'
+        implementations:
+          type: array
+          items:
+            description: The token addresses of the same symbol from another chains
+            required:
+            - chainId
+            - address
+            properties:
+              chainId:
+                type: string
+                description: The chain id
+                example: '0x1'
+              chain:
+                type: string
+                description: The chain name
+                example: eth
+              chainName:
+                type: string
+                description: The chain name
+                example: Ethereum
+              address:
+                type: string
+                description: The token address
+                example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        fully_diluted_valuation:
+          type: string
+          nullable: false
+          description: Fully Diluted Valuation (FDV), this represents the token's Current Price x Total Supply
+          example: '3407271444.05'
+        block_number:
+          type: string
+        validated:
+          type: number
+        created_at:
+          type: string
+          description: The timestamp of when the erc20 token was created
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_contract:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: false
+        categories:
+          type: array
+          items:
+            type: string
+          nullable: true
+          description: Categories of the token
+          example:
+          - stablecoin
+        links:
+          $ref: '#/components/schemas/discoveryTokenLinks'
+        circulating_supply:
+          type: string
+          description: The circulating supply of the token
+          example: '4206864.7489303'
+        market_cap:
+          type: string
+          description: The market cap of the token
+          example: '3407271444.05'
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    reservesCollection:
+      type: object
+      properties:
+        token0:
+          type: object
+          properties:
+            address:
+              type: string
+              example: '0x2b591e99afe9f32eaa6214f7b7629768c40eeb39'
+            name:
+              type: string
+              example: HEX
+            symbol:
+              type: string
+              example: HEX
+            decimals:
+              type: string
+              example: 9
+            logo:
+              type: string
+              example: https://cdn.moralis.io/eth/0x2b591e99afe9f32eaa6214f7b7629768c40eeb39.png
+            logo_hash:
+              type: string
+              example: b3bd1b5512965d7b6aeee903dcc6d28b116d58c788eb41e9c1690baed878beaa
+            thumbnail:
+              type: string
+              example: https://cdn.moralis.io/eth/0x2b591e99afe9f32eaa6214f7b7629768c40eeb39_thumb.png
+            block_number:
+              type: string
+              example: 14836562
+            validated:
+              type: number
+              example: 0
+            created_at:
+              type: string
+              example: '2022-01-20T09:39:55.818Z'
+        token1:
+          type: object
+          properties:
+            address:
+              type: string
+              example: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+            name:
+              type: string
+              example: Tether USD
+            symbol:
+              type: string
+              example: USDT
+            decimals:
+              type: string
+              example: 6
+            logo:
+              type: string
+              example: https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7.png
+            logo_hash:
+              type: string
+              example: ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d
+            thumbnail:
+              type: string
+              example: https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7_thumb.png
+            block_number:
+              type: string
+              example: '4638568'
+            validated:
+              type: number
+              example: 1
+            created_at:
+              type: string
+              example: '2022-01-20T09:39:55.818Z'
+        pairAddress:
+          type: string
+          example: '0xbbb9bf440d0f686487925fef3b0a0f9aa67753f6'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      x-default: test
+x-samples-languages:
+- node
+- javascript
+- csharp
+- curl
+- python
+x-mcp-blacklist:
+- getNFTTraitsByCollectionPaginate
+- getNFTContractMetadata
+- getTokenPrice
+- getNativeBalance
+- getTokenAnalytics
+- resyncNFTRarity
+- syncNFTContract
+- reSyncMetadata
+- runContractFunction
+- web3ApiVersion
+- endpointWeights
+- getWalletTokenBalances
+- getTokenMetadataBySymbol
+- getWalletTransactions
+- getWalletTransactionsVerbose
+- getTransaction
+- getPairPrice
+- reviewContracts
+- getTrendingTokens
+- getWalletTokenTransfers
+- getWalletNFTTransfers
+- getPairReserves
+- getPairAddress
+- getTokenStats
+- resolveAddressToDomain
+- resolveDomain
+- getNFTFloorPriceByToken
+- getBlockStats
+- getNewTokensByExchange
+- getBondingTokensByExchange
+- getGraduatedTokensByExchange
+- getTokenBondingStatus
+- getAggregatedTokenPairStats
+- getTokenCategories
+- getRisingLiquidityTokens
+- getBuyingPressureTokens
+- getSolidPerformersTokens
+- getExperiencedBuyersTokens
+- getRiskyBetsTokens
+- getBlueChipTokens
+- getNFTOwners
+- getNFTTokenIdOwners
+- getContractNFTs
+- getNFTTradesByToken
+- getNFTTransfers

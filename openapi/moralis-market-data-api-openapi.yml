@@ -1,0 +1,511 @@
+openapi: 3.0.0
+info:
+  title: EVM Balance Market Data API
+  version: '2.2'
+servers:
+- url: https://deep-index.moralis.io/api/v2.2
+security:
+- ApiKeyAuth: []
+tags:
+- name: Market Data
+paths:
+  /market-data/erc20s/top-tokens:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get top ERC20 tokens by market cap
+      description: List the top ERC20 tokens ranked by market cap. Currently only supports Ethereum. For more flexibility, we recommend to use getFilteredTokens.
+      deprecated: true
+      tags:
+      - Market Data
+      x-tag-sdk: marketData
+      operationId: getTopERC20TokensByMarketCap
+      parameters: []
+      responses:
+        '200':
+          description: Returns the top ERC20 tokens by market cap
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/marketDataERC20Token'
+      x-mcp-prompt: Request the top ERC20 tokens by market cap. Use this when users ask for the largest ERC20 tokens or want to explore high-value tokens.
+  /market-data/erc20s/top-movers:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get top ERC20 tokens by price movements (winners and losers)
+      description: Get top ERC20 tokens by price movements (winners and losers). Currently only supports Ethereum. For more flexibility, we recommend to use getFilteredTokens or getTopGainersTokens and getTopLosersTokens.
+      deprecated: true
+      tags:
+      - Market Data
+      x-tag-sdk: marketData
+      operationId: getTopERC20TokensByPriceMovers
+      parameters: []
+      responses:
+        '200':
+          description: Returns an a list of ERC20 tokens with their price change
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/marketDataERC20TokensByPriceMovers'
+      x-mcp-prompt: Request the top ERC20 tokens by price change. Use this when users want to find tokens with significant price movements or are looking for trading opportunities.
+  /market-data/nfts/top-collections:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get top NFT collections by market cap
+      description: Get top NFT collections by their current market cap. Currently only supports Ethereum.
+      deprecated: true
+      tags:
+      - Market Data
+      x-tag-sdk: marketData
+      operationId: getTopNFTCollectionsByMarketCap
+      parameters: []
+      responses:
+        '200':
+          description: Returns the top NFT collections by market cap
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/marketDataTopNFTCollectionByMarketCap'
+      x-mcp-prompt: Request the top NFT collections by market cap. Use this when users ask for the most valuable NFT collections or want to explore popular NFTs.
+  /market-data/nfts/hottest-collections:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get top NFT collections by trading volume
+      description: Get NFT collections by their 24 hour trading volume. Currently only supports Ethereum.
+      deprecated: true
+      tags:
+      - Market Data
+      x-tag-sdk: marketData
+      operationId: getHottestNFTCollectionsByTradingVolume
+      parameters: []
+      responses:
+        '200':
+          description: Returns the hottest NFT collections by trading volume
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/marketDataHottestNFTCollectionByTradingVolume'
+      x-mcp-prompt: Request the hottest NFT collections by trading volume. Use this when users want to find trending NFT collections or analyze market activity.
+  /market-data/global/market-cap:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get top crypto currencies by market cap
+      description: Get cryptocurrencies by their market cap.
+      deprecated: true
+      tags:
+      - Market Data
+      x-tag-sdk: marketData
+      operationId: getTopCryptoCurrenciesByMarketCap
+      parameters: []
+      responses:
+        '200':
+          description: Returns the top crypto currencies by market cap
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/marketDataTopCryptoCurrenciesByMarketCap'
+      x-mcp-prompt: Request the top cryptocurrencies by market cap. Use this when users ask for the largest cryptocurrencies or want to explore major coins.
+  /market-data/global/volume:
+    get:
+      security:
+      - ApiKeyAuth: []
+      summary: Get top crypto currencies by trading volume
+      description: Get cryptocurrencies with the highest 24 hour trading volume.
+      deprecated: true
+      tags:
+      - Market Data
+      x-tag-sdk: marketData
+      operationId: getTopCryptoCurrenciesByTradingVolume
+      parameters: []
+      responses:
+        '200':
+          description: Returns the top crypto currencies by trading volume
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/marketDataTopCryptoCurrenciesByMarketCap'
+      x-mcp-prompt: Request the top cryptocurrencies by trading volume. Use this when users want to find actively traded cryptocurrencies or analyze market trends.
+components:
+  schemas:
+    marketDataHottestNFTCollectionByTradingVolume:
+      type: array
+      items:
+        required:
+        - rank
+        - collection_title
+        - collection_image
+        - floor_price_usd
+        - floor_price_24hr_percent_change
+        - market_cap_usd
+        - market_cap_24hr_percent_change
+        - volume_usd
+        - volume_24hr_percent_change
+        - collection_address
+        properties:
+          rank:
+            type: integer
+            description: The rank
+            example: 1
+          collection_title:
+            type: string
+            description: The collection title
+            example: CryptoPunks
+          collection_image:
+            type: string
+            description: The collection image
+            example: ''
+          floor_price_usd:
+            type: string
+            description: The floor price in USD
+            example: '0.0'
+          floor_price_24hr_percent_change:
+            type: string
+            description: The floor price 24hr percent change
+            example: '0.0'
+          volume_usd:
+            type: string
+            description: The volume in USD
+            example: '0.0'
+          volume_24hr_percent_change:
+            type: string
+            description: The volume 24hr percent change
+            example: '0.0'
+          average_price_usd:
+            type: string
+            description: The average price in USD
+            example: '0.0'
+          collection_address:
+            type: string
+            description: The collection address
+            example: '0x123'
+          average_price:
+            type: string
+            description: The average price
+            example: '0.0'
+          floor_price:
+            type: string
+            description: The floor price
+            example: '0.0'
+          floor_price_usd_24hr_percent_change:
+            type: string
+            description: The floor price usd 24hr percent change
+            example: '0.0'
+          floor_price_7d_percent_change:
+            type: string
+            description: The floor price 7d percent change
+            example: '0.0'
+          floor_price_usd_7d_percent_change:
+            type: string
+            description: The floor price usd 7d percent change
+            example: '0.0'
+          floor_price_30d_percent_change:
+            type: string
+            description: The floor price 30d percent change
+            example: '0.0'
+          floor_price_usd_30d_percent_change:
+            type: string
+            description: The floor price usd 30d percent change
+            example: '0.0'
+    marketDataTopCryptoCurrenciesByMarketCap:
+      type: array
+      items:
+        required:
+        - rank
+        - symbol
+        - name
+        - logo
+        - circulating_supply
+        - total_supply
+        - max_supply
+        - market_cap_usd
+        - market_cap_rank
+        - market_cap_24hr_change
+        - market_cap_24hr_percent_change
+        - total_volume
+        - price_usd
+        - usd_price_24hr_high
+        - usd_price_24hr_low
+        - usd_price_24hr_change
+        - usd_price_24hr_percent_change
+        - usd_price_ath
+        - ath_percent_change
+        - ath_date
+        properties:
+          symbol:
+            type: string
+            description: The symbol of the token
+            example: ETH
+          name:
+            type: string
+            description: The name of the token
+            example: Ethereum
+          logo:
+            type: string
+            description: The logo of the token
+            example: https://cdn.moralis.io/coins/images/279/large/ethereum.png?1595348880
+          circulating_supply:
+            type: string
+            description: The circulating supply
+            example: '0.0'
+          total_supply:
+            type: string
+            description: The total supply
+            example: '0.0'
+          max_supply:
+            type: string
+            description: The max supply
+            example: '0.0'
+          market_cap_usd:
+            type: string
+            description: The market cap in USD
+            example: '0.0'
+          market_cap_rank:
+            type: string
+            description: The market cap rank
+            example: '0.0'
+          market_cap_24hr_change:
+            type: string
+            description: The market cap 24h change
+            example: '0.0'
+          market_cap_24hr_percent_change:
+            type: string
+            description: The market cap 24h percent change
+            example: '0.0'
+          total_volume:
+            type: string
+            description: The total volume
+            example: '0.0'
+          usd_price:
+            type: string
+            description: The price in USD
+            example: '0.0'
+          usd_price_24hr_high:
+            type: string
+            description: The price 24h high
+            example: '0.0'
+          usd_price_24hr_low:
+            type: string
+            description: The price 24h low
+            example: '0.0'
+          usd_price_24hr_change:
+            type: string
+            description: The price 24h change
+            example: '0.0'
+          usd_price_24hr_percent_change:
+            type: string
+            description: The price 24h percent change
+            example: '0.0'
+          usd_price_ath:
+            type: string
+            description: The price ath
+            example: '0.0'
+          ath_percent_change:
+            type: string
+            description: The ath percent change
+            example: '0.0'
+          ath_date:
+            type: string
+            description: The ath date
+            example: '0.0'
+          usd_price_1hr_percent_change:
+            type: string
+            description: The price 1h percent change
+            example: '0.0'
+          usd_price_7d_percent_change:
+            type: string
+            description: The price 7d percent change
+            example: '0.0'
+          usd_price_30d_percent_change:
+            type: string
+            description: The price 30d percent change
+            example: '0.0'
+    marketDataERC20Token:
+      type: array
+      items:
+        required:
+        - rank
+        - token_name
+        - token_symbol
+        - token_logo
+        - token_decimals
+        - contract_address
+        - price_usd
+        - price_24h_percent_change
+        - price_7d_percent_change
+        - market_cap_usd
+        properties:
+          rank:
+            type: integer
+            description: The rank
+            example: 1
+          token_name:
+            type: string
+            description: The token name
+            example: Wrapped Ether
+          token_symbol:
+            type: string
+            description: The token symbol
+            example: WETH
+          token_logo:
+            type: string
+            description: The token image
+            example: https://cdn.moralis.io/coins/images/2518/large/weth.png?1595348880
+          token_decimals:
+            type: string
+            description: The token decimals
+            example: '18'
+          contract_address:
+            type: string
+            description: The contract address
+            example: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+          price_usd:
+            type: string
+            description: The price in USD
+            example: '0.0285'
+          price_24h_percent_change:
+            type: string
+            description: The price change in the last 24h
+            example: '0.0285'
+          price_7d_percent_change:
+            type: string
+            description: The price change in the last 7d
+            example: '0.0285'
+          market_cap_usd:
+            type: string
+            description: The market cap in USD
+            example: '0.0285'
+    marketDataTopNFTCollectionByMarketCap:
+      type: array
+      items:
+        required:
+        - rank
+        - collection_title
+        - collection_image
+        - floor_price_usd
+        - floor_price_24hr_percent_change
+        - market_cap_usd
+        - market_cap_24hr_percent_change
+        - volume_usd
+        - volume_24hr_percent_change
+        - collection_address
+        properties:
+          rank:
+            type: integer
+            description: The rank
+            example: 1
+          collection_title:
+            type: string
+            description: The collection title
+            example: CryptoPunks
+          collection_image:
+            type: string
+            description: The collection image
+            example: ''
+          floor_price_usd:
+            type: string
+            description: The floor price in USD
+            example: '0.0'
+          floor_price_24hr_percent_change:
+            type: string
+            description: The floor price 24hr percent change
+            example: '0.0'
+          market_cap_usd:
+            type: string
+            description: The market cap in USD
+            example: '0.0'
+          market_cap_24hr_percent_change:
+            type: string
+            description: The market cap 24hr percent change
+            example: '0.0'
+          volume_usd:
+            type: string
+            description: The volume in USD
+            example: '0.0'
+          volume_24hr_percent_change:
+            type: string
+            description: The volume 24hr percent change
+            example: '0.0'
+          collection_address:
+            type: string
+            description: The collection address
+            example: '0x123'
+          floor_price:
+            type: string
+            description: The floor price
+            example: '0.0'
+          floor_price_usd_24hr_percent_change:
+            type: string
+            description: The floor price usd 24hr percent change
+            example: '0.0'
+    marketDataERC20TokensByPriceMovers:
+      type: object
+      required:
+      - gainers
+      - losers
+      properties:
+        gainers:
+          $ref: '#/components/schemas/marketDataERC20Token'
+        losers:
+          $ref: '#/components/schemas/marketDataERC20Token'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      x-default: test
+x-samples-languages:
+- node
+- javascript
+- csharp
+- curl
+- python
+x-mcp-blacklist:
+- getNFTTraitsByCollectionPaginate
+- getNFTContractMetadata
+- getTokenPrice
+- getNativeBalance
+- getTokenAnalytics
+- resyncNFTRarity
+- syncNFTContract
+- reSyncMetadata
+- runContractFunction
+- web3ApiVersion
+- endpointWeights
+- getWalletTokenBalances
+- getTokenMetadataBySymbol
+- getWalletTransactions
+- getWalletTransactionsVerbose
+- getTransaction
+- getPairPrice
+- reviewContracts
+- getTrendingTokens
+- getWalletTokenTransfers
+- getWalletNFTTransfers
+- getPairReserves
+- getPairAddress
+- getTokenStats
+- resolveAddressToDomain
+- resolveDomain
+- getNFTFloorPriceByToken
+- getBlockStats
+- getNewTokensByExchange
+- getBondingTokensByExchange
+- getGraduatedTokensByExchange
+- getTokenBondingStatus
+- getAggregatedTokenPairStats
+- getTokenCategories
+- getRisingLiquidityTokens
+- getBuyingPressureTokens
+- getSolidPerformersTokens
+- getExperiencedBuyersTokens
+- getRiskyBetsTokens
+- getBlueChipTokens
+- getNFTOwners
+- getNFTTokenIdOwners
+- getContractNFTs
+- getNFTTradesByToken
+- getNFTTransfers
