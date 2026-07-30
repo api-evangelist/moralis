@@ -5,7 +5,20 @@ kind: company
 description: Moralis is a Web3 data platform offering REST-based Data APIs for EVM
   and Solana chains, real-time Streams (webhooks), Datashare exports, and an enterprise
   Data Indexer. Supports 30+ chains for wallets, analytics, automation, and data pipelines.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/moralis.png
 tags:
   - Web3
   - Blockchain
@@ -16,69 +29,352 @@ created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
 apis:
-  - aid: moralis:evm-api
-    name: Moralis EVM API
-    description: REST API for EVM chain data (NFTs, tokens, balances, transactions,
-      blocks, resolve domain) across Ethereum, Polygon, Arbitrum, Optimism, Base, Avalanche,
-      BNB, etc.
-    humanURL: https://docs.moralis.com/web3-data-api/evm
-    baseURL: https://deep-index.moralis.io/api/v2.2
-    tags:
-    - REST
-    - EVM
-    properties:
-    - type: Documentation
-      url: https://docs.moralis.com/web3-data-api/evm
-    - type: OpenAPI
-      url: openapi/moralis-evm-api-openapi.json
-  - aid: moralis:solana-api
-    name: Moralis Solana API
-    description: REST API for Solana on-chain data (accounts, NFTs, tokens, transactions).
-    humanURL: https://docs.moralis.com/web3-data-api/solana
-    baseURL: https://solana-gateway.moralis.io
-    tags:
-    - REST
-    - Solana
-    properties:
-    - type: Documentation
-      url: https://docs.moralis.com/web3-data-api/solana
-  - aid: moralis:streams
-    name: Moralis Streams API
-    description: REST API for managing real-time blockchain event streams delivered
-      via webhooks.
-    humanURL: https://docs.moralis.com/streams-api
-    baseURL: https://api.moralis-streams.com
-    tags:
-    - REST
-    - Streams
-    - Webhooks
-    properties:
-    - type: Documentation
-      url: https://docs.moralis.com/streams-api
-  - aid: moralis:auth-api
-    name: Moralis Auth API
-    description: REST API for Sign-In with Ethereum / Solana challenge generation and
-      verification.
-    humanURL: https://docs.moralis.com/authentication-api
-    baseURL: https://authapi.moralis.io
-    tags:
-    - REST
-    - Auth
-    properties:
-    - type: Documentation
-      url: https://docs.moralis.com/authentication-api
-  - aid: moralis:datashare
-    name: Moralis Datashare
-    description: Bulk historical and ongoing blockchain dataset exports (Parquet/CSV
-      via S3 / Snowflake share).
-    humanURL: https://moralis.com/datashare
-    baseURL: n/a (export)
-    tags:
-    - Bulk
-    - Export
-    properties:
-    - type: Documentation
-      url: https://moralis.com/datashare
+- aid: moralis:solana-api
+  name: Moralis Solana API
+  description: REST API for Solana on-chain data (accounts, NFTs, tokens, transactions).
+  humanURL: https://docs.moralis.com/web3-data-api/solana
+  baseURL: https://solana-gateway.moralis.io
+  tags:
+  - REST
+  - Solana
+  properties:
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/solana
+- aid: moralis:streams
+  name: Moralis Streams API
+  description: REST API for managing real-time blockchain event streams delivered via webhooks.
+  humanURL: https://docs.moralis.com/streams-api
+  baseURL: https://api.moralis-streams.com
+  tags:
+  - REST
+  - Streams
+  - Webhooks
+  properties:
+  - type: Documentation
+    url: https://docs.moralis.com/streams-api
+- aid: moralis:auth-api
+  name: Moralis Auth API
+  description: REST API for Sign-In with Ethereum / Solana challenge generation and verification.
+  humanURL: https://docs.moralis.com/authentication-api
+  baseURL: https://authapi.moralis.io
+  tags:
+  - REST
+  - Auth
+  properties:
+  - type: Documentation
+    url: https://docs.moralis.com/authentication-api
+- aid: moralis:datashare
+  name: Moralis Datashare
+  description: >-
+    Bulk historical and ongoing blockchain dataset exports (Parquet/CSV via S3 / Snowflake share).
+  humanURL: https://moralis.com/datashare
+  baseURL: n/a (export)
+  tags:
+  - Bulk
+  - Export
+  properties:
+  - type: Documentation
+    url: https://moralis.com/datashare
+- aid: moralis:moralis-balance-api
+  name: Moralis Balance API
+  description: The Balance API from Moralis — 2 operation(s) for balance.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Balance
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-balance-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-block-api
+  name: Moralis Block API
+  description: The Block API from Moralis — 3 operation(s) for block.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Block
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-block-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-categories-api
+  name: Moralis Categories API
+  description: The Categories API from Moralis — 1 operation(s) for categories.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-categories-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-defi-api
+  name: Moralis DeFi API
+  description: The DeFi API from Moralis — 3 operation(s) for defi.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - DeFi
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-defi-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-discovery-api
+  name: Moralis Discovery API
+  description: The Discovery API from Moralis — 11 operation(s) for discovery.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-entities-api
+  name: Moralis Entities API
+  description: The Entities API from Moralis — 4 operation(s) for entities.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Entities
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-entities-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-get-balance-api
+  name: Moralis Get Balance API
+  description: The Get Balance API from Moralis — 1 operation(s) for get balance.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Get Balance
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-get-balance-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-get-collections-api
+  name: Moralis Get Collections API
+  description: The Get Collections API from Moralis — 4 operation(s) for get collections.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Get Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-get-collections-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-get-floor-price-api
+  name: Moralis Get Floor Price API
+  description: The Get Floor Price API from Moralis — 3 operation(s) for get floor price.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Get Floor Price
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-get-floor-price-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-get-market-data-api
+  name: Moralis Get Market Data API
+  description: The Get Market Data API from Moralis — 11 operation(s) for get market data.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Get Market Data
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-get-market-data-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-get-metadata-api
+  name: Moralis Get Metadata API
+  description: The Get Metadata API from Moralis — 4 operation(s) for get metadata.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Get Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-get-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-get-mutiple-nfts-api
+  name: Moralis Get Mutiple NFTs API
+  description: The Get Mutiple NFTs API from Moralis — 1 operation(s) for get mutiple nfts.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Get Mutiple NFTs
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-get-mutiple-nfts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-get-nfts-api
+  name: Moralis Get NFTs API
+  description: The Get NFTs API from Moralis — 2 operation(s) for get nfts.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Get NFTs
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-get-nfts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-get-owners-api
+  name: Moralis Get Owners API
+  description: The Get Owners API from Moralis — 3 operation(s) for get owners.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Get Owners
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-get-owners-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-get-ownership-api
+  name: Moralis Get Ownership API
+  description: The Get Ownership API from Moralis — 1 operation(s) for get ownership.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Get Ownership
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-get-ownership-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-get-transactions-api
+  name: Moralis Get Transactions API
+  description: The Get Transactions API from Moralis — 2 operation(s) for get transactions.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Get Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-get-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-get-transfers-api
+  name: Moralis Get Transfers API
+  description: The Get Transfers API from Moralis — 3 operation(s) for get transfers.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Get Transfers
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-get-transfers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-get-unique-owners-api
+  name: Moralis Get Unique Owners API
+  description: The Get Unique Owners API from Moralis — 1 operation(s) for get unique owners.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Get Unique Owners
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-get-unique-owners-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-market-data-api
+  name: Moralis Market Data API
+  description: The Market Data API from Moralis — 6 operation(s) for market data.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Market Data
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-market-data-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-nft-api
+  name: Moralis NFT API
+  description: The NFT API from Moralis — 28 operation(s) for nft.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - NFT
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-nft-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-resolve-web3-domain-api
+  name: Moralis Resolve Web3 Domain API
+  description: The Resolve Web3 Domain API from Moralis — 4 operation(s) for resolve web3 domain.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Resolve Web3 Domain
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-resolve-web3-domain-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-token-api
+  name: Moralis Token API
+  description: The Token API from Moralis — 35 operation(s) for token.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-token-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-transaction-api
+  name: Moralis Transaction API
+  description: The Transaction API from Moralis — 4 operation(s) for transaction.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Transaction
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-transaction-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-utils-api
+  name: Moralis Utils API
+  description: The Utils API from Moralis — 4 operation(s) for utils.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Utils
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-utils-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
+- aid: moralis:moralis-wallets-api
+  name: Moralis Wallets API
+  description: The Wallets API from Moralis — 13 operation(s) for wallets.
+  humanURL: https://docs.moralis.com/web3-data-api/evm
+  baseURL: https://deep-index.moralis.io/api/v2.2
+  tags:
+  - Wallets
+  properties:
+  - type: OpenAPI
+    url: openapi/moralis-wallets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.moralis.com/web3-data-api/evm
 common:
   - type: AgenticAccess
     url: agentic-access/moralis-agentic-access.yml
