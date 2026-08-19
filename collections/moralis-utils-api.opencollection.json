@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EVM Balance Utils API",
+    "version": "2.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Utils",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run contract function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://deep-index.moralis.io/api/v2.2/:address/function",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the contract"
+              },
+              {
+                "name": "function_name",
+                "value": "",
+                "type": "query",
+                "description": "The function name of the contract"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Execute a read-only function from a contract’s ABI to retrieve data from the blockchain."
+        },
+        {
+          "info": {
+            "name": "Get API version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/web3/version",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Check the current version of the Moralis Web3 API."
+        },
+        {
+          "info": {
+            "name": "Get weights of endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/info/endpointWeights",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "View the cost and rate limits for each Moralis API endpoint."
+        },
+        {
+          "info": {
+            "name": "Review contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://deep-index.moralis.io/api/v2.2/contracts-review",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Classify contracts as spam or legitimate based on their characteristics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

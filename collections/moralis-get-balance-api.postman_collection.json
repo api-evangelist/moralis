@@ -1,0 +1,213 @@
+{
+  "item": [
+    {
+      "id": "5b79fc41-52cc-47d9-af97-ce75bf7696cd",
+      "name": "Get Balance",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8a2ea8be-35d4-4014-9101-0458005d15ba",
+          "name": "Get ERC20 token balances by wallet",
+          "request": {
+            "name": "Get ERC20 token balances by wallet",
+            "description": {
+              "content": "Get an unpaginated list of token balances, without token prices, for a specific wallet address. Maximum of 2,000 tokens. Each token returned includes on-chain metadata, as well as off-chain metadata, logos, spam status and more.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":address",
+                "erc20"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_block",
+                  "value": "<number>",
+                  "description": "The block number up to which the balances will be checked."
+                },
+                {
+                  "disabled": false,
+                  "key": "token_addresses",
+                  "value": "<string>",
+                  "description": "The addresses to get balances for (optional)"
+                },
+                {
+                  "disabled": false,
+                  "key": "token_addresses",
+                  "value": "<string>",
+                  "description": "The addresses to get balances for (optional)"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_spam",
+                  "value": "true",
+                  "description": "Exclude spam tokens from the result"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The address from which token balances will be checked"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "968af32f-a43c-4565-b834-2d7cc7139a39",
+              "name": "Returns token balances for a specific address",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":address",
+                    "erc20"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "to_block",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "token_addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token_addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude_spam",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address from which token balances will be checked"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"token_address\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\",\n    \"name\": \"Kylin Network\",\n    \"symbol\": \"KYL\",\n    \"decimals\": 18,\n    \"balance\": \"123456789\",\n    \"possible_spam\": false,\n    \"logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n    \"thumbnail\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png\",\n    \"verified_contract\": false\n  },\n  {\n    \"token_address\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\",\n    \"name\": \"Kylin Network\",\n    \"symbol\": \"KYL\",\n    \"decimals\": 18,\n    \"balance\": \"123456789\",\n    \"possible_spam\": true,\n    \"logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n    \"thumbnail\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png\",\n    \"verified_contract\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "41c3886d-e8b0-48c7-9ea2-0ac53ce7793f",
+    "name": "EVM Balance Get Balance API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EVM Balance Block API",
+    "version": "2.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Block",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get block by hash",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/block/:block_number_or_hash",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "block_number_or_hash",
+                "value": "",
+                "type": "path",
+                "description": "The block number or block hash"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "If the result should contain the internal transactions."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the contents of a block given the block hash."
+        },
+        {
+          "info": {
+            "name": "Get latest block number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/latestBlockNumber/:chain",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "path",
+                "description": "The chain to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the most recent block number for a specified blockchain."
+        },
+        {
+          "info": {
+            "name": "Get block by date",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/dateToBlock",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Unix date in milliseconds or a datestring (format in seconds or datestring accepted by momentjs)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Find the closest block to a specific date on a blockchain."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

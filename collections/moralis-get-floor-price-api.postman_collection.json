@@ -1,0 +1,465 @@
+{
+  "item": [
+    {
+      "id": "baf65044-52cb-4bed-ba6c-0bb67fb07399",
+      "name": "Get Floor Price",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ed69ac50-e692-436f-a138-5925f86e9dfd",
+          "name": "Get NFT floor price by contract",
+          "request": {
+            "name": "Get NFT floor price by contract",
+            "description": {
+              "content": "Get floor price for a given collection. Refreshes every 30 minutes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "nft",
+                ":address",
+                "floor-price"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The address of the NFT contract"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d0e43acd-1d70-4c4a-8022-98a1d69646e3",
+              "name": "Returns the conract's floor price",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nft",
+                    ":address",
+                    "floor-price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address of the NFT contract"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d\",\n  \"last_updated\": \"2024-08-21T15:59:11.000Z\",\n  \"floor_price\": \"0.2176\",\n  \"floor_price_usd\": \"564.24\",\n  \"currency\": \"eth\",\n  \"marketplace\": {\n    \"name\": \"blur\",\n    \"logo\": \"https://cdn.moralis.io/marketplaces/blur.png\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c207bf7-ec20-43e6-93cf-4a3d6bc1f1b8",
+          "name": "Get NFT floor price by token",
+          "request": {
+            "name": "Get NFT floor price by token",
+            "description": {
+              "content": "Get the floor price for a specific NFT, defined by its contract and token ID. Refreshes every 30 minutes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "nft",
+                ":address",
+                ":token_id",
+                "floor-price"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The address of the NFT contract"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) The token ID of the NFT"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f6bedb3d-1cf8-4866-911f-7dfead01ee62",
+              "name": "Returns the token's floor price",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nft",
+                    ":address",
+                    ":token_id",
+                    "floor-price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address of the NFT contract"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) The token ID of the NFT"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d\",\n  \"token_id\": \"2441\",\n  \"floor_price\": \"0.2176\",\n  \"floor_price_usd\": \"564.24\",\n  \"currency\": \"eth\",\n  \"marketplace\": {\n    \"name\": \"blur\",\n    \"logo\": \"https://cdn.moralis.io/marketplaces/blur.png\"\n  },\n  \"last_updated\": \"2024-08-21T15:59:11.000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8801042-46d5-4672-b3e3-e6bb5489bc88",
+          "name": "Get historical NFT floor price by contract",
+          "request": {
+            "name": "Get historical NFT floor price by contract",
+            "description": {
+              "content": "Get timeseries historical floor prices for a given NFT collection. Refreshes every 30 minutes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "nft",
+                ":address",
+                "floor-price",
+                "historical"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "1d",
+                  "description": "(Required) The duration to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor returned in the previous response (used for getting the next page)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The address of the NFT contract"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1e024c74-0634-496f-8fe7-90a5366c65c1",
+              "name": "Returns the conract's historical floor price",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nft",
+                    ":address",
+                    "floor-price",
+                    "historical"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address of the NFT contract"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"timestamp\": \"2024-08-21T15:59:11.000Z\",\n      \"floor_price\": \"0.2176\",\n      \"floor_price_usd\": \"564.24\",\n      \"currency\": \"eth\",\n      \"marketplace\": \"blur\"\n    },\n    {\n      \"timestamp\": \"2024-08-21T15:59:11.000Z\",\n      \"floor_price\": \"0.2176\",\n      \"floor_price_usd\": \"564.24\",\n      \"currency\": \"eth\",\n      \"marketplace\": \"blur\"\n    }\n  ],\n  \"page\": 8619,\n  \"page_size\": 1252,\n  \"cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "772e2fe6-e8e6-49c4-8b19-1b7fe6210713",
+    "name": "EVM Balance Get Floor Price API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

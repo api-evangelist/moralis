@@ -1,0 +1,637 @@
+{
+  "item": [
+    {
+      "id": "5ed2b26c-607b-4030-a05b-b441d4a11b6a",
+      "name": "Market Data",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fed1ceb3-85e5-4273-ab4a-d90ec58d82eb",
+          "name": "Get top ERC20 tokens by market cap",
+          "request": {
+            "name": "Get top ERC20 tokens by market cap",
+            "description": {
+              "content": "List the top ERC20 tokens ranked by market cap. Currently only supports Ethereum. For more flexibility, we recommend to use getFilteredTokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "market-data",
+                "erc20s",
+                "top-tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d19da2ab-de5e-4968-9d8d-61532885919b",
+              "name": "Returns the top ERC20 tokens by market cap",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "market-data",
+                    "erc20s",
+                    "top-tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"rank\": 1,\n    \"token_name\": \"Wrapped Ether\",\n    \"token_symbol\": \"WETH\",\n    \"token_logo\": \"https://cdn.moralis.io/coins/images/2518/large/weth.png?1595348880\",\n    \"token_decimals\": \"18\",\n    \"contract_address\": \"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\",\n    \"price_usd\": \"0.0285\",\n    \"price_24h_percent_change\": \"0.0285\",\n    \"price_7d_percent_change\": \"0.0285\",\n    \"market_cap_usd\": \"0.0285\"\n  },\n  {\n    \"rank\": 1,\n    \"token_name\": \"Wrapped Ether\",\n    \"token_symbol\": \"WETH\",\n    \"token_logo\": \"https://cdn.moralis.io/coins/images/2518/large/weth.png?1595348880\",\n    \"token_decimals\": \"18\",\n    \"contract_address\": \"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\",\n    \"price_usd\": \"0.0285\",\n    \"price_24h_percent_change\": \"0.0285\",\n    \"price_7d_percent_change\": \"0.0285\",\n    \"market_cap_usd\": \"0.0285\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ecd31a6-6a96-4398-911d-c10742d10d42",
+          "name": "Get top ERC20 tokens by price movements (winners and losers)",
+          "request": {
+            "name": "Get top ERC20 tokens by price movements (winners and losers)",
+            "description": {
+              "content": "Get top ERC20 tokens by price movements (winners and losers). Currently only supports Ethereum. For more flexibility, we recommend to use getFilteredTokens or getTopGainersTokens and getTopLosersTokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "market-data",
+                "erc20s",
+                "top-movers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0f181475-2dc3-4af2-bb23-12924b63b863",
+              "name": "Returns an a list of ERC20 tokens with their price change",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "market-data",
+                    "erc20s",
+                    "top-movers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"gainers\": [\n    {\n      \"rank\": 1,\n      \"token_name\": \"Wrapped Ether\",\n      \"token_symbol\": \"WETH\",\n      \"token_logo\": \"https://cdn.moralis.io/coins/images/2518/large/weth.png?1595348880\",\n      \"token_decimals\": \"18\",\n      \"contract_address\": \"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\",\n      \"price_usd\": \"0.0285\",\n      \"price_24h_percent_change\": \"0.0285\",\n      \"price_7d_percent_change\": \"0.0285\",\n      \"market_cap_usd\": \"0.0285\"\n    },\n    {\n      \"rank\": 1,\n      \"token_name\": \"Wrapped Ether\",\n      \"token_symbol\": \"WETH\",\n      \"token_logo\": \"https://cdn.moralis.io/coins/images/2518/large/weth.png?1595348880\",\n      \"token_decimals\": \"18\",\n      \"contract_address\": \"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\",\n      \"price_usd\": \"0.0285\",\n      \"price_24h_percent_change\": \"0.0285\",\n      \"price_7d_percent_change\": \"0.0285\",\n      \"market_cap_usd\": \"0.0285\"\n    }\n  ],\n  \"losers\": [\n    {\n      \"rank\": 1,\n      \"token_name\": \"Wrapped Ether\",\n      \"token_symbol\": \"WETH\",\n      \"token_logo\": \"https://cdn.moralis.io/coins/images/2518/large/weth.png?1595348880\",\n      \"token_decimals\": \"18\",\n      \"contract_address\": \"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\",\n      \"price_usd\": \"0.0285\",\n      \"price_24h_percent_change\": \"0.0285\",\n      \"price_7d_percent_change\": \"0.0285\",\n      \"market_cap_usd\": \"0.0285\"\n    },\n    {\n      \"rank\": 1,\n      \"token_name\": \"Wrapped Ether\",\n      \"token_symbol\": \"WETH\",\n      \"token_logo\": \"https://cdn.moralis.io/coins/images/2518/large/weth.png?1595348880\",\n      \"token_decimals\": \"18\",\n      \"contract_address\": \"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\",\n      \"price_usd\": \"0.0285\",\n      \"price_24h_percent_change\": \"0.0285\",\n      \"price_7d_percent_change\": \"0.0285\",\n      \"market_cap_usd\": \"0.0285\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "242c2228-37f3-40b6-9cb3-61d6b4eb96d6",
+          "name": "Get top NFT collections by market cap",
+          "request": {
+            "name": "Get top NFT collections by market cap",
+            "description": {
+              "content": "Get top NFT collections by their current market cap. Currently only supports Ethereum.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "market-data",
+                "nfts",
+                "top-collections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2accbed7-636b-48d3-a961-b5114f3f6b71",
+              "name": "Returns the top NFT collections by market cap",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "market-data",
+                    "nfts",
+                    "top-collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"rank\": 1,\n    \"collection_title\": \"CryptoPunks\",\n    \"collection_image\": \"\",\n    \"floor_price_usd\": \"0.0\",\n    \"floor_price_24hr_percent_change\": \"0.0\",\n    \"market_cap_usd\": \"0.0\",\n    \"market_cap_24hr_percent_change\": \"0.0\",\n    \"volume_usd\": \"0.0\",\n    \"volume_24hr_percent_change\": \"0.0\",\n    \"collection_address\": \"0x123\",\n    \"floor_price\": \"0.0\",\n    \"floor_price_usd_24hr_percent_change\": \"0.0\"\n  },\n  {\n    \"rank\": 1,\n    \"collection_title\": \"CryptoPunks\",\n    \"collection_image\": \"\",\n    \"floor_price_usd\": \"0.0\",\n    \"floor_price_24hr_percent_change\": \"0.0\",\n    \"market_cap_usd\": \"0.0\",\n    \"market_cap_24hr_percent_change\": \"0.0\",\n    \"volume_usd\": \"0.0\",\n    \"volume_24hr_percent_change\": \"0.0\",\n    \"collection_address\": \"0x123\",\n    \"floor_price\": \"0.0\",\n    \"floor_price_usd_24hr_percent_change\": \"0.0\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "272650b3-840c-4122-841f-23ac50058b73",
+          "name": "Get top NFT collections by trading volume",
+          "request": {
+            "name": "Get top NFT collections by trading volume",
+            "description": {
+              "content": "Get NFT collections by their 24 hour trading volume. Currently only supports Ethereum.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "market-data",
+                "nfts",
+                "hottest-collections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b117a843-b842-4c63-8a4b-b96367198e31",
+              "name": "Returns the hottest NFT collections by trading volume",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "market-data",
+                    "nfts",
+                    "hottest-collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"rank\": 1,\n    \"collection_title\": \"CryptoPunks\",\n    \"collection_image\": \"\",\n    \"floor_price_usd\": \"0.0\",\n    \"floor_price_24hr_percent_change\": \"0.0\",\n    \"volume_usd\": \"0.0\",\n    \"volume_24hr_percent_change\": \"0.0\",\n    \"collection_address\": \"0x123\",\n    \"average_price_usd\": \"0.0\",\n    \"average_price\": \"0.0\",\n    \"floor_price\": \"0.0\",\n    \"floor_price_usd_24hr_percent_change\": \"0.0\",\n    \"floor_price_7d_percent_change\": \"0.0\",\n    \"floor_price_usd_7d_percent_change\": \"0.0\",\n    \"floor_price_30d_percent_change\": \"0.0\",\n    \"floor_price_usd_30d_percent_change\": \"0.0\"\n  },\n  {\n    \"rank\": 1,\n    \"collection_title\": \"CryptoPunks\",\n    \"collection_image\": \"\",\n    \"floor_price_usd\": \"0.0\",\n    \"floor_price_24hr_percent_change\": \"0.0\",\n    \"volume_usd\": \"0.0\",\n    \"volume_24hr_percent_change\": \"0.0\",\n    \"collection_address\": \"0x123\",\n    \"average_price_usd\": \"0.0\",\n    \"average_price\": \"0.0\",\n    \"floor_price\": \"0.0\",\n    \"floor_price_usd_24hr_percent_change\": \"0.0\",\n    \"floor_price_7d_percent_change\": \"0.0\",\n    \"floor_price_usd_7d_percent_change\": \"0.0\",\n    \"floor_price_30d_percent_change\": \"0.0\",\n    \"floor_price_usd_30d_percent_change\": \"0.0\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b8f20b7-025f-4a52-a879-95d014f5603a",
+          "name": "Get top crypto currencies by market cap",
+          "request": {
+            "name": "Get top crypto currencies by market cap",
+            "description": {
+              "content": "Get cryptocurrencies by their market cap.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "market-data",
+                "global",
+                "market-cap"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7bc2aaa1-3ab4-449f-bff6-735345546f32",
+              "name": "Returns the top crypto currencies by market cap",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "market-data",
+                    "global",
+                    "market-cap"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"ETH\",\n    \"name\": \"Ethereum\",\n    \"logo\": \"https://cdn.moralis.io/coins/images/279/large/ethereum.png?1595348880\",\n    \"circulating_supply\": \"0.0\",\n    \"total_supply\": \"0.0\",\n    \"max_supply\": \"0.0\",\n    \"market_cap_usd\": \"0.0\",\n    \"market_cap_rank\": \"0.0\",\n    \"market_cap_24hr_change\": \"0.0\",\n    \"market_cap_24hr_percent_change\": \"0.0\",\n    \"total_volume\": \"0.0\",\n    \"usd_price_24hr_high\": \"0.0\",\n    \"usd_price_24hr_low\": \"0.0\",\n    \"usd_price_24hr_change\": \"0.0\",\n    \"usd_price_24hr_percent_change\": \"0.0\",\n    \"usd_price_ath\": \"0.0\",\n    \"ath_percent_change\": \"0.0\",\n    \"ath_date\": \"0.0\",\n    \"usd_price\": \"0.0\",\n    \"usd_price_1hr_percent_change\": \"0.0\",\n    \"usd_price_7d_percent_change\": \"0.0\",\n    \"usd_price_30d_percent_change\": \"0.0\"\n  },\n  {\n    \"symbol\": \"ETH\",\n    \"name\": \"Ethereum\",\n    \"logo\": \"https://cdn.moralis.io/coins/images/279/large/ethereum.png?1595348880\",\n    \"circulating_supply\": \"0.0\",\n    \"total_supply\": \"0.0\",\n    \"max_supply\": \"0.0\",\n    \"market_cap_usd\": \"0.0\",\n    \"market_cap_rank\": \"0.0\",\n    \"market_cap_24hr_change\": \"0.0\",\n    \"market_cap_24hr_percent_change\": \"0.0\",\n    \"total_volume\": \"0.0\",\n    \"usd_price_24hr_high\": \"0.0\",\n    \"usd_price_24hr_low\": \"0.0\",\n    \"usd_price_24hr_change\": \"0.0\",\n    \"usd_price_24hr_percent_change\": \"0.0\",\n    \"usd_price_ath\": \"0.0\",\n    \"ath_percent_change\": \"0.0\",\n    \"ath_date\": \"0.0\",\n    \"usd_price\": \"0.0\",\n    \"usd_price_1hr_percent_change\": \"0.0\",\n    \"usd_price_7d_percent_change\": \"0.0\",\n    \"usd_price_30d_percent_change\": \"0.0\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a8256022-c15b-4a3b-be90-02c0aa89cf09",
+          "name": "Get top crypto currencies by trading volume",
+          "request": {
+            "name": "Get top crypto currencies by trading volume",
+            "description": {
+              "content": "Get cryptocurrencies with the highest 24 hour trading volume.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "market-data",
+                "global",
+                "volume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c5240641-5945-40f5-b1d9-884bac9c02bc",
+              "name": "Returns the top crypto currencies by trading volume",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "market-data",
+                    "global",
+                    "volume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"ETH\",\n    \"name\": \"Ethereum\",\n    \"logo\": \"https://cdn.moralis.io/coins/images/279/large/ethereum.png?1595348880\",\n    \"circulating_supply\": \"0.0\",\n    \"total_supply\": \"0.0\",\n    \"max_supply\": \"0.0\",\n    \"market_cap_usd\": \"0.0\",\n    \"market_cap_rank\": \"0.0\",\n    \"market_cap_24hr_change\": \"0.0\",\n    \"market_cap_24hr_percent_change\": \"0.0\",\n    \"total_volume\": \"0.0\",\n    \"usd_price_24hr_high\": \"0.0\",\n    \"usd_price_24hr_low\": \"0.0\",\n    \"usd_price_24hr_change\": \"0.0\",\n    \"usd_price_24hr_percent_change\": \"0.0\",\n    \"usd_price_ath\": \"0.0\",\n    \"ath_percent_change\": \"0.0\",\n    \"ath_date\": \"0.0\",\n    \"usd_price\": \"0.0\",\n    \"usd_price_1hr_percent_change\": \"0.0\",\n    \"usd_price_7d_percent_change\": \"0.0\",\n    \"usd_price_30d_percent_change\": \"0.0\"\n  },\n  {\n    \"symbol\": \"ETH\",\n    \"name\": \"Ethereum\",\n    \"logo\": \"https://cdn.moralis.io/coins/images/279/large/ethereum.png?1595348880\",\n    \"circulating_supply\": \"0.0\",\n    \"total_supply\": \"0.0\",\n    \"max_supply\": \"0.0\",\n    \"market_cap_usd\": \"0.0\",\n    \"market_cap_rank\": \"0.0\",\n    \"market_cap_24hr_change\": \"0.0\",\n    \"market_cap_24hr_percent_change\": \"0.0\",\n    \"total_volume\": \"0.0\",\n    \"usd_price_24hr_high\": \"0.0\",\n    \"usd_price_24hr_low\": \"0.0\",\n    \"usd_price_24hr_change\": \"0.0\",\n    \"usd_price_24hr_percent_change\": \"0.0\",\n    \"usd_price_ath\": \"0.0\",\n    \"ath_percent_change\": \"0.0\",\n    \"ath_date\": \"0.0\",\n    \"usd_price\": \"0.0\",\n    \"usd_price_1hr_percent_change\": \"0.0\",\n    \"usd_price_7d_percent_change\": \"0.0\",\n    \"usd_price_30d_percent_change\": \"0.0\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "557c3b97-a981-45a3-a28e-87cfb298c043",
+    "name": "EVM Balance Market Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

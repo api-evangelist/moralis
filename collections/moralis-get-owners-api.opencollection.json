@@ -1,0 +1,185 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EVM Balance Get Owners API",
+    "version": "2.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Get Owners",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get NFT owners by contract address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/owners",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "normalizeMetadata",
+                "value": "",
+                "type": "query",
+                "description": "Should normalized metadata be returned?"
+              },
+              {
+                "name": "media_items",
+                "value": "",
+                "type": "query",
+                "description": "Should preview media data be returned?"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Identify wallets owning NFTs from a specific contract."
+        },
+        {
+          "info": {
+            "name": "Get NFT owners by token ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/:token_id/owners",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the token"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "normalizeMetadata",
+                "value": "",
+                "type": "query",
+                "description": "Should normalized metadata be returned?"
+              },
+              {
+                "name": "media_items",
+                "value": "",
+                "type": "query",
+                "description": "Should preview media data be returned?"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List wallets owning a specific NFT, defined by its contract and token ID."
+        },
+        {
+          "info": {
+            "name": "Get summary stats by NFT collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/stats",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT collection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get summary stats by NFT collection including total NFT transfers, total tokens and total owners."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,184 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EVM Balance Get NFTs API",
+    "version": "2.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Get NFTs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get NFTs by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:address/nft",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the wallet"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "exclude_spam",
+                "value": "",
+                "type": "query",
+                "description": "Should spam NFTs be excluded from the result?"
+              },
+              {
+                "name": "token_addresses",
+                "value": "",
+                "type": "query",
+                "description": "The addresses to get balances for (optional)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "normalizeMetadata",
+                "value": "",
+                "type": "query",
+                "description": "Should normalized metadata be returned?"
+              },
+              {
+                "name": "media_items",
+                "value": "",
+                "type": "query",
+                "description": "Should preview media data be returned?"
+              },
+              {
+                "name": "include_prices",
+                "value": "",
+                "type": "query",
+                "description": "Should NFT last sale prices be included in the result?"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch all NFTs held by a specified wallet address. Use `token_addresses` to filter by one or many specific contract(s). Each NFT returned includes on-chain metadata as well as off-chain metadata, floor prices, rarity and more where available."
+        },
+        {
+          "info": {
+            "name": "Get NFTs by contract address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "totalRanges",
+                "value": "",
+                "type": "query",
+                "description": "The number of subranges to split the results into"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query",
+                "description": "The desired subrange to query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "normalizeMetadata",
+                "value": "",
+                "type": "query",
+                "description": "Should normalized metadata be returned?"
+              },
+              {
+                "name": "media_items",
+                "value": "",
+                "type": "query",
+                "description": "Should preview media data be returned?"
+              },
+              {
+                "name": "include_prices",
+                "value": "",
+                "type": "query",
+                "description": "Should NFT last sale prices be included in the result?"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch all NFTs for a given collection. Each NFT returned includes on-chain metadata as well as off-chain metadata, floor prices, rarity and more where available."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

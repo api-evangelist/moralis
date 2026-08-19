@@ -1,0 +1,321 @@
+{
+  "item": [
+    {
+      "id": "27c732a9-ce5b-4074-8eee-4c5d8c60f835",
+      "name": "Balance",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9645611f-7ccc-44cb-bd07-7b8b8219420f",
+          "name": "Get native balance by wallet",
+          "request": {
+            "name": "Get native balance by wallet",
+            "description": {
+              "content": "Check the native token balance (e.g. ETH) for a specific wallet.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":address",
+                "balance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_block",
+                  "value": "<number>",
+                  "description": "The block number up to which the balances will be checked."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The address from which the native balance will be checked"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "84d988a1-b67e-4744-bc72-cf7d86ec65a5",
+              "name": "Returns the native balance for a specific address",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":address",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "to_block",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address from which the native balance will be checked"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balance\": \"1234567890\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d606bf5-5793-4ffb-8a5d-b00ce9c227eb",
+          "name": "Get native balance for a set of wallets",
+          "request": {
+            "name": "Get native balance for a set of wallets",
+            "description": {
+              "content": "Retrieve native token balances (e.g. ETH) for one or many wallet addresses in single request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                "balances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_block",
+                  "value": "<number>",
+                  "description": "The block number on which the balances should be checked"
+                },
+                {
+                  "disabled": false,
+                  "key": "wallet_addresses",
+                  "value": "<string>",
+                  "description": "(Required) The addresses to get metadata for"
+                },
+                {
+                  "disabled": false,
+                  "key": "wallet_addresses",
+                  "value": "<string>",
+                  "description": "(Required) The addresses to get metadata for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "217bf27c-8489-46e4-bdb8-341beccd146a",
+              "name": "Returns a collection of balances",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    "balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "to_block",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "wallet_addresses",
+                      "value": "0xE92d1A43df510F82C66382592a047d288f85226f"
+                    },
+                    {
+                      "key": "wallet_addresses",
+                      "value": "0xE92d1A43df510F82C66382592a047d288f85226f"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"chain\": \"eth_mainnet\",\n    \"chain_id\": \"2\",\n    \"total_balance\": \"57499206466583095\",\n    \"block_number\": \"123456789\",\n    \"block_timestamp\": \"0.057\",\n    \"total_balance_formatted\": \"123456789\",\n    \"wallet_balances\": [\n      {\n        \"address\": \"0x123\",\n        \"balance\": \"28499206466583095\",\n        \"balance_formatted\": \"0.0285\"\n      },\n      {\n        \"address\": \"0x123\",\n        \"balance\": \"28499206466583095\",\n        \"balance_formatted\": \"0.0285\"\n      }\n    ]\n  },\n  {\n    \"chain\": \"eth_mainnet\",\n    \"chain_id\": \"2\",\n    \"total_balance\": \"57499206466583095\",\n    \"block_number\": \"123456789\",\n    \"block_timestamp\": \"0.057\",\n    \"total_balance_formatted\": \"123456789\",\n    \"wallet_balances\": [\n      {\n        \"address\": \"0x123\",\n        \"balance\": \"28499206466583095\",\n        \"balance_formatted\": \"0.0285\"\n      },\n      {\n        \"address\": \"0x123\",\n        \"balance\": \"28499206466583095\",\n        \"balance_formatted\": \"0.0285\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2462a1a3-3512-48e5-b2fa-ab66a9c4ad65",
+    "name": "EVM Balance API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

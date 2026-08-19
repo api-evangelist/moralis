@@ -1,0 +1,198 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EVM Balance Get Metadata API",
+    "version": "2.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Get Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get NFT metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/:token_id",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the token"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the token ID"
+              },
+              {
+                "name": "normalizeMetadata",
+                "value": "",
+                "type": "query",
+                "description": "Should normalized metadata be returned?"
+              },
+              {
+                "name": "media_items",
+                "value": "",
+                "type": "query",
+                "description": "Should preview media data be returned?"
+              },
+              {
+                "name": "include_prices",
+                "value": "",
+                "type": "query",
+                "description": "Should NFT last sale prices be included in the result?"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch metadata for a specific NFT. Includes on-chain metadata as well as off-chain metadata, floor prices, rarity and more where available."
+        },
+        {
+          "info": {
+            "name": "Resync NFT metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/nft/:address/:token_id/metadata/resync",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the NFT contract"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the token"
+              },
+              {
+                "name": "flag",
+                "value": "",
+                "type": "query",
+                "description": "The type of resync to operate"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query",
+                "description": "To define the behaviour of the endpoint"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update an NFT’s metadata, either from its current token URI or a new one. Choose sync for immediate results or async for background processing."
+        },
+        {
+          "info": {
+            "name": "Get ERC20 token metadata by contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/metadata",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "addresses",
+                "value": "",
+                "type": "query",
+                "description": "The addresses to get metadata for"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve metadata (name, symbol, decimals, logo) for an ERC20 token contract, as well as off-chain metadata, total supply, categories, logos, spam status and more."
+        },
+        {
+          "info": {
+            "name": "Get ERC20 token metadata by symbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/erc20/metadata/symbols",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query",
+                "description": "The symbols to get metadata for"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch metadata (name, symbol, decimals, logo) for a list of ERC20 token symbols."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

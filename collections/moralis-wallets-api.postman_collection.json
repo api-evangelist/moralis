@@ -1,0 +1,2131 @@
+{
+  "item": [
+    {
+      "id": "a1855953-6a77-4545-b21a-0a6a87bd960d",
+      "name": "Wallets",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1c20429e-ceaf-432c-b5a1-c5d5252081b7",
+          "name": "Get ERC20 approvals by wallet",
+          "request": {
+            "name": "Get ERC20 approvals by wallet",
+            "description": {
+              "content": "List active ERC20 token approvals for a wallet, showing which contracts have access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "approvals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The desired page size of the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor returned in the previous response (used for getting the next page)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The wallet address from which to retrieve active ERC20 token approvals"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b26b3bf8-1f12-4acf-b6a8-d1270c4ec64f",
+              "name": "Returns active ERC20 token approvals for the specified wallet address",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "approvals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The wallet address from which to retrieve active ERC20 token approvals"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"block_number\": \"string\",\n      \"value\": \"8409770570506626\",\n      \"token\": {\n        \"address\": \"0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c\",\n        \"address_label\": \"string\",\n        \"name\": \"Tether USD\",\n        \"symbol\": \"USDT\",\n        \"logo\": \"https://opensea.io/favicon.ico\",\n        \"possible_spam\": false,\n        \"verified_contract\": false,\n        \"current_balance\": \"1000000000000000\",\n        \"current_balance_formatted\": \"0.1\",\n        \"usd_price\": \"1000000000000000\",\n        \"usd_at_risk\": \"1000000000000000\"\n      },\n      \"spender\": {\n        \"address\": \"0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c\",\n        \"address_label\": \"Binance 1\",\n        \"entity\": \"Opensea\",\n        \"entity_logo\": \"https://opensea.io/favicon.ico\"\n      },\n      \"block_timestamp\": \"2021-04-02T10:07:54.000Z\",\n      \"transaction_hash\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\",\n      \"value_formatted\": \"0.1\"\n    },\n    {\n      \"block_number\": \"string\",\n      \"value\": \"8409770570506626\",\n      \"token\": {\n        \"address\": \"0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c\",\n        \"address_label\": \"string\",\n        \"name\": \"Tether USD\",\n        \"symbol\": \"USDT\",\n        \"logo\": \"https://opensea.io/favicon.ico\",\n        \"possible_spam\": false,\n        \"verified_contract\": false,\n        \"current_balance\": \"1000000000000000\",\n        \"current_balance_formatted\": \"0.1\",\n        \"usd_price\": \"1000000000000000\",\n        \"usd_at_risk\": \"1000000000000000\"\n      },\n      \"spender\": {\n        \"address\": \"0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c\",\n        \"address_label\": \"Binance 1\",\n        \"entity\": \"Opensea\",\n        \"entity_logo\": \"https://opensea.io/favicon.ico\"\n      },\n      \"block_timestamp\": \"2021-04-02T10:07:54.000Z\",\n      \"transaction_hash\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\",\n      \"value_formatted\": \"0.1\"\n    }\n  ],\n  \"page\": 3539,\n  \"page_size\": 3566,\n  \"cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f1a943f-a5db-449d-9205-5e591a004052",
+          "name": "Get the complete decoded transaction history of a wallet",
+          "request": {
+            "name": "Get the complete decoded transaction history of a wallet",
+            "description": {
+              "content": "Get the complete decoded transaction history for a given wallet. All transactions are parsed, decoded, categorized and summarized into human-readable records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_block",
+                  "value": "<integer>",
+                  "description": "The minimum block number from which to get the transactions\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_block",
+                  "value": "<integer>",
+                  "description": "The maximum block number from which to get the transactions.\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_date",
+                  "value": "<string>",
+                  "description": "The start date from which to get the transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_date",
+                  "value": "<string>",
+                  "description": "Get the transactions up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_internal_transactions",
+                  "value": "<boolean>",
+                  "description": "If the result should contain the internal transactions."
+                },
+                {
+                  "disabled": false,
+                  "key": "nft_metadata",
+                  "value": "<boolean>",
+                  "description": "If the result should contain the nft metadata."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor returned in the previous response (used for getting the next page)."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "DESC",
+                  "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The desired page size of the result."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The address of the wallet"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5991ea29-ab07-46f8-8cca-0caec9f10cd4",
+              "name": "Returns wallet history of a wallet address",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "from_block",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to_block",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_internal_transactions",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "nft_metadata",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address of the wallet"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"hash\": \"0x1ed85b3757a6d31d01a4d6677fc52fd3911d649a0af21fe5ca3f886b153773ed\",\n      \"nonce\": \"1848059\",\n      \"transaction_index\": \"108\",\n      \"from_address\": \"0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0\",\n      \"value\": \"115580000000000000\",\n      \"gas_price\": \"52500000000\",\n      \"receipt_cumulative_gas_used\": \"4923073\",\n      \"receipt_gas_used\": \"21000\",\n      \"receipt_status\": \"1\",\n      \"block_timestamp\": \"2021-05-07T11:08:35.000Z\",\n      \"block_number\": \"12386788\",\n      \"block_hash\": \"0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171\",\n      \"category\": \"contract interaction\",\n      \"nft_transfers\": [\n        {\n          \"token_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"token_id\": \"15\",\n          \"log_index\": 5333,\n          \"contract_type\": \"ERC721\",\n          \"possible_spam\": true,\n          \"value\": \"1000000000000000\",\n          \"amount\": \"1\",\n          \"transaction_type\": \"string\",\n          \"direction\": \"outgoing\",\n          \"from_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"token_name\": \"Tether USD\",\n          \"token_symbol\": \"USDT\",\n          \"from_address_entity\": \"Opensea\",\n          \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n          \"from_address_label\": \"Binance 1\",\n          \"to_address_entity\": \"Beaver Build\",\n          \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n          \"to_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"to_address_label\": \"Binance 2\",\n          \"operator\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"verified_collection\": false,\n          \"collection_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n          \"collection_banner_image\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n          \"normalized_metadata\": {\n            \"name\": \"Moralis Mug\",\n            \"description\": \"Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.\",\n            \"image\": \"https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png\",\n            \"external_link\": \"https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI\",\n            \"external_url\": \"https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI\",\n            \"animation_url\": \"https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8\",\n            \"attributes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        {\n          \"token_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"token_id\": \"15\",\n          \"log_index\": 75,\n          \"contract_type\": \"ERC721\",\n          \"possible_spam\": false,\n          \"value\": \"1000000000000000\",\n          \"amount\": \"1\",\n          \"transaction_type\": \"string\",\n          \"direction\": \"outgoing\",\n          \"from_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"token_name\": \"Tether USD\",\n          \"token_symbol\": \"USDT\",\n          \"from_address_entity\": \"Opensea\",\n          \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n          \"from_address_label\": \"Binance 1\",\n          \"to_address_entity\": \"Beaver Build\",\n          \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n          \"to_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"to_address_label\": \"Binance 2\",\n          \"operator\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"verified_collection\": true,\n          \"collection_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n          \"collection_banner_image\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n          \"normalized_metadata\": {\n            \"name\": \"Moralis Mug\",\n            \"description\": \"Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.\",\n            \"image\": \"https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png\",\n            \"external_link\": \"https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI\",\n            \"external_url\": \"https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI\",\n            \"animation_url\": \"https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8\",\n            \"attributes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      ],\n      \"summary\": \"transfer\",\n      \"erc20_transfers\": [\n        {\n          \"token_name\": \"Tether USD\",\n          \"token_symbol\": \"USDT\",\n          \"token_logo\": \"https://cdn.moralis.io/images/325/large/Tether-logo.png?1598003707\",\n          \"token_decimals\": \"6\",\n          \"value_formatted\": \"1.033\",\n          \"address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"from_address\": \"0xd4a3BebD824189481FC45363602b83C9c7e9cbDf\",\n          \"value\": \"string\",\n          \"log_index\": 2,\n          \"possible_spam\": false,\n          \"verified_contract\": false,\n          \"block_timestamp\": \"2021-04-02T10:07:54.000Z\",\n          \"to_address_entity\": \"Beaver Build\",\n          \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n          \"to_address\": \"0x62AED87d21Ad0F3cdE4D147Fdcc9245401Af0044\",\n          \"to_address_label\": \"Binance 2\",\n          \"from_address_entity\": \"Opensea\",\n          \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n          \"from_address_label\": \"Binance 1\"\n        },\n        {\n          \"token_name\": \"Tether USD\",\n          \"token_symbol\": \"USDT\",\n          \"token_logo\": \"https://cdn.moralis.io/images/325/large/Tether-logo.png?1598003707\",\n          \"token_decimals\": \"6\",\n          \"value_formatted\": \"1.033\",\n          \"address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"from_address\": \"0xd4a3BebD824189481FC45363602b83C9c7e9cbDf\",\n          \"value\": \"string\",\n          \"log_index\": 2,\n          \"possible_spam\": false,\n          \"verified_contract\": true,\n          \"block_timestamp\": \"2021-04-02T10:07:54.000Z\",\n          \"to_address_entity\": \"Beaver Build\",\n          \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n          \"to_address\": \"0x62AED87d21Ad0F3cdE4D147Fdcc9245401Af0044\",\n          \"to_address_label\": \"Binance 2\",\n          \"from_address_entity\": \"Opensea\",\n          \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n          \"from_address_label\": \"Binance 1\"\n        }\n      ],\n      \"native_transfers\": [\n        {\n          \"from_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"value\": \"1000000000000000\",\n          \"value_formatted\": \"0.1\",\n          \"internal_transaction\": false,\n          \"token_symbol\": \"ETH\",\n          \"token_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n          \"from_address_entity\": \"Opensea\",\n          \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n          \"from_address_label\": \"Binance 1\",\n          \"to_address_entity\": \"Beaver Build\",\n          \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n          \"to_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"to_address_label\": \"Binance 2\",\n          \"direction\": \"outgoing\"\n        },\n        {\n          \"from_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"value\": \"1000000000000000\",\n          \"value_formatted\": \"0.1\",\n          \"internal_transaction\": true,\n          \"token_symbol\": \"ETH\",\n          \"token_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n          \"from_address_entity\": \"Opensea\",\n          \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n          \"from_address_label\": \"Binance 1\",\n          \"to_address_entity\": \"Beaver Build\",\n          \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n          \"to_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"to_address_label\": \"Binance 2\",\n          \"direction\": \"outgoing\"\n        }\n      ],\n      \"contract_interactions\": {\n        \"approvals\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"from_address_entity\": \"Opensea\",\n      \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n      \"from_address_label\": \"Binance 1\",\n      \"to_address_entity\": \"Beaver Build\",\n      \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n      \"to_address\": \"0x003dde3494f30d861d063232c6a8c04394b686ff\",\n      \"to_address_label\": \"Binance 2\",\n      \"gas\": \"30000\",\n      \"input\": \"0x\",\n      \"receipt_contract_address\": \"0x9869524fd160fe3adda6218883b6526c0977d3a5\",\n      \"transaction_fee\": \"0.00000000000000063\",\n      \"internal_transactions\": [\n        {\n          \"transaction_hash\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"block_number\": \"string\",\n          \"block_hash\": \"0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86\",\n          \"type\": \"CALL\",\n          \"from\": \"0xd4a3BebD824189481FC45363602b83C9c7e9cbDf\",\n          \"to\": \"0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef\",\n          \"value\": \"650000000000000000\",\n          \"gas\": \"6721975\",\n          \"gas_used\": \"6721975\",\n          \"input\": \"0x\",\n          \"output\": \"0x\",\n          \"error\": \"Execution reverted\"\n        },\n        {\n          \"transaction_hash\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"block_number\": \"string\",\n          \"block_hash\": \"0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86\",\n          \"type\": \"CALL\",\n          \"from\": \"0xd4a3BebD824189481FC45363602b83C9c7e9cbDf\",\n          \"to\": \"0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef\",\n          \"value\": \"650000000000000000\",\n          \"gas\": \"6721975\",\n          \"gas_used\": \"6721975\",\n          \"input\": \"0x\",\n          \"output\": \"0x\",\n          \"error\": \"Execution reverted\"\n        }\n      ],\n      \"possible_spam\": false,\n      \"method_label\": \"transfer\",\n      \"logs\": [\n        {\n          \"log_index\": \"273\",\n          \"transaction_hash\": \"0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5\",\n          \"transaction_index\": \"204\",\n          \"address\": \"0x3105d328c66d8d55092358cf595d54608178e9b5\",\n          \"data\": \"0x00000000000000000000000000000000000000000000000de05239bccd4d537400000000000000000000000000024dbc80a9f80e3d5fc0a0ee30e2693781a443\",\n          \"topic0\": \"0x2caecd17d02f56fa897705dcc740da2d237c373f70686f4e0d9bd3bf0400ea7a\",\n          \"block_timestamp\": \"2021-05-07T11:08:35.000Z\",\n          \"block_number\": \"12386788\",\n          \"block_hash\": \"0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171\",\n          \"decoded_event\": {\n            \"signature\": \"Transfer(address,address,uint256)\",\n            \"label\": \"Transfer\",\n            \"type\": \"event\",\n            \"params\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"topic1\": \"0x000000000000000000000000031002d15b0d0cd7c9129d6f644446368deae391\",\n          \"topic2\": \"0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9\",\n          \"topic3\": \"string\"\n        },\n        {\n          \"log_index\": \"273\",\n          \"transaction_hash\": \"0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5\",\n          \"transaction_index\": \"204\",\n          \"address\": \"0x3105d328c66d8d55092358cf595d54608178e9b5\",\n          \"data\": \"0x00000000000000000000000000000000000000000000000de05239bccd4d537400000000000000000000000000024dbc80a9f80e3d5fc0a0ee30e2693781a443\",\n          \"topic0\": \"0x2caecd17d02f56fa897705dcc740da2d237c373f70686f4e0d9bd3bf0400ea7a\",\n          \"block_timestamp\": \"2021-05-07T11:08:35.000Z\",\n          \"block_number\": \"12386788\",\n          \"block_hash\": \"0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171\",\n          \"decoded_event\": {\n            \"signature\": \"Transfer(address,address,uint256)\",\n            \"label\": \"Transfer\",\n            \"type\": \"event\",\n            \"params\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"topic1\": \"0x000000000000000000000000031002d15b0d0cd7c9129d6f644446368deae391\",\n          \"topic2\": \"0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9\",\n          \"topic3\": \"string\"\n        }\n      ]\n    },\n    {\n      \"hash\": \"0x1ed85b3757a6d31d01a4d6677fc52fd3911d649a0af21fe5ca3f886b153773ed\",\n      \"nonce\": \"1848059\",\n      \"transaction_index\": \"108\",\n      \"from_address\": \"0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0\",\n      \"value\": \"115580000000000000\",\n      \"gas_price\": \"52500000000\",\n      \"receipt_cumulative_gas_used\": \"4923073\",\n      \"receipt_gas_used\": \"21000\",\n      \"receipt_status\": \"1\",\n      \"block_timestamp\": \"2021-05-07T11:08:35.000Z\",\n      \"block_number\": \"12386788\",\n      \"block_hash\": \"0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171\",\n      \"category\": \"airdrop\",\n      \"nft_transfers\": [\n        {\n          \"token_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"token_id\": \"15\",\n          \"log_index\": 7398,\n          \"contract_type\": \"ERC721\",\n          \"possible_spam\": true,\n          \"value\": \"1000000000000000\",\n          \"amount\": \"1\",\n          \"transaction_type\": \"string\",\n          \"direction\": \"outgoing\",\n          \"from_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"token_name\": \"Tether USD\",\n          \"token_symbol\": \"USDT\",\n          \"from_address_entity\": \"Opensea\",\n          \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n          \"from_address_label\": \"Binance 1\",\n          \"to_address_entity\": \"Beaver Build\",\n          \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n          \"to_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"to_address_label\": \"Binance 2\",\n          \"operator\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"verified_collection\": true,\n          \"collection_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n          \"collection_banner_image\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n          \"normalized_metadata\": {\n            \"name\": \"Moralis Mug\",\n            \"description\": \"Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.\",\n            \"image\": \"https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png\",\n            \"external_link\": \"https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI\",\n            \"external_url\": \"https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI\",\n            \"animation_url\": \"https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8\",\n            \"attributes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        {\n          \"token_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"token_id\": \"15\",\n          \"log_index\": 4954,\n          \"contract_type\": \"ERC721\",\n          \"possible_spam\": true,\n          \"value\": \"1000000000000000\",\n          \"amount\": \"1\",\n          \"transaction_type\": \"string\",\n          \"direction\": \"outgoing\",\n          \"from_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"token_name\": \"Tether USD\",\n          \"token_symbol\": \"USDT\",\n          \"from_address_entity\": \"Opensea\",\n          \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n          \"from_address_label\": \"Binance 1\",\n          \"to_address_entity\": \"Beaver Build\",\n          \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n          \"to_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"to_address_label\": \"Binance 2\",\n          \"operator\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"verified_collection\": false,\n          \"collection_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n          \"collection_banner_image\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n          \"normalized_metadata\": {\n            \"name\": \"Moralis Mug\",\n            \"description\": \"Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.\",\n            \"image\": \"https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png\",\n            \"external_link\": \"https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI\",\n            \"external_url\": \"https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI\",\n            \"animation_url\": \"https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8\",\n            \"attributes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      ],\n      \"summary\": \"transfer\",\n      \"erc20_transfers\": [\n        {\n          \"token_name\": \"Tether USD\",\n          \"token_symbol\": \"USDT\",\n          \"token_logo\": \"https://cdn.moralis.io/images/325/large/Tether-logo.png?1598003707\",\n          \"token_decimals\": \"6\",\n          \"value_formatted\": \"1.033\",\n          \"address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"from_address\": \"0xd4a3BebD824189481FC45363602b83C9c7e9cbDf\",\n          \"value\": \"string\",\n          \"log_index\": 2,\n          \"possible_spam\": false,\n          \"verified_contract\": true,\n          \"block_timestamp\": \"2021-04-02T10:07:54.000Z\",\n          \"to_address_entity\": \"Beaver Build\",\n          \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n          \"to_address\": \"0x62AED87d21Ad0F3cdE4D147Fdcc9245401Af0044\",\n          \"to_address_label\": \"Binance 2\",\n          \"from_address_entity\": \"Opensea\",\n          \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n          \"from_address_label\": \"Binance 1\"\n        },\n        {\n          \"token_name\": \"Tether USD\",\n          \"token_symbol\": \"USDT\",\n          \"token_logo\": \"https://cdn.moralis.io/images/325/large/Tether-logo.png?1598003707\",\n          \"token_decimals\": \"6\",\n          \"value_formatted\": \"1.033\",\n          \"address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"from_address\": \"0xd4a3BebD824189481FC45363602b83C9c7e9cbDf\",\n          \"value\": \"string\",\n          \"log_index\": 2,\n          \"possible_spam\": true,\n          \"verified_contract\": true,\n          \"block_timestamp\": \"2021-04-02T10:07:54.000Z\",\n          \"to_address_entity\": \"Beaver Build\",\n          \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n          \"to_address\": \"0x62AED87d21Ad0F3cdE4D147Fdcc9245401Af0044\",\n          \"to_address_label\": \"Binance 2\",\n          \"from_address_entity\": \"Opensea\",\n          \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n          \"from_address_label\": \"Binance 1\"\n        }\n      ],\n      \"native_transfers\": [\n        {\n          \"from_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"value\": \"1000000000000000\",\n          \"value_formatted\": \"0.1\",\n          \"internal_transaction\": true,\n          \"token_symbol\": \"ETH\",\n          \"token_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n          \"from_address_entity\": \"Opensea\",\n          \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n          \"from_address_label\": \"Binance 1\",\n          \"to_address_entity\": \"Beaver Build\",\n          \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n          \"to_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"to_address_label\": \"Binance 2\",\n          \"direction\": \"outgoing\"\n        },\n        {\n          \"from_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"value\": \"1000000000000000\",\n          \"value_formatted\": \"0.1\",\n          \"internal_transaction\": false,\n          \"token_symbol\": \"ETH\",\n          \"token_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n          \"from_address_entity\": \"Opensea\",\n          \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n          \"from_address_label\": \"Binance 1\",\n          \"to_address_entity\": \"Beaver Build\",\n          \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n          \"to_address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"to_address_label\": \"Binance 2\",\n          \"direction\": \"outgoing\"\n        }\n      ],\n      \"contract_interactions\": {\n        \"approvals\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"from_address_entity\": \"Opensea\",\n      \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n      \"from_address_label\": \"Binance 1\",\n      \"to_address_entity\": \"Beaver Build\",\n      \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n      \"to_address\": \"0x003dde3494f30d861d063232c6a8c04394b686ff\",\n      \"to_address_label\": \"Binance 2\",\n      \"gas\": \"30000\",\n      \"input\": \"0x\",\n      \"receipt_contract_address\": \"0x9869524fd160fe3adda6218883b6526c0977d3a5\",\n      \"transaction_fee\": \"0.00000000000000063\",\n      \"internal_transactions\": [\n        {\n          \"transaction_hash\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"block_number\": \"string\",\n          \"block_hash\": \"0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86\",\n          \"type\": \"CALL\",\n          \"from\": \"0xd4a3BebD824189481FC45363602b83C9c7e9cbDf\",\n          \"to\": \"0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef\",\n          \"value\": \"650000000000000000\",\n          \"gas\": \"6721975\",\n          \"gas_used\": \"6721975\",\n          \"input\": \"0x\",\n          \"output\": \"0x\",\n          \"error\": \"Execution reverted\"\n        },\n        {\n          \"transaction_hash\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n          \"block_number\": \"string\",\n          \"block_hash\": \"0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86\",\n          \"type\": \"CALL\",\n          \"from\": \"0xd4a3BebD824189481FC45363602b83C9c7e9cbDf\",\n          \"to\": \"0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef\",\n          \"value\": \"650000000000000000\",\n          \"gas\": \"6721975\",\n          \"gas_used\": \"6721975\",\n          \"input\": \"0x\",\n          \"output\": \"0x\",\n          \"error\": \"Execution reverted\"\n        }\n      ],\n      \"possible_spam\": true,\n      \"method_label\": \"transfer\",\n      \"logs\": [\n        {\n          \"log_index\": \"273\",\n          \"transaction_hash\": \"0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5\",\n          \"transaction_index\": \"204\",\n          \"address\": \"0x3105d328c66d8d55092358cf595d54608178e9b5\",\n          \"data\": \"0x00000000000000000000000000000000000000000000000de05239bccd4d537400000000000000000000000000024dbc80a9f80e3d5fc0a0ee30e2693781a443\",\n          \"topic0\": \"0x2caecd17d02f56fa897705dcc740da2d237c373f70686f4e0d9bd3bf0400ea7a\",\n          \"block_timestamp\": \"2021-05-07T11:08:35.000Z\",\n          \"block_number\": \"12386788\",\n          \"block_hash\": \"0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171\",\n          \"decoded_event\": {\n            \"signature\": \"Transfer(address,address,uint256)\",\n            \"label\": \"Transfer\",\n            \"type\": \"event\",\n            \"params\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"topic1\": \"0x000000000000000000000000031002d15b0d0cd7c9129d6f644446368deae391\",\n          \"topic2\": \"0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9\",\n          \"topic3\": \"string\"\n        },\n        {\n          \"log_index\": \"273\",\n          \"transaction_hash\": \"0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5\",\n          \"transaction_index\": \"204\",\n          \"address\": \"0x3105d328c66d8d55092358cf595d54608178e9b5\",\n          \"data\": \"0x00000000000000000000000000000000000000000000000de05239bccd4d537400000000000000000000000000024dbc80a9f80e3d5fc0a0ee30e2693781a443\",\n          \"topic0\": \"0x2caecd17d02f56fa897705dcc740da2d237c373f70686f4e0d9bd3bf0400ea7a\",\n          \"block_timestamp\": \"2021-05-07T11:08:35.000Z\",\n          \"block_number\": \"12386788\",\n          \"block_hash\": \"0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171\",\n          \"decoded_event\": {\n            \"signature\": \"Transfer(address,address,uint256)\",\n            \"label\": \"Transfer\",\n            \"type\": \"event\",\n            \"params\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"topic1\": \"0x000000000000000000000000031002d15b0d0cd7c9129d6f644446368deae391\",\n          \"topic2\": \"0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9\",\n          \"topic3\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"page\": 5912,\n  \"page_size\": 5622,\n  \"cursor\": \"string\",\n  \"synced_at\": 7764\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b175e9e7-c0b1-40b1-8a10-b75c14998237",
+          "name": "Get token balances with prices by wallet address",
+          "request": {
+            "name": "Get token balances with prices by wallet address",
+            "description": {
+              "content": "Fetch ERC20 and native token balances for a given wallet address, including their USD prices. Each token returned includes on-chain metadata, as well as off-chain metadata, logos, spam status and more. Additional options to exclude spam tokens, low-liquidity tokens and inactive tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_block",
+                  "value": "<number>",
+                  "description": "The block number up to which the balances will be checked."
+                },
+                {
+                  "disabled": false,
+                  "key": "token_addresses",
+                  "value": "<string>",
+                  "description": "The addresses to get balances for (optional)"
+                },
+                {
+                  "disabled": false,
+                  "key": "token_addresses",
+                  "value": "<string>",
+                  "description": "The addresses to get balances for (optional)"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_spam",
+                  "value": "false",
+                  "description": "Exclude spam tokens from the result"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_unverified_contracts",
+                  "value": "false",
+                  "description": "Exclude unverified contracts from the result"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor returned in the previous response (used for getting the next page)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The desired page size of the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_native",
+                  "value": "false",
+                  "description": "Exclude native balance from the result"
+                },
+                {
+                  "disabled": false,
+                  "key": "max_token_inactivity",
+                  "value": "<number>",
+                  "description": "Exclude tokens inactive for more than the given amount of days"
+                },
+                {
+                  "disabled": false,
+                  "key": "min_pair_side_liquidity_usd",
+                  "value": "<number>",
+                  "description": "Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity on a single side of the pair."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The address from which token balances will be checked"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c5c32f95-0e3c-4717-8507-7e3823a1f0a3",
+              "name": "Returns token balances with prices for a specific address",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "to_block",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "token_addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token_addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude_spam",
+                      "value": "false"
+                    },
+                    {
+                      "key": "exclude_unverified_contracts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "exclude_native",
+                      "value": "false"
+                    },
+                    {
+                      "key": "max_token_inactivity",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "min_pair_side_liquidity_usd",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address from which token balances will be checked"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"name\": \"string\",\n      \"symbol\": \"string\",\n      \"decimals\": 9557,\n      \"balance\": \"string\",\n      \"possible_spam\": false,\n      \"usd_price\": \"string\",\n      \"usd_price_24hr_percent_change\": \"string\",\n      \"usd_price_24hr_usd_change\": \"string\",\n      \"usd_value\": 1965.4248381730654,\n      \"portfolio_percentage\": 1497.8937995650542,\n      \"balance_formatted\": \"string\",\n      \"native_token\": true,\n      \"token_address\": \"string\",\n      \"logo\": \"string\",\n      \"thumbnail\": \"string\",\n      \"verified_contract\": true,\n      \"usd_value_24hr_usd_change\": \"string\",\n      \"total_supply\": \"string\",\n      \"total_supply_formatted\": \"string\",\n      \"percentage_relative_to_total_supply\": 3263.5823013752474\n    },\n    {\n      \"name\": \"string\",\n      \"symbol\": \"string\",\n      \"decimals\": 6613,\n      \"balance\": \"string\",\n      \"possible_spam\": true,\n      \"usd_price\": \"string\",\n      \"usd_price_24hr_percent_change\": \"string\",\n      \"usd_price_24hr_usd_change\": \"string\",\n      \"usd_value\": 4745.98215621929,\n      \"portfolio_percentage\": 5327.006951454682,\n      \"balance_formatted\": \"string\",\n      \"native_token\": false,\n      \"token_address\": \"string\",\n      \"logo\": \"string\",\n      \"thumbnail\": \"string\",\n      \"verified_contract\": false,\n      \"usd_value_24hr_usd_change\": \"string\",\n      \"total_supply\": \"string\",\n      \"total_supply_formatted\": \"string\",\n      \"percentage_relative_to_total_supply\": 6708.268511904323\n    }\n  ],\n  \"page\": 5093,\n  \"page_size\": 9183,\n  \"block_number\": \"13680123\",\n  \"cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3db9925a-62a9-4779-b8ff-bae6507c00b0",
+          "name": "Get wallet net worth",
+          "request": {
+            "name": "Get wallet net worth",
+            "description": {
+              "content": "Calculate the total net worth of a wallet in USD, with options to exclude spam tokens for accuracy. Options to query cross-chain using the `chains` parameter, as well as additional options to exclude spam tokens, low-liquidity tokens and inactive tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "net-worth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "eth",
+                  "description": "The chains to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "eth",
+                  "description": "The chains to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_spam",
+                  "value": "false",
+                  "description": "Exclude spam tokens from the result"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_unverified_contracts",
+                  "value": "false",
+                  "description": "Exclude unverified contracts from the result"
+                },
+                {
+                  "disabled": false,
+                  "key": "max_token_inactivity",
+                  "value": "<number>",
+                  "description": "Exclude tokens inactive for more than the given amount of days"
+                },
+                {
+                  "disabled": false,
+                  "key": "min_pair_side_liquidity_usd",
+                  "value": "<number>",
+                  "description": "Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity on a single side of the pair."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The wallet address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "94f71c71-4f6b-4c0d-81f7-658356ee68fd",
+              "name": "Returns the net worth of a wallet in USD",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "net-worth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "exclude_spam",
+                      "value": "true"
+                    },
+                    {
+                      "key": "exclude_unverified_contracts",
+                      "value": "true"
+                    },
+                    {
+                      "key": "max_token_inactivity",
+                      "value": "1"
+                    },
+                    {
+                      "key": "min_pair_side_liquidity_usd",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The wallet address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_networth_usd\": \"3879851.41\",\n  \"chains\": [\n    {\n      \"chain\": \"eth\",\n      \"native_balance\": \"1085513807021271641379\",\n      \"native_balance_formatted\": \"1085.513807021271641379\",\n      \"native_balance_usd\": \"3158392.48\",\n      \"token_balance_usd\": \"721458.93\",\n      \"networth_usd\": \"3879851.41\"\n    },\n    {\n      \"chain\": \"eth\",\n      \"native_balance\": \"1085513807021271641379\",\n      \"native_balance_formatted\": \"1085.513807021271641379\",\n      \"native_balance_usd\": \"3158392.48\",\n      \"token_balance_usd\": \"721458.93\",\n      \"networth_usd\": \"3879851.41\"\n    }\n  ],\n  \"unsupported_chain_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"unavailable_chains\": [\n    {\n      \"chain_id\": \"0x1\"\n    },\n    {\n      \"chain_id\": \"0x1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8133a274-c8eb-43ec-acbb-59eef2c324cf",
+          "name": "Get the DeFi summary of a wallet",
+          "request": {
+            "name": "Get the DeFi summary of a wallet",
+            "description": {
+              "content": "Summarize a wallet’s DeFi activity, including total USD value, unclaimed rewards and active protocols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "defi",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) Wallet address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2ddf212c-53e7-4138-bea1-12cd93c89178",
+              "name": "Returns the defi summary for the wallet address.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "defi",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Wallet address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"active_protocols\": 8220.541216825599,\n  \"total_positions\": 3795.809623627965,\n  \"total_usd_value\": 163.5365732908145,\n  \"protocols\": [\n    {\n      \"total_usd_value\": 2547.723575491264,\n      \"positions\": 466.38916495287174,\n      \"total_unclaimed_usd_value\": 8490.932537540863\n    },\n    {\n      \"total_usd_value\": 9557.025604968256,\n      \"positions\": 531.5083442529011,\n      \"total_unclaimed_usd_value\": 3517.027025235322\n    }\n  ],\n  \"total_unclaimed_usd_value\": 2154.0171076485594\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3777873a-8c92-4362-8f56-f52d638ef809",
+          "name": "Get detailed DeFi positions by protocol for a wallet",
+          "request": {
+            "name": "Get detailed DeFi positions by protocol for a wallet",
+            "description": {
+              "content": "Fetch detailed DeFi positions for a given wallet and protocol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "defi",
+                ":protocol",
+                "positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) Wallet address"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "uniswap-v3",
+                  "key": "protocol",
+                  "description": "(Required) The protocol to query"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "90cdfd84-652e-48c3-be96-e4186611ce5e",
+              "name": "Returns the defi positions by protocol for the wallet address.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "defi",
+                    ":protocol",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Wallet address"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "uniswap-v3",
+                      "key": "protocol",
+                      "description": "(Required) The protocol to query"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"protocol_name\": \"Uniswap v2\",\n  \"protocol_id\": \"uniswap-v2\",\n  \"protocol_url\": \"https://app.uniswap.org/pools/v2\",\n  \"protocol_logo\": \"https://cdn.moralis.io/defi/uniswap.png\",\n  \"total_usd_value\": 47754.14278954011,\n  \"total_unclaimed_usd_value\": null,\n  \"positions\": [\n    {\n      \"label\": \"liquidity\",\n      \"tokens\": [\n        {\n          \"name\": \"Wrapped Ether\",\n          \"decimals\": 3861.4236164808126,\n          \"symbol\": \"WETH\",\n          \"contract_address\": \"0x06012c8cf97bead5deae237070f9587f8e7a266d\",\n          \"token_type\": \"defi-token\",\n          \"balance\": \"1000000\",\n          \"balance_formatted\": \"1.000000\",\n          \"logo\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"thumbnail\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"usd_price\": 6784.508717170746,\n          \"usd_value\": 8299.719379779572\n        },\n        {\n          \"name\": \"Wrapped Ether\",\n          \"decimals\": 673.5764608902073,\n          \"symbol\": \"WETH\",\n          \"contract_address\": \"0x06012c8cf97bead5deae237070f9587f8e7a266d\",\n          \"token_type\": \"defi-token\",\n          \"balance\": \"1000000\",\n          \"balance_formatted\": \"1.000000\",\n          \"logo\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"thumbnail\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"usd_price\": 3460.7115026570677,\n          \"usd_value\": 896.935896847505\n        }\n      ],\n      \"balance_usd\": 9166.564168902853,\n      \"total_unclaimed_usd_value\": 2807.2084627671666,\n      \"address\": \"0x06012c8cf97bead5deae237070f9587f8e7a266d\",\n      \"position_details\": {\n        \"fee_tier\": 6555.331229304353,\n        \"range_tnd\": 9950.360139210277,\n        \"reserves\": [\n          \"string\",\n          \"string\"\n        ],\n        \"current_price\": 8549.05790204734,\n        \"is_in_range\": true,\n        \"price_upper\": 2344.1013599792004,\n        \"price_lower\": 1858.5659977312118,\n        \"price_label\": \"string\",\n        \"liquidity\": 3984.6297879996196,\n        \"range_start\": 2962.1250648773157,\n        \"pool_address\": \"string\",\n        \"position_key\": \"string\",\n        \"nft_metadata\": {\n          \"key_0\": true,\n          \"key_1\": false\n        },\n        \"asset_standard\": \"string\",\n        \"apy\": 1660.8792114915339,\n        \"is_debt\": false,\n        \"is_variable_debt\": false,\n        \"is_stable_debt\": false,\n        \"shares\": \"string\",\n        \"reserve0\": \"string\",\n        \"reserve1\": \"string\",\n        \"factory\": \"string\",\n        \"pair\": \"string\",\n        \"share_of_pool\": 1455.0537435127642,\n        \"no_price_available\": true,\n        \"shares_in_strategy\": \"string\",\n        \"strategy_address\": \"string\",\n        \"base_type\": \"string\",\n        \"health_factor\": 5429.659985792846,\n        \"is_enabled_collateral\": true\n      }\n    },\n    {\n      \"label\": \"liquidity\",\n      \"tokens\": [\n        {\n          \"name\": \"Wrapped Ether\",\n          \"decimals\": 8392.88922499975,\n          \"symbol\": \"WETH\",\n          \"contract_address\": \"0x06012c8cf97bead5deae237070f9587f8e7a266d\",\n          \"token_type\": \"defi-token\",\n          \"balance\": \"1000000\",\n          \"balance_formatted\": \"1.000000\",\n          \"logo\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"thumbnail\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"usd_price\": 3548.6097968540266,\n          \"usd_value\": 904.0708104796602\n        },\n        {\n          \"name\": \"Wrapped Ether\",\n          \"decimals\": 9033.556370916314,\n          \"symbol\": \"WETH\",\n          \"contract_address\": \"0x06012c8cf97bead5deae237070f9587f8e7a266d\",\n          \"token_type\": \"defi-token\",\n          \"balance\": \"1000000\",\n          \"balance_formatted\": \"1.000000\",\n          \"logo\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"thumbnail\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"usd_price\": 80.82873074993225,\n          \"usd_value\": 4880.7284719588\n        }\n      ],\n      \"balance_usd\": 1288.273361026885,\n      \"total_unclaimed_usd_value\": 9740.98277298737,\n      \"address\": \"0x06012c8cf97bead5deae237070f9587f8e7a266d\",\n      \"position_details\": {\n        \"fee_tier\": 5886.082258711351,\n        \"range_tnd\": 2763.333410164235,\n        \"reserves\": [\n          \"string\",\n          \"string\"\n        ],\n        \"current_price\": 8789.926531077417,\n        \"is_in_range\": false,\n        \"price_upper\": 8489.722790333431,\n        \"price_lower\": 3150.5616797761527,\n        \"price_label\": \"string\",\n        \"liquidity\": 9508.096172401387,\n        \"range_start\": 3534.3939911998536,\n        \"pool_address\": \"string\",\n        \"position_key\": \"string\",\n        \"nft_metadata\": {\n          \"key_0\": 8676,\n          \"key_1\": \"string\",\n          \"key_2\": 9608\n        },\n        \"asset_standard\": \"string\",\n        \"apy\": 5091.426199844832,\n        \"is_debt\": false,\n        \"is_variable_debt\": false,\n        \"is_stable_debt\": true,\n        \"shares\": \"string\",\n        \"reserve0\": \"string\",\n        \"reserve1\": \"string\",\n        \"factory\": \"string\",\n        \"pair\": \"string\",\n        \"share_of_pool\": 1636.5819183346664,\n        \"no_price_available\": false,\n        \"shares_in_strategy\": \"string\",\n        \"strategy_address\": \"string\",\n        \"base_type\": \"string\",\n        \"health_factor\": 6769.156555806007,\n        \"is_enabled_collateral\": true\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc719247-5e46-4eb5-acf4-c8e9c3470ee9",
+          "name": "Get DeFi positions of a wallet",
+          "request": {
+            "name": "Get DeFi positions of a wallet",
+            "description": {
+              "content": "Get a concise overview of a wallet’s DeFi positions across all protocols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "defi",
+                "positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) Wallet address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "43dba209-cfbb-4e1d-8fdf-f1b17b8d6234",
+              "name": "Returns all defi positions for the wallet address.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "defi",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Wallet address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"protocol_name\": \"Uniswap v2\",\n    \"protocol_id\": \"uniswap-v2\",\n    \"protocol_url\": \"https://app.uniswap.org/pools/v2\",\n    \"protocol_logo\": \"https://cdn.moralis.io/defi/uniswap.png\",\n    \"position\": {\n      \"label\": \"liquidity\",\n      \"tokens\": [\n        {\n          \"name\": \"Wrapped Ether\",\n          \"decimals\": 5302.958742552011,\n          \"symbol\": \"WETH\",\n          \"contract_address\": \"0x06012c8cf97bead5deae237070f9587f8e7a266d\",\n          \"token_type\": \"defi-token\",\n          \"balance\": \"1000000\",\n          \"balance_formatted\": \"1.000000\",\n          \"logo\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"thumbnail\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"usd_price\": 2194.5824916154334,\n          \"usd_value\": 2229.9202981273393\n        },\n        {\n          \"name\": \"Wrapped Ether\",\n          \"decimals\": 4284.810995355405,\n          \"symbol\": \"WETH\",\n          \"contract_address\": \"0x06012c8cf97bead5deae237070f9587f8e7a266d\",\n          \"token_type\": \"defi-token\",\n          \"balance\": \"1000000\",\n          \"balance_formatted\": \"1.000000\",\n          \"logo\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"thumbnail\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"usd_price\": 9786.245619712317,\n          \"usd_value\": 4954.3048227056815\n        }\n      ],\n      \"balance_usd\": 9413.195072093145,\n      \"total_unclaimed_usd_value\": 4532.257123258667,\n      \"address\": \"0x06012c8cf97bead5deae237070f9587f8e7a266d\",\n      \"position_details\": {\n        \"fee_tier\": 3145.953503720206,\n        \"range_tnd\": 7020.996055014685,\n        \"reserves\": [\n          \"string\",\n          \"string\"\n        ],\n        \"current_price\": 7390.3553962008455,\n        \"is_in_range\": true,\n        \"price_upper\": 1528.7016479739511,\n        \"price_lower\": 2292.5527023002755,\n        \"price_label\": \"string\",\n        \"liquidity\": 6764.448589384146,\n        \"range_start\": 6850.670160288767,\n        \"pool_address\": \"string\",\n        \"position_key\": \"string\",\n        \"nft_metadata\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"asset_standard\": \"string\",\n        \"apy\": 7630.888468051802,\n        \"is_debt\": true,\n        \"is_variable_debt\": false,\n        \"is_stable_debt\": true,\n        \"shares\": \"string\",\n        \"reserve0\": \"string\",\n        \"reserve1\": \"string\",\n        \"factory\": \"string\",\n        \"pair\": \"string\",\n        \"share_of_pool\": 4965.319321056635,\n        \"no_price_available\": false,\n        \"shares_in_strategy\": \"string\",\n        \"strategy_address\": \"string\",\n        \"base_type\": \"string\",\n        \"health_factor\": 8781.335064332367,\n        \"is_enabled_collateral\": true\n      }\n    }\n  },\n  {\n    \"protocol_name\": \"Uniswap v2\",\n    \"protocol_id\": \"uniswap-v2\",\n    \"protocol_url\": \"https://app.uniswap.org/pools/v2\",\n    \"protocol_logo\": \"https://cdn.moralis.io/defi/uniswap.png\",\n    \"position\": {\n      \"label\": \"liquidity\",\n      \"tokens\": [\n        {\n          \"name\": \"Wrapped Ether\",\n          \"decimals\": 5012.523844593645,\n          \"symbol\": \"WETH\",\n          \"contract_address\": \"0x06012c8cf97bead5deae237070f9587f8e7a266d\",\n          \"token_type\": \"defi-token\",\n          \"balance\": \"1000000\",\n          \"balance_formatted\": \"1.000000\",\n          \"logo\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"thumbnail\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"usd_price\": 5892.044652045497,\n          \"usd_value\": 4896.858246533782\n        },\n        {\n          \"name\": \"Wrapped Ether\",\n          \"decimals\": 9176.578056651359,\n          \"symbol\": \"WETH\",\n          \"contract_address\": \"0x06012c8cf97bead5deae237070f9587f8e7a266d\",\n          \"token_type\": \"defi-token\",\n          \"balance\": \"1000000\",\n          \"balance_formatted\": \"1.000000\",\n          \"logo\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"thumbnail\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n          \"usd_price\": 5139.077146567341,\n          \"usd_value\": 2263.6642437239384\n        }\n      ],\n      \"balance_usd\": 3223.719065929226,\n      \"total_unclaimed_usd_value\": 2131.594165952827,\n      \"address\": \"0x06012c8cf97bead5deae237070f9587f8e7a266d\",\n      \"position_details\": {\n        \"fee_tier\": 3563.8573504096926,\n        \"range_tnd\": 2149.125523225963,\n        \"reserves\": [\n          \"string\",\n          \"string\"\n        ],\n        \"current_price\": 2188.0123749186696,\n        \"is_in_range\": true,\n        \"price_upper\": 9943.800291876174,\n        \"price_lower\": 3914.1574744945783,\n        \"price_label\": \"string\",\n        \"liquidity\": 2363.003834075751,\n        \"range_start\": 506.733488166472,\n        \"pool_address\": \"string\",\n        \"position_key\": \"string\",\n        \"nft_metadata\": {\n          \"key_0\": true,\n          \"key_1\": 5765.533077261558\n        },\n        \"asset_standard\": \"string\",\n        \"apy\": 3818.5373766607154,\n        \"is_debt\": false,\n        \"is_variable_debt\": false,\n        \"is_stable_debt\": false,\n        \"shares\": \"string\",\n        \"reserve0\": \"string\",\n        \"reserve1\": \"string\",\n        \"factory\": \"string\",\n        \"pair\": \"string\",\n        \"share_of_pool\": 5048.238869057945,\n        \"no_price_available\": true,\n        \"shares_in_strategy\": \"string\",\n        \"strategy_address\": \"string\",\n        \"base_type\": \"string\",\n        \"health_factor\": 8722.363229202107,\n        \"is_enabled_collateral\": false\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8675b146-dbda-41bb-93ee-b7e3dec82a6e",
+          "name": "Get active chains by wallet address",
+          "request": {
+            "name": "Get active chains by wallet address",
+            "description": {
+              "content": "List the blockchain networks a wallet is active on, including their first and last seen timestamps. Options to query cross-chain using the `chains` parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "chains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "eth",
+                  "description": "The chains to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "eth",
+                  "description": "The chains to query"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) Wallet address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fbd9f60d-421e-48ef-8af4-733cff42d77a",
+              "name": "Returns the active chains for the wallet address.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "chains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "eth"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Wallet address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n  \"active_chains\": [\n    {\n      \"chain\": \"eth\",\n      \"chain_id\": \"0x1\",\n      \"first_transaction\": {\n        \"block_number\": \"123456789\",\n        \"block_timestamp\": \"2022-08-23T20:58:31.000Z\",\n        \"transaction_hash\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\"\n      },\n      \"last_transaction\": {\n        \"block_number\": \"123456789\",\n        \"block_timestamp\": \"2022-08-23T20:58:31.000Z\",\n        \"transaction_hash\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\"\n      }\n    },\n    {\n      \"chain\": \"eth\",\n      \"chain_id\": \"0x1\",\n      \"first_transaction\": {\n        \"block_number\": \"123456789\",\n        \"block_timestamp\": \"2022-08-23T20:58:31.000Z\",\n        \"transaction_hash\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\"\n      },\n      \"last_transaction\": {\n        \"block_number\": \"123456789\",\n        \"block_timestamp\": \"2022-08-23T20:58:31.000Z\",\n        \"transaction_hash\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf50d008-eade-4934-9e9e-e330dee12b00",
+          "name": "Get summary stats by wallet address",
+          "request": {
+            "name": "Get summary stats by wallet address",
+            "description": {
+              "content": "Retrieve key statistics for a wallet, such as total transaction count and activity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) Wallet address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "83940ab6-019e-44cf-aa67-aeb3aab24643",
+              "name": "Returns the stats for the wallet address.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Wallet address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"nfts\": \"100\",\n  \"collections\": \"10\",\n  \"transactions\": {\n    \"total\": \"1000\"\n  },\n  \"nft_transfers\": {\n    \"total\": \"1000\"\n  },\n  \"token_transfers\": {\n    \"total\": \"1000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eaaac66d-03d4-4f0d-bdff-a64c99cdfb9e",
+          "name": "Get profit and loss summary by wallet address",
+          "request": {
+            "name": "Get profit and loss summary by wallet address",
+            "description": {
+              "content": "Get a profit and loss summary for a given wallet, over a specified timeframe (`days`).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "profitability",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "days",
+                  "value": "<string>",
+                  "description": "Timeframe in days for the profitability summary. Options include 'all', '7', '30', '60', '90' default is 'all'."
+                },
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The wallet address for which profitability summary is to be retrieved."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fa8fb218-e9b2-4f02-876c-82ca5407419a",
+              "name": "Successful response with the profitability summary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "profitability",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "days",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The wallet address for which profitability summary is to be retrieved."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_count_of_trades\": 2086.3680029100683,\n  \"total_trade_volume\": \"string\",\n  \"total_realized_profit_usd\": \"string\",\n  \"total_realized_profit_percentage\": 7700.749077705391,\n  \"total_buys\": 6022.045364889011,\n  \"total_sells\": 2113.771812360152,\n  \"total_sold_volume_usd\": \"string\",\n  \"total_bought_volume_usd\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0b73f7f-6251-473f-8017-801809061884",
+          "name": "Get detailed profit and loss by wallet address",
+          "request": {
+            "name": "Get detailed profit and loss by wallet address",
+            "description": {
+              "content": "Get a detailed profit and loss breakdown by token for a given wallet, over a specified timeframe (`days`). Optionally filter by `token_addresses` for specific tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "profitability"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "days",
+                  "value": "<string>",
+                  "description": "Timeframe in days for which profitability is calculated, Options include 'all', '7', '30', '60', '90' default is 'all'."
+                },
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "token_addresses",
+                  "value": "<string>",
+                  "description": "The token addresses list to filter the result with"
+                },
+                {
+                  "disabled": false,
+                  "key": "token_addresses",
+                  "value": "<string>",
+                  "description": "The token addresses list to filter the result with"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The wallet address for which profitability is to be retrieved."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8f652f76-d1d5-4dc9-a62a-d5f6c02bb521",
+              "name": "Successful response with profitability data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "profitability"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "days",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "token_addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token_addresses",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The wallet address for which profitability is to be retrieved."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"token_address\": \"string\",\n      \"avg_buy_price_usd\": \"string\",\n      \"avg_sell_price_usd\": \"string\",\n      \"total_usd_invested\": \"string\",\n      \"total_tokens_sold\": \"string\",\n      \"total_tokens_bought\": \"string\",\n      \"total_sold_usd\": \"string\",\n      \"avg_cost_of_quantity_sold\": \"string\",\n      \"count_of_trades\": 1943.970496688202,\n      \"realized_profit_usd\": \"string\",\n      \"realized_profit_percentage\": 2890.328851951747,\n      \"total_buys\": 9833.823994295875,\n      \"total_sells\": 8580.512793406355,\n      \"name\": \"string\",\n      \"symbol\": \"string\",\n      \"decimals\": \"string\",\n      \"logo\": \"string\",\n      \"possible_spam\": true\n    },\n    {\n      \"token_address\": \"string\",\n      \"avg_buy_price_usd\": \"string\",\n      \"avg_sell_price_usd\": \"string\",\n      \"total_usd_invested\": \"string\",\n      \"total_tokens_sold\": \"string\",\n      \"total_tokens_bought\": \"string\",\n      \"total_sold_usd\": \"string\",\n      \"avg_cost_of_quantity_sold\": \"string\",\n      \"count_of_trades\": 9376.958586640874,\n      \"realized_profit_usd\": \"string\",\n      \"realized_profit_percentage\": 1111.0785614265571,\n      \"total_buys\": 4954.276042520408,\n      \"total_sells\": 9695.454963516335,\n      \"name\": \"string\",\n      \"symbol\": \"string\",\n      \"decimals\": \"string\",\n      \"logo\": \"string\",\n      \"possible_spam\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f70f57c8-dff1-4bf4-b92f-85c9cee13de6",
+          "name": "Get swap transactions by wallet address",
+          "request": {
+            "name": "Get swap transactions by wallet address",
+            "description": {
+              "content": "List all swap transactions (buy/sell) for a specific wallet. Optionally filter by `tokenAddress` for specific token swaps.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "swaps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "tokenAddress",
+                  "value": "<string>",
+                  "description": "The token address to get transaction for (optional)"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor returned in the previous response (used for getting the next page)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The desired page size of the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromBlock",
+                  "value": "<integer>",
+                  "description": "The minimum block number from which to get the token transactions\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "toBlock",
+                  "value": "<string>",
+                  "description": "The block number to get the token transactions from"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<string>",
+                  "description": "The start date from which to get the token transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<string>",
+                  "description": "The end date from which to get the token transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "DESC",
+                  "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "transactionTypes",
+                  "value": "<string>",
+                  "description": "Array of transaction types. Allowed values are 'buy', 'sell'."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The wallet address token-transactions are to be retrieved for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "81ce4eb5-8df1-40a2-a979-8366e158e363",
+              "name": "Returns swap transactions by wallet address.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "tokenAddress",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fromBlock",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "toBlock",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "transactionTypes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The wallet address token-transactions are to be retrieved for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"transactionHash\": \"0x2bfcba4715774420936669cd0ff2241d70e9abecab76c9db813602015b3134ad\",\n      \"transactionIndex\": 1,\n      \"transactionType\": \"buy\",\n      \"blockTimestamp\": \"2022-02-22T00:00:00Z\",\n      \"blockNumber\": 21093423,\n      \"subCategory\": \"accumulation\",\n      \"walletAddress\": \"0x2bfcba4715774420936669cd0ff2241d70e9abec\",\n      \"walletAddressLabel\": \"Murad Wallet\",\n      \"entity\": \"Murad\",\n      \"entityLogo\": \"https://entities-logos.s3.us-east-1.amazonaws.com/murad.png\",\n      \"pairAddress\": \"0x36a46dff597c5a444bbc521d26787f57867d2214\",\n      \"pairLabel\": \"BRETT/WETH\",\n      \"exchangeAddress\": \"0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f\",\n      \"exchangeName\": \"Uniswap v2\",\n      \"exchangeLogo\": \"https://entities-logos.s3.us-east-1.amazonaws.com/uniswap.png\",\n      \"bought\": {\n        \"address\": \"0x003dde3494f30d861d063232c6a8c04394b686ff\",\n        \"name\": \"BRETT\",\n        \"symbol\": \"BRETT\",\n        \"logo\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n        \"amount\": \"14811.98\",\n        \"usdPrice\": 0.078634,\n        \"usdAmount\": 1155.33\n      },\n      \"sold\": {\n        \"address\": \"0x003dde3494f30d861d063232c6a8c04394b686ff\",\n        \"name\": \"BRETT\",\n        \"symbol\": \"BRETT\",\n        \"logo\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n        \"amount\": \"14811.98\",\n        \"usdPrice\": 0.078634,\n        \"usdAmount\": 1155.33\n      },\n      \"baseQuotePrice\": \"0.00003376480687\",\n      \"totalValueUsd\": 1165\n    },\n    {\n      \"transactionHash\": \"0x2bfcba4715774420936669cd0ff2241d70e9abecab76c9db813602015b3134ad\",\n      \"transactionIndex\": 1,\n      \"transactionType\": \"buy\",\n      \"blockTimestamp\": \"2022-02-22T00:00:00Z\",\n      \"blockNumber\": 21093423,\n      \"subCategory\": \"accumulation\",\n      \"walletAddress\": \"0x2bfcba4715774420936669cd0ff2241d70e9abec\",\n      \"walletAddressLabel\": \"Murad Wallet\",\n      \"entity\": \"Murad\",\n      \"entityLogo\": \"https://entities-logos.s3.us-east-1.amazonaws.com/murad.png\",\n      \"pairAddress\": \"0x36a46dff597c5a444bbc521d26787f57867d2214\",\n      \"pairLabel\": \"BRETT/WETH\",\n      \"exchangeAddress\": \"0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f\",\n      \"exchangeName\": \"Uniswap v2\",\n      \"exchangeLogo\": \"https://entities-logos.s3.us-east-1.amazonaws.com/uniswap.png\",\n      \"bought\": {\n        \"address\": \"0x003dde3494f30d861d063232c6a8c04394b686ff\",\n        \"name\": \"BRETT\",\n        \"symbol\": \"BRETT\",\n        \"logo\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n        \"amount\": \"14811.98\",\n        \"usdPrice\": 0.078634,\n        \"usdAmount\": 1155.33\n      },\n      \"sold\": {\n        \"address\": \"0x003dde3494f30d861d063232c6a8c04394b686ff\",\n        \"name\": \"BRETT\",\n        \"symbol\": \"BRETT\",\n        \"logo\": \"https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png\",\n        \"amount\": \"14811.98\",\n        \"usdPrice\": 0.078634,\n        \"usdAmount\": 1155.33\n      },\n      \"baseQuotePrice\": \"0.00003376480687\",\n      \"totalValueUsd\": 1165\n    }\n  ],\n  \"page\": 1713,\n  \"page_size\": 4510,\n  \"cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a89886c8-d70d-4247-ab8a-8cb9f1f0dea4",
+          "name": "Get wallet insight metrics",
+          "request": {
+            "name": "Get wallet insight metrics",
+            "description": {
+              "content": "Retrieve comprehensive wallet insight metrics including activity age, transfer counts, counterparties, and swap volume.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallets",
+                ":address",
+                "insight"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "The chains to query. If not provided, aggregates across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "The chains to query. If not provided, aggregates across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeChainBreakdown",
+                  "value": "false",
+                  "description": "When true, includes a per-chain breakdown array in the response with both native and USD values."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The wallet address to get insight for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "517a7026-73ca-4f21-b117-cb254a93963c",
+              "name": "Returns wallet insight metrics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallets",
+                    ":address",
+                    "insight"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "0x1"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "0x89"
+                    },
+                    {
+                      "key": "includeChainBreakdown",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The wallet address to get insight for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"0xcB1C1FdE09f811B294172696404e88E658659905\",\n  \"addressType\": \"evm\",\n  \"walletAgeDays\": 1314,\n  \"firstActivityAt\": {\n    \"chain\": \"0x1\",\n    \"blockNumber\": \"23583751\",\n    \"blockTimestamp\": \"2025-10-15T14:41:23.000Z\",\n    \"transactionHash\": \"0x...\",\n    \"type\": \"tokenTransfer\",\n    \"direction\": \"in\"\n  },\n  \"lastActivityAt\": {\n    \"chain\": \"0x1\",\n    \"blockNumber\": \"23583751\",\n    \"blockTimestamp\": \"2025-10-15T14:41:23.000Z\",\n    \"transactionHash\": \"0x...\",\n    \"type\": \"tokenTransfer\",\n    \"direction\": \"in\"\n  },\n  \"firstInitiatedAt\": {\n    \"chain\": \"0x1\",\n    \"blockNumber\": \"23583751\",\n    \"blockTimestamp\": \"2025-10-15T14:41:23.000Z\",\n    \"transactionHash\": \"0x...\",\n    \"type\": \"tokenTransfer\",\n    \"direction\": \"in\"\n  },\n  \"lastInitiatedAt\": {\n    \"chain\": \"0x1\",\n    \"blockNumber\": \"23583751\",\n    \"blockTimestamp\": \"2025-10-15T14:41:23.000Z\",\n    \"transactionHash\": \"0x...\",\n    \"type\": \"tokenTransfer\",\n    \"direction\": \"in\"\n  },\n  \"activeDays\": 503,\n  \"activeChains\": 9,\n  \"mostActiveChain\": \"0x1\",\n  \"transactionsInitiated\": 724,\n  \"transactionsInvolved\": 754,\n  \"nativeTransfers\": {\n    \"sent\": 210,\n    \"received\": 272,\n    \"total\": 482\n  },\n  \"erc20Transfers\": {\n    \"sent\": 210,\n    \"received\": 272,\n    \"total\": 482\n  },\n  \"nftTransfers\": {\n    \"sent\": 210,\n    \"received\": 272,\n    \"total\": 482\n  },\n  \"uniqueCounterparties\": {\n    \"sentTo\": 412,\n    \"receivedFrom\": 615\n  },\n  \"swapVolumeUsd\": 11778.556304337722,\n  \"totalGasSpentUsd\": \"55.23\",\n  \"avgGasPerTransactionUsd\": \"0.59\",\n  \"nativeVolumeSentUsd\": \"4025.93\",\n  \"nativeVolumeReceivedUsd\": \"2081.83\",\n  \"nativeNetFlowUsd\": \"-1944.10\",\n  \"uniqueTokensInteracted\": 4,\n  \"contractsCreated\": 58,\n  \"largestNativeTransferInUsd\": \"2061.94\",\n  \"largestNativeTransferOutUsd\": \"1570.53\",\n  \"chainBreakdown\": [\n    {\n      \"chain\": \"0x1\",\n      \"walletAgeDays\": 7176,\n      \"firstActivityAt\": {\n        \"chain\": \"0x1\",\n        \"blockNumber\": \"23583751\",\n        \"blockTimestamp\": \"2025-10-15T14:41:23.000Z\",\n        \"transactionHash\": \"0x...\",\n        \"type\": \"tokenTransfer\",\n        \"direction\": \"in\"\n      },\n      \"lastActivityAt\": {\n        \"chain\": \"0x1\",\n        \"blockNumber\": \"23583751\",\n        \"blockTimestamp\": \"2025-10-15T14:41:23.000Z\",\n        \"transactionHash\": \"0x...\",\n        \"type\": \"tokenTransfer\",\n        \"direction\": \"in\"\n      },\n      \"firstInitiatedAt\": {\n        \"chain\": \"0x1\",\n        \"blockNumber\": \"23583751\",\n        \"blockTimestamp\": \"2025-10-15T14:41:23.000Z\",\n        \"transactionHash\": \"0x...\",\n        \"type\": \"tokenTransfer\",\n        \"direction\": \"in\"\n      },\n      \"lastInitiatedAt\": {\n        \"chain\": \"0x1\",\n        \"blockNumber\": \"23583751\",\n        \"blockTimestamp\": \"2025-10-15T14:41:23.000Z\",\n        \"transactionHash\": \"0x...\",\n        \"type\": \"tokenTransfer\",\n        \"direction\": \"in\"\n      },\n      \"activeDays\": 3073,\n      \"transactionsInitiated\": 8252,\n      \"transactionsInvolved\": 5010,\n      \"nativeTransfers\": {\n        \"sent\": 210,\n        \"received\": 272,\n        \"total\": 482\n      },\n      \"erc20Transfers\": {\n        \"sent\": 210,\n        \"received\": 272,\n        \"total\": 482\n      },\n      \"nftTransfers\": {\n        \"sent\": 210,\n        \"received\": 272,\n        \"total\": 482\n      },\n      \"uniqueCounterparties\": {\n        \"sentTo\": 412,\n        \"receivedFrom\": 615\n      },\n      \"swapVolumeUsd\": 8663.622120719418,\n      \"totalGasSpentNative\": \"string\",\n      \"totalGasSpentUsd\": \"string\",\n      \"avgGasPerTransactionNative\": \"string\",\n      \"avgGasPerTransactionUsd\": \"string\",\n      \"nativeVolumeSent\": \"string\",\n      \"nativeVolumeSentUsd\": \"string\",\n      \"nativeVolumeReceived\": \"string\",\n      \"nativeVolumeReceivedUsd\": \"string\",\n      \"nativeNetFlow\": \"string\",\n      \"nativeNetFlowUsd\": \"string\",\n      \"uniqueTokensInteracted\": 3921,\n      \"contractsCreated\": 7010,\n      \"largestNativeTransferIn\": \"string\",\n      \"largestNativeTransferInUsd\": \"string\",\n      \"largestNativeTransferOut\": \"string\",\n      \"largestNativeTransferOutUsd\": \"string\"\n    },\n    {\n      \"chain\": \"0x1\",\n      \"walletAgeDays\": 5067,\n      \"firstActivityAt\": {\n        \"chain\": \"0x1\",\n        \"blockNumber\": \"23583751\",\n        \"blockTimestamp\": \"2025-10-15T14:41:23.000Z\",\n        \"transactionHash\": \"0x...\",\n        \"type\": \"tokenTransfer\",\n        \"direction\": \"in\"\n      },\n      \"lastActivityAt\": {\n        \"chain\": \"0x1\",\n        \"blockNumber\": \"23583751\",\n        \"blockTimestamp\": \"2025-10-15T14:41:23.000Z\",\n        \"transactionHash\": \"0x...\",\n        \"type\": \"tokenTransfer\",\n        \"direction\": \"in\"\n      },\n      \"firstInitiatedAt\": {\n        \"chain\": \"0x1\",\n        \"blockNumber\": \"23583751\",\n        \"blockTimestamp\": \"2025-10-15T14:41:23.000Z\",\n        \"transactionHash\": \"0x...\",\n        \"type\": \"tokenTransfer\",\n        \"direction\": \"in\"\n      },\n      \"lastInitiatedAt\": {\n        \"chain\": \"0x1\",\n        \"blockNumber\": \"23583751\",\n        \"blockTimestamp\": \"2025-10-15T14:41:23.000Z\",\n        \"transactionHash\": \"0x...\",\n        \"type\": \"tokenTransfer\",\n        \"direction\": \"in\"\n      },\n      \"activeDays\": 8752,\n      \"transactionsInitiated\": 844,\n      \"transactionsInvolved\": 3210,\n      \"nativeTransfers\": {\n        \"sent\": 210,\n        \"received\": 272,\n        \"total\": 482\n      },\n      \"erc20Transfers\": {\n        \"sent\": 210,\n        \"received\": 272,\n        \"total\": 482\n      },\n      \"nftTransfers\": {\n        \"sent\": 210,\n        \"received\": 272,\n        \"total\": 482\n      },\n      \"uniqueCounterparties\": {\n        \"sentTo\": 412,\n        \"receivedFrom\": 615\n      },\n      \"swapVolumeUsd\": 282.4932114153811,\n      \"totalGasSpentNative\": \"string\",\n      \"totalGasSpentUsd\": \"string\",\n      \"avgGasPerTransactionNative\": \"string\",\n      \"avgGasPerTransactionUsd\": \"string\",\n      \"nativeVolumeSent\": \"string\",\n      \"nativeVolumeSentUsd\": \"string\",\n      \"nativeVolumeReceived\": \"string\",\n      \"nativeVolumeReceivedUsd\": \"string\",\n      \"nativeNetFlow\": \"string\",\n      \"nativeNetFlowUsd\": \"string\",\n      \"uniqueTokensInteracted\": 7340,\n      \"contractsCreated\": 4123,\n      \"largestNativeTransferIn\": \"string\",\n      \"largestNativeTransferInUsd\": \"string\",\n      \"largestNativeTransferOut\": \"string\",\n      \"largestNativeTransferOutUsd\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9d1766c9-1fee-4f4a-8d4e-c3f104c001d8",
+    "name": "EVM Balance Wallets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

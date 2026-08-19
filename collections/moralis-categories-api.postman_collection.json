@@ -1,0 +1,145 @@
+{
+  "item": [
+    {
+      "id": "669c79f0-cc65-4dd4-8aee-c88a3ee50ee4",
+      "name": "Categories",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "898d1d02-ecdc-43b1-a075-e71ded7e4196",
+          "name": "Get ERC20 token categories",
+          "request": {
+            "name": "Get ERC20 token categories",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens",
+                "categories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dd579ca3-cc0f-45d4-a4f6-2a84cbd26903",
+              "name": "Returns a list of ERC20 token categories, such as stablecoin, meme, governance, and more. Use this endpoint to explore available token categories for filtering or analytics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"categories\": [\n      {\n        \"name\": \"Stablecoin\",\n        \"id\": \"stablecoin\"\n      },\n      {\n        \"name\": \"Stablecoin\",\n        \"id\": \"stablecoin\"\n      }\n    ]\n  },\n  {\n    \"categories\": [\n      {\n        \"name\": \"Stablecoin\",\n        \"id\": \"stablecoin\"\n      },\n      {\n        \"name\": \"Stablecoin\",\n        \"id\": \"stablecoin\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f4285249-7d44-421a-819e-178758dfb8d8",
+    "name": "EVM Balance Categories API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EVM Balance DeFi API",
+    "version": "2.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DeFi",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get DEX token pair price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:token0_address/:token1_address/price",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the reserves from"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get the price up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "token0_address",
+                "value": "",
+                "type": "path",
+                "description": "The token0 address"
+              },
+              {
+                "name": "token1_address",
+                "value": "",
+                "type": "path",
+                "description": "The token1 address"
+              },
+              {
+                "name": "exchange",
+                "value": "",
+                "type": "query",
+                "description": "The factory name or address of the token exchange"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch the current price of a token pair on Uniswap V2-based DEXs."
+        },
+        {
+          "info": {
+            "name": "Get DEX token pair reserves",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:pair_address/reserves",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the reserves from"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get the reserves up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "pair_address",
+                "value": "",
+                "type": "path",
+                "description": "The liquidity pair address"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve liquidity reserves for a token pair on Uniswap V2-based DEXs."
+        },
+        {
+          "info": {
+            "name": "Get DEX token pair address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/:token0_address/:token1_address/pairAddress",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the reserves from"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get the reserves up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "exchange",
+                "value": "",
+                "type": "query",
+                "description": "The factory name or address of the token exchange"
+              },
+              {
+                "name": "token0_address",
+                "value": "",
+                "type": "path",
+                "description": "The token0 address"
+              },
+              {
+                "name": "token1_address",
+                "value": "",
+                "type": "path",
+                "description": "The token1 address"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the pair address for a token0/token1 combination on a DEX, interchangeable order."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

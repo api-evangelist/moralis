@@ -1,0 +1,1664 @@
+{
+  "item": [
+    {
+      "id": "6dc427c7-a741-4920-b286-97d47afa3110",
+      "name": "Discovery",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "db60f9de-f23c-4799-87fb-f8a20df58656",
+          "name": "Returns a list of tokens that match the specified filters and criteria",
+          "request": {
+            "name": "Returns a list of tokens that match the specified filters and criteria",
+            "description": {
+              "content": "Fetch a list of tokens across multiple chains, filtered and ranked by dynamic on-chain metrics like volume, price change, liquidity, holder composition, and more. Supports advanced filters (e.g. “top 10 whales hold <40%”), category-based inclusion/exclusion (e.g. “exclude stablecoins”), and time-based analytics. Ideal for token discovery, investor research, risk analysis, and portfolio tools. Each token returned includes detailed trading metrics as well as on-chain and off-chain metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discovery",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"chain\": \"<string>\",\n  \"filters\": [\n    {\n      \"metric\": \"<string>\",\n      \"timeFrame\": \"<string>\",\n      \"gt\": \"<number>\",\n      \"lt\": \"<number>\",\n      \"eq\": \"<number>\"\n    },\n    {\n      \"metric\": \"<string>\",\n      \"timeFrame\": \"<string>\",\n      \"gt\": \"<number>\",\n      \"lt\": \"<number>\",\n      \"eq\": \"<number>\"\n    }\n  ],\n  \"sortBy\": {\n    \"metric\": \"<string>\",\n    \"timeFrame\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"limit\": \"<number>\",\n  \"chains\": [\n    \"eth\",\n    \"eth\"\n  ],\n  \"categories\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"timeFramesToReturn\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metricsToReturn\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excludeMetadata\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a8ca1a84-bd4d-406b-9945-53b668fdac57",
+              "name": "Returns the token details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discovery",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"chain\": \"0x1\",\n  \"filters\": [\n    {\n      \"metric\": \"experiencedBuyers\",\n      \"timeFrame\": \"oneMonth\",\n      \"gt\": 100\n    },\n    {\n      \"metric\": \"experiencedBuyers\",\n      \"timeFrame\": \"oneMonth\",\n      \"gt\": 100\n    }\n  ],\n  \"sortBy\": {\n    \"metric\": \"experiencedBuyers\",\n    \"timeFrame\": \"oneHour\",\n    \"type\": \"DESC\"\n  },\n  \"limit\": 100,\n  \"chains\": [\n    \"eth\",\n    \"eth\"\n  ],\n  \"categories\": {\n    \"include\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exclude\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"excludeMetadata\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": {\n    \"tokenAddress\": \"0x55d398326f99059ff775485246999027b3197955\",\n    \"chainId\": \"0x1\",\n    \"name\": \"Tether USD\",\n    \"symbol\": \"USDT\",\n    \"decimals\": 18,\n    \"logo\": \"https://example.com/logo.png\",\n    \"blockNumberMinted\": 176416,\n    \"usdPrice\": 0.9982436729635321,\n    \"security\": {\n      \"isOpenSource\": true,\n      \"isProxy\": false,\n      \"isMintable\": true,\n      \"hiddenOwner\": false,\n      \"buyTax\": \"0\",\n      \"sellTax\": \"0\",\n      \"cannotBuy\": false,\n      \"cannotSellAll\": false,\n      \"isHoneyPot\": false,\n      \"securityScore\": 70,\n      \"possibleSpam\": false\n    },\n    \"totalSupply\": \"1000000000\",\n    \"fullyDilutedValue\": 1000000000,\n    \"circulatingSupply\": 1000000000,\n    \"marketCap\": 1000000000,\n    \"totalHolders\": 100000,\n    \"totalLiquidityUsd\": 100000,\n    \"links\": {\n      \"bitbucket\": \"string\",\n      \"discord\": \"string\",\n      \"facebook\": \"string\",\n      \"github\": \"string\",\n      \"instagram\": \"string\",\n      \"linkedin\": \"string\",\n      \"medium\": \"string\",\n      \"reddit\": \"string\",\n      \"telegram\": \"string\",\n      \"tiktok\": \"string\",\n      \"twitter\": \"string\",\n      \"website\": \"string\",\n      \"youtube\": \"string\"\n    },\n    \"categories\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"metrics\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25c6e73d-c85e-4a3f-bef4-2d79addaaaec",
+          "name": "Get tokens with rising liquidity",
+          "request": {
+            "name": "Get tokens with rising liquidity",
+            "description": {
+              "content": "Identify tokens experiencing increasing liquidity on their respective blockchains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discovery",
+                "tokens",
+                "rising-liquidity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_month_liquidity_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one month liquidity change in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "min_market_cap",
+                  "value": "<number>",
+                  "description": "The minimum market cap in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "twitter_followers",
+                  "value": "<number>",
+                  "description": "The minimum twitter followers of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_month_volume_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one month volume change in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "security_score",
+                  "value": "<number>",
+                  "description": "The minimum security score of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_month_price_percent_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one month price percent change of a token"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1403f6a6-41e7-46a1-900c-611173d11f4f",
+              "name": "Returns the token details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discovery",
+                    "tokens",
+                    "rising-liquidity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "one_month_liquidity_change_usd",
+                      "value": "500000"
+                    },
+                    {
+                      "key": "min_market_cap",
+                      "value": "100000000"
+                    },
+                    {
+                      "key": "twitter_followers",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "one_month_volume_change_usd",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "security_score",
+                      "value": "70"
+                    },
+                    {
+                      "key": "one_month_price_percent_change_usd",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 2860.5014302404543,\n    \"token_age_in_days\": 7681.61533401792,\n    \"on_chain_strength_index\": 2221.0323172559843,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  },\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 4617.451168628929,\n    \"token_age_in_days\": 4261.616038548323,\n    \"on_chain_strength_index\": 9539.05446550975,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc5487c4-f843-48b3-8422-b0d025c6a8d7",
+          "name": "Get tokens with buying pressure",
+          "request": {
+            "name": "Get tokens with buying pressure",
+            "description": {
+              "content": "List tokens showing strong buying activity based on transaction data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discovery",
+                "tokens",
+                "buying-pressure"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_month_net_volume_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one month net volume change in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "min_market_cap",
+                  "value": "<number>",
+                  "description": "The minimum market cap in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "twitter_followers",
+                  "value": "<number>",
+                  "description": "The minimum twitter followers of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_month_volume_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one month volume change in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "security_score",
+                  "value": "<number>",
+                  "description": "The minimum security score of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_month_price_percent_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one month price percent change of a token"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5f5ac3e1-4d02-49a0-99b3-47b65f3bc2a4",
+              "name": "Returns the token details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discovery",
+                    "tokens",
+                    "buying-pressure"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "one_month_net_volume_change_usd",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "min_market_cap",
+                      "value": "100000000"
+                    },
+                    {
+                      "key": "twitter_followers",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "one_month_volume_change_usd",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "security_score",
+                      "value": "70"
+                    },
+                    {
+                      "key": "one_month_price_percent_change_usd",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 267.6373222968076,\n    \"token_age_in_days\": 125.5576317630791,\n    \"on_chain_strength_index\": 8466.090536821745,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  },\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 9585.66591842535,\n    \"token_age_in_days\": 8478.120065272267,\n    \"on_chain_strength_index\": 980.2893321474415,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8a66685-77d2-4980-abaf-6db683166b49",
+          "name": "Get tokens with solid performance",
+          "request": {
+            "name": "Get tokens with solid performance",
+            "description": {
+              "content": "Find tokens with consistent performance based on price and volume metrics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discovery",
+                "tokens",
+                "solid-performers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_month_net_volume_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one month net volume change in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_week_net_volume_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one week net volume change in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_day_net_volume_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one day net volume change in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_month_volume_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one month volume change in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "security_score",
+                  "value": "<number>",
+                  "description": "The minimum security score of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_month_price_percent_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one month price percent change of a token"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6d0994d8-606e-4333-98ac-bf10330642a4",
+              "name": "Returns the token details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discovery",
+                    "tokens",
+                    "solid-performers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "one_month_net_volume_change_usd",
+                      "value": "100000"
+                    },
+                    {
+                      "key": "one_week_net_volume_change_usd",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "one_day_net_volume_change_usd",
+                      "value": "0"
+                    },
+                    {
+                      "key": "one_month_volume_change_usd",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "security_score",
+                      "value": "80"
+                    },
+                    {
+                      "key": "one_month_price_percent_change_usd",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 267.6373222968076,\n    \"token_age_in_days\": 125.5576317630791,\n    \"on_chain_strength_index\": 8466.090536821745,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  },\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 9585.66591842535,\n    \"token_age_in_days\": 8478.120065272267,\n    \"on_chain_strength_index\": 980.2893321474415,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b58de907-29bc-4925-80b9-88ba4f27be37",
+          "name": "Get tokens with experienced buyers",
+          "request": {
+            "name": "Get tokens with experienced buyers",
+            "description": {
+              "content": "Identify tokens being purchased by experienced or high-volume traders.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discovery",
+                "tokens",
+                "experienced-buyers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_week_experienced_net_buyers_change",
+                  "value": "<number>",
+                  "description": "The minimum one week experienced buyers change of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "min_market_cap",
+                  "value": "<number>",
+                  "description": "The minimum market cap in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "security_score",
+                  "value": "<number>",
+                  "description": "The minimum security score of a token"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "944626e4-1bfb-4fc8-b57a-f7b302c88ad1",
+              "name": "Returns the token details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discovery",
+                    "tokens",
+                    "experienced-buyers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "one_week_experienced_net_buyers_change",
+                      "value": "150"
+                    },
+                    {
+                      "key": "min_market_cap",
+                      "value": "10000000"
+                    },
+                    {
+                      "key": "security_score",
+                      "value": "80"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 267.6373222968076,\n    \"token_age_in_days\": 125.5576317630791,\n    \"on_chain_strength_index\": 8466.090536821745,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  },\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 9585.66591842535,\n    \"token_age_in_days\": 8478.120065272267,\n    \"on_chain_strength_index\": 980.2893321474415,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3398e23-3298-4189-8525-f5191123d955",
+          "name": "Get tokens with risky bets",
+          "request": {
+            "name": "Get tokens with risky bets",
+            "description": {
+              "content": "List tokens with high-risk trading activity based on volatility or other factors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discovery",
+                "tokens",
+                "risky-bets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "max_market_cap",
+                  "value": "<number>",
+                  "description": "The maximum market cap in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_week_holders_change",
+                  "value": "<number>",
+                  "description": "The minimum one week holders change of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_week_net_volume_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one week net volume change in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_month_volume_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one month volume change in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "security_score",
+                  "value": "<number>",
+                  "description": "The minimum security score of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "one_month_price_percent_change_usd",
+                  "value": "<number>",
+                  "description": "The minimum one month price percent change of a token"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "03213fef-d2f3-43f3-bef9-9164d80f9fa9",
+              "name": "Returns the token details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discovery",
+                    "tokens",
+                    "risky-bets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "max_market_cap",
+                      "value": "10000000"
+                    },
+                    {
+                      "key": "one_week_holders_change",
+                      "value": "25"
+                    },
+                    {
+                      "key": "one_week_net_volume_change_usd",
+                      "value": "500"
+                    },
+                    {
+                      "key": "one_month_volume_change_usd",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "security_score",
+                      "value": "70"
+                    },
+                    {
+                      "key": "one_month_price_percent_change_usd",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 267.6373222968076,\n    \"token_age_in_days\": 125.5576317630791,\n    \"on_chain_strength_index\": 8466.090536821745,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  },\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 9585.66591842535,\n    \"token_age_in_days\": 8478.120065272267,\n    \"on_chain_strength_index\": 980.2893321474415,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1c5e575-9c73-4581-be03-dc21ca241572",
+          "name": "Get tokens with blue chip",
+          "request": {
+            "name": "Get tokens with blue chip",
+            "description": {
+              "content": "Fetch established, high-value tokens considered stable investments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discovery",
+                "tokens",
+                "blue-chip"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "min_market_cap",
+                  "value": "<number>",
+                  "description": "The minimum market cap in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "security_score",
+                  "value": "<number>",
+                  "description": "The minimum security score of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "min_token_age_in_days",
+                  "value": "<number>",
+                  "description": "The minimum age of token in days"
+                },
+                {
+                  "disabled": false,
+                  "key": "time_frame",
+                  "value": "<string>",
+                  "description": "The time frame used for price percent change ordering in response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7a90c9fa-1b7b-4868-8945-a7819841d7f0",
+              "name": "Returns the token details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discovery",
+                    "tokens",
+                    "blue-chip"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "min_market_cap",
+                      "value": "150000000"
+                    },
+                    {
+                      "key": "security_score",
+                      "value": "80"
+                    },
+                    {
+                      "key": "min_token_age_in_days",
+                      "value": "180"
+                    },
+                    {
+                      "key": "time_frame",
+                      "value": "1d"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 267.6373222968076,\n    \"token_age_in_days\": 125.5576317630791,\n    \"on_chain_strength_index\": 8466.090536821745,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  },\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 9585.66591842535,\n    \"token_age_in_days\": 8478.120065272267,\n    \"on_chain_strength_index\": 980.2893321474415,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb5e97ac-9e25-4f44-8c4a-eea25b0297ad",
+          "name": "Get tokens with top gainers",
+          "request": {
+            "name": "Get tokens with top gainers",
+            "description": {
+              "content": "Identify tokens with the highest price increases over a period.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discovery",
+                "tokens",
+                "top-gainers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "min_market_cap",
+                  "value": "<number>",
+                  "description": "The minimum market cap in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "security_score",
+                  "value": "<number>",
+                  "description": "The minimum security score of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "time_frame",
+                  "value": "<string>",
+                  "description": "The time frame used for price percent change ordering in response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f02fd61b-9e07-4098-b697-9d02ffb3e51e",
+              "name": "Returns the token details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discovery",
+                    "tokens",
+                    "top-gainers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "min_market_cap",
+                      "value": "50000000"
+                    },
+                    {
+                      "key": "security_score",
+                      "value": "80"
+                    },
+                    {
+                      "key": "time_frame",
+                      "value": "1d"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 267.6373222968076,\n    \"token_age_in_days\": 125.5576317630791,\n    \"on_chain_strength_index\": 8466.090536821745,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  },\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 9585.66591842535,\n    \"token_age_in_days\": 8478.120065272267,\n    \"on_chain_strength_index\": 980.2893321474415,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3dc8d63b-4d3d-42b9-a854-637d87441788",
+          "name": "Get tokens with top losers",
+          "request": {
+            "name": "Get tokens with top losers",
+            "description": {
+              "content": "List tokens with the largest price decreases over a period.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discovery",
+                "tokens",
+                "top-losers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "min_market_cap",
+                  "value": "<number>",
+                  "description": "The minimum market cap in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "security_score",
+                  "value": "<number>",
+                  "description": "The minimum security score of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "time_frame",
+                  "value": "<string>",
+                  "description": "The time frame used for price percent change ordering in response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cb7d7f79-dad0-40f2-97f1-dd58ac39e6f7",
+              "name": "Returns the token details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discovery",
+                    "tokens",
+                    "top-losers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "min_market_cap",
+                      "value": "50000000"
+                    },
+                    {
+                      "key": "security_score",
+                      "value": "80"
+                    },
+                    {
+                      "key": "time_frame",
+                      "value": "1d"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 267.6373222968076,\n    \"token_age_in_days\": 125.5576317630791,\n    \"on_chain_strength_index\": 8466.090536821745,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  },\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 9585.66591842535,\n    \"token_age_in_days\": 8478.120065272267,\n    \"on_chain_strength_index\": 980.2893321474415,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b349c09-7874-42d7-92c7-5bf72ed41244",
+          "name": "Get trending tokens",
+          "request": {
+            "name": "Get trending tokens",
+            "description": {
+              "content": "Discover tokens gaining popularity based on trading and social metrics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discovery",
+                "tokens",
+                "trending"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "min_market_cap",
+                  "value": "<number>",
+                  "description": "The minimum market cap in usd of a token"
+                },
+                {
+                  "disabled": false,
+                  "key": "security_score",
+                  "value": "<number>",
+                  "description": "The minimum security score of a token"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f9d876cf-2df7-4bf1-affc-d0b4ebf56c26",
+              "name": "Returns the token details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discovery",
+                    "tokens",
+                    "trending"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "min_market_cap",
+                      "value": "50000000"
+                    },
+                    {
+                      "key": "security_score",
+                      "value": "80"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 267.6373222968076,\n    \"token_age_in_days\": 125.5576317630791,\n    \"on_chain_strength_index\": 8466.090536821745,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  },\n  {\n    \"chain_id\": \"0x1\",\n    \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n    \"token_name\": \"Maker\",\n    \"token_symbol\": \"MKR\",\n    \"token_logo\": \"string\",\n    \"price_usd\": 9585.66591842535,\n    \"token_age_in_days\": 8478.120065272267,\n    \"on_chain_strength_index\": 980.2893321474415,\n    \"security_score\": 88,\n    \"market_cap\": 1351767630.85,\n    \"fully_diluted_valuation\": 1363915420.28,\n    \"twitter_followers\": 255217,\n    \"holders_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"liquidity_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"experienced_net_buyers_change\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"net_volume_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    },\n    \"price_percent_change_usd\": {\n      \"1h\": 14,\n      \"1d\": 14,\n      \"1w\": 162,\n      \"1M\": 162\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "085093a5-f890-40fb-b127-7776b9277a42",
+          "name": "Get token details",
+          "request": {
+            "name": "Get token details",
+            "description": {
+              "content": "Retrieve comprehensive details for a specific token, including metadata and stats. For more detailed tokens stats we recommended to use `getTokenAnalytics` or `getMultipleTokenAnalytics`. For pair stats, we recommend to use `getPairStats`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discovery",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "(Required) The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "token_address",
+                  "value": "<string>",
+                  "description": "(Required) The address of the token"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cd4f3a42-561b-4651-b56f-34474d33c7ee",
+              "name": "Returns the token details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discovery",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "token_address",
+                      "value": "0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chain_id\": \"0x1\",\n  \"token_address\": \"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2\",\n  \"token_name\": \"Maker\",\n  \"token_symbol\": \"MKR\",\n  \"token_logo\": \"string\",\n  \"block_number\": 4622.036569246567,\n  \"block_timestamp\": \"string\",\n  \"links\": {\n    \"bitbucket\": \"string\",\n    \"discord\": \"string\",\n    \"facebook\": \"string\",\n    \"github\": \"string\",\n    \"instagram\": \"string\",\n    \"linkedin\": \"string\",\n    \"medium\": \"string\",\n    \"reddit\": \"string\",\n    \"telegram\": \"string\",\n    \"tiktok\": \"string\",\n    \"twitter\": \"string\",\n    \"website\": \"string\",\n    \"youtube\": \"string\"\n  },\n  \"rating\": 6630.186036719354,\n  \"total_number_of_rating\": 2758.604016110683,\n  \"total_liquidity_locked_in_percent\": 961.8130600827701,\n  \"total_supply_locked_in_percent\": 2593.8794514825113,\n  \"price_usd\": 9016.864559941087,\n  \"token_age_in_days\": 7495.95591654399,\n  \"on_chain_strength_index\": 2107.133115686365,\n  \"security_score\": 88,\n  \"market_cap\": 1351767630.85,\n  \"fully_diluted_valuation\": 1363915420.28,\n  \"twitter_followers\": 255217,\n  \"holders_change\": {\n    \"1h\": 14,\n    \"1d\": 14,\n    \"1w\": 162,\n    \"1M\": 162\n  },\n  \"liquidity_change_usd\": {\n    \"1h\": 14,\n    \"1d\": 14,\n    \"1w\": 162,\n    \"1M\": 162\n  },\n  \"experienced_net_buyers_change\": {\n    \"1h\": 14,\n    \"1d\": 14,\n    \"1w\": 162,\n    \"1M\": 162\n  },\n  \"volume_change_usd\": {\n    \"1h\": 14,\n    \"1d\": 14,\n    \"1w\": 162,\n    \"1M\": 162\n  },\n  \"net_volume_change_usd\": {\n    \"1h\": 14,\n    \"1d\": 14,\n    \"1w\": 162,\n    \"1M\": 162\n  },\n  \"price_percent_change_usd\": {\n    \"1h\": 14,\n    \"1d\": 14,\n    \"1w\": 162,\n    \"1M\": 162\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b4bdb0cf-1195-4463-b342-7e044171dc86",
+    "name": "EVM Balance Discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

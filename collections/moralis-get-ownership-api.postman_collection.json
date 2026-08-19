@@ -1,0 +1,205 @@
+{
+  "item": [
+    {
+      "id": "ccaf5665-ae99-43b8-b1cf-36bce1f1fb62",
+      "name": "Get Ownership",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "724c846e-c278-4b9e-8498-34cf17e0072c",
+          "name": "Get ERC20 token owners by contract",
+          "request": {
+            "name": "Get ERC20 token owners by contract",
+            "description": {
+              "content": "Identify the major holders of an ERC20 token and understand their ownership percentages. Includes known entities, exchanges and wallet labels.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "erc20",
+                ":token_address",
+                "owners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The desired page size of the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor returned in the previous response (used for getting the next page)."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "DESC",
+                  "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_address",
+                  "description": "(Required) The address of the token contract"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "625ead7c-4b64-436d-880c-b5a53a89ede6",
+              "name": "Returns a collection of owners of an ERC20 token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "erc20",
+                    ":token_address",
+                    "owners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "DESC"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_address",
+                      "description": "(Required) The address of the token contract"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"owner_address\": \"0x244...\",\n      \"owner_address_label\": \"Coinbase 1\",\n      \"balance\": \"57888888888888888888880\",\n      \"balance_formatted\": \"5.78\",\n      \"usd_value\": \"57888888888888888888880\",\n      \"is_contract\": false,\n      \"percentage_relative_to_total_supply\": 10,\n      \"entity\": \"Opensea\",\n      \"entity_logo\": \"https://opensea.io/favicon.ico\"\n    },\n    {\n      \"owner_address\": \"0x244...\",\n      \"owner_address_label\": \"Coinbase 1\",\n      \"balance\": \"57888888888888888888880\",\n      \"balance_formatted\": \"5.78\",\n      \"usd_value\": \"57888888888888888888880\",\n      \"is_contract\": true,\n      \"percentage_relative_to_total_supply\": 10,\n      \"entity\": \"Opensea\",\n      \"entity_logo\": \"https://opensea.io/favicon.ico\"\n    }\n  ],\n  \"page\": 294,\n  \"page_size\": 9976,\n  \"cursor\": \"string\",\n  \"total_supply\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "149d0a59-b608-4b98-9687-3b3692d2a53f",
+    "name": "EVM Balance Get Ownership API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

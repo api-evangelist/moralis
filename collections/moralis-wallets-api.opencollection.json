@@ -1,0 +1,657 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EVM Balance Wallets API",
+    "version": "2.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Wallets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get ERC20 approvals by wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/approvals",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address from which to retrieve active ERC20 token approvals"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List active ERC20 token approvals for a wallet, showing which contracts have access."
+        },
+        {
+          "info": {
+            "name": "Get the complete decoded transaction history of a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/history",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "from_block",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the transactions\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The maximum block number from which to get the transactions.\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "Get the transactions up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address of the wallet"
+              },
+              {
+                "name": "include_internal_transactions",
+                "value": "",
+                "type": "query",
+                "description": "If the result should contain the internal transactions."
+              },
+              {
+                "name": "nft_metadata",
+                "value": "",
+                "type": "query",
+                "description": "If the result should contain the nft metadata."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the complete decoded transaction history for a given wallet. All transactions are parsed, decoded, categorized and summarized into human-readable records."
+        },
+        {
+          "info": {
+            "name": "Get token balances with prices by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/tokens",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address from which token balances will be checked"
+              },
+              {
+                "name": "to_block",
+                "value": "",
+                "type": "query",
+                "description": "The block number up to which the balances will be checked."
+              },
+              {
+                "name": "token_addresses",
+                "value": "",
+                "type": "query",
+                "description": "The addresses to get balances for (optional)"
+              },
+              {
+                "name": "exclude_spam",
+                "value": "",
+                "type": "query",
+                "description": "Exclude spam tokens from the result"
+              },
+              {
+                "name": "exclude_unverified_contracts",
+                "value": "",
+                "type": "query",
+                "description": "Exclude unverified contracts from the result"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "exclude_native",
+                "value": "",
+                "type": "query",
+                "description": "Exclude native balance from the result"
+              },
+              {
+                "name": "max_token_inactivity",
+                "value": "",
+                "type": "query",
+                "description": "Exclude tokens inactive for more than the given amount of days"
+              },
+              {
+                "name": "min_pair_side_liquidity_usd",
+                "value": "",
+                "type": "query",
+                "description": "Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity on a single side of the pair."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch ERC20 and native token balances for a given wallet address, including their USD prices. Each token returned includes on-chain metadata, as well as off-chain metadata, logos, spam status and more. Additional options to exclude spam tokens, low-liquidity tokens and inactive tokens."
+        },
+        {
+          "info": {
+            "name": "Get wallet net worth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/net-worth",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "The chains to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address"
+              },
+              {
+                "name": "exclude_spam",
+                "value": "",
+                "type": "query",
+                "description": "Exclude spam tokens from the result"
+              },
+              {
+                "name": "exclude_unverified_contracts",
+                "value": "",
+                "type": "query",
+                "description": "Exclude unverified contracts from the result"
+              },
+              {
+                "name": "max_token_inactivity",
+                "value": "",
+                "type": "query",
+                "description": "Exclude tokens inactive for more than the given amount of days"
+              },
+              {
+                "name": "min_pair_side_liquidity_usd",
+                "value": "",
+                "type": "query",
+                "description": "Exclude tokens with liquidity less than the specified amount in USD. This parameter refers to the liquidity on a single side of the pair."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Calculate the total net worth of a wallet in USD, with options to exclude spam tokens for accuracy. Options to query cross-chain using the `chains` parameter, as well as additional options to exclude spam tokens, low-liquidity tokens and inactive tokens."
+        },
+        {
+          "info": {
+            "name": "Get the DeFi summary of a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/defi/summary",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Wallet address"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Summarize a wallet’s DeFi activity, including total USD value, unclaimed rewards and active protocols."
+        },
+        {
+          "info": {
+            "name": "Get detailed DeFi positions by protocol for a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/defi/:protocol/positions",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Wallet address"
+              },
+              {
+                "name": "protocol",
+                "value": "",
+                "type": "path",
+                "description": "The protocol to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch detailed DeFi positions for a given wallet and protocol."
+        },
+        {
+          "info": {
+            "name": "Get DeFi positions of a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/defi/positions",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Wallet address"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a concise overview of a wallet’s DeFi positions across all protocols."
+        },
+        {
+          "info": {
+            "name": "Get active chains by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/chains",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Wallet address"
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "The chains to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List the blockchain networks a wallet is active on, including their first and last seen timestamps. Options to query cross-chain using the `chains` parameter."
+        },
+        {
+          "info": {
+            "name": "Get summary stats by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/stats",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Wallet address"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve key statistics for a wallet, such as total transaction count and activity."
+        },
+        {
+          "info": {
+            "name": "Get profit and loss summary by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/profitability/summary",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address for which profitability summary is to be retrieved."
+              },
+              {
+                "name": "days",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe in days for the profitability summary. Options include 'all', '7', '30', '60', '90' default is 'all'."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a profit and loss summary for a given wallet, over a specified timeframe (`days`)."
+        },
+        {
+          "info": {
+            "name": "Get detailed profit and loss by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/profitability",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address for which profitability is to be retrieved."
+              },
+              {
+                "name": "days",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe in days for which profitability is calculated, Options include 'all', '7', '30', '60', '90' default is 'all'."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "token_addresses",
+                "value": "",
+                "type": "query",
+                "description": "The token addresses list to filter the result with"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a detailed profit and loss breakdown by token for a given wallet, over a specified timeframe (`days`). Optionally filter by `token_addresses` for specific tokens."
+        },
+        {
+          "info": {
+            "name": "Get swap transactions by wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/swaps",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address token-transactions are to be retrieved for."
+              },
+              {
+                "name": "tokenAddress",
+                "value": "",
+                "type": "query",
+                "description": "The token address to get transaction for (optional)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor returned in the previous response (used for getting the next page)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The desired page size of the result."
+              },
+              {
+                "name": "fromBlock",
+                "value": "",
+                "type": "query",
+                "description": "The minimum block number from which to get the token transactions\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "toBlock",
+                "value": "",
+                "type": "query",
+                "description": "The block number to get the token transactions from"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "The start date from which to get the token transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "The end date from which to get the token transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+              },
+              {
+                "name": "transactionTypes",
+                "value": "",
+                "type": "query",
+                "description": "Array of transaction types. Allowed values are 'buy', 'sell'."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all swap transactions (buy/sell) for a specific wallet. Optionally filter by `tokenAddress` for specific token swaps."
+        },
+        {
+          "info": {
+            "name": "Get wallet insight metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/wallets/:address/insight",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The wallet address to get insight for"
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "The chains to query. If not provided, aggregates across all supported chains."
+              },
+              {
+                "name": "includeChainBreakdown",
+                "value": "",
+                "type": "query",
+                "description": "When true, includes a per-chain breakdown array in the response with both native and USD values."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve comprehensive wallet insight metrics including activity age, transfer counts, counterparties, and swap volume."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

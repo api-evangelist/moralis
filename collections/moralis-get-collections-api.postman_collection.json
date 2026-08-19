@@ -1,0 +1,626 @@
+{
+  "item": [
+    {
+      "id": "26faa317-0580-42e0-950e-7d2203a9cb3a",
+      "name": "Get Collections",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "deb54126-cd3e-4d61-b9a8-832ca650b7c7",
+          "name": "Get NFT collections by wallet address",
+          "request": {
+            "name": "Get NFT collections by wallet address",
+            "description": {
+              "content": "Fetch all NFT Collections held by a specified wallet address. Each Collection returned includes on-chain metadata as well as off-chain metadata, floor prices and more where available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":address",
+                "nft",
+                "collections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_prices",
+                  "value": "false",
+                  "description": "Should NFT last sale prices be included in the result?"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The desired page size of the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_spam",
+                  "value": "false",
+                  "description": "Should spam NFTs be excluded from the result?"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor returned in the previous response (used for getting the next page)."
+                },
+                {
+                  "disabled": false,
+                  "key": "token_counts",
+                  "value": "false",
+                  "description": "Should token counts per collection be included in the response?"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The wallet address of the owner of NFTs in the collections"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ef9ca89f-047f-439a-a130-49446b79d8bc",
+              "name": "Returns the NFT collections owned by a wallet",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":address",
+                    "nft",
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "include_prices",
+                      "value": "false"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "exclude_spam",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token_counts",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The wallet address of the owner of NFTs in the collections"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"token_address\": \"0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB\",\n      \"contract_type\": \"ERC721\",\n      \"name\": \"CryptoKitties\",\n      \"symbol\": \"RARI\",\n      \"possible_spam\": true,\n      \"verified_collection\": false,\n      \"count\": 5,\n      \"collection_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n      \"collection_banner_image\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n      \"floor_price\": \"12345\",\n      \"floor_price_usd\": \"12345.4899\",\n      \"floor_price_currency\": \"eth\",\n      \"last_sale\": {\n        \"transaction_hash\": \"0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c\",\n        \"block_timestamp\": \"2023-04-04T15:59:11.000Z\",\n        \"price\": \"7300000000000000\",\n        \"price_formatted\": \"0.0073\",\n        \"buyer_address\": \"0xcb1c1fde09f811b294172696404e88e658659905\",\n        \"seller_address\": \"0x497a7dee2f13db161eb2fec060fa783cb041419f\",\n        \"payment_token\": {\n          \"token_name\": \"Ether\",\n          \"token_symbol\": \"ETH\",\n          \"token_logo\": \"https://cdn.moralis.io/eth/0x.png\",\n          \"token_decimals\": \"18\",\n          \"token_address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\"\n        },\n        \"usd_price_at_sale\": \"13.61\",\n        \"current_usd_value\": \"15.53\",\n        \"token_address\": \"0xe8778996e096b39705c6a0a937eb587a1ebbda17\",\n        \"token_id\": \"170\"\n      }\n    },\n    {\n      \"token_address\": \"0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB\",\n      \"contract_type\": \"ERC721\",\n      \"name\": \"CryptoKitties\",\n      \"symbol\": \"RARI\",\n      \"possible_spam\": false,\n      \"verified_collection\": false,\n      \"count\": 5,\n      \"collection_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n      \"collection_banner_image\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n      \"floor_price\": \"12345\",\n      \"floor_price_usd\": \"12345.4899\",\n      \"floor_price_currency\": \"eth\",\n      \"last_sale\": {\n        \"transaction_hash\": \"0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c\",\n        \"block_timestamp\": \"2023-04-04T15:59:11.000Z\",\n        \"price\": \"7300000000000000\",\n        \"price_formatted\": \"0.0073\",\n        \"buyer_address\": \"0xcb1c1fde09f811b294172696404e88e658659905\",\n        \"seller_address\": \"0x497a7dee2f13db161eb2fec060fa783cb041419f\",\n        \"payment_token\": {\n          \"token_name\": \"Ether\",\n          \"token_symbol\": \"ETH\",\n          \"token_logo\": \"https://cdn.moralis.io/eth/0x.png\",\n          \"token_decimals\": \"18\",\n          \"token_address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\"\n        },\n        \"usd_price_at_sale\": \"13.61\",\n        \"current_usd_value\": \"15.53\",\n        \"token_address\": \"0xe8778996e096b39705c6a0a937eb587a1ebbda17\",\n        \"token_id\": \"170\"\n      }\n    }\n  ],\n  \"status\": \"SYNCING\",\n  \"page\": 3873,\n  \"page_size\": 5835,\n  \"cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33a803e0-9ecd-4a7c-95fe-fcc960f6501d",
+          "name": "Get NFT collection metadata",
+          "request": {
+            "name": "Get NFT collection metadata",
+            "description": {
+              "content": "Fetch on-chain metadata like name, symbol, and base token URI for an NFT contract. Also returns off-chain metadata, floor prices and more where available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "nft",
+                ":address",
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_prices",
+                  "value": "false",
+                  "description": "Should NFT last sale prices be included in the result?"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The address of the NFT contract"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5b114e6f-0b5a-48cc-a7df-a037d8d4411f",
+              "name": "Returns the metadata for an NFT collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nft",
+                    ":address",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "include_prices",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address of the NFT contract"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token_address\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\",\n  \"contract_type\": \"ERC721\",\n  \"name\": \"KryptoKitties\",\n  \"symbol\": \"RARI\",\n  \"possible_spam\": true,\n  \"verified_collection\": true,\n  \"synced_at\": \"string\",\n  \"collection_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n  \"collection_banner_image\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n  \"collection_category\": \"Art\",\n  \"project_url\": \"https://www.cryptokitties.co/\",\n  \"wiki_url\": \"https://en.wikipedia.org/wiki/CryptoKitties\",\n  \"discord_url\": \"https://discord.com/invite/cryptokitties\",\n  \"telegram_url\": \"https://t.me/cryptokitties\",\n  \"twitter_username\": \"CryptoKitties\",\n  \"instagram_username\": \"cryptokitties\",\n  \"floor_price\": \"12345\",\n  \"floor_price_usd\": \"12345.4899\",\n  \"floor_price_currency\": \"eth\",\n  \"last_sale\": {\n    \"transaction_hash\": \"0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c\",\n    \"block_timestamp\": \"2023-04-04T15:59:11.000Z\",\n    \"price\": \"7300000000000000\",\n    \"price_formatted\": \"0.0073\",\n    \"buyer_address\": \"0xcb1c1fde09f811b294172696404e88e658659905\",\n    \"seller_address\": \"0x497a7dee2f13db161eb2fec060fa783cb041419f\",\n    \"payment_token\": {\n      \"token_name\": \"Ether\",\n      \"token_symbol\": \"ETH\",\n      \"token_logo\": \"https://cdn.moralis.io/eth/0x.png\",\n      \"token_decimals\": \"18\",\n      \"token_address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\"\n    },\n    \"usd_price_at_sale\": \"13.61\",\n    \"current_usd_value\": \"15.53\",\n    \"token_address\": \"0xe8778996e096b39705c6a0a937eb587a1ebbda17\",\n    \"token_id\": \"170\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "256ad327-b435-4f91-85c4-8ff39c4956a3",
+          "name": "Get metadata for multiple NFT contracts",
+          "request": {
+            "name": "Get metadata for multiple NFT contracts",
+            "description": {
+              "content": "Retrieve metadata (name, symbol) for up to 25 NFT contracts in one call. Also returns off-chain metadata, floor prices and more where available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "nft",
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_prices",
+                  "value": "false",
+                  "description": "Should NFT last sale prices be included in the result?"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addresses\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2ad81519-03ea-4c0b-9d8b-6c41566be4c1",
+              "name": "Returns the metadata for the requested NFT collections.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nft",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "include_prices",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    \"0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"token_address\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\",\n    \"contract_type\": \"ERC721\",\n    \"name\": \"KryptoKitties\",\n    \"symbol\": \"RARI\",\n    \"possible_spam\": true,\n    \"verified_collection\": true,\n    \"synced_at\": \"string\",\n    \"collection_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n    \"collection_banner_image\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n    \"collection_category\": \"Art\",\n    \"project_url\": \"https://www.cryptokitties.co/\",\n    \"wiki_url\": \"https://en.wikipedia.org/wiki/CryptoKitties\",\n    \"discord_url\": \"https://discord.com/invite/cryptokitties\",\n    \"telegram_url\": \"https://t.me/cryptokitties\",\n    \"twitter_username\": \"CryptoKitties\",\n    \"instagram_username\": \"cryptokitties\",\n    \"floor_price\": \"12345\",\n    \"floor_price_usd\": \"12345.4899\",\n    \"floor_price_currency\": \"eth\",\n    \"last_sale\": {\n      \"transaction_hash\": \"0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c\",\n      \"block_timestamp\": \"2023-04-04T15:59:11.000Z\",\n      \"price\": \"7300000000000000\",\n      \"price_formatted\": \"0.0073\",\n      \"buyer_address\": \"0xcb1c1fde09f811b294172696404e88e658659905\",\n      \"seller_address\": \"0x497a7dee2f13db161eb2fec060fa783cb041419f\",\n      \"payment_token\": {\n        \"token_name\": \"Ether\",\n        \"token_symbol\": \"ETH\",\n        \"token_logo\": \"https://cdn.moralis.io/eth/0x.png\",\n        \"token_decimals\": \"18\",\n        \"token_address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\"\n      },\n      \"usd_price_at_sale\": \"13.61\",\n      \"current_usd_value\": \"15.53\",\n      \"token_address\": \"0xe8778996e096b39705c6a0a937eb587a1ebbda17\",\n      \"token_id\": \"170\"\n    }\n  },\n  {\n    \"token_address\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\",\n    \"contract_type\": \"ERC721\",\n    \"name\": \"KryptoKitties\",\n    \"symbol\": \"RARI\",\n    \"possible_spam\": false,\n    \"verified_collection\": true,\n    \"synced_at\": \"string\",\n    \"collection_logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n    \"collection_banner_image\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n    \"collection_category\": \"Art\",\n    \"project_url\": \"https://www.cryptokitties.co/\",\n    \"wiki_url\": \"https://en.wikipedia.org/wiki/CryptoKitties\",\n    \"discord_url\": \"https://discord.com/invite/cryptokitties\",\n    \"telegram_url\": \"https://t.me/cryptokitties\",\n    \"twitter_username\": \"CryptoKitties\",\n    \"instagram_username\": \"cryptokitties\",\n    \"floor_price\": \"12345\",\n    \"floor_price_usd\": \"12345.4899\",\n    \"floor_price_currency\": \"eth\",\n    \"last_sale\": {\n      \"transaction_hash\": \"0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c\",\n      \"block_timestamp\": \"2023-04-04T15:59:11.000Z\",\n      \"price\": \"7300000000000000\",\n      \"price_formatted\": \"0.0073\",\n      \"buyer_address\": \"0xcb1c1fde09f811b294172696404e88e658659905\",\n      \"seller_address\": \"0x497a7dee2f13db161eb2fec060fa783cb041419f\",\n      \"payment_token\": {\n        \"token_name\": \"Ether\",\n        \"token_symbol\": \"ETH\",\n        \"token_logo\": \"https://cdn.moralis.io/eth/0x.png\",\n        \"token_decimals\": \"18\",\n        \"token_address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\"\n      },\n      \"usd_price_at_sale\": \"13.61\",\n      \"current_usd_value\": \"15.53\",\n      \"token_address\": \"0xe8778996e096b39705c6a0a937eb587a1ebbda17\",\n      \"token_id\": \"170\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48009324-b6f3-4f87-8eeb-f5e81e4fcedc",
+          "name": "Resync NFT Contract",
+          "request": {
+            "name": "Resync NFT Contract",
+            "description": {
+              "content": "Initiate indexing for a non-synced NFT contract to make its data available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "nft",
+                ":address",
+                "sync"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The address of the NFT contract"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "57fc1678-9f14-4572-b569-fcf4875366af",
+              "name": "Contract address was triggered for index.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nft",
+                    ":address",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address of the NFT contract"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Request Initiated\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1ea9d68e-e983-4fd7-b30d-5ec810cbbe86",
+    "name": "EVM Balance Get Collections API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

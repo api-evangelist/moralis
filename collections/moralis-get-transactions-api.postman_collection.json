@@ -1,0 +1,461 @@
+{
+  "item": [
+    {
+      "id": "6b115200-3036-47a4-bc45-e86668a79932",
+      "name": "Get Transactions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "517c3523-d071-493a-99de-faf25e435a9b",
+          "name": "Get ERC20 token transfers by wallet address",
+          "request": {
+            "name": "Get ERC20 token transfers by wallet address",
+            "description": {
+              "content": "Get all ERC20 token transfers for a given wallet address, sorted by block number (newest first).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":address",
+                "erc20",
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_block",
+                  "value": "<integer>",
+                  "description": "The minimum block number from which to get the transactions\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_block",
+                  "value": "<integer>",
+                  "description": "The maximum block number from which to get the transactions.\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_date",
+                  "value": "<string>",
+                  "description": "The start date from which to get the transactions (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_date",
+                  "value": "<string>",
+                  "description": "Get the transactions up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "contract_addresses",
+                  "value": "<string>",
+                  "description": "List of contract addresses of transfers"
+                },
+                {
+                  "disabled": false,
+                  "key": "contract_addresses",
+                  "value": "<string>",
+                  "description": "List of contract addresses of transfers"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The desired page size of the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "DESC",
+                  "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor returned in the previous response (used for getting the next page)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The address of the wallet"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "314e9f2a-f0b3-42c3-9b3c-61520f3edec7",
+              "name": "Returns a collection of token transactions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":address",
+                    "erc20",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "from_block",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to_block",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contract_addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address of the wallet"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"token_name\": \"Tether USD\",\n      \"token_symbol\": \"USDT\",\n      \"token_decimals\": \"6\",\n      \"transaction_hash\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\",\n      \"address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n      \"block_timestamp\": \"2021-04-02T10:07:54.000Z\",\n      \"block_number\": \"string\",\n      \"block_hash\": \"0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86\",\n      \"from_address\": \"0xd4a3BebD824189481FC45363602b83C9c7e9cbDf\",\n      \"value\": \"string\",\n      \"transaction_index\": 12,\n      \"log_index\": 2,\n      \"possible_spam\": false,\n      \"verified_contract\": true,\n      \"token_logo\": \"cdn.moralis.io/325/large/Tether-logo.png?1598003707\",\n      \"to_address_entity\": \"Beaver Build\",\n      \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n      \"to_address\": \"0x62AED87d21Ad0F3cdE4D147Fdcc9245401Af0044\",\n      \"to_address_label\": \"Binance 2\",\n      \"from_address_entity\": \"Opensea\",\n      \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n      \"from_address_label\": \"Binance 1\"\n    },\n    {\n      \"token_name\": \"Tether USD\",\n      \"token_symbol\": \"USDT\",\n      \"token_decimals\": \"6\",\n      \"transaction_hash\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\",\n      \"address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n      \"block_timestamp\": \"2021-04-02T10:07:54.000Z\",\n      \"block_number\": \"string\",\n      \"block_hash\": \"0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86\",\n      \"from_address\": \"0xd4a3BebD824189481FC45363602b83C9c7e9cbDf\",\n      \"value\": \"string\",\n      \"transaction_index\": 12,\n      \"log_index\": 2,\n      \"possible_spam\": true,\n      \"verified_contract\": true,\n      \"token_logo\": \"cdn.moralis.io/325/large/Tether-logo.png?1598003707\",\n      \"to_address_entity\": \"Beaver Build\",\n      \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n      \"to_address\": \"0x62AED87d21Ad0F3cdE4D147Fdcc9245401Af0044\",\n      \"to_address_label\": \"Binance 2\",\n      \"from_address_entity\": \"Opensea\",\n      \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n      \"from_address_label\": \"Binance 1\"\n    }\n  ],\n  \"page\": 7936,\n  \"page_size\": 9423,\n  \"cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "12b85069-3b96-42a5-9eac-0735afb697c4",
+          "name": "Get ERC20 token transfers by contract address",
+          "request": {
+            "name": "Get ERC20 token transfers by contract address",
+            "description": {
+              "content": "Get all ERC20 token transfers for a contract, ordered by block number (newest first).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "erc20",
+                ":address",
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_block",
+                  "value": "<integer>",
+                  "description": "The minimum block number from which to get the transfers\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_block",
+                  "value": "<integer>",
+                  "description": "The maximum block number from which to get the transfers.\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_date",
+                  "value": "<string>",
+                  "description": "The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)\n* Provide the param 'from_block' or 'from_date'\n* If 'from_date' and 'from_block' are provided, 'from_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_date",
+                  "value": "<string>",
+                  "description": "Get transfers up until this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The desired page size of the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "DESC",
+                  "description": "The order of the result, in ascending (ASC) or descending (DESC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor returned in the previous response (used for getting the next page)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The address of the token contract"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "46ce6952-3ef4-4d92-ac7c-650242f41f5b",
+              "name": "Returns a collection of token contract transactions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "erc20",
+                    ":address",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "from_block",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "to_block",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address of the token contract"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"token_name\": \"Tether USD\",\n      \"token_symbol\": \"USDT\",\n      \"token_decimals\": \"6\",\n      \"transaction_hash\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\",\n      \"address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n      \"block_timestamp\": \"2021-04-02T10:07:54.000Z\",\n      \"block_number\": \"string\",\n      \"block_hash\": \"0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86\",\n      \"from_address\": \"0xd4a3BebD824189481FC45363602b83C9c7e9cbDf\",\n      \"value\": \"string\",\n      \"transaction_index\": 12,\n      \"log_index\": 2,\n      \"possible_spam\": false,\n      \"verified_contract\": true,\n      \"token_logo\": \"cdn.moralis.io/325/large/Tether-logo.png?1598003707\",\n      \"to_address_entity\": \"Beaver Build\",\n      \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n      \"to_address\": \"0x62AED87d21Ad0F3cdE4D147Fdcc9245401Af0044\",\n      \"to_address_label\": \"Binance 2\",\n      \"from_address_entity\": \"Opensea\",\n      \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n      \"from_address_label\": \"Binance 1\"\n    },\n    {\n      \"token_name\": \"Tether USD\",\n      \"token_symbol\": \"USDT\",\n      \"token_decimals\": \"6\",\n      \"transaction_hash\": \"0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09\",\n      \"address\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n      \"block_timestamp\": \"2021-04-02T10:07:54.000Z\",\n      \"block_number\": \"string\",\n      \"block_hash\": \"0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86\",\n      \"from_address\": \"0xd4a3BebD824189481FC45363602b83C9c7e9cbDf\",\n      \"value\": \"string\",\n      \"transaction_index\": 12,\n      \"log_index\": 2,\n      \"possible_spam\": false,\n      \"verified_contract\": false,\n      \"token_logo\": \"cdn.moralis.io/325/large/Tether-logo.png?1598003707\",\n      \"to_address_entity\": \"Beaver Build\",\n      \"to_address_entity_logo\": \"https://beaverbuild.com/favicon.ico\",\n      \"to_address\": \"0x62AED87d21Ad0F3cdE4D147Fdcc9245401Af0044\",\n      \"to_address_label\": \"Binance 2\",\n      \"from_address_entity\": \"Opensea\",\n      \"from_address_entity_logo\": \"https://opensea.io/favicon.ico\",\n      \"from_address_label\": \"Binance 1\"\n    }\n  ],\n  \"page\": 6847,\n  \"page_size\": 137,\n  \"cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4d9f9b74-c0e7-4298-9d7d-c8f98b753cf3",
+    "name": "EVM Balance Get Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

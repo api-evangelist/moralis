@@ -1,0 +1,533 @@
+{
+  "item": [
+    {
+      "id": "ee243be8-9d00-4597-8f70-7ba1daa8af98",
+      "name": "DeFi",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ef31c046-017f-4666-932c-c702e4812f53",
+          "name": "Get DEX token pair price",
+          "request": {
+            "name": "Get DEX token pair price",
+            "description": {
+              "content": "Fetch the current price of a token pair on Uniswap V2-based DEXs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":token0_address",
+                ":token1_address",
+                "price"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_block",
+                  "value": "<string>",
+                  "description": "The block number to get the reserves from"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_date",
+                  "value": "<string>",
+                  "description": "Get the price up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "exchange",
+                  "value": "<string>",
+                  "description": "The factory name or address of the token exchange"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token0_address",
+                  "description": "(Required) The token0 address"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token1_address",
+                  "description": "(Required) The token1 address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8c63eef6-cd7c-4a73-b5fe-f513cda6fb9e",
+              "name": "Returns the pair price",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":token0_address",
+                    ":token1_address",
+                    "price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "to_block",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exchange",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token0_address",
+                      "description": "(Required) The token0 address"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token1_address",
+                      "description": "(Required) The token1 address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pair_address\": \"0x4028daac072e492d34a3afdbef0ba7e35d8b55c4\",\n  \"pair_label\": \"stETH/WETH\",\n  \"exchange\": \"Uniswap v2\",\n  \"quote_price\": \"1.000094331827400707\",\n  \"price_usd\": \"2905.023454928171304346\",\n  \"base_token\": {\n    \"address\": \"0x6982508145454ce325ddbe47a25d4ec3d2311933\",\n    \"name\": \"Kylin Network\",\n    \"symbol\": \"KYL\",\n    \"decimals\": \"18\",\n    \"created_at\": \"string\",\n    \"possible_spam\": false,\n    \"address_label\": \"Binance 1\",\n    \"logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n    \"logo_hash\": \"ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d\",\n    \"thumbnail\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png\",\n    \"total_supply\": \"420689899999994793099999999997400\",\n    \"total_supply_formatted\": \"420689899999994.7930999999999974\",\n    \"implementations\": [\n      {\n        \"chainId\": \"0x1\",\n        \"address\": \"0x6982508145454ce325ddbe47a25d4ec3d2311933\",\n        \"chain\": \"eth\",\n        \"chainName\": \"Ethereum\"\n      },\n      {\n        \"chainId\": \"0x1\",\n        \"address\": \"0x6982508145454ce325ddbe47a25d4ec3d2311933\",\n        \"chain\": \"eth\",\n        \"chainName\": \"Ethereum\"\n      }\n    ],\n    \"fully_diluted_valuation\": \"3407271444.05\",\n    \"block_number\": \"string\",\n    \"validated\": 1711.1603599953207,\n    \"verified_contract\": false,\n    \"categories\": [\n      \"stablecoin\"\n    ],\n    \"links\": {\n      \"bitbucket\": \"string\",\n      \"discord\": \"string\",\n      \"facebook\": \"string\",\n      \"github\": \"string\",\n      \"instagram\": \"string\",\n      \"linkedin\": \"string\",\n      \"medium\": \"string\",\n      \"reddit\": \"string\",\n      \"telegram\": \"string\",\n      \"tiktok\": \"string\",\n      \"twitter\": \"string\",\n      \"website\": \"string\",\n      \"youtube\": \"string\"\n    },\n    \"circulating_supply\": \"4206864.7489303\",\n    \"market_cap\": \"3407271444.05\"\n  },\n  \"quote_token\": {\n    \"address\": \"0x6982508145454ce325ddbe47a25d4ec3d2311933\",\n    \"name\": \"Kylin Network\",\n    \"symbol\": \"KYL\",\n    \"decimals\": \"18\",\n    \"created_at\": \"string\",\n    \"possible_spam\": false,\n    \"address_label\": \"Binance 1\",\n    \"logo\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png\",\n    \"logo_hash\": \"ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d\",\n    \"thumbnail\": \"https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png\",\n    \"total_supply\": \"420689899999994793099999999997400\",\n    \"total_supply_formatted\": \"420689899999994.7930999999999974\",\n    \"implementations\": [\n      {\n        \"chainId\": \"0x1\",\n        \"address\": \"0x6982508145454ce325ddbe47a25d4ec3d2311933\",\n        \"chain\": \"eth\",\n        \"chainName\": \"Ethereum\"\n      },\n      {\n        \"chainId\": \"0x1\",\n        \"address\": \"0x6982508145454ce325ddbe47a25d4ec3d2311933\",\n        \"chain\": \"eth\",\n        \"chainName\": \"Ethereum\"\n      }\n    ],\n    \"fully_diluted_valuation\": \"3407271444.05\",\n    \"block_number\": \"string\",\n    \"validated\": 2752.688042486936,\n    \"verified_contract\": false,\n    \"categories\": [\n      \"stablecoin\"\n    ],\n    \"links\": {\n      \"bitbucket\": \"string\",\n      \"discord\": \"string\",\n      \"facebook\": \"string\",\n      \"github\": \"string\",\n      \"instagram\": \"string\",\n      \"linkedin\": \"string\",\n      \"medium\": \"string\",\n      \"reddit\": \"string\",\n      \"telegram\": \"string\",\n      \"tiktok\": \"string\",\n      \"twitter\": \"string\",\n      \"website\": \"string\",\n      \"youtube\": \"string\"\n    },\n    \"circulating_supply\": \"4206864.7489303\",\n    \"market_cap\": \"3407271444.05\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37257098-d4f3-4c41-9df4-fc2ec5593d1a",
+          "name": "Get DEX token pair reserves",
+          "request": {
+            "name": "Get DEX token pair reserves",
+            "description": {
+              "content": "Retrieve liquidity reserves for a token pair on Uniswap V2-based DEXs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":pair_address",
+                "reserves"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_block",
+                  "value": "<string>",
+                  "description": "The block number to get the reserves from"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_date",
+                  "value": "<string>",
+                  "description": "Get the reserves up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pair_address",
+                  "description": "(Required) The liquidity pair address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f8c673ce-2a5e-4ea8-bc6d-cd9060882899",
+              "name": "Returns the pair reserves",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":pair_address",
+                    "reserves"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "to_block",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pair_address",
+                      "description": "(Required) The liquidity pair address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reserve0\": \"220969226548536862025877\",\n  \"reserve1\": \"844810441191293211036\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da853a30-4748-4ec3-b9a9-a442ae1b9fe2",
+          "name": "Get DEX token pair address",
+          "request": {
+            "name": "Get DEX token pair address",
+            "description": {
+              "content": "Get the pair address for a token0/token1 combination on a DEX, interchangeable order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":token0_address",
+                ":token1_address",
+                "pairAddress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_block",
+                  "value": "<string>",
+                  "description": "The block number to get the reserves from"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_date",
+                  "value": "<string>",
+                  "description": "Get the reserves up to this date (format in seconds or datestring accepted by momentjs)\n* Provide the param 'to_block' or 'to_date'\n* If 'to_date' and 'to_block' are provided, 'to_block' will be used.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "exchange",
+                  "value": "<string>",
+                  "description": "(Required) The factory name or address of the token exchange"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token0_address",
+                  "description": "(Required) The token0 address"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token1_address",
+                  "description": "(Required) The token1 address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d3dc86bb-7c14-43b1-8859-5f027768a271",
+              "name": "Returns the pair address of the two tokens.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":token0_address",
+                    ":token1_address",
+                    "pairAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    },
+                    {
+                      "key": "to_block",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exchange",
+                      "value": "uniswapv2"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token0_address",
+                      "description": "(Required) The token0 address"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token1_address",
+                      "description": "(Required) The token1 address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token0\": {\n    \"address\": \"0x2b591e99afe9f32eaa6214f7b7629768c40eeb39\",\n    \"name\": \"HEX\",\n    \"symbol\": \"HEX\",\n    \"decimals\": \"string\",\n    \"logo\": \"https://cdn.moralis.io/eth/0x2b591e99afe9f32eaa6214f7b7629768c40eeb39.png\",\n    \"logo_hash\": \"b3bd1b5512965d7b6aeee903dcc6d28b116d58c788eb41e9c1690baed878beaa\",\n    \"thumbnail\": \"https://cdn.moralis.io/eth/0x2b591e99afe9f32eaa6214f7b7629768c40eeb39_thumb.png\",\n    \"block_number\": \"string\",\n    \"validated\": 0,\n    \"created_at\": \"2022-01-20T09:39:55.818Z\"\n  },\n  \"token1\": {\n    \"address\": \"0xdac17f958d2ee523a2206206994597c13d831ec7\",\n    \"name\": \"Tether USD\",\n    \"symbol\": \"USDT\",\n    \"decimals\": \"string\",\n    \"logo\": \"https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7.png\",\n    \"logo_hash\": \"ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d\",\n    \"thumbnail\": \"https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7_thumb.png\",\n    \"block_number\": \"4638568\",\n    \"validated\": 1,\n    \"created_at\": \"2022-01-20T09:39:55.818Z\"\n  },\n  \"pairAddress\": \"0xbbb9bf440d0f686487925fef3b0a0f9aa67753f6\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bd3eebf2-6a49-48f6-858e-784d5bcadab9",
+    "name": "EVM Balance DeFi API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

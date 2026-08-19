@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EVM Balance Market Data API",
+    "version": "2.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Market Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get top ERC20 tokens by market cap",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/market-data/erc20s/top-tokens",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List the top ERC20 tokens ranked by market cap. Currently only supports Ethereum. For more flexibility, we recommend to use getFilteredTokens."
+        },
+        {
+          "info": {
+            "name": "Get top ERC20 tokens by price movements (winners and losers)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/market-data/erc20s/top-movers",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get top ERC20 tokens by price movements (winners and losers). Currently only supports Ethereum. For more flexibility, we recommend to use getFilteredTokens or getTopGainersTokens and getTopLosersTokens."
+        },
+        {
+          "info": {
+            "name": "Get top NFT collections by market cap",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/market-data/nfts/top-collections",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get top NFT collections by their current market cap. Currently only supports Ethereum."
+        },
+        {
+          "info": {
+            "name": "Get top NFT collections by trading volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/market-data/nfts/hottest-collections",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get NFT collections by their 24 hour trading volume. Currently only supports Ethereum."
+        },
+        {
+          "info": {
+            "name": "Get top crypto currencies by market cap",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/market-data/global/market-cap",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get cryptocurrencies by their market cap."
+        },
+        {
+          "info": {
+            "name": "Get top crypto currencies by trading volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/market-data/global/volume",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get cryptocurrencies with the highest 24 hour trading volume."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

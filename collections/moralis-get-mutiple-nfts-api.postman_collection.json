@@ -1,0 +1,178 @@
+{
+  "item": [
+    {
+      "id": "2927c0a5-df84-4e58-9307-369dbcd2e6f1",
+      "name": "Get Mutiple NFTs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8ca956a2-5e12-473d-bec6-ebd00e268d41",
+          "name": "Get Metadata for NFTs",
+          "request": {
+            "name": "Get Metadata for NFTs",
+            "description": {
+              "content": "Get NFT metadata for one or many NFTs. Accepts an array of up to 25 `tokens`, each requiring `token_address` and `token_id`. Each NFT returned includes on-chain metadata as well as off-chain metadata, floor prices, rarity and more where available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "nft",
+                "getMultipleNFTs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "eth",
+                  "description": "The chain to query"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tokens\": [\n    {\n      \"token_address\": \"<string>\",\n      \"token_id\": \"<string>\"\n    },\n    {\n      \"token_address\": \"<string>\",\n      \"token_id\": \"<string>\"\n    }\n  ],\n  \"normalizeMetadata\": \"<boolean>\",\n  \"media_items\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "73f5d44f-4922-4e3d-a45a-592bc3d5dedf",
+              "name": "Returns a collection of NFT owners",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nft",
+                    "getMultipleNFTs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chain",
+                      "value": "eth"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tokens\": [\n    {\n      \"token_address\": \"0xa4991609c508b6d4fb7156426db0bd49fe298bd8\",\n      \"token_id\": \"12\"\n    },\n    {\n      \"token_address\": \"0x3c64dc415ebb4690d1df2b6216148c8de6dd29f7\",\n      \"token_id\": \"1\"\n    },\n    {\n      \"token_address\": \"0x3c64dc415ebb4690d1df2b6216148c8de6dd29f7\",\n      \"token_id\": \"200\"\n    }\n  ],\n  \"normalizeMetadata\": false,\n  \"media_items\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"token_address\": \"0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB\",\n    \"token_id\": \"15\",\n    \"contract_type\": \"ERC721\",\n    \"name\": \"CryptoKitties\",\n    \"block_number\": \"88256\",\n    \"block_number_minted\": \"88256\",\n    \"owner_of\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n    \"symbol\": \"RARI\",\n    \"token_hash\": \"502cee781b0fb40ea02508b21d319ced\",\n    \"last_token_uri_sync\": \"2021-02-24T00:47:26.647Z\",\n    \"last_metadata_sync\": \"2021-02-24T00:47:26.647Z\",\n    \"possible_spam\": true,\n    \"token_uri\": \"string\",\n    \"metadata\": \"string\",\n    \"normalized_metadata\": {\n      \"name\": \"Moralis Mug\",\n      \"description\": \"Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.\",\n      \"image\": \"https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png\",\n      \"external_link\": \"https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI\",\n      \"external_url\": \"https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI\",\n      \"animation_url\": \"https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8\",\n      \"attributes\": [\n        {\n          \"trait_type\": \"Eye Color\",\n          \"value\": {},\n          \"display_type\": \"string\",\n          \"max_value\": 100,\n          \"trait_count\": 7,\n          \"order\": 1\n        },\n        {\n          \"trait_type\": \"Eye Color\",\n          \"value\": {},\n          \"display_type\": \"string\",\n          \"max_value\": 100,\n          \"trait_count\": 7,\n          \"order\": 1\n        }\n      ]\n    },\n    \"media\": {\n      \"mimetype\": \"string\",\n      \"category\": \"string\",\n      \"status\": \"string\",\n      \"original_media_url\": \"string\",\n      \"updatedAt\": \"string\",\n      \"parent_hash\": \"string\",\n      \"media_collection\": {\n        \"low\": {\n          \"width\": 7431,\n          \"height\": 4390,\n          \"url\": \"string\"\n        },\n        \"medium\": {\n          \"width\": 6466,\n          \"height\": 3664,\n          \"url\": \"string\"\n        },\n        \"high\": {\n          \"width\": 8816,\n          \"height\": 854,\n          \"url\": \"string\"\n        },\n        \"original\": 1474.9545129036435\n      }\n    },\n    \"amount\": \"1\",\n    \"rarity_rank\": 21669,\n    \"rarity_percentage\": 98,\n    \"rarity_label\": \"Top 98%\",\n    \"verified_collection\": false,\n    \"floor_price\": \"12345\",\n    \"floor_price_usd\": \"12345.4899\",\n    \"floor_price_currency\": \"eth\",\n    \"last_sale\": {\n      \"transaction_hash\": \"0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c\",\n      \"block_timestamp\": \"2023-04-04T15:59:11.000Z\",\n      \"price\": \"7300000000000000\",\n      \"price_formatted\": \"0.0073\",\n      \"buyer_address\": \"0xcb1c1fde09f811b294172696404e88e658659905\",\n      \"seller_address\": \"0x497a7dee2f13db161eb2fec060fa783cb041419f\",\n      \"payment_token\": {\n        \"token_name\": \"Ether\",\n        \"token_symbol\": \"ETH\",\n        \"token_logo\": \"https://cdn.moralis.io/eth/0x.png\",\n        \"token_decimals\": \"18\",\n        \"token_address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\"\n      },\n      \"usd_price_at_sale\": \"13.61\",\n      \"current_usd_value\": \"15.53\",\n      \"token_address\": \"0xe8778996e096b39705c6a0a937eb587a1ebbda17\",\n      \"token_id\": \"170\"\n    }\n  },\n  {\n    \"token_address\": \"0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB\",\n    \"token_id\": \"15\",\n    \"contract_type\": \"ERC721\",\n    \"name\": \"CryptoKitties\",\n    \"block_number\": \"88256\",\n    \"block_number_minted\": \"88256\",\n    \"owner_of\": \"0x057Ec652A4F150f7FF94f089A38008f49a0DF88e\",\n    \"symbol\": \"RARI\",\n    \"token_hash\": \"502cee781b0fb40ea02508b21d319ced\",\n    \"last_token_uri_sync\": \"2021-02-24T00:47:26.647Z\",\n    \"last_metadata_sync\": \"2021-02-24T00:47:26.647Z\",\n    \"possible_spam\": false,\n    \"token_uri\": \"string\",\n    \"metadata\": \"string\",\n    \"normalized_metadata\": {\n      \"name\": \"Moralis Mug\",\n      \"description\": \"Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.\",\n      \"image\": \"https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png\",\n      \"external_link\": \"https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI\",\n      \"external_url\": \"https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI\",\n      \"animation_url\": \"https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8\",\n      \"attributes\": [\n        {\n          \"trait_type\": \"Eye Color\",\n          \"value\": {},\n          \"display_type\": \"string\",\n          \"max_value\": 100,\n          \"trait_count\": 7,\n          \"order\": 1\n        },\n        {\n          \"trait_type\": \"Eye Color\",\n          \"value\": {},\n          \"display_type\": \"string\",\n          \"max_value\": 100,\n          \"trait_count\": 7,\n          \"order\": 1\n        }\n      ]\n    },\n    \"media\": {\n      \"mimetype\": \"string\",\n      \"category\": \"string\",\n      \"status\": \"string\",\n      \"original_media_url\": \"string\",\n      \"updatedAt\": \"string\",\n      \"parent_hash\": \"string\",\n      \"media_collection\": {\n        \"low\": {\n          \"width\": 5779,\n          \"height\": 6903,\n          \"url\": \"string\"\n        },\n        \"medium\": {\n          \"width\": 9959,\n          \"height\": 5464,\n          \"url\": \"string\"\n        },\n        \"high\": {\n          \"width\": 4673,\n          \"height\": 1753,\n          \"url\": \"string\"\n        },\n        \"original\": false\n      }\n    },\n    \"amount\": \"1\",\n    \"rarity_rank\": 21669,\n    \"rarity_percentage\": 98,\n    \"rarity_label\": \"Top 98%\",\n    \"verified_collection\": true,\n    \"floor_price\": \"12345\",\n    \"floor_price_usd\": \"12345.4899\",\n    \"floor_price_currency\": \"eth\",\n    \"last_sale\": {\n      \"transaction_hash\": \"0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c\",\n      \"block_timestamp\": \"2023-04-04T15:59:11.000Z\",\n      \"price\": \"7300000000000000\",\n      \"price_formatted\": \"0.0073\",\n      \"buyer_address\": \"0xcb1c1fde09f811b294172696404e88e658659905\",\n      \"seller_address\": \"0x497a7dee2f13db161eb2fec060fa783cb041419f\",\n      \"payment_token\": {\n        \"token_name\": \"Ether\",\n        \"token_symbol\": \"ETH\",\n        \"token_logo\": \"https://cdn.moralis.io/eth/0x.png\",\n        \"token_decimals\": \"18\",\n        \"token_address\": \"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\"\n      },\n      \"usd_price_at_sale\": \"13.61\",\n      \"current_usd_value\": \"15.53\",\n      \"token_address\": \"0xe8778996e096b39705c6a0a937eb587a1ebbda17\",\n      \"token_id\": \"170\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c6d51fc0-4f6c-4e35-bf21-e75438c140ed",
+    "name": "EVM Balance Get Mutiple NFTs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

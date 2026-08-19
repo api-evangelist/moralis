@@ -1,0 +1,513 @@
+{
+  "item": [
+    {
+      "id": "b73fbdf2-12d5-4db0-b8df-13994513f52e",
+      "name": "Entities",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7c9e64c6-4017-4d21-bf32-43a00aaaf882",
+          "name": "Search Entities, Organizations or Wallets",
+          "request": {
+            "name": "Search Entities, Organizations or Wallets",
+            "description": {
+              "content": "Find entities, organizations, addresses or wallets linked to blockchain addresses. Results are categorised into 3 arrays: entities, addresses, categories.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entities",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) The search query"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The desired page size of the result."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0b34e849-efb1-4ada-a5c6-d8b58a401193",
+              "name": "Returns the search results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "Doge"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"entities\": [\n      {\n        \"name\": \"Uniswap\",\n        \"id\": \"uniswap\",\n        \"logo\": \"https://uniswap.io/favicon.ico\",\n        \"bio\": \"Uniswap is a decentralized finance protocol that is used to exchange cryptocurrencies.\",\n        \"description\": \"Uniswap is a decentralized finance protocol that is used to exchange cryptocurrencies.\",\n        \"website\": \"https://uniswap.io\",\n        \"twitter\": \"https://twitter.com/uniswap\",\n        \"type\": \"exchange\"\n      },\n      {\n        \"name\": \"Uniswap\",\n        \"id\": \"uniswap\",\n        \"logo\": \"https://uniswap.io/favicon.ico\",\n        \"bio\": \"Uniswap is a decentralized finance protocol that is used to exchange cryptocurrencies.\",\n        \"description\": \"Uniswap is a decentralized finance protocol that is used to exchange cryptocurrencies.\",\n        \"website\": \"https://uniswap.io\",\n        \"twitter\": \"https://twitter.com/uniswap\",\n        \"type\": \"exchange\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"entity\": {\n          \"name\": \"Uniswap\",\n          \"id\": \"uniswap\"\n        },\n        \"address\": \"0x1f98431c8ad98523631ae4a59f267346ea31f984\",\n        \"chain\": \"ethereum\",\n        \"is_multi_chain\": false,\n        \"primary_label\": \"Uniswap\"\n      },\n      {\n        \"entity\": {\n          \"name\": \"Uniswap\",\n          \"id\": \"uniswap\"\n        },\n        \"address\": \"0x1f98431c8ad98523631ae4a59f267346ea31f984\",\n        \"chain\": \"ethereum\",\n        \"is_multi_chain\": false,\n        \"primary_label\": \"Uniswap\"\n      }\n    ],\n    \"categories\": [\n      {\n        \"name\": \"Uniswap\",\n        \"id\": \"uniswap\"\n      },\n      {\n        \"name\": \"Uniswap\",\n        \"id\": \"uniswap\"\n      }\n    ]\n  },\n  \"page\": 3737,\n  \"page_size\": 5807\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be9131a8-076e-4cf8-a8af-b40f0b684f22",
+          "name": "Get Entity Details By Id",
+          "request": {
+            "name": "Get Entity Details By Id",
+            "description": {
+              "content": "Retrieve details for a specific entity using its unique ID. Returns name, logo, description, external links and related addresses.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entities",
+                ":entityId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entityId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1ef514ef-dde2-4a5f-924b-e02d42cee912",
+              "name": "Returns the entity.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    ":entityId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entityId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addresses\": [\n    {\n      \"additional_labels\": [\n        \"string\",\n        \"string\"\n      ],\n      \"address\": \"0x1f98431c8ad98523631ae4a59f267346ea31f984\",\n      \"chain\": \"ethereum\",\n      \"is_multi_chain\": false,\n      \"primary_label\": \"Uniswap\"\n    },\n    {\n      \"additional_labels\": [\n        \"string\",\n        \"string\"\n      ],\n      \"address\": \"0x1f98431c8ad98523631ae4a59f267346ea31f984\",\n      \"chain\": \"ethereum\",\n      \"is_multi_chain\": false,\n      \"primary_label\": \"Uniswap\"\n    }\n  ],\n  \"name\": \"Uniswap\",\n  \"id\": \"uniswap\",\n  \"logo\": \"https://uniswap.io/favicon.ico\",\n  \"bio\": \"Uniswap is a decentralized finance protocol that is used to exchange cryptocurrencies.\",\n  \"description\": \"Uniswap is a decentralized finance protocol that is used to exchange cryptocurrencies.\",\n  \"website\": \"https://uniswap.io\",\n  \"twitter\": \"https://twitter.com/uniswap\",\n  \"type\": \"exchange\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ed55d64-0e2b-4c44-9018-6844f98878ab",
+          "name": "Get Entity Categories",
+          "request": {
+            "name": "Get Entity Categories",
+            "description": {
+              "content": "List available categories for blockchain entities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entities",
+                "categories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The desired page size of the result."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7df06e92-7f84-4adf-95e2-8c19acb31122",
+              "name": "Returns the entity categories.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"total_entities\": 100,\n      \"name\": \"Uniswap\",\n      \"id\": \"uniswap\"\n    },\n    {\n      \"total_entities\": 100,\n      \"name\": \"Uniswap\",\n      \"id\": \"uniswap\"\n    }\n  ],\n  \"page\": 9320,\n  \"page_size\": 7592\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca17d7f6-653c-465f-b516-689a9308f6a2",
+          "name": "Get Entities By Category",
+          "request": {
+            "name": "Get Entities By Category",
+            "description": {
+              "content": "Fetch entities belonging to a specific category. Each entity returns name, logo, description, external links, total addresses and more.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entities",
+                "categories",
+                ":categoryId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The desired page size of the result."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "categoryId",
+                  "description": "(Required) The category Id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f4192fcf-3778-47f0-8645-4a5057d0e9c2",
+              "name": "Returns the entities belonging to the category.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "categories",
+                    ":categoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "categoryId",
+                      "description": "(Required) The category Id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"total_addresses\": 100,\n      \"name\": \"Uniswap\",\n      \"id\": \"uniswap\",\n      \"logo\": \"https://uniswap.io/favicon.ico\",\n      \"bio\": \"Uniswap is a decentralized finance protocol that is used to exchange cryptocurrencies.\",\n      \"description\": \"Uniswap is a decentralized finance protocol that is used to exchange cryptocurrencies.\",\n      \"website\": \"https://uniswap.io\",\n      \"twitter\": \"https://twitter.com/uniswap\",\n      \"type\": \"exchange\"\n    },\n    {\n      \"total_addresses\": 100,\n      \"name\": \"Uniswap\",\n      \"id\": \"uniswap\",\n      \"logo\": \"https://uniswap.io/favicon.ico\",\n      \"bio\": \"Uniswap is a decentralized finance protocol that is used to exchange cryptocurrencies.\",\n      \"description\": \"Uniswap is a decentralized finance protocol that is used to exchange cryptocurrencies.\",\n      \"website\": \"https://uniswap.io\",\n      \"twitter\": \"https://twitter.com/uniswap\",\n      \"type\": \"exchange\"\n    }\n  ],\n  \"page\": 9921,\n  \"page_size\": 4842\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://deep-index.moralis.io/api/v2.2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1db7082d-6c49-4313-b28e-9508a9b98ab7",
+    "name": "EVM Balance Entities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

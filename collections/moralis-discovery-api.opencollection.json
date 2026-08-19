@@ -1,0 +1,537 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EVM Balance Discovery API",
+    "version": "2.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of tokens that match the specified filters and criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch a list of tokens across multiple chains, filtered and ranked by dynamic on-chain metrics like volume, price change, liquidity, holder composition, and more. Supports advanced filters (e.g. “top 10 whales hold <40%”), category-based inclusion/exclusion (e.g. “exclude stablecoins”), and time-based analytics. Ideal for token discovery, investor research, risk analysis, and portfolio tools. Each token returned includes detailed trading metrics as well as on-chain and off-chain metadata."
+        },
+        {
+          "info": {
+            "name": "Get tokens with rising liquidity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/rising-liquidity",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "one_month_liquidity_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month liquidity change in usd of a token"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "twitter_followers",
+                "value": "",
+                "type": "query",
+                "description": "The minimum twitter followers of a token"
+              },
+              {
+                "name": "one_month_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month volume change in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "one_month_price_percent_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month price percent change of a token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Identify tokens experiencing increasing liquidity on their respective blockchains."
+        },
+        {
+          "info": {
+            "name": "Get tokens with buying pressure",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/buying-pressure",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "one_month_net_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month net volume change in usd of a token"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "twitter_followers",
+                "value": "",
+                "type": "query",
+                "description": "The minimum twitter followers of a token"
+              },
+              {
+                "name": "one_month_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month volume change in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "one_month_price_percent_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month price percent change of a token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List tokens showing strong buying activity based on transaction data."
+        },
+        {
+          "info": {
+            "name": "Get tokens with solid performance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/solid-performers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "one_month_net_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month net volume change in usd of a token"
+              },
+              {
+                "name": "one_week_net_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one week net volume change in usd of a token"
+              },
+              {
+                "name": "one_day_net_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one day net volume change in usd of a token"
+              },
+              {
+                "name": "one_month_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month volume change in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "one_month_price_percent_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month price percent change of a token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Find tokens with consistent performance based on price and volume metrics."
+        },
+        {
+          "info": {
+            "name": "Get tokens with experienced buyers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/experienced-buyers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "one_week_experienced_net_buyers_change",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one week experienced buyers change of a token"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Identify tokens being purchased by experienced or high-volume traders."
+        },
+        {
+          "info": {
+            "name": "Get tokens with risky bets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/risky-bets",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "max_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The maximum market cap in usd of a token"
+              },
+              {
+                "name": "one_week_holders_change",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one week holders change of a token"
+              },
+              {
+                "name": "one_week_net_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one week net volume change in usd of a token"
+              },
+              {
+                "name": "one_month_volume_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month volume change in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "one_month_price_percent_change_usd",
+                "value": "",
+                "type": "query",
+                "description": "The minimum one month price percent change of a token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List tokens with high-risk trading activity based on volatility or other factors."
+        },
+        {
+          "info": {
+            "name": "Get tokens with blue chip",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/blue-chip",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "min_token_age_in_days",
+                "value": "",
+                "type": "query",
+                "description": "The minimum age of token in days"
+              },
+              {
+                "name": "time_frame",
+                "value": "",
+                "type": "query",
+                "description": "The time frame used for price percent change ordering in response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch established, high-value tokens considered stable investments."
+        },
+        {
+          "info": {
+            "name": "Get tokens with top gainers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/top-gainers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "time_frame",
+                "value": "",
+                "type": "query",
+                "description": "The time frame used for price percent change ordering in response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Identify tokens with the highest price increases over a period."
+        },
+        {
+          "info": {
+            "name": "Get tokens with top losers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/top-losers",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              },
+              {
+                "name": "time_frame",
+                "value": "",
+                "type": "query",
+                "description": "The time frame used for price percent change ordering in response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List tokens with the largest price decreases over a period."
+        },
+        {
+          "info": {
+            "name": "Get trending tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/tokens/trending",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "min_market_cap",
+                "value": "",
+                "type": "query",
+                "description": "The minimum market cap in usd of a token"
+              },
+              {
+                "name": "security_score",
+                "value": "",
+                "type": "query",
+                "description": "The minimum security score of a token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Discover tokens gaining popularity based on trading and social metrics."
+        },
+        {
+          "info": {
+            "name": "Get token details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://deep-index.moralis.io/api/v2.2/discovery/token",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The chain to query"
+              },
+              {
+                "name": "token_address",
+                "value": "",
+                "type": "query",
+                "description": "The address of the token"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve comprehensive details for a specific token, including metadata and stats. For more detailed tokens stats we recommended to use `getTokenAnalytics` or `getMultipleTokenAnalytics`. For pair stats, we recommend to use `getPairStats`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
