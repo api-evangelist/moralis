@@ -48,6 +48,10 @@ apis:
   tags:
   - REST
   - Streams
+  - Webhook
+  tags_raw:
+  - REST
+  - Streams
   - Webhooks
   properties:
   - type: Documentation
@@ -58,6 +62,9 @@ apis:
   humanURL: https://docs.moralis.com/authentication-api
   baseURL: https://authapi.moralis.io
   tags:
+  - REST
+  - Authentication
+  tags_raw:
   - REST
   - Auth
   properties:
@@ -81,6 +88,8 @@ apis:
   humanURL: https://docs.moralis.com/web3-data-api/evm
   baseURL: https://deep-index.moralis.io/api/v2.2
   tags:
+  - Balances
+  tags_raw:
   - Balance
   properties:
   - type: OpenAPI
