@@ -5,6 +5,18 @@ kind: company
 description: Moralis is a Web3 data platform offering REST-based Data APIs for EVM
   and Solana chains, real-time Streams (webhooks), Datashare exports, and an enterprise
   Data Indexer. Supports 30+ chains for wallets, analytics, automation, and data pipelines.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
