@@ -355,6 +355,8 @@ apis:
   humanURL: https://docs.moralis.com/web3-data-api/evm
   baseURL: https://deep-index.moralis.io/api/v2.2
   tags:
+  - Tokens
+  tags_raw:
   - Token
   properties:
   - type: OpenAPI
