@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: EVM Balance Discovery API
+  title: EVM Discovery API
   version: '2.2'
 servers:
 - url: https://deep-index.moralis.io/api/v2.2
@@ -789,30 +789,6 @@ paths:
       x-mcp-prompt: Enter the token contract address to fetch its details. Use this when users ask for in-depth information about a token or need a complete token profile.
 components:
   schemas:
-    tokenExplorerMetrics:
-      type: string
-      enum:
-      - experiencedBuyers
-      - tokenAge
-      - holders
-      - buyers
-      - sellers
-      - netBuyers
-      - experiencedSellers
-      - netExperiencedBuyers
-      - fullyDilutedValuation
-      - marketCap
-      - usdPrice
-      - usdPricePercentChange
-      - liquidityChange
-      - liquidityChangeUSD
-      - volumeUsd
-      - buyVolumeUsd
-      - sellVolumeUsd
-      - netVolumeUsd
-      - securityScore
-      - totalHolders
-      - totalLiquidityUsd
     tokenExplorerTimeFrames:
       type: string
       enum:
@@ -824,62 +800,6 @@ components:
       - twelveHours
       - oneDay
       - oneWeek
-    discoveryTokenLinks:
-      type: object
-      required:
-      - bitbucket
-      - discord
-      - facebook
-      - github
-      - instagram
-      - linkedin
-      - medium
-      - reddit
-      - telegram
-      - tiktok
-      - twitter
-      - website
-      - youtube
-      properties:
-        bitbucket:
-          type: string
-          description: The link of the token on the platform
-        discord:
-          type: string
-          description: The link of the token on the platform
-        facebook:
-          type: string
-          description: The link of the token on the platform
-        github:
-          type: string
-          description: The link of the token on the platform
-        instagram:
-          type: string
-          description: The link of the token on the platform
-        linkedin:
-          type: string
-          description: The link of the token on the platform
-        medium:
-          type: string
-          description: The link of the token on the platform
-        reddit:
-          type: string
-          description: The link of the token on the platform
-        telegram:
-          type: string
-          description: The link of the token on the platform
-        tiktok:
-          type: string
-          description: The link of the token on the platform
-        twitter:
-          type: string
-          description: The link of the token on the platform
-        website:
-          type: string
-          description: The link of the token on the platform
-        youtube:
-          type: string
-          description: The link of the token on the platform
     chainListWithSolana:
       type: string
       example: eth
@@ -950,6 +870,113 @@ components:
       - monad
       - '0x8f'
       - solana
+    discoverySupportedTimeFrames:
+      type: string
+      example: 1d
+      enum:
+      - 1h
+      - 1d
+      - 1w
+      - 1M
+    discoveryTokens:
+      type: array
+      items:
+        required:
+        - chain_id
+        - token_address
+        - token_name
+        - token_symbol
+        - token_logo
+        - price_usd
+        - token_age_in_days
+        - on_chain_strength_index
+        - security_score
+        - market_cap
+        - fully_diluted_valuation
+        - twitter_followers
+        - holders_change
+        - liquidity_change_usd
+        - experienced_net_buyers_change
+        - volume_change_usd
+        - net_volume_change_usd
+        - price_percent_change_usd
+        properties:
+          chain_id:
+            type: string
+            description: The chain id of the token
+            example: '0x1'
+          token_address:
+            type: string
+            description: The address of the token
+            example: '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2'
+          token_name:
+            type:
+            - string
+            - 'null'
+            description: The name of the token contract
+            example: Maker
+          token_symbol:
+            type:
+            - string
+            - 'null'
+            description: The symbol of the token
+            example: MKR
+          token_logo:
+            type:
+            - string
+            - 'null'
+            description: The logo of the token
+          price_usd:
+            type:
+            - number
+            - 'null'
+            description: The price in USD for the token
+          token_age_in_days:
+            type:
+            - number
+            - 'null'
+            description: The number of days since the token was created
+          on_chain_strength_index:
+            type:
+            - number
+            - 'null'
+            description: The score of coin determined by various on chain metrics
+          security_score:
+            type:
+            - number
+            - 'null'
+            description: The security score (0-100) given to the token based various parameters
+            example: 88
+          market_cap:
+            type:
+            - number
+            - 'null'
+            description: The market cap in USD
+            example: 1351767630.85
+          fully_diluted_valuation:
+            type:
+            - number
+            - 'null'
+            description: The fully diluted valuation in USD
+            example: 1363915420.28
+          twitter_followers:
+            type:
+            - number
+            - 'null'
+            description: The number of followers of the token on twitter
+            example: 255217
+          holders_change:
+            $ref: '#/components/schemas/timeFrames'
+          liquidity_change_usd:
+            $ref: '#/components/schemas/timeFrames'
+          experienced_net_buyers_change:
+            $ref: '#/components/schemas/timeFrames'
+          volume_change_usd:
+            $ref: '#/components/schemas/timeFrames'
+          net_volume_change_usd:
+            $ref: '#/components/schemas/timeFrames'
+          price_percent_change_usd:
+            $ref: '#/components/schemas/timeFrames'
     discoveryToken:
       type: object
       required:
@@ -988,77 +1015,93 @@ components:
           description: The address of the token
           example: '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2'
         token_name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The name of the token contract
           example: Maker
-          nullable: true
         token_symbol:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The symbol of the token
           example: MKR
-          nullable: true
         token_logo:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The logo of the token
-          nullable: true
         block_number:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The block number of token when it was minted
-          nullable: true
         block_timestamp:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The block timestamp of token when it was minted
-          nullable: true
         links:
           $ref: '#/components/schemas/discoveryTokenLinks'
         rating:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The rating of token by moralis money community members
-          nullable: true
         total_number_of_rating:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The total number of moralis money community members that have rated the token
-          nullable: true
         total_liquidity_locked_in_percent:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The total amount of liquidity that is locked
-          nullable: true
         total_supply_locked_in_percent:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The total amount of supply that is locked
-          nullable: true
         price_usd:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The price in USD for the token
-          nullable: true
         token_age_in_days:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The number of days since the token was created
-          nullable: true
         on_chain_strength_index:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The score of coin determined by various on chain metrics
-          nullable: true
         security_score:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The security score (0-100) given to the token based various parameters
           example: 88
-          nullable: true
         market_cap:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The market cap in USD
           example: 1351767630.85
-          nullable: true
         fully_diluted_valuation:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The fully diluted valuation in USD
           example: 1363915420.28
-          nullable: true
         twitter_followers:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The number of followers of the token on twitter
           example: 255217
-          nullable: true
         holders_change:
           $ref: '#/components/schemas/timeFrames'
         liquidity_change_usd:
@@ -1071,6 +1114,86 @@ components:
           $ref: '#/components/schemas/timeFrames'
         price_percent_change_usd:
           $ref: '#/components/schemas/timeFrames'
+    discoveryTokenLinks:
+      type: object
+      required:
+      - bitbucket
+      - discord
+      - facebook
+      - github
+      - instagram
+      - linkedin
+      - medium
+      - reddit
+      - telegram
+      - tiktok
+      - twitter
+      - website
+      - youtube
+      properties:
+        bitbucket:
+          type: string
+          description: The link of the token on the platform
+        discord:
+          type: string
+          description: The link of the token on the platform
+        facebook:
+          type: string
+          description: The link of the token on the platform
+        github:
+          type: string
+          description: The link of the token on the platform
+        instagram:
+          type: string
+          description: The link of the token on the platform
+        linkedin:
+          type: string
+          description: The link of the token on the platform
+        medium:
+          type: string
+          description: The link of the token on the platform
+        reddit:
+          type: string
+          description: The link of the token on the platform
+        telegram:
+          type: string
+          description: The link of the token on the platform
+        tiktok:
+          type: string
+          description: The link of the token on the platform
+        twitter:
+          type: string
+          description: The link of the token on the platform
+        website:
+          type: string
+          description: The link of the token on the platform
+        youtube:
+          type: string
+          description: The link of the token on the platform
+    tokenExplorerMetrics:
+      type: string
+      enum:
+      - experiencedBuyers
+      - tokenAge
+      - holders
+      - buyers
+      - sellers
+      - netBuyers
+      - experiencedSellers
+      - netExperiencedBuyers
+      - fullyDilutedValuation
+      - marketCap
+      - usdPrice
+      - usdPricePercentChange
+      - liquidityChange
+      - liquidityChangeUSD
+      - volumeUsd
+      - buyVolumeUsd
+      - sellVolumeUsd
+      - netVolumeUsd
+      - securityScore
+      - totalHolders
+      - totalLiquidityUsd
     timeFrames:
       type: object
       required:
@@ -1080,122 +1203,29 @@ components:
       - 1M
       properties:
         1h:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The 1 hour change of the token
           example: 14
-          nullable: true
         1d:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The 1 day change of the token
           example: 14
-          nullable: true
         1w:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The 1 week change of the token
           example: 162
-          nullable: true
         1M:
-          type: number
+          type:
+          - number
+          - 'null'
           description: The 1 month change of the token
           example: 162
-          nullable: true
-    discoveryTokens:
-      type: array
-      items:
-        required:
-        - chain_id
-        - token_address
-        - token_name
-        - token_symbol
-        - token_logo
-        - price_usd
-        - token_age_in_days
-        - on_chain_strength_index
-        - security_score
-        - market_cap
-        - fully_diluted_valuation
-        - twitter_followers
-        - holders_change
-        - liquidity_change_usd
-        - experienced_net_buyers_change
-        - volume_change_usd
-        - net_volume_change_usd
-        - price_percent_change_usd
-        properties:
-          chain_id:
-            type: string
-            description: The chain id of the token
-            example: '0x1'
-          token_address:
-            type: string
-            description: The address of the token
-            example: '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2'
-          token_name:
-            type: string
-            description: The name of the token contract
-            example: Maker
-            nullable: true
-          token_symbol:
-            type: string
-            description: The symbol of the token
-            example: MKR
-            nullable: true
-          token_logo:
-            type: string
-            description: The logo of the token
-            nullable: true
-          price_usd:
-            type: number
-            description: The price in USD for the token
-            nullable: true
-          token_age_in_days:
-            type: number
-            description: The number of days since the token was created
-            nullable: true
-          on_chain_strength_index:
-            type: number
-            description: The score of coin determined by various on chain metrics
-            nullable: true
-          security_score:
-            type: number
-            description: The security score (0-100) given to the token based various parameters
-            example: 88
-            nullable: true
-          market_cap:
-            type: number
-            description: The market cap in USD
-            example: 1351767630.85
-            nullable: true
-          fully_diluted_valuation:
-            type: number
-            description: The fully diluted valuation in USD
-            example: 1363915420.28
-            nullable: true
-          twitter_followers:
-            type: number
-            description: The number of followers of the token on twitter
-            example: 255217
-            nullable: true
-          holders_change:
-            $ref: '#/components/schemas/timeFrames'
-          liquidity_change_usd:
-            $ref: '#/components/schemas/timeFrames'
-          experienced_net_buyers_change:
-            $ref: '#/components/schemas/timeFrames'
-          volume_change_usd:
-            $ref: '#/components/schemas/timeFrames'
-          net_volume_change_usd:
-            $ref: '#/components/schemas/timeFrames'
-          price_percent_change_usd:
-            $ref: '#/components/schemas/timeFrames'
-    discoverySupportedTimeFrames:
-      type: string
-      example: 1d
-      enum:
-      - 1h
-      - 1d
-      - 1w
-      - 1M
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

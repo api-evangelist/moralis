@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: EVM Balance Resolve Web3 Domain API
+  title: EVM Resolve Web3 Domain API
   version: '2.2'
 servers:
 - url: https://deep-index.moralis.io/api/v2.2
@@ -163,14 +163,6 @@ components:
           type: string
           description: Resolved domain address
           example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-    unstoppableDomain:
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Resolved unstoppable domain address
-          example: sandy.nft
     ens:
       required:
       - name
@@ -179,6 +171,14 @@ components:
           type: string
           description: Resolved ENS address
           example: Vitalik.eth
+    unstoppableDomain:
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Resolved unstoppable domain address
+          example: sandy.nft
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

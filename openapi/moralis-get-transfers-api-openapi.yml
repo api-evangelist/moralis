@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: EVM Balance Get Transfers API
+  title: EVM Get Transfers API
   version: '2.2'
 servers:
 - url: https://deep-index.moralis.io/api/v2.2
@@ -468,8 +468,9 @@ components:
           description: The address that sent the NFT
           example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
         from_address_label:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: The label of the from address
           example: Binance 1
         to_address_entity:
@@ -485,8 +486,9 @@ components:
           description: The address that received the NFT
           example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
         to_address_label:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: The label of the to address
           example: Binance 2
         value:
@@ -538,9 +540,10 @@ components:
           description: Indicates if a contract is verified
           example: 'false'
         last_sale:
-          type: object
+          type:
+          - object
+          - 'null'
           description: Details about the most recent sale involving this token.
-          nullable: true
           required:
           - transaction_hash
           - block_timestamp

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: EVM Balance Get Transactions API
+  title: EVM Get Transactions API
   version: '2.2'
 servers:
 - url: https://deep-index.moralis.io/api/v2.2
@@ -217,25 +217,6 @@ paths:
       x-mcp-prompt: Enter the token contract address to list its transactions. Use this when users want to track all transactions for a token or analyze its activity.
 components:
   schemas:
-    erc20TransactionCollection:
-      required:
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/erc20Transaction'
     erc20Transaction:
       required:
       - token_name
@@ -299,8 +280,9 @@ components:
           description: The recipient
           example: '0x62AED87d21Ad0F3cdE4D147Fdcc9245401Af0044'
         to_address_label:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: The label of the to address
           example: Binance 2
         from_address_entity:
@@ -316,8 +298,9 @@ components:
           description: The sender
           example: '0xd4a3BebD824189481FC45363602b83C9c7e9cbDf'
         from_address_label:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: The label of the from address
           example: Binance 1
         value:
@@ -416,6 +399,25 @@ components:
       - '0x531'
       - monad
       - '0x8f'
+    erc20TransactionCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/erc20Transaction'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

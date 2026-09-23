@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: EVM Balance DeFi API
+  title: EVM De Fi API
   version: '2.2'
 servers:
 - url: https://deep-index.moralis.io/api/v2.2
@@ -278,6 +278,78 @@ components:
         youtube:
           type: string
           description: The link of the token on the platform
+    reservesCollection:
+      type: object
+      properties:
+        token0:
+          type: object
+          properties:
+            address:
+              type: string
+              example: '0x2b591e99afe9f32eaa6214f7b7629768c40eeb39'
+            name:
+              type: string
+              example: HEX
+            symbol:
+              type: string
+              example: HEX
+            decimals:
+              type: string
+              example: 9
+            logo:
+              type: string
+              example: https://cdn.moralis.io/eth/0x2b591e99afe9f32eaa6214f7b7629768c40eeb39.png
+            logo_hash:
+              type: string
+              example: b3bd1b5512965d7b6aeee903dcc6d28b116d58c788eb41e9c1690baed878beaa
+            thumbnail:
+              type: string
+              example: https://cdn.moralis.io/eth/0x2b591e99afe9f32eaa6214f7b7629768c40eeb39_thumb.png
+            block_number:
+              type: string
+              example: 14836562
+            validated:
+              type: number
+              example: 0
+            created_at:
+              type: string
+              example: '2022-01-20T09:39:55.818Z'
+        token1:
+          type: object
+          properties:
+            address:
+              type: string
+              example: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+            name:
+              type: string
+              example: Tether USD
+            symbol:
+              type: string
+              example: USDT
+            decimals:
+              type: string
+              example: 6
+            logo:
+              type: string
+              example: https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7.png
+            logo_hash:
+              type: string
+              example: ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d
+            thumbnail:
+              type: string
+              example: https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7_thumb.png
+            block_number:
+              type: string
+              example: '4638568'
+            validated:
+              type: number
+              example: 1
+            created_at:
+              type: string
+              example: '2022-01-20T09:39:55.818Z'
+        pairAddress:
+          type: string
+          example: '0xbbb9bf440d0f686487925fef3b0a0f9aa67753f6'
     erc20Metadata:
       type: object
       required:
@@ -293,8 +365,9 @@ components:
           description: The address of the token contract
           example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
         address_label:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: The label of the address
           example: Binance 1
         name:
@@ -310,28 +383,29 @@ components:
           description: The number of decimals on the token
           example: '18'
         logo:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: The logo of the token
           example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
         logo_hash:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: The logo hash
           example: ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d
         thumbnail:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: The thumbnail of the logo
           example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png
         total_supply:
           type: string
-          nullable: false
           description: Total tokens created minus any that have been burned
           example: '420689899999994793099999999997400'
         total_supply_formatted:
           type: string
-          nullable: false
           description: Total tokens created minus any that have been burned (decimal formatted)
           example: '420689899999994.7930999999999974'
         implementations:
@@ -360,7 +434,6 @@ components:
                 example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
         fully_diluted_valuation:
           type: string
-          nullable: false
           description: Fully Diluted Valuation (FDV), this represents the token's Current Price x Total Supply
           example: '3407271444.05'
         block_number:
@@ -379,10 +452,11 @@ components:
           description: Indicates if a contract is verified
           example: false
         categories:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
           description: Categories of the token
           example:
           - stablecoin
@@ -465,78 +539,6 @@ components:
       - '0x531'
       - monad
       - '0x8f'
-    reservesCollection:
-      type: object
-      properties:
-        token0:
-          type: object
-          properties:
-            address:
-              type: string
-              example: '0x2b591e99afe9f32eaa6214f7b7629768c40eeb39'
-            name:
-              type: string
-              example: HEX
-            symbol:
-              type: string
-              example: HEX
-            decimals:
-              type: string
-              example: 9
-            logo:
-              type: string
-              example: https://cdn.moralis.io/eth/0x2b591e99afe9f32eaa6214f7b7629768c40eeb39.png
-            logo_hash:
-              type: string
-              example: b3bd1b5512965d7b6aeee903dcc6d28b116d58c788eb41e9c1690baed878beaa
-            thumbnail:
-              type: string
-              example: https://cdn.moralis.io/eth/0x2b591e99afe9f32eaa6214f7b7629768c40eeb39_thumb.png
-            block_number:
-              type: string
-              example: 14836562
-            validated:
-              type: number
-              example: 0
-            created_at:
-              type: string
-              example: '2022-01-20T09:39:55.818Z'
-        token1:
-          type: object
-          properties:
-            address:
-              type: string
-              example: '0xdac17f958d2ee523a2206206994597c13d831ec7'
-            name:
-              type: string
-              example: Tether USD
-            symbol:
-              type: string
-              example: USDT
-            decimals:
-              type: string
-              example: 6
-            logo:
-              type: string
-              example: https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7.png
-            logo_hash:
-              type: string
-              example: ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d
-            thumbnail:
-              type: string
-              example: https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7_thumb.png
-            block_number:
-              type: string
-              example: '4638568'
-            validated:
-              type: number
-              example: 1
-            created_at:
-              type: string
-              example: '2022-01-20T09:39:55.818Z'
-        pairAddress:
-          type: string
-          example: '0xbbb9bf440d0f686487925fef3b0a0f9aa67753f6'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

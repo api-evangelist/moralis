@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: EVM Balance Block API
+  title: EVM Block API
   version: '2.2'
 servers:
 - url: https://deep-index.moralis.io/api/v2.2
@@ -113,196 +113,6 @@ components:
       default: ''
       enum:
       - internal_transactions
-    block:
-      type: object
-      required:
-      - timestamp
-      - number
-      - hash
-      - parent_hash
-      - nonce
-      - sha3_uncles
-      - logs_bloom
-      - transactions_root
-      - state_root
-      - receipts_root
-      - miner
-      - difficulty
-      - total_difficulty
-      - size
-      - extra_data
-      - gas_limit
-      - gas_used
-      - transaction_count
-      - transactions
-      properties:
-        timestamp:
-          type: string
-          description: The block timestamp
-          example: '2021-05-07T11:08:35.000Z'
-        number:
-          type: string
-          description: The block number
-          example: 12386788
-        hash:
-          type: string
-          description: The block hash
-          example: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171'
-        parent_hash:
-          type: string
-          description: The block hash of the parent block
-          example: '0x011d1fc45839de975cc55d758943f9f1d204f80a90eb631f3bf064b80d53e045'
-        nonce:
-          type: string
-          description: The nonce
-          example: '0xedeb2d8fd2b2bdec'
-        sha3_uncles:
-          type: string
-          example: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'
-        logs_bloom:
-          type: string
-          example: '0xdde5fc46c5d8bcbd58207bc9f267bf43298e23791a326ff02661e99790da9996b3e0dd912c0b8202d389d282c56e4d11eb2dec4898a32b6b165f1f4cae6aa0079498eab50293f3b8defbf6af11bb75f0408a563ddfc26a3323d1ff5f9849e95d5f034d88a757ddea032c75c00708c9ff34d2207f997cc7d93fd1fa160a6bfaf62a54e31f9fe67ab95752106ba9d185bfdc9b6dc3e17427f844ee74e5c09b17b83ad6e8fc7360f5c7c3e4e1939e77a6374bee57d1fa6b2322b11ad56ad0398302de9b26d6fbfe414aa416bff141fad9d4af6aea19322e47595e342cd377403f417dfd396ab5f151095a5535f51cbc34a40ce9648927b7d1d72ab9daf253e31daf'
-        transactions_root:
-          type: string
-          example: '0xe4c7bf3aff7ad07f9e80d57f7189f0252592fee6321c2a9bd9b09b6ce0690d27'
-        state_root:
-          type: string
-          example: '0x49e3bfe7b618e27fde8fa08884803a8458b502c6534af69873a3cc926a7c724b'
-        receipts_root:
-          type: string
-          example: '0x7cf43d7e837284f036cf92c56973f5e27bdd253ca46168fa195a6b07fa719f23'
-        miner:
-          type: string
-          description: The address of the miner
-          example: '0xea674fdde714fd979de3edf0f56aa9716b898ec8'
-        difficulty:
-          type: string
-          description: The difficulty of the block
-          example: '7253857437305950'
-        total_difficulty:
-          type: string
-          description: The total difficulty
-          example: '24325637817906576196890'
-        size:
-          type: string
-          description: The block size
-          example: '61271'
-        extra_data:
-          type: string
-          example: '0x65746865726d696e652d6575726f70652d7765737433'
-        gas_limit:
-          type: string
-          description: The gas limit
-          example: '14977947'
-        gas_used:
-          type: string
-          description: The gas used
-          example: '14964688'
-        transaction_count:
-          type: string
-          description: The number of transactions in the block
-          example: '252'
-        transactions:
-          type: array
-          description: The transactions in the block
-          items:
-            $ref: '#/components/schemas/blockTransaction'
-    blockDate:
-      type: object
-      required:
-      - date
-      - block
-      - timestamp
-      properties:
-        date:
-          type: string
-          description: The date of the block
-          example: '2020-01-01T00:00:00+00:00'
-        block:
-          type: number
-          description: The block number
-          example: 9193266
-        timestamp:
-          type: number
-          description: The timestamp of the block
-          example: 1577836811
-        block_timestamp:
-          type: string
-          description: The timestamp of the block
-          example: '2019-12-31T23:59:45.000Z'
-        hash:
-          type: string
-          description: The block hash
-          example: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171'
-        parent_hash:
-          type: string
-          description: The block hash of the parent block
-          example: '0x011d1fc45839de975cc55d758943f9f1d204f80a90eb631f3bf064b80d53e045'
-    internalTransaction:
-      type: object
-      required:
-      - transaction_hash
-      - block_number
-      - block_hash
-      - type
-      - from
-      - to
-      - value
-      - gas
-      - gas_used
-      - input
-      - output
-      - error
-      properties:
-        transaction_hash:
-          type: string
-          description: The hash of the transaction
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        block_number:
-          type: string
-          description: The block number
-          example: 12526958
-        block_hash:
-          type: string
-          description: The block hash
-          example: '0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86'
-        type:
-          type: string
-          description: Call type
-          example: CALL
-        from:
-          type: string
-          description: The sender
-          example: '0xd4a3BebD824189481FC45363602b83C9c7e9cbDf'
-        to:
-          type: string
-          description: The recipient
-          example: '0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef'
-        value:
-          type: string
-          description: The value that was transfered (in wei)
-          example: '650000000000000000'
-        gas:
-          type: string
-          description: The gas of the transaction
-          example: '6721975'
-        gas_used:
-          type: string
-          description: The used gas
-          example: '6721975'
-        input:
-          type: string
-          description: The input
-          example: 0x
-        output:
-          type: string
-          description: The output
-          example: 0x
-        error:
-          type: string
-          nullable: true
-          description: Error message if the internal transaction failed
-          example: Execution reverted
     chainList:
       type: string
       example: eth
@@ -407,16 +217,19 @@ components:
           type: string
           example: '0x2caecd17d02f56fa897705dcc740da2d237c373f70686f4e0d9bd3bf0400ea7a'
         topic1:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: '0x000000000000000000000000031002d15b0d0cd7c9129d6f644446368deae391'
         topic2:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: '0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9'
         topic3:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: null
         block_timestamp:
           type: string
@@ -430,6 +243,197 @@ components:
           type: string
           description: The hash of the block
           example: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171'
+    internalTransaction:
+      type: object
+      required:
+      - transaction_hash
+      - block_number
+      - block_hash
+      - type
+      - from
+      - to
+      - value
+      - gas
+      - gas_used
+      - input
+      - output
+      - error
+      properties:
+        transaction_hash:
+          type: string
+          description: The hash of the transaction
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        block_number:
+          type: string
+          description: The block number
+          example: 12526958
+        block_hash:
+          type: string
+          description: The block hash
+          example: '0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86'
+        type:
+          type: string
+          description: Call type
+          example: CALL
+        from:
+          type: string
+          description: The sender
+          example: '0xd4a3BebD824189481FC45363602b83C9c7e9cbDf'
+        to:
+          type: string
+          description: The recipient
+          example: '0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef'
+        value:
+          type: string
+          description: The value that was transfered (in wei)
+          example: '650000000000000000'
+        gas:
+          type: string
+          description: The gas of the transaction
+          example: '6721975'
+        gas_used:
+          type: string
+          description: The used gas
+          example: '6721975'
+        input:
+          type: string
+          description: The input
+          example: 0x
+        output:
+          type: string
+          description: The output
+          example: 0x
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message if the internal transaction failed
+          example: Execution reverted
+    blockDate:
+      type: object
+      required:
+      - date
+      - block
+      - timestamp
+      properties:
+        date:
+          type: string
+          description: The date of the block
+          example: '2020-01-01T00:00:00+00:00'
+        block:
+          type: number
+          description: The block number
+          example: 9193266
+        timestamp:
+          type: number
+          description: The timestamp of the block
+          example: 1577836811
+        block_timestamp:
+          type: string
+          description: The timestamp of the block
+          example: '2019-12-31T23:59:45.000Z'
+        hash:
+          type: string
+          description: The block hash
+          example: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171'
+        parent_hash:
+          type: string
+          description: The block hash of the parent block
+          example: '0x011d1fc45839de975cc55d758943f9f1d204f80a90eb631f3bf064b80d53e045'
+    block:
+      type: object
+      required:
+      - timestamp
+      - number
+      - hash
+      - parent_hash
+      - nonce
+      - sha3_uncles
+      - logs_bloom
+      - transactions_root
+      - state_root
+      - receipts_root
+      - miner
+      - difficulty
+      - total_difficulty
+      - size
+      - extra_data
+      - gas_limit
+      - gas_used
+      - transaction_count
+      - transactions
+      properties:
+        timestamp:
+          type: string
+          description: The block timestamp
+          example: '2021-05-07T11:08:35.000Z'
+        number:
+          type: string
+          description: The block number
+          example: 12386788
+        hash:
+          type: string
+          description: The block hash
+          example: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171'
+        parent_hash:
+          type: string
+          description: The block hash of the parent block
+          example: '0x011d1fc45839de975cc55d758943f9f1d204f80a90eb631f3bf064b80d53e045'
+        nonce:
+          type: string
+          description: The nonce
+          example: '0xedeb2d8fd2b2bdec'
+        sha3_uncles:
+          type: string
+          example: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'
+        logs_bloom:
+          type: string
+          example: '0xdde5fc46c5d8bcbd58207bc9f267bf43298e23791a326ff02661e99790da9996b3e0dd912c0b8202d389d282c56e4d11eb2dec4898a32b6b165f1f4cae6aa0079498eab50293f3b8defbf6af11bb75f0408a563ddfc26a3323d1ff5f9849e95d5f034d88a757ddea032c75c00708c9ff34d2207f997cc7d93fd1fa160a6bfaf62a54e31f9fe67ab95752106ba9d185bfdc9b6dc3e17427f844ee74e5c09b17b83ad6e8fc7360f5c7c3e4e1939e77a6374bee57d1fa6b2322b11ad56ad0398302de9b26d6fbfe414aa416bff141fad9d4af6aea19322e47595e342cd377403f417dfd396ab5f151095a5535f51cbc34a40ce9648927b7d1d72ab9daf253e31daf'
+        transactions_root:
+          type: string
+          example: '0xe4c7bf3aff7ad07f9e80d57f7189f0252592fee6321c2a9bd9b09b6ce0690d27'
+        state_root:
+          type: string
+          example: '0x49e3bfe7b618e27fde8fa08884803a8458b502c6534af69873a3cc926a7c724b'
+        receipts_root:
+          type: string
+          example: '0x7cf43d7e837284f036cf92c56973f5e27bdd253ca46168fa195a6b07fa719f23'
+        miner:
+          type: string
+          description: The address of the miner
+          example: '0xea674fdde714fd979de3edf0f56aa9716b898ec8'
+        difficulty:
+          type: string
+          description: The difficulty of the block
+          example: '7253857437305950'
+        total_difficulty:
+          type: string
+          description: The total difficulty
+          example: '24325637817906576196890'
+        size:
+          type: string
+          description: The block size
+          example: '61271'
+        extra_data:
+          type: string
+          example: '0x65746865726d696e652d6575726f70652d7765737433'
+        gas_limit:
+          type: string
+          description: The gas limit
+          example: '14977947'
+        gas_used:
+          type: string
+          description: The gas used
+          example: '14964688'
+        transaction_count:
+          type: string
+          description: The number of transactions in the block
+          example: '252'
+        transactions:
+          type: array
+          description: The transactions in the block
+          items:
+            $ref: '#/components/schemas/blockTransaction'
     blockTransaction:
       type: object
       required:
@@ -471,8 +475,9 @@ components:
           description: The from address
           example: '0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0'
         from_address_label:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: The label of the from address
           example: Binance 1
         to_address_entity:
@@ -484,13 +489,15 @@ components:
           description: The logo of the to address entity
           example: https://beaverbuild.com/favicon.ico
         to_address:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: The to address
           example: '0x003dde3494f30d861d063232c6a8c04394b686ff'
         to_address_label:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: The label of the to address
           example: Binance 2
         value:
@@ -514,12 +521,14 @@ components:
           type: string
           example: '21000'
         receipt_contract_address:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: null
         receipt_root:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: null
         receipt_status:
           type: string

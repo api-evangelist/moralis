@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: EVM Balance Utils API
+  title: EVM Utils API
   version: '2.2'
 servers:
 - url: https://deep-index.moralis.io/api/v2.2
@@ -130,43 +130,6 @@ paths:
       x-mcp-prompt: Provide the contract address to review its spam status. Use this when users ask if a contract is safe or want to verify a contract’s legitimacy.
 components:
   schemas:
-    contractsReviewItem:
-      required:
-      - contract_address
-      - reason
-      - report_type
-      - contract_type
-      properties:
-        contract_address:
-          type: string
-          description: The contract address
-          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
-        reason:
-          type: string
-          description: The reason for the contract being spam
-          example: 100
-        report_type:
-          type: string
-          enum:
-          - spam
-          - not_spam
-          description: This can be spam or not_spam
-          example: spam
-        contract_type:
-          type: string
-          enum:
-          - ERC20
-          - NFT
-          description: This can be ERC20, or NFT
-          example: ERC20
-    web3version:
-      required:
-      - version
-      properties:
-        version:
-          type: string
-          description: The version of the API
-          example: 1.0.0
     ContractsReviewDto:
       required:
       - contracts
@@ -182,6 +145,43 @@ components:
             reason: The contract contains shady code
           items:
             $ref: '#/components/schemas/contractsReviewItem'
+    RunContractDto:
+      required:
+      - abi
+      properties:
+        abi:
+          type: array
+          items:
+            type: object
+          description: The contract ABI
+          example: []
+        params:
+          type: object
+          description: The params for the given function
+          example: {}
+    endpointWeights:
+      required:
+      - endpoint
+      - path
+      - price
+      - rateLimitCost
+      properties:
+        endpoint:
+          type: string
+          description: endpoint
+          example: endpointWeights
+        path:
+          type: string
+          description: The path to the endpoint
+          example: /info/endpointWeights
+        rateLimitCost:
+          type: string
+          description: The number of hits the request counts towards rate limiting
+          example: 1
+        price:
+          type: string
+          description: The number of compute units the request counts towards billing
+          example: 0
     chainList:
       type: string
       example: eth
@@ -251,43 +251,43 @@ components:
       - '0x531'
       - monad
       - '0x8f'
-    RunContractDto:
+    contractsReviewItem:
       required:
-      - abi
+      - contract_address
+      - reason
+      - report_type
+      - contract_type
       properties:
-        abi:
-          type: array
-          items:
-            type: object
-          description: The contract ABI
-          example: []
-        params:
-          type: object
-          description: The params for the given function
-          example: {}
-    endpointWeights:
+        contract_address:
+          type: string
+          description: The contract address
+          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
+        reason:
+          type: string
+          description: The reason for the contract being spam
+          example: 100
+        report_type:
+          type: string
+          enum:
+          - spam
+          - not_spam
+          description: This can be spam or not_spam
+          example: spam
+        contract_type:
+          type: string
+          enum:
+          - ERC20
+          - NFT
+          description: This can be ERC20, or NFT
+          example: ERC20
+    web3version:
       required:
-      - endpoint
-      - path
-      - price
-      - rateLimitCost
+      - version
       properties:
-        endpoint:
+        version:
           type: string
-          description: endpoint
-          example: endpointWeights
-        path:
-          type: string
-          description: The path to the endpoint
-          example: /info/endpointWeights
-        rateLimitCost:
-          type: string
-          description: The number of hits the request counts towards rate limiting
-          example: 1
-        price:
-          type: string
-          description: The number of compute units the request counts towards billing
-          example: 0
+          description: The version of the API
+          example: 1.0.0
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

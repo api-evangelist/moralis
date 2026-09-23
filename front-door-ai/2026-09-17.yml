@@ -1,0 +1,30 @@
+# Front Door AI Index — moralis — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: moralis
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: moralis.com
+  final_host: moralis.com
+  ownership: own
+  owner: moralis
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 14
+  host_score: 14
+  density: 5.22
+  words: 2682
+  tiers:
+    agentic: 5
+    core: 9
+    model: 0
+  ambiguous: 15
+  top_terms:
+    AI: 8
+    agent: 7
+    smart: 7
+    AI agent: 5
+    intelligence: 1
+    machine learning: 1

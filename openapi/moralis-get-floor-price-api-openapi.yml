@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: EVM Balance Get Floor Price API
+  title: EVM Get Floor Price API
   version: '2.2'
 servers:
 - url: https://deep-index.moralis.io/api/v2.2
@@ -125,134 +125,6 @@ paths:
       x-mcp-prompt: Enter the contract address and time period to view historical floor prices. Use this when users want to analyze a collection’s price trends or need historical market data.
 components:
   schemas:
-    marketplace:
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The name of the marketplace
-          example: blur
-        logo:
-          type: string
-          description: The logo of the marketplace
-          example: https://cdn.moralis.io/marketplaces/blur.png
-    tokenFloorPrice:
-      required:
-      - address
-      - token_id
-      properties:
-        address:
-          type: string
-          description: The address of the NFT contract
-          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
-        token_id:
-          type: string
-          description: The token ID of the NFT
-          example: '2441'
-        floor_price:
-          type: string
-          description: The floor price of the contract
-          example: '0.2176'
-        floor_price_usd:
-          type: string
-          description: The floor price of the contract in USD
-          example: '564.24'
-        currency:
-          type: string
-          description: The currency of the floor price
-          example: eth
-        marketplace:
-          $ref: '#/components/schemas/marketplace'
-          description: The marketplace in which the floor price is present
-        last_updated:
-          type: string
-          description: The timestamp of when the floor price was last updated
-          example: '2024-08-21T15:59:11.000Z'
-    historicalContractFloorPrice:
-      required:
-      - timestamp
-      properties:
-        floor_price:
-          type: string
-          description: The floor price of the contract
-          example: '0.2176'
-        floor_price_usd:
-          type: string
-          description: The floor price of the contract in USD
-          example: '564.24'
-        currency:
-          type: string
-          description: The currency of the floor price
-          example: eth
-        marketplace:
-          type: string
-          description: The marketplace in which the floor price is present
-          example: blur
-        timestamp:
-          type: string
-          description: The timestamp of when the floor price was last updated
-          example: '2024-08-21T15:59:11.000Z'
-    nftFloorPriceIntervalList:
-      type: string
-      example: 1d
-      default: 1d
-      enum:
-      - 1d
-      - 7d
-      - 30d
-      - 60d
-      - 90d
-      - 1y
-      - all
-    historicalContractFloorResponse:
-      required:
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '1'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/historicalContractFloorPrice'
-          description: List of historical contract floor prices at various intervals.
-    contractFloorPrice:
-      required:
-      - address
-      - last_updated
-      properties:
-        address:
-          type: string
-          description: The address of the NFT contract
-          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
-        floor_price:
-          type: string
-          description: The floor price of the contract
-          example: '0.2176'
-        floor_price_usd:
-          type: string
-          description: The floor price of the contract in USD
-          example: '564.24'
-        currency:
-          type: string
-          description: The currency of the floor price
-          example: eth
-        marketplace:
-          $ref: '#/components/schemas/marketplace'
-          description: The marketplace in which the floor price is present
-        last_updated:
-          type: string
-          description: The timestamp of when the floor price was last updated
-          example: '2024-08-21T15:59:11.000Z'
     chainList:
       type: string
       example: eth
@@ -322,6 +194,134 @@ components:
       - '0x531'
       - monad
       - '0x8f'
+    tokenFloorPrice:
+      required:
+      - address
+      - token_id
+      properties:
+        address:
+          type: string
+          description: The address of the NFT contract
+          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+        token_id:
+          type: string
+          description: The token ID of the NFT
+          example: '2441'
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '0.2176'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '564.24'
+        currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        marketplace:
+          $ref: '#/components/schemas/marketplace'
+          description: The marketplace in which the floor price is present
+        last_updated:
+          type: string
+          description: The timestamp of when the floor price was last updated
+          example: '2024-08-21T15:59:11.000Z'
+    marketplace:
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the marketplace
+          example: blur
+        logo:
+          type: string
+          description: The logo of the marketplace
+          example: https://cdn.moralis.io/marketplaces/blur.png
+    historicalContractFloorPrice:
+      required:
+      - timestamp
+      properties:
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '0.2176'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '564.24'
+        currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        marketplace:
+          type: string
+          description: The marketplace in which the floor price is present
+          example: blur
+        timestamp:
+          type: string
+          description: The timestamp of when the floor price was last updated
+          example: '2024-08-21T15:59:11.000Z'
+    contractFloorPrice:
+      required:
+      - address
+      - last_updated
+      properties:
+        address:
+          type: string
+          description: The address of the NFT contract
+          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '0.2176'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '564.24'
+        currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        marketplace:
+          $ref: '#/components/schemas/marketplace'
+          description: The marketplace in which the floor price is present
+        last_updated:
+          type: string
+          description: The timestamp of when the floor price was last updated
+          example: '2024-08-21T15:59:11.000Z'
+    nftFloorPriceIntervalList:
+      type: string
+      example: 1d
+      default: 1d
+      enum:
+      - 1d
+      - 7d
+      - 30d
+      - 60d
+      - 90d
+      - 1y
+      - all
+    historicalContractFloorResponse:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '1'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/historicalContractFloorPrice'
+          description: List of historical contract floor prices at various intervals.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
