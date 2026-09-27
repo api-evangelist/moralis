@@ -789,95 +789,6 @@ paths:
       x-mcp-prompt: Enter the token contract address to fetch its details. Use this when users ask for in-depth information about a token or need a complete token profile.
 components:
   schemas:
-    tokenExplorerTimeFrames:
-      type: string
-      enum:
-      - oneMonth
-      - tenMinutes
-      - thirtyMinutes
-      - oneHour
-      - fourHours
-      - twelveHours
-      - oneDay
-      - oneWeek
-    chainListWithSolana:
-      type: string
-      example: eth
-      default: eth
-      enum:
-      - eth
-      - '0x1'
-      - sepolia
-      - '0xaa36a7'
-      - polygon
-      - '0x89'
-      - bsc
-      - '0x38'
-      - bsc testnet
-      - '0x61'
-      - avalanche
-      - '0xa86a'
-      - fantom
-      - '0xfa'
-      - cronos
-      - '0x19'
-      - arbitrum
-      - '0xa4b1'
-      - chiliz
-      - '0x15b38'
-      - chiliz testnet
-      - '0x15b32'
-      - gnosis
-      - '0x64'
-      - gnosis testnet
-      - '0x27d8'
-      - base
-      - '0x2105'
-      - base sepolia
-      - '0x14a34'
-      - optimism
-      - '0xa'
-      - polygon amoy
-      - '0x13882'
-      - linea
-      - '0xe708'
-      - moonbeam
-      - '0x504'
-      - moonriver
-      - '0x505'
-      - moonbase
-      - '0x507'
-      - linea sepolia
-      - '0xe705'
-      - flow
-      - '0x2eb'
-      - flow-testnet
-      - '0x221'
-      - ronin
-      - '0x7e4'
-      - ronin-testnet
-      - '0x31769'
-      - lisk
-      - '0x46f'
-      - lisk-sepolia
-      - '0x106a'
-      - pulse
-      - '0x171'
-      - sei-testnet
-      - '0x530'
-      - sei
-      - '0x531'
-      - monad
-      - '0x8f'
-      - solana
-    discoverySupportedTimeFrames:
-      type: string
-      example: 1d
-      enum:
-      - 1h
-      - 1d
-      - 1w
-      - 1M
     discoveryTokens:
       type: array
       items:
@@ -977,6 +888,196 @@ components:
             $ref: '#/components/schemas/timeFrames'
           price_percent_change_usd:
             $ref: '#/components/schemas/timeFrames'
+    timeFrames:
+      type: object
+      required:
+      - 1h
+      - 1d
+      - 1w
+      - 1M
+      properties:
+        1h:
+          type:
+          - number
+          - 'null'
+          description: The 1 hour change of the token
+          example: 14
+        1d:
+          type:
+          - number
+          - 'null'
+          description: The 1 day change of the token
+          example: 14
+        1w:
+          type:
+          - number
+          - 'null'
+          description: The 1 week change of the token
+          example: 162
+        1M:
+          type:
+          - number
+          - 'null'
+          description: The 1 month change of the token
+          example: 162
+    discoverySupportedTimeFrames:
+      type: string
+      example: 1d
+      enum:
+      - 1h
+      - 1d
+      - 1w
+      - 1M
+    discoveryTokenLinks:
+      type: object
+      required:
+      - bitbucket
+      - discord
+      - facebook
+      - github
+      - instagram
+      - linkedin
+      - medium
+      - reddit
+      - telegram
+      - tiktok
+      - twitter
+      - website
+      - youtube
+      properties:
+        bitbucket:
+          type: string
+          description: The link of the token on the platform
+        discord:
+          type: string
+          description: The link of the token on the platform
+        facebook:
+          type: string
+          description: The link of the token on the platform
+        github:
+          type: string
+          description: The link of the token on the platform
+        instagram:
+          type: string
+          description: The link of the token on the platform
+        linkedin:
+          type: string
+          description: The link of the token on the platform
+        medium:
+          type: string
+          description: The link of the token on the platform
+        reddit:
+          type: string
+          description: The link of the token on the platform
+        telegram:
+          type: string
+          description: The link of the token on the platform
+        tiktok:
+          type: string
+          description: The link of the token on the platform
+        twitter:
+          type: string
+          description: The link of the token on the platform
+        website:
+          type: string
+          description: The link of the token on the platform
+        youtube:
+          type: string
+          description: The link of the token on the platform
+    chainListWithSolana:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+      - solana
+    tokenExplorerMetrics:
+      type: string
+      enum:
+      - experiencedBuyers
+      - tokenAge
+      - holders
+      - buyers
+      - sellers
+      - netBuyers
+      - experiencedSellers
+      - netExperiencedBuyers
+      - fullyDilutedValuation
+      - marketCap
+      - usdPrice
+      - usdPricePercentChange
+      - liquidityChange
+      - liquidityChangeUSD
+      - volumeUsd
+      - buyVolumeUsd
+      - sellVolumeUsd
+      - netVolumeUsd
+      - securityScore
+      - totalHolders
+      - totalLiquidityUsd
     discoveryToken:
       type: object
       required:
@@ -1114,118 +1215,17 @@ components:
           $ref: '#/components/schemas/timeFrames'
         price_percent_change_usd:
           $ref: '#/components/schemas/timeFrames'
-    discoveryTokenLinks:
-      type: object
-      required:
-      - bitbucket
-      - discord
-      - facebook
-      - github
-      - instagram
-      - linkedin
-      - medium
-      - reddit
-      - telegram
-      - tiktok
-      - twitter
-      - website
-      - youtube
-      properties:
-        bitbucket:
-          type: string
-          description: The link of the token on the platform
-        discord:
-          type: string
-          description: The link of the token on the platform
-        facebook:
-          type: string
-          description: The link of the token on the platform
-        github:
-          type: string
-          description: The link of the token on the platform
-        instagram:
-          type: string
-          description: The link of the token on the platform
-        linkedin:
-          type: string
-          description: The link of the token on the platform
-        medium:
-          type: string
-          description: The link of the token on the platform
-        reddit:
-          type: string
-          description: The link of the token on the platform
-        telegram:
-          type: string
-          description: The link of the token on the platform
-        tiktok:
-          type: string
-          description: The link of the token on the platform
-        twitter:
-          type: string
-          description: The link of the token on the platform
-        website:
-          type: string
-          description: The link of the token on the platform
-        youtube:
-          type: string
-          description: The link of the token on the platform
-    tokenExplorerMetrics:
+    tokenExplorerTimeFrames:
       type: string
       enum:
-      - experiencedBuyers
-      - tokenAge
-      - holders
-      - buyers
-      - sellers
-      - netBuyers
-      - experiencedSellers
-      - netExperiencedBuyers
-      - fullyDilutedValuation
-      - marketCap
-      - usdPrice
-      - usdPricePercentChange
-      - liquidityChange
-      - liquidityChangeUSD
-      - volumeUsd
-      - buyVolumeUsd
-      - sellVolumeUsd
-      - netVolumeUsd
-      - securityScore
-      - totalHolders
-      - totalLiquidityUsd
-    timeFrames:
-      type: object
-      required:
-      - 1h
-      - 1d
-      - 1w
-      - 1M
-      properties:
-        1h:
-          type:
-          - number
-          - 'null'
-          description: The 1 hour change of the token
-          example: 14
-        1d:
-          type:
-          - number
-          - 'null'
-          description: The 1 day change of the token
-          example: 14
-        1w:
-          type:
-          - number
-          - 'null'
-          description: The 1 week change of the token
-          example: 162
-        1M:
-          type:
-          - number
-          - 'null'
-          description: The 1 month change of the token
-          example: 162
+      - oneMonth
+      - tenMinutes
+      - thirtyMinutes
+      - oneHour
+      - fourHours
+      - twelveHours
+      - oneDay
+      - oneWeek
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

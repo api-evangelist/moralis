@@ -188,32 +188,66 @@ paths:
       x-mcp-prompt: Provide the contract address to retrieve its NFT collection stats. Use this when users ask for a collection’s performance metrics or want to evaluate its popularity.
 components:
   schemas:
-    normalizedMetadataAttribute:
+    normalizedMetadata:
       properties:
-        trait_type:
+        name:
           type: string
-          description: The trait title or descriptor
-          example: Eye Color
-        value:
+          description: The name or title of the NFT
+          example: Moralis Mug
+        description:
+          type: string
+          description: A detailed description of the NFT
+          example: Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.
+        image:
+          type: string
+          description: The URL of the NFT's image
+          example: https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png
+        external_link:
+          type: string
+          description: A link to additional information
+          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+        external_url:
+          type: string
+          description: A link to additional information
+          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+        animation_url:
+          type: string
+          description: An animated version of the NFT's image
+          example: https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/normalizedMetadataAttribute'
+    nftCollectionStat:
+      required:
+      - total_tokens
+      - owners
+      - transfers
+      properties:
+        total_tokens:
+          type: string
+          description: The number of tokens in the collection
+          example: '100'
+        owners:
           type: object
-          description: The value of the attribute
-          example: hazel
-        display_type:
-          type: string
-          description: The type the attribute value should be displayed as
-          example: string
-        max_value:
-          type: number
-          description: For numeric values, the upper range
-          example: 100
-        trait_count:
-          type: number
-          description: The number of possible values for this trait
-          example: 7
-        order:
-          type: number
-          description: Order the trait should appear in the attribute list.
-          example: 1
+          description: NFT collection owner stats
+          required:
+          - current
+          properties:
+            current:
+              type: string
+              description: The number of current owners of the collection
+              example: '1000'
+        transfers:
+          type: object
+          description: NFT collection transfer stats
+          required:
+          - total
+          properties:
+            total:
+              type: string
+              description: The number of transfers of the collection
+              example: '1000'
     chainList:
       type: string
       example: eth
@@ -283,120 +317,6 @@ components:
       - '0x531'
       - monad
       - '0x8f'
-    nftOwnerCollection:
-      required:
-      - result
-      properties:
-        status:
-          type: string
-          description: The syncing status of the address [SYNCING/SYNCED]
-          example: SYNCING
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/nftOwner'
-    nftCollectionStat:
-      required:
-      - total_tokens
-      - owners
-      - transfers
-      properties:
-        total_tokens:
-          type: string
-          description: The number of tokens in the collection
-          example: '100'
-        owners:
-          type: object
-          description: NFT collection owner stats
-          required:
-          - current
-          properties:
-            current:
-              type: string
-              description: The number of current owners of the collection
-              example: '1000'
-        transfers:
-          type: object
-          description: NFT collection transfer stats
-          required:
-          - total
-          properties:
-            total:
-              type: string
-              description: The number of transfers of the collection
-              example: '1000'
-    mediaItem:
-      properties:
-        width:
-          type: integer
-          description: The width of the preview image.
-        height:
-          type: integer
-          description: The height of the preview image.
-        url:
-          type: string
-          description: The url of the preview file.
-      required:
-      - width
-      - height
-      - url
-    normalizedMetadata:
-      properties:
-        name:
-          type: string
-          description: The name or title of the NFT
-          example: Moralis Mug
-        description:
-          type: string
-          description: A detailed description of the NFT
-          example: Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.
-        image:
-          type: string
-          description: The URL of the NFT's image
-          example: https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png
-        external_link:
-          type: string
-          description: A link to additional information
-          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
-        external_url:
-          type: string
-          description: A link to additional information
-          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
-        animation_url:
-          type: string
-          description: An animated version of the NFT's image
-          example: https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/normalizedMetadataAttribute'
-    mediaCollection:
-      properties:
-        low:
-          description: Preview media file, lowest quality (for images 100px x 100px)
-          $ref: '#/components/schemas/mediaItem'
-        medium:
-          description: Preview media file, medium quality (for images 250px x 250px)
-          $ref: '#/components/schemas/mediaItem'
-        high:
-          description: Preview media file, highest quality (for images 500px x 500px)
-          $ref: '#/components/schemas/mediaItem'
-      required:
-      - original
-      - low
-      - medium
-      - high
     media:
       properties:
         mimetype:
@@ -428,6 +348,86 @@ components:
         media_collection:
           description: Preview item associated with the original
           $ref: '#/components/schemas/mediaCollection'
+    mediaCollection:
+      properties:
+        low:
+          description: Preview media file, lowest quality (for images 100px x 100px)
+          $ref: '#/components/schemas/mediaItem'
+        medium:
+          description: Preview media file, medium quality (for images 250px x 250px)
+          $ref: '#/components/schemas/mediaItem'
+        high:
+          description: Preview media file, highest quality (for images 500px x 500px)
+          $ref: '#/components/schemas/mediaItem'
+      required:
+      - original
+      - low
+      - medium
+      - high
+    nftOwnerCollection:
+      required:
+      - result
+      properties:
+        status:
+          type: string
+          description: The syncing status of the address [SYNCING/SYNCED]
+          example: SYNCING
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/nftOwner'
+    normalizedMetadataAttribute:
+      properties:
+        trait_type:
+          type: string
+          description: The trait title or descriptor
+          example: Eye Color
+        value:
+          type: object
+          description: The value of the attribute
+          example: hazel
+        display_type:
+          type: string
+          description: The type the attribute value should be displayed as
+          example: string
+        max_value:
+          type: number
+          description: For numeric values, the upper range
+          example: 100
+        trait_count:
+          type: number
+          description: The number of possible values for this trait
+          example: 7
+        order:
+          type: number
+          description: Order the trait should appear in the attribute list.
+          example: 1
+    mediaItem:
+      properties:
+        width:
+          type: integer
+          description: The width of the preview image.
+        height:
+          type: integer
+          description: The height of the preview image.
+        url:
+          type: string
+          description: The url of the preview file.
+      required:
+      - width
+      - height
+      - url
     nftOwner:
       required:
       - token_address

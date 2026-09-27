@@ -69,6 +69,55 @@ components:
       enum:
       - ASC
       - DESC
+    erc20TokenOwner:
+      required:
+      - owner_address
+      - owner_address_label
+      - balance
+      - balance_formatted
+      - usd_value
+      - is_contract
+      - percentage_relative_to_total_supply
+      properties:
+        owner_address:
+          type: string
+          description: The address of the erc20 token owner
+          example: 0x244...
+        owner_address_label:
+          type: string
+          description: The label of the owner_address
+          example: Coinbase 1
+        balance:
+          type: string
+          description: The amount holding of the ERC20 token
+          example: '57888888888888888888880'
+        balance_formatted:
+          type: string
+          description: The amount holding of the ERC20 token in decimaal
+          example: '5.78'
+        usd_value:
+          type: string
+          description: The USD value of the balance
+          example: '57888888888888888888880'
+        is_contract:
+          type: boolean
+          description: Indicates if the token address is for a contract or not
+        percentage_relative_to_total_supply:
+          type: number
+          example: 10
+          description: The percentage of total supply held by the owner
+        entity:
+          type:
+          - string
+          - 'null'
+          description: The owner address entity
+          example: Opensea
+        entity_logo:
+          type:
+          - string
+          - 'null'
+          description: The logo of the owner address entity
+          example: https://opensea.io/favicon.ico
     erc20TokenOwnerCollection:
       required:
       - result
@@ -160,55 +209,6 @@ components:
       - '0x531'
       - monad
       - '0x8f'
-    erc20TokenOwner:
-      required:
-      - owner_address
-      - owner_address_label
-      - balance
-      - balance_formatted
-      - usd_value
-      - is_contract
-      - percentage_relative_to_total_supply
-      properties:
-        owner_address:
-          type: string
-          description: The address of the erc20 token owner
-          example: 0x244...
-        owner_address_label:
-          type: string
-          description: The label of the owner_address
-          example: Coinbase 1
-        balance:
-          type: string
-          description: The amount holding of the ERC20 token
-          example: '57888888888888888888880'
-        balance_formatted:
-          type: string
-          description: The amount holding of the ERC20 token in decimaal
-          example: '5.78'
-        usd_value:
-          type: string
-          description: The USD value of the balance
-          example: '57888888888888888888880'
-        is_contract:
-          type: boolean
-          description: Indicates if the token address is for a contract or not
-        percentage_relative_to_total_supply:
-          type: number
-          example: 10
-          description: The percentage of total supply held by the owner
-        entity:
-          type:
-          - string
-          - 'null'
-          description: The owner address entity
-          example: Opensea
-        entity_logo:
-          type:
-          - string
-          - 'null'
-          description: The logo of the owner address entity
-          example: https://opensea.io/favicon.ico
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

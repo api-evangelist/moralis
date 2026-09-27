@@ -130,35 +130,43 @@ paths:
       x-mcp-prompt: Provide the contract address to review its spam status. Use this when users ask if a contract is safe or want to verify a contract’s legitimacy.
 components:
   schemas:
-    ContractsReviewDto:
+    contractsReviewItem:
       required:
-      - contracts
+      - contract_address
+      - reason
+      - report_type
+      - contract_type
       properties:
-        contracts:
-          type: array
-          maxItems: 25
-          description: The contracts to be reported
-          example:
-          - contract_address: '0xa4991609c508b6d4fb7156426db0bd49fe298bd8'
-            report_type: spam
-            contract_type: ERC20
-            reason: The contract contains shady code
-          items:
-            $ref: '#/components/schemas/contractsReviewItem'
-    RunContractDto:
+        contract_address:
+          type: string
+          description: The contract address
+          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
+        reason:
+          type: string
+          description: The reason for the contract being spam
+          example: 100
+        report_type:
+          type: string
+          enum:
+          - spam
+          - not_spam
+          description: This can be spam or not_spam
+          example: spam
+        contract_type:
+          type: string
+          enum:
+          - ERC20
+          - NFT
+          description: This can be ERC20, or NFT
+          example: ERC20
+    web3version:
       required:
-      - abi
+      - version
       properties:
-        abi:
-          type: array
-          items:
-            type: object
-          description: The contract ABI
-          example: []
-        params:
-          type: object
-          description: The params for the given function
-          example: {}
+        version:
+          type: string
+          description: The version of the API
+          example: 1.0.0
     endpointWeights:
       required:
       - endpoint
@@ -182,6 +190,35 @@ components:
           type: string
           description: The number of compute units the request counts towards billing
           example: 0
+    RunContractDto:
+      required:
+      - abi
+      properties:
+        abi:
+          type: array
+          items:
+            type: object
+          description: The contract ABI
+          example: []
+        params:
+          type: object
+          description: The params for the given function
+          example: {}
+    ContractsReviewDto:
+      required:
+      - contracts
+      properties:
+        contracts:
+          type: array
+          maxItems: 25
+          description: The contracts to be reported
+          example:
+          - contract_address: '0xa4991609c508b6d4fb7156426db0bd49fe298bd8'
+            report_type: spam
+            contract_type: ERC20
+            reason: The contract contains shady code
+          items:
+            $ref: '#/components/schemas/contractsReviewItem'
     chainList:
       type: string
       example: eth
@@ -251,43 +288,6 @@ components:
       - '0x531'
       - monad
       - '0x8f'
-    contractsReviewItem:
-      required:
-      - contract_address
-      - reason
-      - report_type
-      - contract_type
-      properties:
-        contract_address:
-          type: string
-          description: The contract address
-          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
-        reason:
-          type: string
-          description: The reason for the contract being spam
-          example: 100
-        report_type:
-          type: string
-          enum:
-          - spam
-          - not_spam
-          description: This can be spam or not_spam
-          example: spam
-        contract_type:
-          type: string
-          enum:
-          - ERC20
-          - NFT
-          description: This can be ERC20, or NFT
-          example: ERC20
-    web3version:
-      required:
-      - version
-      properties:
-        version:
-          type: string
-          description: The version of the API
-          example: 1.0.0
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

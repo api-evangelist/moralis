@@ -222,62 +222,6 @@ paths:
       x-mcp-prompt: Enter the addresses of token0 and token1 to fetch their pair address. Use this when users need the pair address for a token combination or are setting up DEX trading.
 components:
   schemas:
-    discoveryTokenLinks:
-      type: object
-      required:
-      - bitbucket
-      - discord
-      - facebook
-      - github
-      - instagram
-      - linkedin
-      - medium
-      - reddit
-      - telegram
-      - tiktok
-      - twitter
-      - website
-      - youtube
-      properties:
-        bitbucket:
-          type: string
-          description: The link of the token on the platform
-        discord:
-          type: string
-          description: The link of the token on the platform
-        facebook:
-          type: string
-          description: The link of the token on the platform
-        github:
-          type: string
-          description: The link of the token on the platform
-        instagram:
-          type: string
-          description: The link of the token on the platform
-        linkedin:
-          type: string
-          description: The link of the token on the platform
-        medium:
-          type: string
-          description: The link of the token on the platform
-        reddit:
-          type: string
-          description: The link of the token on the platform
-        telegram:
-          type: string
-          description: The link of the token on the platform
-        tiktok:
-          type: string
-          description: The link of the token on the platform
-        twitter:
-          type: string
-          description: The link of the token on the platform
-        website:
-          type: string
-          description: The link of the token on the platform
-        youtube:
-          type: string
-          description: The link of the token on the platform
     reservesCollection:
       type: object
       properties:
@@ -470,6 +414,62 @@ components:
           type: string
           description: The market cap of the token
           example: '3407271444.05'
+    discoveryTokenLinks:
+      type: object
+      required:
+      - bitbucket
+      - discord
+      - facebook
+      - github
+      - instagram
+      - linkedin
+      - medium
+      - reddit
+      - telegram
+      - tiktok
+      - twitter
+      - website
+      - youtube
+      properties:
+        bitbucket:
+          type: string
+          description: The link of the token on the platform
+        discord:
+          type: string
+          description: The link of the token on the platform
+        facebook:
+          type: string
+          description: The link of the token on the platform
+        github:
+          type: string
+          description: The link of the token on the platform
+        instagram:
+          type: string
+          description: The link of the token on the platform
+        linkedin:
+          type: string
+          description: The link of the token on the platform
+        medium:
+          type: string
+          description: The link of the token on the platform
+        reddit:
+          type: string
+          description: The link of the token on the platform
+        telegram:
+          type: string
+          description: The link of the token on the platform
+        tiktok:
+          type: string
+          description: The link of the token on the platform
+        twitter:
+          type: string
+          description: The link of the token on the platform
+        website:
+          type: string
+          description: The link of the token on the platform
+        youtube:
+          type: string
+          description: The link of the token on the platform
     chainList:
       type: string
       example: eth

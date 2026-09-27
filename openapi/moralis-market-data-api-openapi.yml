@@ -131,71 +131,6 @@ paths:
       x-mcp-prompt: Request the top cryptocurrencies by trading volume. Use this when users want to find actively traded cryptocurrencies or analyze market trends.
 components:
   schemas:
-    marketDataERC20Token:
-      type: array
-      items:
-        required:
-        - rank
-        - token_name
-        - token_symbol
-        - token_logo
-        - token_decimals
-        - contract_address
-        - price_usd
-        - price_24h_percent_change
-        - price_7d_percent_change
-        - market_cap_usd
-        properties:
-          rank:
-            type: integer
-            description: The rank
-            example: 1
-          token_name:
-            type: string
-            description: The token name
-            example: Wrapped Ether
-          token_symbol:
-            type: string
-            description: The token symbol
-            example: WETH
-          token_logo:
-            type: string
-            description: The token image
-            example: https://cdn.moralis.io/coins/images/2518/large/weth.png?1595348880
-          token_decimals:
-            type: string
-            description: The token decimals
-            example: '18'
-          contract_address:
-            type: string
-            description: The contract address
-            example: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
-          price_usd:
-            type: string
-            description: The price in USD
-            example: '0.0285'
-          price_24h_percent_change:
-            type: string
-            description: The price change in the last 24h
-            example: '0.0285'
-          price_7d_percent_change:
-            type: string
-            description: The price change in the last 7d
-            example: '0.0285'
-          market_cap_usd:
-            type: string
-            description: The market cap in USD
-            example: '0.0285'
-    marketDataERC20TokensByPriceMovers:
-      type: object
-      required:
-      - gainers
-      - losers
-      properties:
-        gainers:
-          $ref: '#/components/schemas/marketDataERC20Token'
-        losers:
-          $ref: '#/components/schemas/marketDataERC20Token'
     marketDataHottestNFTCollectionByTradingVolume:
       type: array
       items:
@@ -451,6 +386,71 @@ components:
             type: string
             description: The price 30d percent change
             example: '0.0'
+    marketDataERC20Token:
+      type: array
+      items:
+        required:
+        - rank
+        - token_name
+        - token_symbol
+        - token_logo
+        - token_decimals
+        - contract_address
+        - price_usd
+        - price_24h_percent_change
+        - price_7d_percent_change
+        - market_cap_usd
+        properties:
+          rank:
+            type: integer
+            description: The rank
+            example: 1
+          token_name:
+            type: string
+            description: The token name
+            example: Wrapped Ether
+          token_symbol:
+            type: string
+            description: The token symbol
+            example: WETH
+          token_logo:
+            type: string
+            description: The token image
+            example: https://cdn.moralis.io/coins/images/2518/large/weth.png?1595348880
+          token_decimals:
+            type: string
+            description: The token decimals
+            example: '18'
+          contract_address:
+            type: string
+            description: The contract address
+            example: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+          price_usd:
+            type: string
+            description: The price in USD
+            example: '0.0285'
+          price_24h_percent_change:
+            type: string
+            description: The price change in the last 24h
+            example: '0.0285'
+          price_7d_percent_change:
+            type: string
+            description: The price change in the last 7d
+            example: '0.0285'
+          market_cap_usd:
+            type: string
+            description: The market cap in USD
+            example: '0.0285'
+    marketDataERC20TokensByPriceMovers:
+      type: object
+      required:
+      - gainers
+      - losers
+      properties:
+        gainers:
+          $ref: '#/components/schemas/marketDataERC20Token'
+        losers:
+          $ref: '#/components/schemas/marketDataERC20Token'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

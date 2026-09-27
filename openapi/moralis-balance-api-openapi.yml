@@ -90,15 +90,6 @@ paths:
       x-mcp-prompt: Submit a list of wallet addresses to fetch their native balances. Use this when users need balances for multiple wallets or are comparing holdings.
 components:
   schemas:
-    nativeBalance:
-      type: object
-      required:
-      - balance
-      properties:
-        balance:
-          type: string
-          description: The balance
-          example: '1234567890'
     nativeBalances:
       type: array
       items:
@@ -157,6 +148,15 @@ components:
                   type: string
                   description: balance formatted
                   example: '0.0285'
+    nativeBalance:
+      type: object
+      required:
+      - balance
+      properties:
+        balance:
+          type: string
+          description: The balance
+          example: '1234567890'
     chainList:
       type: string
       example: eth
