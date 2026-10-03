@@ -229,67 +229,126 @@ paths:
       x-mcp-prompt: Provide a list of token symbols to retrieve their metadata. Use this when users request metadata for tokens by symbol or are exploring multiple tokens.
 components:
   schemas:
-    normalizedMetadata:
+    erc20Metadata:
+      type: object
+      required:
+      - address
+      - name
+      - symbol
+      - decimals
+      - created_at
+      - possible_spam
       properties:
+        address:
+          type: string
+          description: The address of the token contract
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        address_label:
+          type:
+          - string
+          - 'null'
+          description: The label of the address
+          example: Binance 1
         name:
           type: string
-          description: The name or title of the NFT
-          example: Moralis Mug
-        description:
+          description: The name of the token contract
+          example: Kylin Network
+        symbol:
           type: string
-          description: A detailed description of the NFT
-          example: Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.
-        image:
+          description: The symbol of the NFT contract
+          example: KYL
+        decimals:
           type: string
-          description: The URL of the NFT's image
-          example: https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png
-        external_link:
+          description: The number of decimals on the token
+          example: '18'
+        logo:
+          type:
+          - string
+          - 'null'
+          description: The logo of the token
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        logo_hash:
+          type:
+          - string
+          - 'null'
+          description: The logo hash
+          example: ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d
+        thumbnail:
+          type:
+          - string
+          - 'null'
+          description: The thumbnail of the logo
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png
+        total_supply:
           type: string
-          description: A link to additional information
-          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
-        external_url:
+          description: Total tokens created minus any that have been burned
+          example: '420689899999994793099999999997400'
+        total_supply_formatted:
           type: string
-          description: A link to additional information
-          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
-        animation_url:
-          type: string
-          description: An animated version of the NFT's image
-          example: https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8
-        attributes:
+          description: Total tokens created minus any that have been burned (decimal formatted)
+          example: '420689899999994.7930999999999974'
+        implementations:
           type: array
           items:
-            $ref: '#/components/schemas/normalizedMetadataAttribute'
-    media:
-      properties:
-        mimetype:
+            description: The token addresses of the same symbol from another chains
+            required:
+            - chainId
+            - address
+            properties:
+              chainId:
+                type: string
+                description: The chain id
+                example: '0x1'
+              chain:
+                type: string
+                description: The chain name
+                example: eth
+              chainName:
+                type: string
+                description: The chain name
+                example: Ethereum
+              address:
+                type: string
+                description: The token address
+                example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        fully_diluted_valuation:
           type: string
-          description: The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types]
-        category:
-          enum:
-          - image
-          - audio
-          - video
-        status:
-          enum:
-          - success
-          - processing
-          - unsupported_media
-          - invalid_url
-          - host_unavailable
-          - temporarily_unavailable
-          description: <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
-        original_media_url:
+          description: Fully Diluted Valuation (FDV), this represents the token's Current Price x Total Supply
+          example: '3407271444.05'
+        block_number:
           type: string
-          description: The url of the original media file.
-        updatedAt:
+        validated:
+          type: number
+        created_at:
           type: string
-          description: The timestamp of the last update to this NFT media record.
-        parent_hash:
+          description: The timestamp of when the erc20 token was created
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_contract:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: false
+        categories:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Categories of the token
+          example:
+          - stablecoin
+        links:
+          $ref: '#/components/schemas/discoveryTokenLinks'
+        circulating_supply:
           type: string
-          description: Hash value of the original media file.
-        media_collection:
-          description: Preview item associated with the original
-          $ref: '#/components/schemas/mediaCollection'
+          description: The circulating supply of the token
+          example: '4206864.7489303'
+        market_cap:
+          type: string
+          description: The market cap of the token
+          example: '3407271444.05'
     nft:
       required:
       - token_address
@@ -500,126 +559,6 @@ components:
           type: string
           description: The currency of the floor price
           example: eth
-    erc20Metadata:
-      type: object
-      required:
-      - address
-      - name
-      - symbol
-      - decimals
-      - created_at
-      - possible_spam
-      properties:
-        address:
-          type: string
-          description: The address of the token contract
-          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
-        address_label:
-          type:
-          - string
-          - 'null'
-          description: The label of the address
-          example: Binance 1
-        name:
-          type: string
-          description: The name of the token contract
-          example: Kylin Network
-        symbol:
-          type: string
-          description: The symbol of the NFT contract
-          example: KYL
-        decimals:
-          type: string
-          description: The number of decimals on the token
-          example: '18'
-        logo:
-          type:
-          - string
-          - 'null'
-          description: The logo of the token
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        logo_hash:
-          type:
-          - string
-          - 'null'
-          description: The logo hash
-          example: ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d
-        thumbnail:
-          type:
-          - string
-          - 'null'
-          description: The thumbnail of the logo
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png
-        total_supply:
-          type: string
-          description: Total tokens created minus any that have been burned
-          example: '420689899999994793099999999997400'
-        total_supply_formatted:
-          type: string
-          description: Total tokens created minus any that have been burned (decimal formatted)
-          example: '420689899999994.7930999999999974'
-        implementations:
-          type: array
-          items:
-            description: The token addresses of the same symbol from another chains
-            required:
-            - chainId
-            - address
-            properties:
-              chainId:
-                type: string
-                description: The chain id
-                example: '0x1'
-              chain:
-                type: string
-                description: The chain name
-                example: eth
-              chainName:
-                type: string
-                description: The chain name
-                example: Ethereum
-              address:
-                type: string
-                description: The token address
-                example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
-        fully_diluted_valuation:
-          type: string
-          description: Fully Diluted Valuation (FDV), this represents the token's Current Price x Total Supply
-          example: '3407271444.05'
-        block_number:
-          type: string
-        validated:
-          type: number
-        created_at:
-          type: string
-          description: The timestamp of when the erc20 token was created
-        possible_spam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        verified_contract:
-          type: boolean
-          description: Indicates if a contract is verified
-          example: false
-        categories:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Categories of the token
-          example:
-          - stablecoin
-        links:
-          $ref: '#/components/schemas/discoveryTokenLinks'
-        circulating_supply:
-          type: string
-          description: The circulating supply of the token
-          example: '4206864.7489303'
-        market_cap:
-          type: string
-          description: The market cap of the token
-          example: '3407271444.05'
     discoveryTokenLinks:
       type: object
       required:
@@ -676,70 +615,6 @@ components:
         youtube:
           type: string
           description: The link of the token on the platform
-    mediaCollection:
-      properties:
-        low:
-          description: Preview media file, lowest quality (for images 100px x 100px)
-          $ref: '#/components/schemas/mediaItem'
-        medium:
-          description: Preview media file, medium quality (for images 250px x 250px)
-          $ref: '#/components/schemas/mediaItem'
-        high:
-          description: Preview media file, highest quality (for images 500px x 500px)
-          $ref: '#/components/schemas/mediaItem'
-      required:
-      - original
-      - low
-      - medium
-      - high
-    metadataResync:
-      required:
-      - status
-      properties:
-        status:
-          type: string
-          description: The status of the resync request
-    normalizedMetadataAttribute:
-      properties:
-        trait_type:
-          type: string
-          description: The trait title or descriptor
-          example: Eye Color
-        value:
-          type: object
-          description: The value of the attribute
-          example: hazel
-        display_type:
-          type: string
-          description: The type the attribute value should be displayed as
-          example: string
-        max_value:
-          type: number
-          description: For numeric values, the upper range
-          example: 100
-        trait_count:
-          type: number
-          description: The number of possible values for this trait
-          example: 7
-        order:
-          type: number
-          description: Order the trait should appear in the attribute list.
-          example: 1
-    mediaItem:
-      properties:
-        width:
-          type: integer
-          description: The width of the preview image.
-        height:
-          type: integer
-          description: The height of the preview image.
-        url:
-          type: string
-          description: The url of the preview file.
-      required:
-      - width
-      - height
-      - url
     chainList:
       type: string
       example: eth
@@ -809,6 +684,131 @@ components:
       - '0x531'
       - monad
       - '0x8f'
+    normalizedMetadataAttribute:
+      properties:
+        trait_type:
+          type: string
+          description: The trait title or descriptor
+          example: Eye Color
+        value:
+          type: object
+          description: The value of the attribute
+          example: hazel
+        display_type:
+          type: string
+          description: The type the attribute value should be displayed as
+          example: string
+        max_value:
+          type: number
+          description: For numeric values, the upper range
+          example: 100
+        trait_count:
+          type: number
+          description: The number of possible values for this trait
+          example: 7
+        order:
+          type: number
+          description: Order the trait should appear in the attribute list.
+          example: 1
+    normalizedMetadata:
+      properties:
+        name:
+          type: string
+          description: The name or title of the NFT
+          example: Moralis Mug
+        description:
+          type: string
+          description: A detailed description of the NFT
+          example: Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.
+        image:
+          type: string
+          description: The URL of the NFT's image
+          example: https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png
+        external_link:
+          type: string
+          description: A link to additional information
+          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+        external_url:
+          type: string
+          description: A link to additional information
+          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+        animation_url:
+          type: string
+          description: An animated version of the NFT's image
+          example: https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/normalizedMetadataAttribute'
+    mediaItem:
+      properties:
+        width:
+          type: integer
+          description: The width of the preview image.
+        height:
+          type: integer
+          description: The height of the preview image.
+        url:
+          type: string
+          description: The url of the preview file.
+      required:
+      - width
+      - height
+      - url
+    media:
+      properties:
+        mimetype:
+          type: string
+          description: The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types]
+        category:
+          enum:
+          - image
+          - audio
+          - video
+        status:
+          enum:
+          - success
+          - processing
+          - unsupported_media
+          - invalid_url
+          - host_unavailable
+          - temporarily_unavailable
+          description: <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
+        original_media_url:
+          type: string
+          description: The url of the original media file.
+        updatedAt:
+          type: string
+          description: The timestamp of the last update to this NFT media record.
+        parent_hash:
+          type: string
+          description: Hash value of the original media file.
+        media_collection:
+          description: Preview item associated with the original
+          $ref: '#/components/schemas/mediaCollection'
+    mediaCollection:
+      properties:
+        low:
+          description: Preview media file, lowest quality (for images 100px x 100px)
+          $ref: '#/components/schemas/mediaItem'
+        medium:
+          description: Preview media file, medium quality (for images 250px x 250px)
+          $ref: '#/components/schemas/mediaItem'
+        high:
+          description: Preview media file, highest quality (for images 500px x 500px)
+          $ref: '#/components/schemas/mediaItem'
+      required:
+      - original
+      - low
+      - medium
+      - high
+    metadataResync:
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          description: The status of the resync request
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

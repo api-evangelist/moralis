@@ -188,246 +188,6 @@ paths:
       x-mcp-prompt: Provide the contract address to retrieve its NFT collection stats. Use this when users ask for a collection’s performance metrics or want to evaluate its popularity.
 components:
   schemas:
-    normalizedMetadata:
-      properties:
-        name:
-          type: string
-          description: The name or title of the NFT
-          example: Moralis Mug
-        description:
-          type: string
-          description: A detailed description of the NFT
-          example: Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.
-        image:
-          type: string
-          description: The URL of the NFT's image
-          example: https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png
-        external_link:
-          type: string
-          description: A link to additional information
-          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
-        external_url:
-          type: string
-          description: A link to additional information
-          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
-        animation_url:
-          type: string
-          description: An animated version of the NFT's image
-          example: https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/normalizedMetadataAttribute'
-    nftCollectionStat:
-      required:
-      - total_tokens
-      - owners
-      - transfers
-      properties:
-        total_tokens:
-          type: string
-          description: The number of tokens in the collection
-          example: '100'
-        owners:
-          type: object
-          description: NFT collection owner stats
-          required:
-          - current
-          properties:
-            current:
-              type: string
-              description: The number of current owners of the collection
-              example: '1000'
-        transfers:
-          type: object
-          description: NFT collection transfer stats
-          required:
-          - total
-          properties:
-            total:
-              type: string
-              description: The number of transfers of the collection
-              example: '1000'
-    chainList:
-      type: string
-      example: eth
-      default: eth
-      enum:
-      - eth
-      - '0x1'
-      - sepolia
-      - '0xaa36a7'
-      - polygon
-      - '0x89'
-      - bsc
-      - '0x38'
-      - bsc testnet
-      - '0x61'
-      - avalanche
-      - '0xa86a'
-      - fantom
-      - '0xfa'
-      - cronos
-      - '0x19'
-      - arbitrum
-      - '0xa4b1'
-      - chiliz
-      - '0x15b38'
-      - chiliz testnet
-      - '0x15b32'
-      - gnosis
-      - '0x64'
-      - gnosis testnet
-      - '0x27d8'
-      - base
-      - '0x2105'
-      - base sepolia
-      - '0x14a34'
-      - optimism
-      - '0xa'
-      - polygon amoy
-      - '0x13882'
-      - linea
-      - '0xe708'
-      - moonbeam
-      - '0x504'
-      - moonriver
-      - '0x505'
-      - moonbase
-      - '0x507'
-      - linea sepolia
-      - '0xe705'
-      - flow
-      - '0x2eb'
-      - flow-testnet
-      - '0x221'
-      - ronin
-      - '0x7e4'
-      - ronin-testnet
-      - '0x31769'
-      - lisk
-      - '0x46f'
-      - lisk-sepolia
-      - '0x106a'
-      - pulse
-      - '0x171'
-      - sei-testnet
-      - '0x530'
-      - sei
-      - '0x531'
-      - monad
-      - '0x8f'
-    media:
-      properties:
-        mimetype:
-          type: string
-          description: The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types]
-        category:
-          enum:
-          - image
-          - audio
-          - video
-        status:
-          enum:
-          - success
-          - processing
-          - unsupported_media
-          - invalid_url
-          - host_unavailable
-          - temporarily_unavailable
-          description: <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
-        original_media_url:
-          type: string
-          description: The url of the original media file.
-        updatedAt:
-          type: string
-          description: The timestamp of the last update to this NFT media record.
-        parent_hash:
-          type: string
-          description: Hash value of the original media file.
-        media_collection:
-          description: Preview item associated with the original
-          $ref: '#/components/schemas/mediaCollection'
-    mediaCollection:
-      properties:
-        low:
-          description: Preview media file, lowest quality (for images 100px x 100px)
-          $ref: '#/components/schemas/mediaItem'
-        medium:
-          description: Preview media file, medium quality (for images 250px x 250px)
-          $ref: '#/components/schemas/mediaItem'
-        high:
-          description: Preview media file, highest quality (for images 500px x 500px)
-          $ref: '#/components/schemas/mediaItem'
-      required:
-      - original
-      - low
-      - medium
-      - high
-    nftOwnerCollection:
-      required:
-      - result
-      properties:
-        status:
-          type: string
-          description: The syncing status of the address [SYNCING/SYNCED]
-          example: SYNCING
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/nftOwner'
-    normalizedMetadataAttribute:
-      properties:
-        trait_type:
-          type: string
-          description: The trait title or descriptor
-          example: Eye Color
-        value:
-          type: object
-          description: The value of the attribute
-          example: hazel
-        display_type:
-          type: string
-          description: The type the attribute value should be displayed as
-          example: string
-        max_value:
-          type: number
-          description: For numeric values, the upper range
-          example: 100
-        trait_count:
-          type: number
-          description: The number of possible values for this trait
-          example: 7
-        order:
-          type: number
-          description: Order the trait should appear in the attribute list.
-          example: 1
-    mediaItem:
-      properties:
-        width:
-          type: integer
-          description: The width of the preview image.
-        height:
-          type: integer
-          description: The height of the preview image.
-        url:
-          type: string
-          description: The url of the preview file.
-      required:
-      - width
-      - height
-      - url
     nftOwner:
       required:
       - token_address
@@ -619,6 +379,246 @@ components:
                   type: string
                   description: The token address
                   example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    normalizedMetadataAttribute:
+      properties:
+        trait_type:
+          type: string
+          description: The trait title or descriptor
+          example: Eye Color
+        value:
+          type: object
+          description: The value of the attribute
+          example: hazel
+        display_type:
+          type: string
+          description: The type the attribute value should be displayed as
+          example: string
+        max_value:
+          type: number
+          description: For numeric values, the upper range
+          example: 100
+        trait_count:
+          type: number
+          description: The number of possible values for this trait
+          example: 7
+        order:
+          type: number
+          description: Order the trait should appear in the attribute list.
+          example: 1
+    nftOwnerCollection:
+      required:
+      - result
+      properties:
+        status:
+          type: string
+          description: The syncing status of the address [SYNCING/SYNCED]
+          example: SYNCING
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/nftOwner'
+    mediaItem:
+      properties:
+        width:
+          type: integer
+          description: The width of the preview image.
+        height:
+          type: integer
+          description: The height of the preview image.
+        url:
+          type: string
+          description: The url of the preview file.
+      required:
+      - width
+      - height
+      - url
+    nftCollectionStat:
+      required:
+      - total_tokens
+      - owners
+      - transfers
+      properties:
+        total_tokens:
+          type: string
+          description: The number of tokens in the collection
+          example: '100'
+        owners:
+          type: object
+          description: NFT collection owner stats
+          required:
+          - current
+          properties:
+            current:
+              type: string
+              description: The number of current owners of the collection
+              example: '1000'
+        transfers:
+          type: object
+          description: NFT collection transfer stats
+          required:
+          - total
+          properties:
+            total:
+              type: string
+              description: The number of transfers of the collection
+              example: '1000'
+    media:
+      properties:
+        mimetype:
+          type: string
+          description: The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types]
+        category:
+          enum:
+          - image
+          - audio
+          - video
+        status:
+          enum:
+          - success
+          - processing
+          - unsupported_media
+          - invalid_url
+          - host_unavailable
+          - temporarily_unavailable
+          description: <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
+        original_media_url:
+          type: string
+          description: The url of the original media file.
+        updatedAt:
+          type: string
+          description: The timestamp of the last update to this NFT media record.
+        parent_hash:
+          type: string
+          description: Hash value of the original media file.
+        media_collection:
+          description: Preview item associated with the original
+          $ref: '#/components/schemas/mediaCollection'
+    mediaCollection:
+      properties:
+        low:
+          description: Preview media file, lowest quality (for images 100px x 100px)
+          $ref: '#/components/schemas/mediaItem'
+        medium:
+          description: Preview media file, medium quality (for images 250px x 250px)
+          $ref: '#/components/schemas/mediaItem'
+        high:
+          description: Preview media file, highest quality (for images 500px x 500px)
+          $ref: '#/components/schemas/mediaItem'
+      required:
+      - original
+      - low
+      - medium
+      - high
+    normalizedMetadata:
+      properties:
+        name:
+          type: string
+          description: The name or title of the NFT
+          example: Moralis Mug
+        description:
+          type: string
+          description: A detailed description of the NFT
+          example: Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.
+        image:
+          type: string
+          description: The URL of the NFT's image
+          example: https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png
+        external_link:
+          type: string
+          description: A link to additional information
+          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+        external_url:
+          type: string
+          description: A link to additional information
+          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+        animation_url:
+          type: string
+          description: An animated version of the NFT's image
+          example: https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/normalizedMetadataAttribute'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

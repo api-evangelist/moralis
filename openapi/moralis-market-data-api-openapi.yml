@@ -131,148 +131,16 @@ paths:
       x-mcp-prompt: Request the top cryptocurrencies by trading volume. Use this when users want to find actively traded cryptocurrencies or analyze market trends.
 components:
   schemas:
-    marketDataHottestNFTCollectionByTradingVolume:
-      type: array
-      items:
-        required:
-        - rank
-        - collection_title
-        - collection_image
-        - floor_price_usd
-        - floor_price_24hr_percent_change
-        - market_cap_usd
-        - market_cap_24hr_percent_change
-        - volume_usd
-        - volume_24hr_percent_change
-        - collection_address
-        properties:
-          rank:
-            type: integer
-            description: The rank
-            example: 1
-          collection_title:
-            type: string
-            description: The collection title
-            example: CryptoPunks
-          collection_image:
-            type: string
-            description: The collection image
-            example: ''
-          floor_price_usd:
-            type: string
-            description: The floor price in USD
-            example: '0.0'
-          floor_price_24hr_percent_change:
-            type: string
-            description: The floor price 24hr percent change
-            example: '0.0'
-          volume_usd:
-            type: string
-            description: The volume in USD
-            example: '0.0'
-          volume_24hr_percent_change:
-            type: string
-            description: The volume 24hr percent change
-            example: '0.0'
-          average_price_usd:
-            type: string
-            description: The average price in USD
-            example: '0.0'
-          collection_address:
-            type: string
-            description: The collection address
-            example: '0x123'
-          average_price:
-            type: string
-            description: The average price
-            example: '0.0'
-          floor_price:
-            type: string
-            description: The floor price
-            example: '0.0'
-          floor_price_usd_24hr_percent_change:
-            type: string
-            description: The floor price usd 24hr percent change
-            example: '0.0'
-          floor_price_7d_percent_change:
-            type: string
-            description: The floor price 7d percent change
-            example: '0.0'
-          floor_price_usd_7d_percent_change:
-            type: string
-            description: The floor price usd 7d percent change
-            example: '0.0'
-          floor_price_30d_percent_change:
-            type: string
-            description: The floor price 30d percent change
-            example: '0.0'
-          floor_price_usd_30d_percent_change:
-            type: string
-            description: The floor price usd 30d percent change
-            example: '0.0'
-    marketDataTopNFTCollectionByMarketCap:
-      type: array
-      items:
-        required:
-        - rank
-        - collection_title
-        - collection_image
-        - floor_price_usd
-        - floor_price_24hr_percent_change
-        - market_cap_usd
-        - market_cap_24hr_percent_change
-        - volume_usd
-        - volume_24hr_percent_change
-        - collection_address
-        properties:
-          rank:
-            type: integer
-            description: The rank
-            example: 1
-          collection_title:
-            type: string
-            description: The collection title
-            example: CryptoPunks
-          collection_image:
-            type: string
-            description: The collection image
-            example: ''
-          floor_price_usd:
-            type: string
-            description: The floor price in USD
-            example: '0.0'
-          floor_price_24hr_percent_change:
-            type: string
-            description: The floor price 24hr percent change
-            example: '0.0'
-          market_cap_usd:
-            type: string
-            description: The market cap in USD
-            example: '0.0'
-          market_cap_24hr_percent_change:
-            type: string
-            description: The market cap 24hr percent change
-            example: '0.0'
-          volume_usd:
-            type: string
-            description: The volume in USD
-            example: '0.0'
-          volume_24hr_percent_change:
-            type: string
-            description: The volume 24hr percent change
-            example: '0.0'
-          collection_address:
-            type: string
-            description: The collection address
-            example: '0x123'
-          floor_price:
-            type: string
-            description: The floor price
-            example: '0.0'
-          floor_price_usd_24hr_percent_change:
-            type: string
-            description: The floor price usd 24hr percent change
-            example: '0.0'
+    marketDataERC20TokensByPriceMovers:
+      type: object
+      required:
+      - gainers
+      - losers
+      properties:
+        gainers:
+          $ref: '#/components/schemas/marketDataERC20Token'
+        losers:
+          $ref: '#/components/schemas/marketDataERC20Token'
     marketDataTopCryptoCurrenciesByMarketCap:
       type: array
       items:
@@ -441,16 +309,148 @@ components:
             type: string
             description: The market cap in USD
             example: '0.0285'
-    marketDataERC20TokensByPriceMovers:
-      type: object
-      required:
-      - gainers
-      - losers
-      properties:
-        gainers:
-          $ref: '#/components/schemas/marketDataERC20Token'
-        losers:
-          $ref: '#/components/schemas/marketDataERC20Token'
+    marketDataHottestNFTCollectionByTradingVolume:
+      type: array
+      items:
+        required:
+        - rank
+        - collection_title
+        - collection_image
+        - floor_price_usd
+        - floor_price_24hr_percent_change
+        - market_cap_usd
+        - market_cap_24hr_percent_change
+        - volume_usd
+        - volume_24hr_percent_change
+        - collection_address
+        properties:
+          rank:
+            type: integer
+            description: The rank
+            example: 1
+          collection_title:
+            type: string
+            description: The collection title
+            example: CryptoPunks
+          collection_image:
+            type: string
+            description: The collection image
+            example: ''
+          floor_price_usd:
+            type: string
+            description: The floor price in USD
+            example: '0.0'
+          floor_price_24hr_percent_change:
+            type: string
+            description: The floor price 24hr percent change
+            example: '0.0'
+          volume_usd:
+            type: string
+            description: The volume in USD
+            example: '0.0'
+          volume_24hr_percent_change:
+            type: string
+            description: The volume 24hr percent change
+            example: '0.0'
+          average_price_usd:
+            type: string
+            description: The average price in USD
+            example: '0.0'
+          collection_address:
+            type: string
+            description: The collection address
+            example: '0x123'
+          average_price:
+            type: string
+            description: The average price
+            example: '0.0'
+          floor_price:
+            type: string
+            description: The floor price
+            example: '0.0'
+          floor_price_usd_24hr_percent_change:
+            type: string
+            description: The floor price usd 24hr percent change
+            example: '0.0'
+          floor_price_7d_percent_change:
+            type: string
+            description: The floor price 7d percent change
+            example: '0.0'
+          floor_price_usd_7d_percent_change:
+            type: string
+            description: The floor price usd 7d percent change
+            example: '0.0'
+          floor_price_30d_percent_change:
+            type: string
+            description: The floor price 30d percent change
+            example: '0.0'
+          floor_price_usd_30d_percent_change:
+            type: string
+            description: The floor price usd 30d percent change
+            example: '0.0'
+    marketDataTopNFTCollectionByMarketCap:
+      type: array
+      items:
+        required:
+        - rank
+        - collection_title
+        - collection_image
+        - floor_price_usd
+        - floor_price_24hr_percent_change
+        - market_cap_usd
+        - market_cap_24hr_percent_change
+        - volume_usd
+        - volume_24hr_percent_change
+        - collection_address
+        properties:
+          rank:
+            type: integer
+            description: The rank
+            example: 1
+          collection_title:
+            type: string
+            description: The collection title
+            example: CryptoPunks
+          collection_image:
+            type: string
+            description: The collection image
+            example: ''
+          floor_price_usd:
+            type: string
+            description: The floor price in USD
+            example: '0.0'
+          floor_price_24hr_percent_change:
+            type: string
+            description: The floor price 24hr percent change
+            example: '0.0'
+          market_cap_usd:
+            type: string
+            description: The market cap in USD
+            example: '0.0'
+          market_cap_24hr_percent_change:
+            type: string
+            description: The market cap 24hr percent change
+            example: '0.0'
+          volume_usd:
+            type: string
+            description: The volume in USD
+            example: '0.0'
+          volume_24hr_percent_change:
+            type: string
+            description: The volume 24hr percent change
+            example: '0.0'
+          collection_address:
+            type: string
+            description: The collection address
+            example: '0x123'
+          floor_price:
+            type: string
+            description: The floor price
+            example: '0.0'
+          floor_price_usd_24hr_percent_change:
+            type: string
+            description: The floor price usd 24hr percent change
+            example: '0.0'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

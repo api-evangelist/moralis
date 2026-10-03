@@ -55,28 +55,6 @@ paths:
       x-mcp-prompt: Enter the contract address to list its unique NFT owners. Use this when users want to know how many unique wallets own NFTs.
 components:
   schemas:
-    uniqueOwnersByCollection:
-      required:
-      - walletAddresses
-      - page
-      - pageSize
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        pageSize:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        walletAddresses:
-          type: array
-          items:
-            type: string
-          description: Array of wallet addresses
     chainList:
       type: string
       example: eth
@@ -146,6 +124,28 @@ components:
       - '0x531'
       - monad
       - '0x8f'
+    uniqueOwnersByCollection:
+      required:
+      - walletAddresses
+      - page
+      - pageSize
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        pageSize:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        walletAddresses:
+          type: array
+          items:
+            type: string
+          description: Array of wallet addresses
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

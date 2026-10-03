@@ -155,14 +155,6 @@ paths:
       x-mcp-prompt: Provide the ENS domain to resolve its Ethereum address. Use this when users ask for the address behind an ENS domain or need to verify domain ownership.
 components:
   schemas:
-    unstoppableDomain:
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Resolved unstoppable domain address
-          example: sandy.nft
     ens:
       required:
       - name
@@ -179,6 +171,14 @@ components:
           type: string
           description: Resolved domain address
           example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+    unstoppableDomain:
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Resolved unstoppable domain address
+          example: sandy.nft
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

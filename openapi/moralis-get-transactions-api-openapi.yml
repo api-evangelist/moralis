@@ -224,6 +224,25 @@ components:
       enum:
       - ASC
       - DESC
+    erc20TransactionCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/erc20Transaction'
     erc20Transaction:
       required:
       - token_name
@@ -330,25 +349,6 @@ components:
           type: boolean
           description: Indicates if a contract is verified
           example: 'false'
-    erc20TransactionCollection:
-      required:
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/erc20Transaction'
     chainList:
       type: string
       example: eth

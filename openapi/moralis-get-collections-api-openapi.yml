@@ -202,29 +202,6 @@ paths:
       x-mcp-prompt: Provide the contract address to start syncing its NFT data. Use this when users report missing NFT data or want to index a new contract.
 components:
   schemas:
-    nftWalletCollections:
-      required:
-      - result
-      properties:
-        status:
-          type: string
-          description: The syncing status of the address [SYNCING/SYNCED]
-          example: SYNCING
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/nftCollections'
     nftCollections:
       required:
       - token_address
@@ -366,6 +343,29 @@ components:
                   type: string
                   description: The token address
                   example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+    nftWalletCollections:
+      required:
+      - result
+      properties:
+        status:
+          type: string
+          description: The syncing status of the address [SYNCING/SYNCED]
+          example: SYNCING
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/nftCollections'
     nftContractMetadata:
       required:
       - token_address
