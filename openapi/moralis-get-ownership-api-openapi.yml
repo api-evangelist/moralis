@@ -62,13 +62,6 @@ paths:
       x-mcp-prompt: Enter the token contract address to list its major owners. Use this when users want to know the top holders of a token or analyze ownership concentration.
 components:
   schemas:
-    orderList:
-      type: string
-      example: DESC
-      default: DESC
-      enum:
-      - ASC
-      - DESC
     erc20TokenOwner:
       required:
       - owner_address
@@ -118,28 +111,6 @@ components:
           - 'null'
           description: The logo of the owner address entity
           example: https://opensea.io/favicon.ico
-    erc20TokenOwnerCollection:
-      required:
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        total_supply:
-          type: string
-          description: The total supply of the token
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/erc20TokenOwner'
     chainList:
       type: string
       example: eth
@@ -209,6 +180,35 @@ components:
       - '0x531'
       - monad
       - '0x8f'
+    erc20TokenOwnerCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        total_supply:
+          type: string
+          description: The total supply of the token
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/erc20TokenOwner'
+    orderList:
+      type: string
+      example: DESC
+      default: DESC
+      enum:
+      - ASC
+      - DESC
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

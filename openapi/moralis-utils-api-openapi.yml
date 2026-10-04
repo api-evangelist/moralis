@@ -130,29 +130,14 @@ paths:
       x-mcp-prompt: Provide the contract address to review its spam status. Use this when users ask if a contract is safe or want to verify a contract’s legitimacy.
 components:
   schemas:
-    endpointWeights:
+    web3version:
       required:
-      - endpoint
-      - path
-      - price
-      - rateLimitCost
+      - version
       properties:
-        endpoint:
+        version:
           type: string
-          description: endpoint
-          example: endpointWeights
-        path:
-          type: string
-          description: The path to the endpoint
-          example: /info/endpointWeights
-        rateLimitCost:
-          type: string
-          description: The number of hits the request counts towards rate limiting
-          example: 1
-        price:
-          type: string
-          description: The number of compute units the request counts towards billing
-          example: 0
+          description: The version of the API
+          example: 1.0.0
     contractsReviewItem:
       required:
       - contract_address
@@ -182,14 +167,6 @@ components:
           - NFT
           description: This can be ERC20, or NFT
           example: ERC20
-    web3version:
-      required:
-      - version
-      properties:
-        version:
-          type: string
-          description: The version of the API
-          example: 1.0.0
     chainList:
       type: string
       example: eth
@@ -259,20 +236,29 @@ components:
       - '0x531'
       - monad
       - '0x8f'
-    RunContractDto:
+    endpointWeights:
       required:
-      - abi
+      - endpoint
+      - path
+      - price
+      - rateLimitCost
       properties:
-        abi:
-          type: array
-          items:
-            type: object
-          description: The contract ABI
-          example: []
-        params:
-          type: object
-          description: The params for the given function
-          example: {}
+        endpoint:
+          type: string
+          description: endpoint
+          example: endpointWeights
+        path:
+          type: string
+          description: The path to the endpoint
+          example: /info/endpointWeights
+        rateLimitCost:
+          type: string
+          description: The number of hits the request counts towards rate limiting
+          example: 1
+        price:
+          type: string
+          description: The number of compute units the request counts towards billing
+          example: 0
     ContractsReviewDto:
       required:
       - contracts
@@ -288,6 +274,20 @@ components:
             reason: The contract contains shady code
           items:
             $ref: '#/components/schemas/contractsReviewItem'
+    RunContractDto:
+      required:
+      - abi
+      properties:
+        abi:
+          type: array
+          items:
+            type: object
+          description: The contract ABI
+          example: []
+        params:
+          type: object
+          description: The params for the given function
+          example: {}
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

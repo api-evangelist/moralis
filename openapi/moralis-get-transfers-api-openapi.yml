@@ -323,13 +323,6 @@ paths:
       x-mcp-prompt: Provide the contract address and token ID to see the NFT’s transfer history. Use this when users want to track the ownership history of a specific NFT.
 components:
   schemas:
-    orderList:
-      type: string
-      example: DESC
-      default: DESC
-      enum:
-      - ASC
-      - DESC
     nftTransferCollection:
       required:
       - page
@@ -623,6 +616,13 @@ components:
                   type: string
                   description: The token address
                   example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+    orderList:
+      type: string
+      example: DESC
+      default: DESC
+      enum:
+      - ASC
+      - DESC
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

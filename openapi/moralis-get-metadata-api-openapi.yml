@@ -229,6 +229,21 @@ paths:
       x-mcp-prompt: Provide a list of token symbols to retrieve their metadata. Use this when users request metadata for tokens by symbol or are exploring multiple tokens.
 components:
   schemas:
+    mediaItem:
+      properties:
+        width:
+          type: integer
+          description: The width of the preview image.
+        height:
+          type: integer
+          description: The height of the preview image.
+        url:
+          type: string
+          description: The url of the preview file.
+      required:
+      - width
+      - height
+      - url
     erc20Metadata:
       type: object
       required:
@@ -349,6 +364,211 @@ components:
           type: string
           description: The market cap of the token
           example: '3407271444.05'
+    discoveryTokenLinks:
+      type: object
+      required:
+      - bitbucket
+      - discord
+      - facebook
+      - github
+      - instagram
+      - linkedin
+      - medium
+      - reddit
+      - telegram
+      - tiktok
+      - twitter
+      - website
+      - youtube
+      properties:
+        bitbucket:
+          type: string
+          description: The link of the token on the platform
+        discord:
+          type: string
+          description: The link of the token on the platform
+        facebook:
+          type: string
+          description: The link of the token on the platform
+        github:
+          type: string
+          description: The link of the token on the platform
+        instagram:
+          type: string
+          description: The link of the token on the platform
+        linkedin:
+          type: string
+          description: The link of the token on the platform
+        medium:
+          type: string
+          description: The link of the token on the platform
+        reddit:
+          type: string
+          description: The link of the token on the platform
+        telegram:
+          type: string
+          description: The link of the token on the platform
+        tiktok:
+          type: string
+          description: The link of the token on the platform
+        twitter:
+          type: string
+          description: The link of the token on the platform
+        website:
+          type: string
+          description: The link of the token on the platform
+        youtube:
+          type: string
+          description: The link of the token on the platform
+    mediaCollection:
+      properties:
+        low:
+          description: Preview media file, lowest quality (for images 100px x 100px)
+          $ref: '#/components/schemas/mediaItem'
+        medium:
+          description: Preview media file, medium quality (for images 250px x 250px)
+          $ref: '#/components/schemas/mediaItem'
+        high:
+          description: Preview media file, highest quality (for images 500px x 500px)
+          $ref: '#/components/schemas/mediaItem'
+      required:
+      - original
+      - low
+      - medium
+      - high
+    media:
+      properties:
+        mimetype:
+          type: string
+          description: The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types]
+        category:
+          enum:
+          - image
+          - audio
+          - video
+        status:
+          enum:
+          - success
+          - processing
+          - unsupported_media
+          - invalid_url
+          - host_unavailable
+          - temporarily_unavailable
+          description: <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
+        original_media_url:
+          type: string
+          description: The url of the original media file.
+        updatedAt:
+          type: string
+          description: The timestamp of the last update to this NFT media record.
+        parent_hash:
+          type: string
+          description: Hash value of the original media file.
+        media_collection:
+          description: Preview item associated with the original
+          $ref: '#/components/schemas/mediaCollection'
+    metadataResync:
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          description: The status of the resync request
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    normalizedMetadataAttribute:
+      properties:
+        trait_type:
+          type: string
+          description: The trait title or descriptor
+          example: Eye Color
+        value:
+          type: object
+          description: The value of the attribute
+          example: hazel
+        display_type:
+          type: string
+          description: The type the attribute value should be displayed as
+          example: string
+        max_value:
+          type: number
+          description: For numeric values, the upper range
+          example: 100
+        trait_count:
+          type: number
+          description: The number of possible values for this trait
+          example: 7
+        order:
+          type: number
+          description: Order the trait should appear in the attribute list.
+          example: 1
     nft:
       required:
       - token_address
@@ -559,157 +779,6 @@ components:
           type: string
           description: The currency of the floor price
           example: eth
-    discoveryTokenLinks:
-      type: object
-      required:
-      - bitbucket
-      - discord
-      - facebook
-      - github
-      - instagram
-      - linkedin
-      - medium
-      - reddit
-      - telegram
-      - tiktok
-      - twitter
-      - website
-      - youtube
-      properties:
-        bitbucket:
-          type: string
-          description: The link of the token on the platform
-        discord:
-          type: string
-          description: The link of the token on the platform
-        facebook:
-          type: string
-          description: The link of the token on the platform
-        github:
-          type: string
-          description: The link of the token on the platform
-        instagram:
-          type: string
-          description: The link of the token on the platform
-        linkedin:
-          type: string
-          description: The link of the token on the platform
-        medium:
-          type: string
-          description: The link of the token on the platform
-        reddit:
-          type: string
-          description: The link of the token on the platform
-        telegram:
-          type: string
-          description: The link of the token on the platform
-        tiktok:
-          type: string
-          description: The link of the token on the platform
-        twitter:
-          type: string
-          description: The link of the token on the platform
-        website:
-          type: string
-          description: The link of the token on the platform
-        youtube:
-          type: string
-          description: The link of the token on the platform
-    chainList:
-      type: string
-      example: eth
-      default: eth
-      enum:
-      - eth
-      - '0x1'
-      - sepolia
-      - '0xaa36a7'
-      - polygon
-      - '0x89'
-      - bsc
-      - '0x38'
-      - bsc testnet
-      - '0x61'
-      - avalanche
-      - '0xa86a'
-      - fantom
-      - '0xfa'
-      - cronos
-      - '0x19'
-      - arbitrum
-      - '0xa4b1'
-      - chiliz
-      - '0x15b38'
-      - chiliz testnet
-      - '0x15b32'
-      - gnosis
-      - '0x64'
-      - gnosis testnet
-      - '0x27d8'
-      - base
-      - '0x2105'
-      - base sepolia
-      - '0x14a34'
-      - optimism
-      - '0xa'
-      - polygon amoy
-      - '0x13882'
-      - linea
-      - '0xe708'
-      - moonbeam
-      - '0x504'
-      - moonriver
-      - '0x505'
-      - moonbase
-      - '0x507'
-      - linea sepolia
-      - '0xe705'
-      - flow
-      - '0x2eb'
-      - flow-testnet
-      - '0x221'
-      - ronin
-      - '0x7e4'
-      - ronin-testnet
-      - '0x31769'
-      - lisk
-      - '0x46f'
-      - lisk-sepolia
-      - '0x106a'
-      - pulse
-      - '0x171'
-      - sei-testnet
-      - '0x530'
-      - sei
-      - '0x531'
-      - monad
-      - '0x8f'
-    normalizedMetadataAttribute:
-      properties:
-        trait_type:
-          type: string
-          description: The trait title or descriptor
-          example: Eye Color
-        value:
-          type: object
-          description: The value of the attribute
-          example: hazel
-        display_type:
-          type: string
-          description: The type the attribute value should be displayed as
-          example: string
-        max_value:
-          type: number
-          description: For numeric values, the upper range
-          example: 100
-        trait_count:
-          type: number
-          description: The number of possible values for this trait
-          example: 7
-        order:
-          type: number
-          description: Order the trait should appear in the attribute list.
-          example: 1
     normalizedMetadata:
       properties:
         name:
@@ -740,75 +809,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/normalizedMetadataAttribute'
-    mediaItem:
-      properties:
-        width:
-          type: integer
-          description: The width of the preview image.
-        height:
-          type: integer
-          description: The height of the preview image.
-        url:
-          type: string
-          description: The url of the preview file.
-      required:
-      - width
-      - height
-      - url
-    media:
-      properties:
-        mimetype:
-          type: string
-          description: The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types]
-        category:
-          enum:
-          - image
-          - audio
-          - video
-        status:
-          enum:
-          - success
-          - processing
-          - unsupported_media
-          - invalid_url
-          - host_unavailable
-          - temporarily_unavailable
-          description: <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
-        original_media_url:
-          type: string
-          description: The url of the original media file.
-        updatedAt:
-          type: string
-          description: The timestamp of the last update to this NFT media record.
-        parent_hash:
-          type: string
-          description: Hash value of the original media file.
-        media_collection:
-          description: Preview item associated with the original
-          $ref: '#/components/schemas/mediaCollection'
-    mediaCollection:
-      properties:
-        low:
-          description: Preview media file, lowest quality (for images 100px x 100px)
-          $ref: '#/components/schemas/mediaItem'
-        medium:
-          description: Preview media file, medium quality (for images 250px x 250px)
-          $ref: '#/components/schemas/mediaItem'
-        high:
-          description: Preview media file, highest quality (for images 500px x 500px)
-          $ref: '#/components/schemas/mediaItem'
-      required:
-      - original
-      - low
-      - medium
-      - high
-    metadataResync:
-      required:
-      - status
-      properties:
-        status:
-          type: string
-          description: The status of the resync request
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

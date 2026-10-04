@@ -217,13 +217,6 @@ paths:
       x-mcp-prompt: Enter the token contract address to list its transactions. Use this when users want to track all transactions for a token or analyze its activity.
 components:
   schemas:
-    orderList:
-      type: string
-      example: DESC
-      default: DESC
-      enum:
-      - ASC
-      - DESC
     erc20TransactionCollection:
       required:
       - result
@@ -243,6 +236,82 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/erc20Transaction'
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    orderList:
+      type: string
+      example: DESC
+      default: DESC
+      enum:
+      - ASC
+      - DESC
     erc20Transaction:
       required:
       - token_name
@@ -349,75 +418,6 @@ components:
           type: boolean
           description: Indicates if a contract is verified
           example: 'false'
-    chainList:
-      type: string
-      example: eth
-      default: eth
-      enum:
-      - eth
-      - '0x1'
-      - sepolia
-      - '0xaa36a7'
-      - polygon
-      - '0x89'
-      - bsc
-      - '0x38'
-      - bsc testnet
-      - '0x61'
-      - avalanche
-      - '0xa86a'
-      - fantom
-      - '0xfa'
-      - cronos
-      - '0x19'
-      - arbitrum
-      - '0xa4b1'
-      - chiliz
-      - '0x15b38'
-      - chiliz testnet
-      - '0x15b32'
-      - gnosis
-      - '0x64'
-      - gnosis testnet
-      - '0x27d8'
-      - base
-      - '0x2105'
-      - base sepolia
-      - '0x14a34'
-      - optimism
-      - '0xa'
-      - polygon amoy
-      - '0x13882'
-      - linea
-      - '0xe708'
-      - moonbeam
-      - '0x504'
-      - moonriver
-      - '0x505'
-      - moonbase
-      - '0x507'
-      - linea sepolia
-      - '0xe705'
-      - flow
-      - '0x2eb'
-      - flow-testnet
-      - '0x221'
-      - ronin
-      - '0x7e4'
-      - ronin-testnet
-      - '0x31769'
-      - lisk
-      - '0x46f'
-      - lisk-sepolia
-      - '0x106a'
-      - pulse
-      - '0x171'
-      - sei-testnet
-      - '0x530'
-      - sei
-      - '0x531'
-      - monad
-      - '0x8f'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

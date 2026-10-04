@@ -1811,197 +1811,6 @@ paths:
       x-mcp-prompt: Enter the contract address and time period to view historical floor prices. Use this when users want to analyze a collection’s price trends or need historical market data.
 components:
   schemas:
-    nftOwner:
-      required:
-      - token_address
-      - token_id
-      - contract_type
-      - name
-      - block_number
-      - block_number_minted
-      - owner_of
-      - symbol
-      - token_hash
-      - last_token_uri_sync
-      - last_metadata_sync
-      - possible_spam
-      properties:
-        token_address:
-          type: string
-          description: The address of the NFT contract
-          example: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'
-        token_id:
-          type: string
-          description: The token ID of the NFT
-          example: '15'
-        contract_type:
-          type: string
-          description: The type of NFT contract standard
-          example: ERC721
-        owner_of:
-          type: string
-          description: The wallet address of the owner of the NFT
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        block_number:
-          type: string
-          description: The block number when the amount or owner changed
-          example: '88256'
-        block_number_minted:
-          type: string
-          description: The block number when the NFT was minted
-          example: '88256'
-        token_uri:
-          type: string
-          description: The URI to the metadata of the token
-        metadata:
-          type: string
-          description: The metadata of the token
-        normalized_metadata:
-          $ref: '#/components/schemas/normalizedMetadata'
-          description: A normalized metadata version of the NFT's metadata.
-        media:
-          $ref: '#/components/schemas/media'
-          description: A set of links to 'thumbnail / preview' media files
-        amount:
-          type: string
-          description: The number of this item the user owns (used by ERC1155)
-          example: '1'
-        name:
-          type: string
-          description: The name of the NFT contract
-          example: CryptoKitties
-        symbol:
-          type: string
-          description: The symbol of the NFT contract
-          example: RARI
-        token_hash:
-          type: string
-          description: The token hash
-          example: 502cee781b0fb40ea02508b21d319ced
-        rarity_rank:
-          type: number
-          description: The rarity rank
-          example: 21669
-        rarity_percentage:
-          type: number
-          description: The rarity percentage
-          example: 98
-        rarity_label:
-          type: string
-          description: The rarity label
-          example: Top 98%
-        last_token_uri_sync:
-          type: string
-          description: When the token_uri was last updated
-          example: '2021-02-24T00:47:26.647Z'
-        last_metadata_sync:
-          type: string
-          description: When the metadata was last updated
-          example: '2021-02-24T00:47:26.647Z'
-        possible_spam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        verified_collection:
-          type: boolean
-          description: Indicates if a contract is verified
-          example: 'false'
-        floor_price:
-          type: string
-          description: The floor price of the NFT
-          example: '12345'
-        floor_price_usd:
-          type: string
-          description: The floor price of the NFT in USD
-          example: '12345.4899'
-        floor_price_currency:
-          type: string
-          description: The currency of the floor price
-          example: eth
-        last_sale:
-          type:
-          - object
-          - 'null'
-          description: Details about the most recent sale involving this token.
-          required:
-          - transaction_hash
-          - block_timestamp
-          - price
-          - price_formatted
-          - buyer_address
-          - seller_address
-          - payment_token
-          properties:
-            transaction_hash:
-              type: string
-              description: The transaction hash of the last sale
-              example: '0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c'
-            block_timestamp:
-              type: string
-              description: The block timestamp of the last sale
-              example: '2023-04-04T15:59:11.000Z'
-            buyer_address:
-              type: string
-              description: The buyer address of the last sale
-              example: '0xcb1c1fde09f811b294172696404e88e658659905'
-            seller_address:
-              type: string
-              description: The seller address of the last sale
-              example: '0x497a7dee2f13db161eb2fec060fa783cb041419f'
-            price:
-              type: string
-              description: The price of the last sale
-              example: '7300000000000000'
-            price_formatted:
-              type: string
-              description: The formatted price of the last sale
-              example: '0.0073'
-            usd_price_at_sale:
-              type: string
-              description: The USD price of the last sale
-              example: '13.61'
-            current_usd_value:
-              type: string
-              description: The USD price of the last sale at the current value
-              example: '15.53'
-            token_address:
-              type: string
-              description: The token address that is sold
-              example: '0xe8778996e096b39705c6a0a937eb587a1ebbda17'
-            token_id:
-              type: string
-              description: The token ID that is sold
-              example: '170'
-            payment_token:
-              type: object
-              description: The ERC20 token that is being traded with
-              required:
-              - token_name
-              - token_symbol
-              - token_logo
-              - token_decimals
-              - token_address
-              properties:
-                token_name:
-                  type: string
-                  description: The token name
-                  example: Ether
-                token_symbol:
-                  type: string
-                  description: The token symbol
-                  example: ETH
-                token_logo:
-                  type: string
-                  description: The token logo
-                  example: https://cdn.moralis.io/eth/0x.png
-                token_decimals:
-                  type: string
-                  description: The token decimals
-                  example: '18'
-                token_address:
-                  type: string
-                  description: The token address
-                  example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
     GetMultipleNftsDto:
       required:
       - tokens
@@ -2027,7 +1836,39 @@ components:
           type: boolean
           description: Should preview media data be returned?
           example: false
-    traitCollection:
+    tokenFloorPrice:
+      required:
+      - address
+      - token_id
+      properties:
+        address:
+          type: string
+          description: The address of the NFT contract
+          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+        token_id:
+          type: string
+          description: The token ID of the NFT
+          example: '2441'
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '0.2176'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '564.24'
+        currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        marketplace:
+          $ref: '#/components/schemas/marketplace'
+          description: The marketplace in which the floor price is present
+        last_updated:
+          type: string
+          description: The timestamp of when the floor price was last updated
+          example: '2024-08-21T15:59:11.000Z'
+    nftCollection:
       required:
       - result
       properties:
@@ -2045,33 +1886,44 @@ components:
         result:
           type: array
           items:
-            $ref: '#/components/schemas/trait'
-    normalizedMetadataAttribute:
+            $ref: '#/components/schemas/nft'
+    nftCollectionStat:
+      required:
+      - total_tokens
+      - owners
+      - transfers
       properties:
-        trait_type:
+        total_tokens:
           type: string
-          description: The trait title or descriptor
-          example: Eye Color
-        value:
+          description: The number of tokens in the collection
+          example: '100'
+        owners:
           type: object
-          description: The value of the attribute
-          example: hazel
-        display_type:
-          type: string
-          description: The type the attribute value should be displayed as
-          example: string
-        max_value:
-          type: number
-          description: For numeric values, the upper range
-          example: 100
-        trait_count:
-          type: number
-          description: The number of possible values for this trait
-          example: 7
-        order:
-          type: number
-          description: Order the trait should appear in the attribute list.
-          example: 1
+          description: NFT collection owner stats
+          required:
+          - current
+          properties:
+            current:
+              type: string
+              description: The number of current owners of the collection
+              example: '1000'
+        transfers:
+          type: object
+          description: NFT collection transfer stats
+          required:
+          - total
+          properties:
+            total:
+              type: string
+              description: The number of transfers of the collection
+              example: '1000'
+    orderList:
+      type: string
+      example: DESC
+      default: DESC
+      enum:
+      - ASC
+      - DESC
     nftOwnerCollection:
       required:
       - result
@@ -2095,57 +1947,72 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/nftOwner'
-    nftWalletCollections:
+    trade:
       required:
-      - result
+      - transaction_hash
+      - transaction_index
+      - token_ids
+      - seller_address
+      - buyer_address
+      - token_address
+      - marketplace_address
+      - price
+      - block_timestamp
+      - block_number
+      - block_hash
       properties:
-        status:
+        transaction_hash:
           type: string
-          description: The syncing status of the address [SYNCING/SYNCED]
-          example: SYNCING
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
+          description: The transaction hash
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        transaction_index:
           type: string
-          description: The cursor to get to the next page
-        result:
+          description: The transaction index
+        token_ids:
           type: array
           items:
-            $ref: '#/components/schemas/nftCollections'
-    contractFloorPrice:
-      required:
-      - address
-      - last_updated
-      properties:
-        address:
+            type: string
+            example: '15'
+          description: The token ID(s) traded
+          example:
+          - '15'
+          - '54'
+        seller_address:
+          type: string
+          description: The address that sold the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        buyer_address:
+          type: string
+          description: The address that bought the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        token_address:
           type: string
           description: The address of the NFT contract
-          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
-        floor_price:
+          example: '0x4ad3785ec7eed7589fa86538244a4530f962434f'
+        marketplace_address:
           type: string
-          description: The floor price of the contract
-          example: '0.2176'
-        floor_price_usd:
+          description: The address of the contract that traded the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        price_token_address:
           type: string
-          description: The floor price of the contract in USD
-          example: '564.24'
-        currency:
+          description: The address of the token used to pay for the NFT
+          example: '0x60e4d786628fea6478f785a6d7e704777c86a7c6'
+        price:
           type: string
-          description: The currency of the floor price
-          example: eth
-        marketplace:
-          $ref: '#/components/schemas/marketplace'
-          description: The marketplace in which the floor price is present
-        last_updated:
+          description: The value that was sent in the transaction (ETH/BNB/etc..)
+          example: '1000000000000000'
+        block_timestamp:
           type: string
-          description: The timestamp of when the floor price was last updated
-          example: '2024-08-21T15:59:11.000Z'
+          description: The block timestamp
+          example: '2021-06-04T16:00:15'
+        block_number:
+          type: string
+          description: The block number of the transaction
+          example: '13680123'
+        block_hash:
+          type: string
+          description: The block hash
+          example: '0x4a7c916ca4a970358b9df90051008f729685ff05e9724a9dddba32630c37cb96'
     soldPrice:
       required:
       - last_sale
@@ -2373,189 +2240,56 @@ components:
         message:
           type: string
           description: The error message (if any)
-    groupedTrait:
-      required:
-      - trait_type
-      - values
+    media:
       properties:
-        trait_type:
+        mimetype:
           type: string
-          description: The trait type
-          example: Background
-        values:
+          description: The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types]
+        category:
+          enum:
+          - image
+          - audio
+          - video
+        status:
+          enum:
+          - success
+          - processing
+          - unsupported_media
+          - invalid_url
+          - host_unavailable
+          - temporarily_unavailable
+          description: <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
+        original_media_url:
+          type: string
+          description: The url of the original media file.
+        updatedAt:
+          type: string
+          description: The timestamp of the last update to this NFT media record.
+        parent_hash:
+          type: string
+          description: Hash value of the original media file.
+        media_collection:
+          description: Preview item associated with the original
+          $ref: '#/components/schemas/mediaCollection'
+    tradeCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
           type: array
           items:
-            description: The trait values
-            required:
-            - trait_value
-            - count
-            - percentage
-            - rarity_label
-            properties:
-              trait_value:
-                type: string
-                description: The trait value
-                example: Lavendar
-              count:
-                type: number
-                description: The total NFT in the collection with this trait
-                example: 18593
-              percentage:
-                type: number
-                description: The rarity percentage of the trait
-                example: 85.8
-              rarity_label:
-                type: string
-                description: The rarity label of the trait
-                example: Top 4% trait
-    orderList:
-      type: string
-      example: DESC
-      default: DESC
-      enum:
-      - ASC
-      - DESC
-    nftCollections:
-      required:
-      - token_address
-      - contract_type
-      - name
-      - symbol
-      - possible_spam
-      - verified_collection
-      properties:
-        token_address:
-          type: string
-          description: The address of the NFT contract
-          example: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'
-        contract_type:
-          type: string
-          description: The type of NFT contract standard
-          example: ERC721
-        name:
-          type: string
-          description: The name of the NFT contract
-          example: CryptoKitties
-        symbol:
-          type: string
-          description: The symbol of the NFT contract
-          example: RARI
-        possible_spam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        verified_collection:
-          type: boolean
-          description: Indicates if a contract is verified
-          example: 'false'
-        count:
-          type: integer
-          description: The number of tokens the wallet holds in this collection
-          example: 5
-        collection_logo:
-          type: string
-          description: The logo of the collection
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        collection_banner_image:
-          type: string
-          description: The banner image of the collection
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        floor_price:
-          type: string
-          description: The floor price of the contract
-          example: '12345'
-        floor_price_usd:
-          type: string
-          description: The floor price of the contract in USD
-          example: '12345.4899'
-        floor_price_currency:
-          type: string
-          description: The currency of the floor price
-          example: eth
-        last_sale:
-          type:
-          - object
-          - 'null'
-          description: Details about the most recent sale involving this token.
-          required:
-          - transaction_hash
-          - block_timestamp
-          - price
-          - price_formatted
-          - buyer_address
-          - seller_address
-          - payment_token
-          properties:
-            transaction_hash:
-              type: string
-              description: The transaction hash of the last sale
-              example: '0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c'
-            block_timestamp:
-              type: string
-              description: The block timestamp of the last sale
-              example: '2023-04-04T15:59:11.000Z'
-            buyer_address:
-              type: string
-              description: The buyer address of the last sale
-              example: '0xcb1c1fde09f811b294172696404e88e658659905'
-            seller_address:
-              type: string
-              description: The seller address of the last sale
-              example: '0x497a7dee2f13db161eb2fec060fa783cb041419f'
-            price:
-              type: string
-              description: The price of the last sale
-              example: '7300000000000000'
-            price_formatted:
-              type: string
-              description: The formatted price of the last sale
-              example: '0.0073'
-            usd_price_at_sale:
-              type: string
-              description: The USD price of the last sale
-              example: '13.61'
-            current_usd_value:
-              type: string
-              description: The USD price of the last sale at the current value
-              example: '15.53'
-            token_address:
-              type: string
-              description: The token address that is sold
-              example: '0xe8778996e096b39705c6a0a937eb587a1ebbda17'
-            token_id:
-              type: string
-              description: The token ID that is sold
-              example: '170'
-            payment_token:
-              type: object
-              description: The ERC20 token that is being traded with
-              required:
-              - token_name
-              - token_symbol
-              - token_logo
-              - token_decimals
-              - token_address
-              properties:
-                token_name:
-                  type: string
-                  description: The token name
-                  example: Ether
-                token_symbol:
-                  type: string
-                  description: The token symbol
-                  example: ETH
-                token_logo:
-                  type: string
-                  description: The token logo
-                  example: https://cdn.moralis.io/eth/0x.png
-                token_decimals:
-                  type: string
-                  description: The token decimals
-                  example: '18'
-                token_address:
-                  type: string
-                  description: The token address
-                  example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+            $ref: '#/components/schemas/trade'
     trait:
       required:
       - trait_type
@@ -2584,314 +2318,18 @@ components:
           type: string
           description: The rarity label of the trait
           example: Top 4% trait
-    historicalContractFloorResponse:
+    metadataResync:
       required:
-      - result
+      - status
       properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '1'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
+        status:
           type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/historicalContractFloorPrice'
-          description: List of historical contract floor prices at various intervals.
-    historicalContractFloorPrice:
+          description: The status of the resync request
+    nftTransferCollection:
       required:
-      - timestamp
-      properties:
-        floor_price:
-          type: string
-          description: The floor price of the contract
-          example: '0.2176'
-        floor_price_usd:
-          type: string
-          description: The floor price of the contract in USD
-          example: '564.24'
-        currency:
-          type: string
-          description: The currency of the floor price
-          example: eth
-        marketplace:
-          type: string
-          description: The marketplace in which the floor price is present
-          example: blur
-        timestamp:
-          type: string
-          description: The timestamp of when the floor price was last updated
-          example: '2024-08-21T15:59:11.000Z'
-    tokenItem:
-      properties:
-        token_address:
-          type: string
-          description: The contract address
-          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
-        token_id:
-          type: string
-          description: The id of the token
-          example: 100
-    mediaCollection:
-      properties:
-        low:
-          description: Preview media file, lowest quality (for images 100px x 100px)
-          $ref: '#/components/schemas/mediaItem'
-        medium:
-          description: Preview media file, medium quality (for images 250px x 250px)
-          $ref: '#/components/schemas/mediaItem'
-        high:
-          description: Preview media file, highest quality (for images 500px x 500px)
-          $ref: '#/components/schemas/mediaItem'
-      required:
-      - original
-      - low
-      - medium
-      - high
-    marketplace:
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The name of the marketplace
-          example: blur
-        logo:
-          type: string
-          description: The logo of the marketplace
-          example: https://cdn.moralis.io/marketplaces/blur.png
-    normalizedMetadata:
-      properties:
-        name:
-          type: string
-          description: The name or title of the NFT
-          example: Moralis Mug
-        description:
-          type: string
-          description: A detailed description of the NFT
-          example: Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.
-        image:
-          type: string
-          description: The URL of the NFT's image
-          example: https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png
-        external_link:
-          type: string
-          description: A link to additional information
-          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
-        external_url:
-          type: string
-          description: A link to additional information
-          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
-        animation_url:
-          type: string
-          description: An animated version of the NFT's image
-          example: https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/normalizedMetadataAttribute'
-    nftTransfer:
-      required:
-      - token_address
-      - token_id
-      - transaction_hash
-      - log_index
-      - contract_type
-      - block_timestamp
-      - block_number
-      - block_hash
-      - possible_spam
-      properties:
-        token_address:
-          type: string
-          description: The address of the NFT contract
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        token_id:
-          type: string
-          description: The token ID of the NFT
-          example: '15'
-        token_name:
-          type: string
-          example: Tether USD
-        token_symbol:
-          type: string
-          example: USDT
-        from_address_entity:
-          type: string
-          description: The from address entity
-          example: Opensea
-        from_address_entity_logo:
-          type: string
-          description: The logo of the from address entity
-          example: https://opensea.io/favicon.ico
-        from_address:
-          type: string
-          description: The address that sent the NFT
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        from_address_label:
-          type:
-          - string
-          - 'null'
-          description: The label of the from address
-          example: Binance 1
-        to_address_entity:
-          type: string
-          description: The to address entity
-          example: Beaver Build
-        to_address_entity_logo:
-          type: string
-          description: The logo of the to address entity
-          example: https://beaverbuild.com/favicon.ico
-        to_address:
-          type: string
-          description: The address that received the NFT
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        to_address_label:
-          type:
-          - string
-          - 'null'
-          description: The label of the to address
-          example: Binance 2
-        value:
-          type: string
-          description: The value that was sent in the transaction (ETH/BNB/etc..)
-          example: '1000000000000000'
-        amount:
-          type: string
-          description: The number of tokens transferred
-          example: '1'
-        contract_type:
-          type: string
-          description: The type of NFT contract standard
-          example: ERC721
-        block_number:
-          type: string
-          description: The block number of the transaction
-          example: '88256'
-        block_timestamp:
-          type: string
-          description: The block timestamp
-          example: '2021-06-04T16:00:15'
-        block_hash:
-          type: string
-          description: The block hash of the transaction
-        transaction_hash:
-          type: string
-          description: The transaction hash
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        transaction_type:
-          type: string
-          description: The transaction type
-        transaction_index:
-          type: integer
-          description: The transaction index
-        log_index:
-          type: integer
-          description: The log index
-        operator:
-          type: string
-          description: The operator present only for ERC1155 transfers
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        possible_spam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        verified_collection:
-          type: boolean
-          description: Indicates if a contract is verified
-          example: 'false'
-        last_sale:
-          type:
-          - object
-          - 'null'
-          description: Details about the most recent sale involving this token.
-          required:
-          - transaction_hash
-          - block_timestamp
-          - price
-          - price_formatted
-          - buyer_address
-          - seller_address
-          - payment_token
-          properties:
-            transaction_hash:
-              type: string
-              description: The transaction hash of the last sale
-              example: '0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c'
-            block_timestamp:
-              type: string
-              description: The block timestamp of the last sale
-              example: '2023-04-04T15:59:11.000Z'
-            buyer_address:
-              type: string
-              description: The buyer address of the last sale
-              example: '0xcb1c1fde09f811b294172696404e88e658659905'
-            seller_address:
-              type: string
-              description: The seller address of the last sale
-              example: '0x497a7dee2f13db161eb2fec060fa783cb041419f'
-            price:
-              type: string
-              description: The price of the last sale
-              example: '7300000000000000'
-            price_formatted:
-              type: string
-              description: The formatted price of the last sale
-              example: '0.0073'
-            usd_price_at_sale:
-              type: string
-              description: The USD price of the last sale
-              example: '13.61'
-            current_usd_value:
-              type: string
-              description: The USD price of the last sale at the current value
-              example: '15.53'
-            token_address:
-              type: string
-              description: The token address that is sold
-              example: '0xe8778996e096b39705c6a0a937eb587a1ebbda17'
-            token_id:
-              type: string
-              description: The token ID that is sold
-              example: '170'
-            payment_token:
-              type: object
-              description: The ERC20 token that is being traded with
-              required:
-              - token_name
-              - token_symbol
-              - token_logo
-              - token_decimals
-              - token_address
-              properties:
-                token_name:
-                  type: string
-                  description: The token name
-                  example: Ether
-                token_symbol:
-                  type: string
-                  description: The token symbol
-                  example: ETH
-                token_logo:
-                  type: string
-                  description: The token logo
-                  example: https://cdn.moralis.io/eth/0x.png
-                token_decimals:
-                  type: string
-                  description: The token decimals
-                  example: '18'
-                token_address:
-                  type: string
-                  description: The token address
-                  example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-    nftCollection:
-      required:
+      - page
+      - page_size
+      - cursor
       - result
       properties:
         page:
@@ -2908,175 +2346,15 @@ components:
         result:
           type: array
           items:
-            $ref: '#/components/schemas/nft'
-    nftContractMetadata:
-      required:
-      - token_address
-      - contract_type
-      - name
-      - symbol
-      - possible_spam
-      - verified_collection
-      properties:
-        token_address:
-          type: string
-          description: The address of the token contract
-          example: '0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09'
-        name:
-          type: string
-          description: The name of the token contract
-          example: KryptoKitties
-        synced_at:
-          type: string
-          description: Timestamp of when the contract was last synced with the node
-        symbol:
-          type: string
-          description: The symbol of the NFT contract
-          example: RARI
-        contract_type:
-          type: string
-          description: The type of NFT contract
-          example: ERC721
-        possible_spam:
+            $ref: '#/components/schemas/nftTransfer'
+        block_exists:
           type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        verified_collection:
+          description: Indicator if the block exists
+          example: true
+        index_complete:
           type: boolean
-          description: Indicates if a contract is verified
-          example: 'false'
-        collection_logo:
-          type: string
-          description: The logo of the collection
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        collection_banner_image:
-          type: string
-          description: The banner image of the collection
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        collection_category:
-          type: string
-          description: The category of the collection
-          example: Art
-        project_url:
-          type: string
-          description: The project url of the collection
-          example: https://www.cryptokitties.co/
-        wiki_url:
-          type: string
-          description: The wiki url of the collection
-          example: https://en.wikipedia.org/wiki/CryptoKitties
-        discord_url:
-          type: string
-          description: The discord url of the collection
-          example: https://discord.com/invite/cryptokitties
-        telegram_url:
-          type: string
-          description: The telegram url of the collection
-          example: https://t.me/cryptokitties
-        twitter_username:
-          type: string
-          description: The twitter username of the collection
-          example: CryptoKitties
-        instagram_username:
-          type: string
-          description: The instagram username of the collection
-          example: cryptokitties
-        floor_price:
-          type: string
-          description: The floor price of the contract
-          example: '12345'
-        floor_price_usd:
-          type: string
-          description: The floor price of the contract in USD
-          example: '12345.4899'
-        floor_price_currency:
-          type: string
-          description: The currency of the floor price
-          example: eth
-        last_sale:
-          type:
-          - object
-          - 'null'
-          description: Details about the most recent sale involving this token.
-          required:
-          - transaction_hash
-          - block_timestamp
-          - price
-          - price_formatted
-          - buyer_address
-          - seller_address
-          - payment_token
-          properties:
-            transaction_hash:
-              type: string
-              description: The transaction hash of the last sale
-              example: '0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c'
-            block_timestamp:
-              type: string
-              description: The block timestamp of the last sale
-              example: '2023-04-04T15:59:11.000Z'
-            buyer_address:
-              type: string
-              description: The buyer address of the last sale
-              example: '0xcb1c1fde09f811b294172696404e88e658659905'
-            seller_address:
-              type: string
-              description: The seller address of the last sale
-              example: '0x497a7dee2f13db161eb2fec060fa783cb041419f'
-            price:
-              type: string
-              description: The price of the last sale
-              example: '7300000000000000'
-            price_formatted:
-              type: string
-              description: The formatted price of the last sale
-              example: '0.0073'
-            usd_price_at_sale:
-              type: string
-              description: The USD price of the last sale
-              example: '13.61'
-            current_usd_value:
-              type: string
-              description: The USD price of the last sale at the current value
-              example: '15.53'
-            token_address:
-              type: string
-              description: The token address that is sold
-              example: '0xe8778996e096b39705c6a0a937eb587a1ebbda17'
-            token_id:
-              type: string
-              description: The token ID that is sold
-              example: '170'
-            payment_token:
-              type: object
-              description: The ERC20 token that is being traded with
-              required:
-              - token_name
-              - token_symbol
-              - token_logo
-              - token_decimals
-              - token_address
-              properties:
-                token_name:
-                  type: string
-                  description: The token name
-                  example: Ether
-                token_symbol:
-                  type: string
-                  description: The token symbol
-                  example: ETH
-                token_logo:
-                  type: string
-                  description: The token logo
-                  example: https://cdn.moralis.io/eth/0x.png
-                token_decimals:
-                  type: string
-                  description: The token decimals
-                  example: '18'
-                token_address:
-                  type: string
-                  description: The token address
-                  example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+          description: Indicator if the block is fully indexed
+          example: true
     nft:
       required:
       - token_address
@@ -3287,6 +2565,614 @@ components:
           type: string
           description: The currency of the floor price
           example: eth
+    nftOwner:
+      required:
+      - token_address
+      - token_id
+      - contract_type
+      - name
+      - block_number
+      - block_number_minted
+      - owner_of
+      - symbol
+      - token_hash
+      - last_token_uri_sync
+      - last_metadata_sync
+      - possible_spam
+      properties:
+        token_address:
+          type: string
+          description: The address of the NFT contract
+          example: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'
+        token_id:
+          type: string
+          description: The token ID of the NFT
+          example: '15'
+        contract_type:
+          type: string
+          description: The type of NFT contract standard
+          example: ERC721
+        owner_of:
+          type: string
+          description: The wallet address of the owner of the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        block_number:
+          type: string
+          description: The block number when the amount or owner changed
+          example: '88256'
+        block_number_minted:
+          type: string
+          description: The block number when the NFT was minted
+          example: '88256'
+        token_uri:
+          type: string
+          description: The URI to the metadata of the token
+        metadata:
+          type: string
+          description: The metadata of the token
+        normalized_metadata:
+          $ref: '#/components/schemas/normalizedMetadata'
+          description: A normalized metadata version of the NFT's metadata.
+        media:
+          $ref: '#/components/schemas/media'
+          description: A set of links to 'thumbnail / preview' media files
+        amount:
+          type: string
+          description: The number of this item the user owns (used by ERC1155)
+          example: '1'
+        name:
+          type: string
+          description: The name of the NFT contract
+          example: CryptoKitties
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: RARI
+        token_hash:
+          type: string
+          description: The token hash
+          example: 502cee781b0fb40ea02508b21d319ced
+        rarity_rank:
+          type: number
+          description: The rarity rank
+          example: 21669
+        rarity_percentage:
+          type: number
+          description: The rarity percentage
+          example: 98
+        rarity_label:
+          type: string
+          description: The rarity label
+          example: Top 98%
+        last_token_uri_sync:
+          type: string
+          description: When the token_uri was last updated
+          example: '2021-02-24T00:47:26.647Z'
+        last_metadata_sync:
+          type: string
+          description: When the metadata was last updated
+          example: '2021-02-24T00:47:26.647Z'
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_collection:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: 'false'
+        floor_price:
+          type: string
+          description: The floor price of the NFT
+          example: '12345'
+        floor_price_usd:
+          type: string
+          description: The floor price of the NFT in USD
+          example: '12345.4899'
+        floor_price_currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        last_sale:
+          type:
+          - object
+          - 'null'
+          description: Details about the most recent sale involving this token.
+          required:
+          - transaction_hash
+          - block_timestamp
+          - price
+          - price_formatted
+          - buyer_address
+          - seller_address
+          - payment_token
+          properties:
+            transaction_hash:
+              type: string
+              description: The transaction hash of the last sale
+              example: '0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c'
+            block_timestamp:
+              type: string
+              description: The block timestamp of the last sale
+              example: '2023-04-04T15:59:11.000Z'
+            buyer_address:
+              type: string
+              description: The buyer address of the last sale
+              example: '0xcb1c1fde09f811b294172696404e88e658659905'
+            seller_address:
+              type: string
+              description: The seller address of the last sale
+              example: '0x497a7dee2f13db161eb2fec060fa783cb041419f'
+            price:
+              type: string
+              description: The price of the last sale
+              example: '7300000000000000'
+            price_formatted:
+              type: string
+              description: The formatted price of the last sale
+              example: '0.0073'
+            usd_price_at_sale:
+              type: string
+              description: The USD price of the last sale
+              example: '13.61'
+            current_usd_value:
+              type: string
+              description: The USD price of the last sale at the current value
+              example: '15.53'
+            token_address:
+              type: string
+              description: The token address that is sold
+              example: '0xe8778996e096b39705c6a0a937eb587a1ebbda17'
+            token_id:
+              type: string
+              description: The token ID that is sold
+              example: '170'
+            payment_token:
+              type: object
+              description: The ERC20 token that is being traded with
+              required:
+              - token_name
+              - token_symbol
+              - token_logo
+              - token_decimals
+              - token_address
+              properties:
+                token_name:
+                  type: string
+                  description: The token name
+                  example: Ether
+                token_symbol:
+                  type: string
+                  description: The token symbol
+                  example: ETH
+                token_logo:
+                  type: string
+                  description: The token logo
+                  example: https://cdn.moralis.io/eth/0x.png
+                token_decimals:
+                  type: string
+                  description: The token decimals
+                  example: '18'
+                token_address:
+                  type: string
+                  description: The token address
+                  example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+    nftFloorPriceIntervalList:
+      type: string
+      example: 1d
+      default: 1d
+      enum:
+      - 1d
+      - 7d
+      - 30d
+      - 60d
+      - 90d
+      - 1y
+      - all
+    nftContractMetadata:
+      required:
+      - token_address
+      - contract_type
+      - name
+      - symbol
+      - possible_spam
+      - verified_collection
+      properties:
+        token_address:
+          type: string
+          description: The address of the token contract
+          example: '0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09'
+        name:
+          type: string
+          description: The name of the token contract
+          example: KryptoKitties
+        synced_at:
+          type: string
+          description: Timestamp of when the contract was last synced with the node
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: RARI
+        contract_type:
+          type: string
+          description: The type of NFT contract
+          example: ERC721
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_collection:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: 'false'
+        collection_logo:
+          type: string
+          description: The logo of the collection
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        collection_banner_image:
+          type: string
+          description: The banner image of the collection
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        collection_category:
+          type: string
+          description: The category of the collection
+          example: Art
+        project_url:
+          type: string
+          description: The project url of the collection
+          example: https://www.cryptokitties.co/
+        wiki_url:
+          type: string
+          description: The wiki url of the collection
+          example: https://en.wikipedia.org/wiki/CryptoKitties
+        discord_url:
+          type: string
+          description: The discord url of the collection
+          example: https://discord.com/invite/cryptokitties
+        telegram_url:
+          type: string
+          description: The telegram url of the collection
+          example: https://t.me/cryptokitties
+        twitter_username:
+          type: string
+          description: The twitter username of the collection
+          example: CryptoKitties
+        instagram_username:
+          type: string
+          description: The instagram username of the collection
+          example: cryptokitties
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '12345'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '12345.4899'
+        floor_price_currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        last_sale:
+          type:
+          - object
+          - 'null'
+          description: Details about the most recent sale involving this token.
+          required:
+          - transaction_hash
+          - block_timestamp
+          - price
+          - price_formatted
+          - buyer_address
+          - seller_address
+          - payment_token
+          properties:
+            transaction_hash:
+              type: string
+              description: The transaction hash of the last sale
+              example: '0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c'
+            block_timestamp:
+              type: string
+              description: The block timestamp of the last sale
+              example: '2023-04-04T15:59:11.000Z'
+            buyer_address:
+              type: string
+              description: The buyer address of the last sale
+              example: '0xcb1c1fde09f811b294172696404e88e658659905'
+            seller_address:
+              type: string
+              description: The seller address of the last sale
+              example: '0x497a7dee2f13db161eb2fec060fa783cb041419f'
+            price:
+              type: string
+              description: The price of the last sale
+              example: '7300000000000000'
+            price_formatted:
+              type: string
+              description: The formatted price of the last sale
+              example: '0.0073'
+            usd_price_at_sale:
+              type: string
+              description: The USD price of the last sale
+              example: '13.61'
+            current_usd_value:
+              type: string
+              description: The USD price of the last sale at the current value
+              example: '15.53'
+            token_address:
+              type: string
+              description: The token address that is sold
+              example: '0xe8778996e096b39705c6a0a937eb587a1ebbda17'
+            token_id:
+              type: string
+              description: The token ID that is sold
+              example: '170'
+            payment_token:
+              type: object
+              description: The ERC20 token that is being traded with
+              required:
+              - token_name
+              - token_symbol
+              - token_logo
+              - token_decimals
+              - token_address
+              properties:
+                token_name:
+                  type: string
+                  description: The token name
+                  example: Ether
+                token_symbol:
+                  type: string
+                  description: The token symbol
+                  example: ETH
+                token_logo:
+                  type: string
+                  description: The token logo
+                  example: https://cdn.moralis.io/eth/0x.png
+                token_decimals:
+                  type: string
+                  description: The token decimals
+                  example: '18'
+                token_address:
+                  type: string
+                  description: The token address
+                  example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+    traitCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/trait'
+    nftWalletCollections:
+      required:
+      - result
+      properties:
+        status:
+          type: string
+          description: The syncing status of the address [SYNCING/SYNCED]
+          example: SYNCING
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/nftCollections'
+    tokenItem:
+      properties:
+        token_address:
+          type: string
+          description: The contract address
+          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
+        token_id:
+          type: string
+          description: The id of the token
+          example: 100
+    mediaCollection:
+      properties:
+        low:
+          description: Preview media file, lowest quality (for images 100px x 100px)
+          $ref: '#/components/schemas/mediaItem'
+        medium:
+          description: Preview media file, medium quality (for images 250px x 250px)
+          $ref: '#/components/schemas/mediaItem'
+        high:
+          description: Preview media file, highest quality (for images 500px x 500px)
+          $ref: '#/components/schemas/mediaItem'
+      required:
+      - original
+      - low
+      - medium
+      - high
+    contractFloorPrice:
+      required:
+      - address
+      - last_updated
+      properties:
+        address:
+          type: string
+          description: The address of the NFT contract
+          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '0.2176'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '564.24'
+        currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        marketplace:
+          $ref: '#/components/schemas/marketplace'
+          description: The marketplace in which the floor price is present
+        last_updated:
+          type: string
+          description: The timestamp of when the floor price was last updated
+          example: '2024-08-21T15:59:11.000Z'
+    nftCollections:
+      required:
+      - token_address
+      - contract_type
+      - name
+      - symbol
+      - possible_spam
+      - verified_collection
+      properties:
+        token_address:
+          type: string
+          description: The address of the NFT contract
+          example: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'
+        contract_type:
+          type: string
+          description: The type of NFT contract standard
+          example: ERC721
+        name:
+          type: string
+          description: The name of the NFT contract
+          example: CryptoKitties
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: RARI
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_collection:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: 'false'
+        count:
+          type: integer
+          description: The number of tokens the wallet holds in this collection
+          example: 5
+        collection_logo:
+          type: string
+          description: The logo of the collection
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        collection_banner_image:
+          type: string
+          description: The banner image of the collection
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '12345'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '12345.4899'
+        floor_price_currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        last_sale:
+          type:
+          - object
+          - 'null'
+          description: Details about the most recent sale involving this token.
+          required:
+          - transaction_hash
+          - block_timestamp
+          - price
+          - price_formatted
+          - buyer_address
+          - seller_address
+          - payment_token
+          properties:
+            transaction_hash:
+              type: string
+              description: The transaction hash of the last sale
+              example: '0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c'
+            block_timestamp:
+              type: string
+              description: The block timestamp of the last sale
+              example: '2023-04-04T15:59:11.000Z'
+            buyer_address:
+              type: string
+              description: The buyer address of the last sale
+              example: '0xcb1c1fde09f811b294172696404e88e658659905'
+            seller_address:
+              type: string
+              description: The seller address of the last sale
+              example: '0x497a7dee2f13db161eb2fec060fa783cb041419f'
+            price:
+              type: string
+              description: The price of the last sale
+              example: '7300000000000000'
+            price_formatted:
+              type: string
+              description: The formatted price of the last sale
+              example: '0.0073'
+            usd_price_at_sale:
+              type: string
+              description: The USD price of the last sale
+              example: '13.61'
+            current_usd_value:
+              type: string
+              description: The USD price of the last sale at the current value
+              example: '15.53'
+            token_address:
+              type: string
+              description: The token address that is sold
+              example: '0xe8778996e096b39705c6a0a937eb587a1ebbda17'
+            token_id:
+              type: string
+              description: The token ID that is sold
+              example: '170'
+            payment_token:
+              type: object
+              description: The ERC20 token that is being traded with
+              required:
+              - token_name
+              - token_symbol
+              - token_logo
+              - token_decimals
+              - token_address
+              properties:
+                token_name:
+                  type: string
+                  description: The token name
+                  example: Ether
+                token_symbol:
+                  type: string
+                  description: The token symbol
+                  example: ETH
+                token_logo:
+                  type: string
+                  description: The token logo
+                  example: https://cdn.moralis.io/eth/0x.png
+                token_decimals:
+                  type: string
+                  description: The token decimals
+                  example: '18'
+                token_address:
+                  type: string
+                  description: The token address
+                  example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
     groupedTraitCollection:
       required:
       - result
@@ -3295,36 +3181,72 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/groupedTrait'
-    nftCollectionStat:
+    marketplace:
       required:
-      - total_tokens
-      - owners
-      - transfers
+      - name
       properties:
-        total_tokens:
+        name:
           type: string
-          description: The number of tokens in the collection
-          example: '100'
-        owners:
-          type: object
-          description: NFT collection owner stats
-          required:
-          - current
-          properties:
-            current:
-              type: string
-              description: The number of current owners of the collection
-              example: '1000'
-        transfers:
-          type: object
-          description: NFT collection transfer stats
-          required:
-          - total
-          properties:
-            total:
-              type: string
-              description: The number of transfers of the collection
-              example: '1000'
+          description: The name of the marketplace
+          example: blur
+        logo:
+          type: string
+          description: The logo of the marketplace
+          example: https://cdn.moralis.io/marketplaces/blur.png
+    historicalContractFloorPrice:
+      required:
+      - timestamp
+      properties:
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '0.2176'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '564.24'
+        currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        marketplace:
+          type: string
+          description: The marketplace in which the floor price is present
+          example: blur
+        timestamp:
+          type: string
+          description: The timestamp of when the floor price was last updated
+          example: '2024-08-21T15:59:11.000Z'
+    normalizedMetadata:
+      properties:
+        name:
+          type: string
+          description: The name or title of the NFT
+          example: Moralis Mug
+        description:
+          type: string
+          description: A detailed description of the NFT
+          example: Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.
+        image:
+          type: string
+          description: The URL of the NFT's image
+          example: https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png
+        external_link:
+          type: string
+          description: A link to additional information
+          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+        external_url:
+          type: string
+          description: A link to additional information
+          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+        animation_url:
+          type: string
+          description: An animated version of the NFT's image
+          example: https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/normalizedMetadataAttribute'
     chainList:
       type: string
       example: eth
@@ -3394,77 +3316,269 @@ components:
       - '0x531'
       - monad
       - '0x8f'
-    tokenFloorPrice:
+    groupedTrait:
       required:
-      - address
-      - token_id
+      - trait_type
+      - values
       properties:
-        address:
+        trait_type:
+          type: string
+          description: The trait type
+          example: Background
+        values:
+          type: array
+          items:
+            description: The trait values
+            required:
+            - trait_value
+            - count
+            - percentage
+            - rarity_label
+            properties:
+              trait_value:
+                type: string
+                description: The trait value
+                example: Lavendar
+              count:
+                type: number
+                description: The total NFT in the collection with this trait
+                example: 18593
+              percentage:
+                type: number
+                description: The rarity percentage of the trait
+                example: 85.8
+              rarity_label:
+                type: string
+                description: The rarity label of the trait
+                example: Top 4% trait
+    normalizedMetadataAttribute:
+      properties:
+        trait_type:
+          type: string
+          description: The trait title or descriptor
+          example: Eye Color
+        value:
+          type: object
+          description: The value of the attribute
+          example: hazel
+        display_type:
+          type: string
+          description: The type the attribute value should be displayed as
+          example: string
+        max_value:
+          type: number
+          description: For numeric values, the upper range
+          example: 100
+        trait_count:
+          type: number
+          description: The number of possible values for this trait
+          example: 7
+        order:
+          type: number
+          description: Order the trait should appear in the attribute list.
+          example: 1
+    nftTransfer:
+      required:
+      - token_address
+      - token_id
+      - transaction_hash
+      - log_index
+      - contract_type
+      - block_timestamp
+      - block_number
+      - block_hash
+      - possible_spam
+      properties:
+        token_address:
           type: string
           description: The address of the NFT contract
-          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
         token_id:
           type: string
           description: The token ID of the NFT
-          example: '2441'
-        floor_price:
+          example: '15'
+        token_name:
           type: string
-          description: The floor price of the contract
-          example: '0.2176'
-        floor_price_usd:
+          example: Tether USD
+        token_symbol:
           type: string
-          description: The floor price of the contract in USD
-          example: '564.24'
-        currency:
+          example: USDT
+        from_address_entity:
           type: string
-          description: The currency of the floor price
-          example: eth
-        marketplace:
-          $ref: '#/components/schemas/marketplace'
-          description: The marketplace in which the floor price is present
-        last_updated:
+          description: The from address entity
+          example: Opensea
+        from_address_entity_logo:
           type: string
-          description: The timestamp of when the floor price was last updated
-          example: '2024-08-21T15:59:11.000Z'
-    media:
-      properties:
-        mimetype:
+          description: The logo of the from address entity
+          example: https://opensea.io/favicon.ico
+        from_address:
           type: string
-          description: The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types]
-        category:
-          enum:
-          - image
-          - audio
-          - video
-        status:
-          enum:
-          - success
-          - processing
-          - unsupported_media
-          - invalid_url
-          - host_unavailable
-          - temporarily_unavailable
-          description: <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
-        original_media_url:
+          description: The address that sent the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        from_address_label:
+          type:
+          - string
+          - 'null'
+          description: The label of the from address
+          example: Binance 1
+        to_address_entity:
           type: string
-          description: The url of the original media file.
-        updatedAt:
+          description: The to address entity
+          example: Beaver Build
+        to_address_entity_logo:
           type: string
-          description: The timestamp of the last update to this NFT media record.
-        parent_hash:
+          description: The logo of the to address entity
+          example: https://beaverbuild.com/favicon.ico
+        to_address:
           type: string
-          description: Hash value of the original media file.
-        media_collection:
-          description: Preview item associated with the original
-          $ref: '#/components/schemas/mediaCollection'
-    tradeCollection:
+          description: The address that received the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        to_address_label:
+          type:
+          - string
+          - 'null'
+          description: The label of the to address
+          example: Binance 2
+        value:
+          type: string
+          description: The value that was sent in the transaction (ETH/BNB/etc..)
+          example: '1000000000000000'
+        amount:
+          type: string
+          description: The number of tokens transferred
+          example: '1'
+        contract_type:
+          type: string
+          description: The type of NFT contract standard
+          example: ERC721
+        block_number:
+          type: string
+          description: The block number of the transaction
+          example: '88256'
+        block_timestamp:
+          type: string
+          description: The block timestamp
+          example: '2021-06-04T16:00:15'
+        block_hash:
+          type: string
+          description: The block hash of the transaction
+        transaction_hash:
+          type: string
+          description: The transaction hash
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        transaction_type:
+          type: string
+          description: The transaction type
+        transaction_index:
+          type: integer
+          description: The transaction index
+        log_index:
+          type: integer
+          description: The log index
+        operator:
+          type: string
+          description: The operator present only for ERC1155 transfers
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_collection:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: 'false'
+        last_sale:
+          type:
+          - object
+          - 'null'
+          description: Details about the most recent sale involving this token.
+          required:
+          - transaction_hash
+          - block_timestamp
+          - price
+          - price_formatted
+          - buyer_address
+          - seller_address
+          - payment_token
+          properties:
+            transaction_hash:
+              type: string
+              description: The transaction hash of the last sale
+              example: '0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c'
+            block_timestamp:
+              type: string
+              description: The block timestamp of the last sale
+              example: '2023-04-04T15:59:11.000Z'
+            buyer_address:
+              type: string
+              description: The buyer address of the last sale
+              example: '0xcb1c1fde09f811b294172696404e88e658659905'
+            seller_address:
+              type: string
+              description: The seller address of the last sale
+              example: '0x497a7dee2f13db161eb2fec060fa783cb041419f'
+            price:
+              type: string
+              description: The price of the last sale
+              example: '7300000000000000'
+            price_formatted:
+              type: string
+              description: The formatted price of the last sale
+              example: '0.0073'
+            usd_price_at_sale:
+              type: string
+              description: The USD price of the last sale
+              example: '13.61'
+            current_usd_value:
+              type: string
+              description: The USD price of the last sale at the current value
+              example: '15.53'
+            token_address:
+              type: string
+              description: The token address that is sold
+              example: '0xe8778996e096b39705c6a0a937eb587a1ebbda17'
+            token_id:
+              type: string
+              description: The token ID that is sold
+              example: '170'
+            payment_token:
+              type: object
+              description: The ERC20 token that is being traded with
+              required:
+              - token_name
+              - token_symbol
+              - token_logo
+              - token_decimals
+              - token_address
+              properties:
+                token_name:
+                  type: string
+                  description: The token name
+                  example: Ether
+                token_symbol:
+                  type: string
+                  description: The token symbol
+                  example: ETH
+                token_logo:
+                  type: string
+                  description: The token logo
+                  example: https://cdn.moralis.io/eth/0x.png
+                token_decimals:
+                  type: string
+                  description: The token decimals
+                  example: '18'
+                token_address:
+                  type: string
+                  description: The token address
+                  example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+    historicalContractFloorResponse:
       required:
       - result
       properties:
         page:
           type: integer
           description: The current page of the result
-          example: '2'
+          example: '1'
         page_size:
           type: integer
           description: The number of results per page
@@ -3475,7 +3589,8 @@ components:
         result:
           type: array
           items:
-            $ref: '#/components/schemas/trade'
+            $ref: '#/components/schemas/historicalContractFloorPrice'
+          description: List of historical contract floor prices at various intervals.
     uniqueOwnersByCollection:
       required:
       - walletAddresses
@@ -3498,48 +3613,6 @@ components:
           items:
             type: string
           description: Array of wallet addresses
-    nftFloorPriceIntervalList:
-      type: string
-      example: 1d
-      default: 1d
-      enum:
-      - 1d
-      - 7d
-      - 30d
-      - 60d
-      - 90d
-      - 1y
-      - all
-    nftTransferCollection:
-      required:
-      - page
-      - page_size
-      - cursor
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/nftTransfer'
-        block_exists:
-          type: boolean
-          description: Indicator if the block exists
-          example: true
-        index_complete:
-          type: boolean
-          description: Indicator if the block is fully indexed
-          example: true
     mediaItem:
       properties:
         width:
@@ -3555,79 +3628,6 @@ components:
       - width
       - height
       - url
-    metadataResync:
-      required:
-      - status
-      properties:
-        status:
-          type: string
-          description: The status of the resync request
-    trade:
-      required:
-      - transaction_hash
-      - transaction_index
-      - token_ids
-      - seller_address
-      - buyer_address
-      - token_address
-      - marketplace_address
-      - price
-      - block_timestamp
-      - block_number
-      - block_hash
-      properties:
-        transaction_hash:
-          type: string
-          description: The transaction hash
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        transaction_index:
-          type: string
-          description: The transaction index
-        token_ids:
-          type: array
-          items:
-            type: string
-            example: '15'
-          description: The token ID(s) traded
-          example:
-          - '15'
-          - '54'
-        seller_address:
-          type: string
-          description: The address that sold the NFT
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        buyer_address:
-          type: string
-          description: The address that bought the NFT
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        token_address:
-          type: string
-          description: The address of the NFT contract
-          example: '0x4ad3785ec7eed7589fa86538244a4530f962434f'
-        marketplace_address:
-          type: string
-          description: The address of the contract that traded the NFT
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        price_token_address:
-          type: string
-          description: The address of the token used to pay for the NFT
-          example: '0x60e4d786628fea6478f785a6d7e704777c86a7c6'
-        price:
-          type: string
-          description: The value that was sent in the transaction (ETH/BNB/etc..)
-          example: '1000000000000000'
-        block_timestamp:
-          type: string
-          description: The block timestamp
-          example: '2021-06-04T16:00:15'
-        block_number:
-          type: string
-          description: The block number of the transaction
-          example: '13680123'
-        block_hash:
-          type: string
-          description: The block hash
-          example: '0x4a7c916ca4a970358b9df90051008f729685ff05e9724a9dddba32630c37cb96'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -163,14 +163,6 @@ components:
           type: string
           description: Resolved ENS address
           example: Vitalik.eth
-    resolve:
-      required:
-      - address
-      properties:
-        address:
-          type: string
-          description: Resolved domain address
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
     unstoppableDomain:
       required:
       - name
@@ -179,6 +171,14 @@ components:
           type: string
           description: Resolved unstoppable domain address
           example: sandy.nft
+    resolve:
+      required:
+      - address
+      properties:
+        address:
+          type: string
+          description: Resolved domain address
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

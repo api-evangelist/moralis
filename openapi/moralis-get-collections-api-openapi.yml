@@ -202,147 +202,75 @@ paths:
       x-mcp-prompt: Provide the contract address to start syncing its NFT data. Use this when users report missing NFT data or want to index a new contract.
 components:
   schemas:
-    nftCollections:
-      required:
-      - token_address
-      - contract_type
-      - name
-      - symbol
-      - possible_spam
-      - verified_collection
-      properties:
-        token_address:
-          type: string
-          description: The address of the NFT contract
-          example: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'
-        contract_type:
-          type: string
-          description: The type of NFT contract standard
-          example: ERC721
-        name:
-          type: string
-          description: The name of the NFT contract
-          example: CryptoKitties
-        symbol:
-          type: string
-          description: The symbol of the NFT contract
-          example: RARI
-        possible_spam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        verified_collection:
-          type: boolean
-          description: Indicates if a contract is verified
-          example: 'false'
-        count:
-          type: integer
-          description: The number of tokens the wallet holds in this collection
-          example: 5
-        collection_logo:
-          type: string
-          description: The logo of the collection
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        collection_banner_image:
-          type: string
-          description: The banner image of the collection
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        floor_price:
-          type: string
-          description: The floor price of the contract
-          example: '12345'
-        floor_price_usd:
-          type: string
-          description: The floor price of the contract in USD
-          example: '12345.4899'
-        floor_price_currency:
-          type: string
-          description: The currency of the floor price
-          example: eth
-        last_sale:
-          type:
-          - object
-          - 'null'
-          description: Details about the most recent sale involving this token.
-          required:
-          - transaction_hash
-          - block_timestamp
-          - price
-          - price_formatted
-          - buyer_address
-          - seller_address
-          - payment_token
-          properties:
-            transaction_hash:
-              type: string
-              description: The transaction hash of the last sale
-              example: '0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c'
-            block_timestamp:
-              type: string
-              description: The block timestamp of the last sale
-              example: '2023-04-04T15:59:11.000Z'
-            buyer_address:
-              type: string
-              description: The buyer address of the last sale
-              example: '0xcb1c1fde09f811b294172696404e88e658659905'
-            seller_address:
-              type: string
-              description: The seller address of the last sale
-              example: '0x497a7dee2f13db161eb2fec060fa783cb041419f'
-            price:
-              type: string
-              description: The price of the last sale
-              example: '7300000000000000'
-            price_formatted:
-              type: string
-              description: The formatted price of the last sale
-              example: '0.0073'
-            usd_price_at_sale:
-              type: string
-              description: The USD price of the last sale
-              example: '13.61'
-            current_usd_value:
-              type: string
-              description: The USD price of the last sale at the current value
-              example: '15.53'
-            token_address:
-              type: string
-              description: The token address that is sold
-              example: '0xe8778996e096b39705c6a0a937eb587a1ebbda17'
-            token_id:
-              type: string
-              description: The token ID that is sold
-              example: '170'
-            payment_token:
-              type: object
-              description: The ERC20 token that is being traded with
-              required:
-              - token_name
-              - token_symbol
-              - token_logo
-              - token_decimals
-              - token_address
-              properties:
-                token_name:
-                  type: string
-                  description: The token name
-                  example: Ether
-                token_symbol:
-                  type: string
-                  description: The token symbol
-                  example: ETH
-                token_logo:
-                  type: string
-                  description: The token logo
-                  example: https://cdn.moralis.io/eth/0x.png
-                token_decimals:
-                  type: string
-                  description: The token decimals
-                  example: '18'
-                token_address:
-                  type: string
-                  description: The token address
-                  example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
     nftWalletCollections:
       required:
       - result
@@ -534,75 +462,147 @@ components:
                   type: string
                   description: The token address
                   example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-    chainList:
-      type: string
-      example: eth
-      default: eth
-      enum:
-      - eth
-      - '0x1'
-      - sepolia
-      - '0xaa36a7'
-      - polygon
-      - '0x89'
-      - bsc
-      - '0x38'
-      - bsc testnet
-      - '0x61'
-      - avalanche
-      - '0xa86a'
-      - fantom
-      - '0xfa'
-      - cronos
-      - '0x19'
-      - arbitrum
-      - '0xa4b1'
-      - chiliz
-      - '0x15b38'
-      - chiliz testnet
-      - '0x15b32'
-      - gnosis
-      - '0x64'
-      - gnosis testnet
-      - '0x27d8'
-      - base
-      - '0x2105'
-      - base sepolia
-      - '0x14a34'
-      - optimism
-      - '0xa'
-      - polygon amoy
-      - '0x13882'
-      - linea
-      - '0xe708'
-      - moonbeam
-      - '0x504'
-      - moonriver
-      - '0x505'
-      - moonbase
-      - '0x507'
-      - linea sepolia
-      - '0xe705'
-      - flow
-      - '0x2eb'
-      - flow-testnet
-      - '0x221'
-      - ronin
-      - '0x7e4'
-      - ronin-testnet
-      - '0x31769'
-      - lisk
-      - '0x46f'
-      - lisk-sepolia
-      - '0x106a'
-      - pulse
-      - '0x171'
-      - sei-testnet
-      - '0x530'
-      - sei
-      - '0x531'
-      - monad
-      - '0x8f'
+    nftCollections:
+      required:
+      - token_address
+      - contract_type
+      - name
+      - symbol
+      - possible_spam
+      - verified_collection
+      properties:
+        token_address:
+          type: string
+          description: The address of the NFT contract
+          example: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'
+        contract_type:
+          type: string
+          description: The type of NFT contract standard
+          example: ERC721
+        name:
+          type: string
+          description: The name of the NFT contract
+          example: CryptoKitties
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: RARI
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_collection:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: 'false'
+        count:
+          type: integer
+          description: The number of tokens the wallet holds in this collection
+          example: 5
+        collection_logo:
+          type: string
+          description: The logo of the collection
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        collection_banner_image:
+          type: string
+          description: The banner image of the collection
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '12345'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '12345.4899'
+        floor_price_currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        last_sale:
+          type:
+          - object
+          - 'null'
+          description: Details about the most recent sale involving this token.
+          required:
+          - transaction_hash
+          - block_timestamp
+          - price
+          - price_formatted
+          - buyer_address
+          - seller_address
+          - payment_token
+          properties:
+            transaction_hash:
+              type: string
+              description: The transaction hash of the last sale
+              example: '0x19e14f34b8f120c980f7ba05338d64c00384857fb9c561e2c56d0f575424a95c'
+            block_timestamp:
+              type: string
+              description: The block timestamp of the last sale
+              example: '2023-04-04T15:59:11.000Z'
+            buyer_address:
+              type: string
+              description: The buyer address of the last sale
+              example: '0xcb1c1fde09f811b294172696404e88e658659905'
+            seller_address:
+              type: string
+              description: The seller address of the last sale
+              example: '0x497a7dee2f13db161eb2fec060fa783cb041419f'
+            price:
+              type: string
+              description: The price of the last sale
+              example: '7300000000000000'
+            price_formatted:
+              type: string
+              description: The formatted price of the last sale
+              example: '0.0073'
+            usd_price_at_sale:
+              type: string
+              description: The USD price of the last sale
+              example: '13.61'
+            current_usd_value:
+              type: string
+              description: The USD price of the last sale at the current value
+              example: '15.53'
+            token_address:
+              type: string
+              description: The token address that is sold
+              example: '0xe8778996e096b39705c6a0a937eb587a1ebbda17'
+            token_id:
+              type: string
+              description: The token ID that is sold
+              example: '170'
+            payment_token:
+              type: object
+              description: The ERC20 token that is being traded with
+              required:
+              - token_name
+              - token_symbol
+              - token_logo
+              - token_decimals
+              - token_address
+              properties:
+                token_name:
+                  type: string
+                  description: The token name
+                  example: Ether
+                token_symbol:
+                  type: string
+                  description: The token symbol
+                  example: ETH
+                token_logo:
+                  type: string
+                  description: The token logo
+                  example: https://cdn.moralis.io/eth/0x.png
+                token_decimals:
+                  type: string
+                  description: The token decimals
+                  example: '18'
+                token_address:
+                  type: string
+                  description: The token address
+                  example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

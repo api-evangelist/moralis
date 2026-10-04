@@ -294,126 +294,6 @@ components:
         pairAddress:
           type: string
           example: '0xbbb9bf440d0f686487925fef3b0a0f9aa67753f6'
-    erc20Metadata:
-      type: object
-      required:
-      - address
-      - name
-      - symbol
-      - decimals
-      - created_at
-      - possible_spam
-      properties:
-        address:
-          type: string
-          description: The address of the token contract
-          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
-        address_label:
-          type:
-          - string
-          - 'null'
-          description: The label of the address
-          example: Binance 1
-        name:
-          type: string
-          description: The name of the token contract
-          example: Kylin Network
-        symbol:
-          type: string
-          description: The symbol of the NFT contract
-          example: KYL
-        decimals:
-          type: string
-          description: The number of decimals on the token
-          example: '18'
-        logo:
-          type:
-          - string
-          - 'null'
-          description: The logo of the token
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        logo_hash:
-          type:
-          - string
-          - 'null'
-          description: The logo hash
-          example: ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d
-        thumbnail:
-          type:
-          - string
-          - 'null'
-          description: The thumbnail of the logo
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png
-        total_supply:
-          type: string
-          description: Total tokens created minus any that have been burned
-          example: '420689899999994793099999999997400'
-        total_supply_formatted:
-          type: string
-          description: Total tokens created minus any that have been burned (decimal formatted)
-          example: '420689899999994.7930999999999974'
-        implementations:
-          type: array
-          items:
-            description: The token addresses of the same symbol from another chains
-            required:
-            - chainId
-            - address
-            properties:
-              chainId:
-                type: string
-                description: The chain id
-                example: '0x1'
-              chain:
-                type: string
-                description: The chain name
-                example: eth
-              chainName:
-                type: string
-                description: The chain name
-                example: Ethereum
-              address:
-                type: string
-                description: The token address
-                example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
-        fully_diluted_valuation:
-          type: string
-          description: Fully Diluted Valuation (FDV), this represents the token's Current Price x Total Supply
-          example: '3407271444.05'
-        block_number:
-          type: string
-        validated:
-          type: number
-        created_at:
-          type: string
-          description: The timestamp of when the erc20 token was created
-        possible_spam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        verified_contract:
-          type: boolean
-          description: Indicates if a contract is verified
-          example: false
-        categories:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Categories of the token
-          example:
-          - stablecoin
-        links:
-          $ref: '#/components/schemas/discoveryTokenLinks'
-        circulating_supply:
-          type: string
-          description: The circulating supply of the token
-          example: '4206864.7489303'
-        market_cap:
-          type: string
-          description: The market cap of the token
-          example: '3407271444.05'
     discoveryTokenLinks:
       type: object
       required:
@@ -539,6 +419,126 @@ components:
       - '0x531'
       - monad
       - '0x8f'
+    erc20Metadata:
+      type: object
+      required:
+      - address
+      - name
+      - symbol
+      - decimals
+      - created_at
+      - possible_spam
+      properties:
+        address:
+          type: string
+          description: The address of the token contract
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        address_label:
+          type:
+          - string
+          - 'null'
+          description: The label of the address
+          example: Binance 1
+        name:
+          type: string
+          description: The name of the token contract
+          example: Kylin Network
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: KYL
+        decimals:
+          type: string
+          description: The number of decimals on the token
+          example: '18'
+        logo:
+          type:
+          - string
+          - 'null'
+          description: The logo of the token
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        logo_hash:
+          type:
+          - string
+          - 'null'
+          description: The logo hash
+          example: ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d
+        thumbnail:
+          type:
+          - string
+          - 'null'
+          description: The thumbnail of the logo
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png
+        total_supply:
+          type: string
+          description: Total tokens created minus any that have been burned
+          example: '420689899999994793099999999997400'
+        total_supply_formatted:
+          type: string
+          description: Total tokens created minus any that have been burned (decimal formatted)
+          example: '420689899999994.7930999999999974'
+        implementations:
+          type: array
+          items:
+            description: The token addresses of the same symbol from another chains
+            required:
+            - chainId
+            - address
+            properties:
+              chainId:
+                type: string
+                description: The chain id
+                example: '0x1'
+              chain:
+                type: string
+                description: The chain name
+                example: eth
+              chainName:
+                type: string
+                description: The chain name
+                example: Ethereum
+              address:
+                type: string
+                description: The token address
+                example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        fully_diluted_valuation:
+          type: string
+          description: Fully Diluted Valuation (FDV), this represents the token's Current Price x Total Supply
+          example: '3407271444.05'
+        block_number:
+          type: string
+        validated:
+          type: number
+        created_at:
+          type: string
+          description: The timestamp of when the erc20 token was created
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_contract:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: false
+        categories:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Categories of the token
+          example:
+          - stablecoin
+        links:
+          $ref: '#/components/schemas/discoveryTokenLinks'
+        circulating_supply:
+          type: string
+          description: The circulating supply of the token
+          example: '4206864.7489303'
+        market_cap:
+          type: string
+          description: The market cap of the token
+          example: '3407271444.05'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

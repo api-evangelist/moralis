@@ -781,177 +781,77 @@ paths:
       x-mcp-prompt: Provide the wallet address to get comprehensive insight metrics. Use this when users want to analyze wallet behavior, activity patterns, or counterparty relationships.
 components:
   schemas:
-    walletStat:
-      required:
-      - nfts
-      - collections
-      - transactions
-      - nft_transfers
-      - token_transfers
+    SpenderDetails:
+      type: object
       properties:
-        nfts:
-          type: string
-          description: The number of NFTs owned by a wallet
-          example: '100'
-        collections:
-          type: string
-          description: The number of unique NFT collections owned by a wallet
-          example: '10'
-        transactions:
-          type: object
-          description: Transaction stats
-          required:
-          - total
-          properties:
-            total:
-              type: string
-              description: The number of transactions sent by a wallet
-              example: '1000'
-        nft_transfers:
-          type: object
-          description: NFT transfer stats
-          required:
-          - total
-          properties:
-            total:
-              type: string
-              description: The number of NFT transfers of a wallet
-              example: '1000'
-        token_transfers:
-          type: object
-          description: Token transfer stats
-          required:
-          - total
-          properties:
-            total:
-              type: string
-              description: The number of ERC20 token transfers of a wallet
-              example: '1000'
-    walletHistoryErc20Transfer:
-      required:
-      - token_name
-      - token_symbol
-      - token_logo
-      - token_decimals
-      - value_formatted
-      - address
-      - from_address
-      - value
-      - transaction_index
-      - log_index
-      - possible_spam
-      - verified_contract
-      properties:
-        token_name:
-          type: string
-          example: Tether USD
-        token_symbol:
-          type: string
-          example: USDT
-        token_logo:
-          type: string
-          example: https://cdn.moralis.io/images/325/large/Tether-logo.png?1598003707
-        token_decimals:
-          type: string
-          example: '6'
         address:
           type: string
-          description: The address of the token
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        block_timestamp:
-          type: string
-          description: The block timestamp
-          example: '2021-04-02T10:07:54.000Z'
-        to_address_entity:
-          type: string
-          description: The to address entity
-          example: Beaver Build
-        to_address_entity_logo:
-          type: string
-          description: The logo of the to address entity
-          example: https://beaverbuild.com/favicon.ico
-        to_address:
-          type: string
-          description: The recipient
-          example: '0x62AED87d21Ad0F3cdE4D147Fdcc9245401Af0044'
-        to_address_label:
+        address_label:
           type:
           - string
           - 'null'
-          description: The label of the to address
-          example: Binance 2
-        from_address_entity:
-          type: string
-          description: The from address entity
-          example: Opensea
-        from_address_entity_logo:
-          type: string
-          description: The logo of the from address entity
-          example: https://opensea.io/favicon.ico
-        from_address:
-          type: string
-          description: The sender
-          example: '0xd4a3BebD824189481FC45363602b83C9c7e9cbDf'
-        from_address_label:
+        name:
           type:
           - string
           - 'null'
-          description: The label of the from address
-          example: Binance 1
-        value:
-          type: string
-          description: The value that was transfered (in wei)
-          example: 650000000000000000
-        value_formatted:
-          type: string
-          description: The value that was transfered decimal format
-          example: '1.033'
-        log_index:
-          type: integer
-          description: The log index of the transfer within the block
-          example: 2
-        possible_spam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        verified_contract:
-          type: boolean
-          description: Indicates if a contract is verified
-          example: 'false'
-    walletHistory:
-      required:
-      - result
-      - page
-      - page_size
-      - cursor
+        symbol:
+          type:
+          - string
+          - 'null'
+        logo:
+          type:
+          - string
+          - 'null'
+        entity:
+          type:
+          - string
+          - 'null'
+        entity_logo:
+          type:
+          - string
+          - 'null'
+    defiPositionSummaryResponse:
       properties:
-        synced_at:
-          type: integer
-          description: The position of the last synced block
-          example: '837451'
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
+        protocol_name:
           type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/walletHistoryTransaction'
-    unavailableChainNetWorth:
-      required:
-      - chain_id
-      properties:
-        chain_id:
+          description: The name of the protocol
+          example: Uniswap v2
+        protocol_id:
           type: string
-          description: The chain id
-          example: '0x1'
+          description: The id of the protocol
+          example: uniswap-v2
+        protocol_url:
+          type: string
+          description: The url of the protocol
+          example: https://app.uniswap.org/pools/v2
+        protocol_logo:
+          type: string
+          description: The logo of the protocol
+          example: https://cdn.moralis.io/defi/uniswap.png
+        position:
+          type: object
+          description: The position of the protocol
+          $ref: '#/components/schemas/defiProtocolPosition'
+    ETransactionCategory:
+      type: string
+      enum:
+      - send
+      - receive
+      - token send
+      - token receive
+      - nft send
+      - nft receive
+      - token swap
+      - deposit
+      - withdraw
+      - nft purchase
+      - nft sale
+      - airdrop
+      - mint
+      - burn
+      - borrow
+      - contract interaction
+      description: Defines the category of the transaction.
     walletHistoryTransaction:
       type: object
       required:
@@ -1105,23 +1005,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/logVerbose'
-    transactionTimestamp:
-      required:
-      - block_number
-      - block_timestamp
+    RevokeResponse:
+      type: object
       properties:
-        block_number:
-          type: string
-          description: The block number
-          example: '123456789'
-        block_timestamp:
-          type: string
-          description: The block timestamp
-          example: '2022-08-23T20:58:31.000Z'
-        transaction_hash:
-          type: string
-          description: The hash of the transaction
-          example: '0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09'
+        revokes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApprovalData'
     SetApprovalAllData:
       type: object
       properties:
@@ -1129,6 +1019,13 @@ components:
           $ref: '#/components/schemas/TokenDetails'
         operator:
           $ref: '#/components/schemas/SpenderDetails'
+    orderList:
+      type: string
+      example: DESC
+      default: DESC
+      enum:
+      - ASC
+      - DESC
     erc20TokenBalanceWithPriceResult:
       required:
       - result
@@ -1152,183 +1049,106 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/erc20TokenBalanceWithPrice'
-    normalizedMetadataAttribute:
-      properties:
-        trait_type:
-          type: string
-          description: The trait title or descriptor
-          example: Eye Color
-        value:
-          type: object
-          description: The value of the attribute
-          example: hazel
-        display_type:
-          type: string
-          description: The type the attribute value should be displayed as
-          example: string
-        max_value:
-          type: number
-          description: For numeric values, the upper range
-          example: 100
-        trait_count:
-          type: number
-          description: The number of possible values for this trait
-          example: 7
-        order:
-          type: number
-          description: Order the trait should appear in the attribute list.
-          example: 1
-    walletHistoryNftTransfer:
+    defiTokenBalance:
       required:
-      - token_address
-      - token_id
-      - log_index
-      - contract_type
-      - possible_spam
-      - value
-      - amount
-      - transaction_type
-      - direction
-      - from_address
-      - verified
+      - name
+      - decimals
+      - symbol
+      - contract_address
+      - token_type
+      - balance
+      - balance_formatted
       properties:
-        token_address:
+        token_type:
           type: string
-          description: The address of the NFT contract
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        token_id:
+          description: The token type (supply/defi/borrow token)
+          example: defi-token
+        name:
           type: string
-          description: The token ID of the NFT
-          example: '15'
-        token_name:
+          description: The name of the token
+          example: Wrapped Ether
+        symbol:
           type: string
-          example: Tether USD
-        token_symbol:
+          description: The symbol of the token
+          example: WETH
+        contract_address:
           type: string
-          example: USDT
-        from_address_entity:
+          description: The contract address
+          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
+        decimals:
+          type: number
+          description: The decimals of the token
+          example: '18'
+        logo:
           type: string
-          description: The from address entity
-          example: Opensea
-        from_address_entity_logo:
+          description: The logo of the token
+          example: https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png
+        thumbnail:
           type: string
-          description: The logo of the from address entity
-          example: https://opensea.io/favicon.ico
-        from_address:
+          description: The thumbnail of the token
+          example: https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png
+        balance:
           type: string
-          description: The address that sent the NFT
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        from_address_label:
-          type:
-          - string
-          - 'null'
-          description: The label of the from address
-          example: Binance 1
-        to_address_entity:
+          description: The balance of the token
+          example: '1000000'
+        balance_formatted:
           type: string
-          description: The to address entity
-          example: Beaver Build
-        to_address_entity_logo:
-          type: string
-          description: The logo of the to address entity
-          example: https://beaverbuild.com/favicon.ico
-        to_address:
-          type: string
-          description: The address that received the NFT
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        to_address_label:
-          type:
-          - string
-          - 'null'
-          description: The label of the to address
-          example: Binance 2
-        value:
-          type: string
-          description: The value that was sent in the transaction (ETH/BNB/etc..)
-          example: '1000000000000000'
-        amount:
-          type: string
-          description: The number of tokens transferred
-          example: '1'
-        contract_type:
-          type: string
-          description: The type of NFT contract standard
-          example: ERC721
-        transaction_type:
-          type: string
-          description: The transaction type
-        log_index:
-          type: integer
-          description: The log index
-        operator:
-          type: string
-          description: The operator present only for ERC1155 transfers
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        possible_spam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        verified_collection:
-          type: boolean
-          description: Indicates if a contract is verified
-          example: 'false'
-        direction:
-          type: string
-          description: The direction of the transfer
-          example: outgoing
-        collection_logo:
-          type: string
-          description: The logo of the collection
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        collection_banner_image:
-          type: string
-          description: The banner image of the collection
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        normalized_metadata:
-          $ref: '#/components/schemas/normalizedMetadata'
-          description: A normalized metadata version of the NFT's metadata.
-    walletActiveChains:
+          description: The balance of the token formatted
+          example: '1.000000'
+        usd_price:
+          type: number
+          description: The USD price of the token
+          example: '1000000'
+        usd_value:
+          type: number
+          description: The USD value of the token
+          example: '1000000'
+    chainNetWorth:
       required:
-      - address
-      - active_chains
+      - chain
+      - native_balance
+      - native_balance_formatted
+      - native_balance_usd
+      - token_balance_usd
+      - networth_usd
       properties:
-        address:
+        chain:
           type: string
-          description: The address of the wallet
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        active_chains:
-          type: array
-          items:
-            $ref: '#/components/schemas/walletActiveChain'
-    orderList:
-      type: string
-      example: DESC
-      default: DESC
-      enum:
-      - ASC
-      - DESC
-    SetRevokeAllResponse:
+          description: The chain
+          example: eth
+        native_balance:
+          type: string
+          description: The native balance
+          example: '1085513807021271641379'
+        native_balance_formatted:
+          type: string
+          description: The native balance formatted
+          example: '1085.513807021271641379'
+        native_balance_usd:
+          type: string
+          description: The native balance in USD
+          example: '3158392.48'
+        token_balance_usd:
+          type: string
+          description: The token balance in USD
+          example: '721458.93'
+        networth_usd:
+          type: string
+          description: The networth in USD
+          example: '3879851.41'
+    ApprovalData:
       type: object
       properties:
-        set_revokes_all:
-          type: array
-          items:
-            $ref: '#/components/schemas/SetApprovalAllData'
-    TokenDetails:
-      type: object
-      properties:
-        address:
+        value:
           type: string
-        address_label:
+        value_formatted:
           type:
           - string
           - 'null'
-        token_name:
-          type: string
-        token_logo:
-          type: string
-        token_symbol:
-          type: string
+        token:
+          $ref: '#/components/schemas/TokenDetails'
+        spender:
+          $ref: '#/components/schemas/SpenderDetails'
     tokenApproval:
       type: object
       required:
@@ -1450,182 +1270,139 @@ components:
               - 'null'
               description: The logo of the spender
               example: https://opensea.io/favicon.ico
-    WalletProfitabilityTokenData:
-      type: object
+    walletStat:
       required:
-      - token_address
-      - avg_buy_price_usd
-      - avg_sell_price_usd
-      - total_usd_invested
-      - total_tokens_sold
-      - total_tokens_bought
-      - total_sold_usd
-      - avg_cost_of_quantity_sold
-      - count_of_trades
-      - realized_profit_usd
-      - realized_profit_percentage
-      - total_buys
-      - total_sells
-      - name
-      - symbol
-      - decimals
-      - logo
-      - possible_spam
+      - nfts
+      - collections
+      - transactions
+      - nft_transfers
+      - token_transfers
       properties:
-        token_address:
+        nfts:
           type: string
-          description: The address of the traded token.
-        avg_buy_price_usd:
+          description: The number of NFTs owned by a wallet
+          example: '100'
+        collections:
           type: string
-          description: Average buy price in USD.
-        avg_sell_price_usd:
+          description: The number of unique NFT collections owned by a wallet
+          example: '10'
+        transactions:
+          type: object
+          description: Transaction stats
+          required:
+          - total
+          properties:
+            total:
+              type: string
+              description: The number of transactions sent by a wallet
+              example: '1000'
+        nft_transfers:
+          type: object
+          description: NFT transfer stats
+          required:
+          - total
+          properties:
+            total:
+              type: string
+              description: The number of NFT transfers of a wallet
+              example: '1000'
+        token_transfers:
+          type: object
+          description: Token transfer stats
+          required:
+          - total
+          properties:
+            total:
+              type: string
+              description: The number of ERC20 token transfers of a wallet
+              example: '1000'
+    defiProtocolPosition:
+      required:
+      - label
+      - tokens
+      - balance_usd
+      - total_unclaimed_usd_value
+      properties:
+        label:
           type: string
-          description: Average sell price in USD.
-        total_usd_invested:
+          description: The label of the position
+          example: liquidity
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/defiTokenBalance'
+        address:
           type: string
-          description: Total USD invested.
-        total_tokens_sold:
-          type: string
-          description: Total tokens sold.
-        total_tokens_bought:
-          type: string
-          description: Total tokens bought.
-        total_sold_usd:
-          type: string
-          description: Total USD received from selling tokens.
-        avg_cost_of_quantity_sold:
-          type: string
-          description: Average cost of sold quantity.
-        count_of_trades:
+          description: The address of the position
+          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
+        balance_usd:
           type: number
-          description: Count of trades for the token.
-        realized_profit_usd:
-          type: string
-          description: Realized profit in USD for the token.
-        realized_profit_percentage:
+          description: The balance in USD
+          example: '1000000'
+        total_unclaimed_usd_value:
           type: number
-          description: Realized profit percentage for the token.
-        total_buys:
-          type: number
-          description: Total number of buys.
-        total_sells:
-          type: number
-          description: Total number of sells.
-        name:
-          type: string
-          description: Name of the token.
-        symbol:
-          type: string
-          description: Symbol of the token.
-        decimals:
-          type: string
-          description: Decimals of the token.
-        logo:
-          type: string
-          description: Logo URL of the token.
-        possible_spam:
-          type: boolean
-          description: Indicates whether the token is possibly spam.
-    SpenderDetails:
+          description: The total unclaimed USD value of the position
+          example: '1000000'
+        position_details:
+          type: object
+          description: The details of the position
+          $ref: '#/components/schemas/defiPositionDetails'
+    TokenTransactionTokenMetadata:
       type: object
       properties:
         address:
           type: string
-        address_label:
-          type:
-          - string
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        symbol:
-          type:
-          - string
-          - 'null'
-        logo:
-          type:
-          - string
-          - 'null'
-        entity:
-          type:
-          - string
-          - 'null'
-        entity_logo:
-          type:
-          - string
-          - 'null'
-    walletActiveChain:
-      required:
-      - chain
-      - chain_id
-      properties:
-        chain:
-          type: string
-          description: The chain name
-          example: eth
-        chain_id:
-          type: string
-          description: The chain id
-          example: '0x1'
-        first_transaction:
-          $ref: '#/components/schemas/transactionTimestamp'
-        last_transaction:
-          $ref: '#/components/schemas/transactionTimestamp'
-    defiTokenBalance:
-      required:
-      - name
-      - decimals
-      - symbol
-      - contract_address
-      - token_type
-      - balance
-      - balance_formatted
-      properties:
-        token_type:
-          type: string
-          description: The token type (supply/defi/borrow token)
-          example: defi-token
+          description: The address of the token
+          example: '0x003dde3494f30d861d063232c6a8c04394b686ff'
         name:
           type: string
           description: The name of the token
-          example: Wrapped Ether
+          example: BRETT
         symbol:
           type: string
           description: The symbol of the token
-          example: WETH
-        contract_address:
-          type: string
-          description: The contract address
-          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
-        decimals:
-          type: number
-          description: The decimals of the token
-          example: '18'
+          example: BRETT
         logo:
           type: string
-          description: The logo of the token
+          description: The URL of the token's logo
           example: https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png
-        thumbnail:
+        amount:
           type: string
-          description: The thumbnail of the token
-          example: https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png
-        balance:
-          type: string
-          description: The balance of the token
-          example: '1000000'
-        balance_formatted:
-          type: string
-          description: The balance of the token formatted
-          example: '1.000000'
-        usd_price:
+          description: The amount of the token
+          example: '14811.98'
+        usdPrice:
           type: number
-          description: The USD price of the token
-          example: '1000000'
-        usd_value:
+          description: The amount of the token
+          example: 0.078634
+        usdAmount:
           type: number
-          description: The USD value of the token
-          example: '1000000'
+          description: The amount of the token
+          example: 1155.33
+      required:
+      - address
+      - name
+      - symbol
+      - logo
+      - amount
+      - usdPrice
+      - usdAmount
+    transactionTimestamp:
+      required:
+      - block_number
+      - block_timestamp
+      properties:
+        block_number:
+          type: string
+          description: The block number
+          example: '123456789'
+        block_timestamp:
+          type: string
+          description: The block timestamp
+          example: '2022-08-23T20:58:31.000Z'
+        transaction_hash:
+          type: string
+          description: The hash of the transaction
+          example: '0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09'
     internalTransaction:
       type: object
       required:
@@ -1692,432 +1469,23 @@ components:
           - 'null'
           description: Error message if the internal transaction failed
           example: Execution reverted
-    erc20TokenBalanceWithPrice:
-      type: object
+    walletActiveChain:
       required:
-      - name
-      - symbol
-      - decimals
-      - balance
-      - possible_spam
-      - usd_price
-      - usd_price_24hr_percent_change
-      - usd_price_24hr_usd_change
-      - use_value_24hr_usd_change
-      - usd_value
-      - portfolio_percentage
-      - balance_formatted
-      - native_token
-      properties:
-        token_address:
-          type: string
-          description: The address of the token contract
-        name:
-          type: string
-          description: The name of the token
-        symbol:
-          type: string
-          description: The symbol of the token
-        logo:
-          type: string
-          description: The logo of the token
-        thumbnail:
-          type: string
-          description: The thumbnail of the token logo
-        decimals:
-          type: integer
-          description: The number of decimals on the token
-        balance:
-          type: string
-          description: The balance of the token
-        possible_spam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-        verified_contract:
-          type: boolean
-          description: Indicates if a contract is verified
-        usd_price:
-          type: string
-          description: USD price of the token
-        usd_price_24hr_percent_change:
-          type: string
-          description: 24-hour percent change in USD price of the token
-        usd_price_24hr_usd_change:
-          type: string
-          description: 24-hour change in USD price of the token
-        usd_value_24hr_usd_change:
-          type: string
-          description: 24-hour change in USD value of the token based on the balance
-        usd_value:
-          type: number
-          description: USD value of the token balance
-        portfolio_percentage:
-          type: number
-          description: Percentage of the token in the entire portfolio
-        balance_formatted:
-          type: string
-          description: Balance of the token in decimal format
-        native_token:
-          type: boolean
-          description: Indicates if the token is a native coin
-        total_supply:
-          type: string
-          description: Total supply of the token
-        total_supply_formatted:
-          type: string
-          description: Total supply of the token in decimal format
-        percentage_relative_to_total_supply:
-          type: number
-          description: Percentage of the token in the total supply
-    ChainBreakdownEntry:
-      type: object
+      - chain
+      - chain_id
       properties:
         chain:
           type: string
-          description: The chain ID
+          description: The chain name
+          example: eth
+        chain_id:
+          type: string
+          description: The chain id
           example: '0x1'
-        walletAgeDays:
-          type: integer
-          description: Wallet age in days on this chain
-        firstActivityAt:
-          $ref: '#/components/schemas/ActivityMetadata'
-        lastActivityAt:
-          $ref: '#/components/schemas/ActivityMetadata'
-        firstInitiatedAt:
-          $ref: '#/components/schemas/ActivityMetadata'
-        lastInitiatedAt:
-          $ref: '#/components/schemas/ActivityMetadata'
-        activeDays:
-          type: integer
-          description: Number of unique active days on this chain
-        transactionsInitiated:
-          type: integer
-          description: Number of transactions initiated on this chain
-        transactionsInvolved:
-          type: integer
-          description: Number of transactions involving the wallet on this chain
-        nativeTransfers:
-          $ref: '#/components/schemas/TransferCounts'
-        erc20Transfers:
-          $ref: '#/components/schemas/TransferCounts'
-        nftTransfers:
-          $ref: '#/components/schemas/TransferCounts'
-        uniqueCounterparties:
-          $ref: '#/components/schemas/CounterpartyCounts'
-        swapVolumeUsd:
-          type: number
-          description: Total swap volume in USD on this chain
-        totalGasSpentNative:
-          type: string
-          description: Total gas spent in native token
-        totalGasSpentUsd:
-          type: string
-          description: Total gas spent in USD
-        avgGasPerTransactionNative:
-          type: string
-          description: Average gas per initiated transaction in native token
-        avgGasPerTransactionUsd:
-          type: string
-          description: Average gas per initiated transaction in USD
-        nativeVolumeSent:
-          type: string
-          description: Total native token volume sent
-        nativeVolumeSentUsd:
-          type: string
-          description: Total native token volume sent in USD
-        nativeVolumeReceived:
-          type: string
-          description: Total native token volume received
-        nativeVolumeReceivedUsd:
-          type: string
-          description: Total native token volume received in USD
-        nativeNetFlow:
-          type: string
-          description: Net native token flow (received - sent). Negative means outflow
-        nativeNetFlowUsd:
-          type: string
-          description: Net native token flow in USD
-        uniqueTokensInteracted:
-          type: integer
-          description: Number of unique ERC20 token contracts interacted with
-        contractsCreated:
-          type: integer
-          description: Number of contracts created (deployed)
-        largestNativeTransferIn:
-          type: string
-          description: Largest single native transfer received
-        largestNativeTransferInUsd:
-          type: string
-          description: Largest single native transfer received in USD
-        largestNativeTransferOut:
-          type: string
-          description: Largest single native transfer sent
-        largestNativeTransferOutUsd:
-          type: string
-          description: Largest single native transfer sent in USD
-    normalizedMetadata:
-      properties:
-        name:
-          type: string
-          description: The name or title of the NFT
-          example: Moralis Mug
-        description:
-          type: string
-          description: A detailed description of the NFT
-          example: Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.
-        image:
-          type: string
-          description: The URL of the NFT's image
-          example: https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png
-        external_link:
-          type: string
-          description: A link to additional information
-          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
-        external_url:
-          type: string
-          description: A link to additional information
-          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
-        animation_url:
-          type: string
-          description: An animated version of the NFT's image
-          example: https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/normalizedMetadataAttribute'
-    WalletProfitabilityResponse:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/WalletProfitabilityTokenData'
-          description: List of tokens traded with their respective profitability data.
-    logVerbose:
-      required:
-      - log_index
-      - transaction_hash
-      - transaction_index
-      - address
-      - data
-      - topic0
-      - block_timestamp
-      - block_number
-      - block_hash
-      - decoded_event
-      properties:
-        log_index:
-          type: string
-          example: '273'
-        transaction_hash:
-          type: string
-          description: The hash of the transaction
-          example: '0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5'
-        transaction_index:
-          type: string
-          example: '204'
-        address:
-          type: string
-          description: The address of the contract
-          example: '0x3105d328c66d8d55092358cf595d54608178e9b5'
-        data:
-          type: string
-          description: The data of the log
-          example: '0x00000000000000000000000000000000000000000000000de05239bccd4d537400000000000000000000000000024dbc80a9f80e3d5fc0a0ee30e2693781a443'
-        topic0:
-          type: string
-          example: '0x2caecd17d02f56fa897705dcc740da2d237c373f70686f4e0d9bd3bf0400ea7a'
-        topic1:
-          type: string
-          example: '0x000000000000000000000000031002d15b0d0cd7c9129d6f644446368deae391'
-        topic2:
-          type: string
-          example: '0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9'
-        topic3:
-          type: string
-          example: null
-        block_timestamp:
-          type: string
-          description: The timestamp of the block
-          example: '2021-05-07T11:08:35.000Z'
-        block_number:
-          type: string
-          description: The block number
-          example: '12386788'
-        block_hash:
-          type: string
-          description: The hash of the block
-          example: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171'
-        decoded_event:
-          type: object
-          description: The decoded data of the log
-          $ref: '#/components/schemas/decodedEvent'
-    WalletInsightResponse:
-      type: object
-      properties:
-        address:
-          type: string
-          description: The wallet address
-          example: '0xcB1C1FdE09f811B294172696404e88E658659905'
-        addressType:
-          type: string
-          description: The type of address
-          example: evm
-        walletAgeDays:
-          type: integer
-          description: Wallet age in days since first activity
-          example: 1314
-        firstActivityAt:
-          $ref: '#/components/schemas/ActivityMetadata'
-        lastActivityAt:
-          $ref: '#/components/schemas/ActivityMetadata'
-        firstInitiatedAt:
-          $ref: '#/components/schemas/ActivityMetadata'
-        lastInitiatedAt:
-          $ref: '#/components/schemas/ActivityMetadata'
-        activeDays:
-          type: integer
-          description: Number of unique active days
-          example: 503
-        activeChains:
-          type: integer
-          description: Number of unique chains the wallet is active on
-          example: 9
-        mostActiveChain:
-          type:
-          - string
-          - 'null'
-          description: The chain ID with the most active days
-          example: '0x1'
-        transactionsInitiated:
-          type: integer
-          description: Number of transactions initiated by the wallet
-          example: 724
-        transactionsInvolved:
-          type: integer
-          description: Number of transactions involving the wallet
-          example: 754
-        nativeTransfers:
-          $ref: '#/components/schemas/TransferCounts'
-        erc20Transfers:
-          $ref: '#/components/schemas/TransferCounts'
-        nftTransfers:
-          $ref: '#/components/schemas/TransferCounts'
-        uniqueCounterparties:
-          $ref: '#/components/schemas/CounterpartyCounts'
-        swapVolumeUsd:
-          type: number
-          description: Total swap volume in USD
-          example: 11778.556304337722
-        totalGasSpentUsd:
-          type: string
-          description: Total gas spent in USD across requested chains
-          example: '55.23'
-        avgGasPerTransactionUsd:
-          type: string
-          description: Average gas per initiated transaction in USD
-          example: '0.59'
-        nativeVolumeSentUsd:
-          type: string
-          description: Total native token volume sent in USD
-          example: '4025.93'
-        nativeVolumeReceivedUsd:
-          type: string
-          description: Total native token volume received in USD
-          example: '2081.83'
-        nativeNetFlowUsd:
-          type: string
-          description: Net native token flow in USD. Negative means outflow
-          example: '-1944.10'
-        uniqueTokensInteracted:
-          type: integer
-          description: Number of unique ERC20 token contracts interacted with
-          example: 4
-        contractsCreated:
-          type: integer
-          description: Number of contracts created (deployed)
-          example: 58
-        largestNativeTransferInUsd:
-          type: string
-          description: Largest single native transfer received in USD
-          example: '2061.94'
-        largestNativeTransferOutUsd:
-          type: string
-          description: Largest single native transfer sent in USD
-          example: '1570.53'
-        chainBreakdown:
-          type: array
-          description: Per-chain breakdown with both native and USD values. Only included when includeChainBreakdown=true.
-          items:
-            $ref: '#/components/schemas/ChainBreakdownEntry'
-    RevokeResponse:
-      type: object
-      properties:
-        revokes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApprovalData'
-    walletApprovals:
-      required:
-      - result
-      - page
-      - page_size
-      - cursor
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/tokenApproval'
-    TokenTransactionTokenMetadata:
-      type: object
-      properties:
-        address:
-          type: string
-          description: The address of the token
-          example: '0x003dde3494f30d861d063232c6a8c04394b686ff'
-        name:
-          type: string
-          description: The name of the token
-          example: BRETT
-        symbol:
-          type: string
-          description: The symbol of the token
-          example: BRETT
-        logo:
-          type: string
-          description: The URL of the token's logo
-          example: https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png
-        amount:
-          type: string
-          description: The amount of the token
-          example: '14811.98'
-        usdPrice:
-          type: number
-          description: The amount of the token
-          example: 0.078634
-        usdAmount:
-          type: number
-          description: The amount of the token
-          example: 1155.33
-      required:
-      - address
-      - name
-      - symbol
-      - logo
-      - amount
-      - usdPrice
-      - usdAmount
+        first_transaction:
+          $ref: '#/components/schemas/transactionTimestamp'
+        last_transaction:
+          $ref: '#/components/schemas/transactionTimestamp'
     SetApprovalAllResponse:
       type: object
       properties:
@@ -2125,178 +1493,34 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SetApprovalAllData'
-    decodedEvent:
+    ResolveContractInteractionResponse:
+      oneOf:
+      - $ref: '#/components/schemas/ApprovalResponse'
+      - $ref: '#/components/schemas/RevokeResponse'
+      - $ref: '#/components/schemas/SetApprovalAllResponse'
+      - $ref: '#/components/schemas/SetRevokeAllResponse'
+    TokenDetails:
       type: object
       properties:
-        signature:
+        address:
           type: string
-          example: Transfer(address,address,uint256)
-        label:
+        address_label:
+          type:
+          - string
+          - 'null'
+        token_name:
           type: string
-          example: Transfer
-        type:
+        token_logo:
           type: string
-          example: event
-        params:
+        token_symbol:
+          type: string
+    SetRevokeAllResponse:
+      type: object
+      properties:
+        set_revokes_all:
           type: array
           items:
-            type: object
-            properties:
-              name:
-                type: string
-                example: from
-              value:
-                type: string
-                example: '0x26C5011483Add49801eA8E3Ee354fE013895aCe5'
-              type:
-                type: string
-                example: address
-    walletDefiSummary:
-      required:
-      - active_protocols
-      - total_positions
-      - total_usd_value
-      - protocols
-      properties:
-        active_protocols:
-          type: number
-          description: The number of active protocols
-          example: '10'
-        total_positions:
-          type: number
-          description: The number of total positions
-          example: '100'
-        total_usd_value:
-          type: number
-          description: The total USD value of the wallet
-          example: '1000000'
-        total_unclaimed_usd_value:
-          type: number
-          description: The total unclaimed USD value of the wallet
-          example: '1000000'
-        protocols:
-          type: array
-          items:
-            $ref: '#/components/schemas/defiProtocolBalance'
-    chainNetWorth:
-      required:
-      - chain
-      - native_balance
-      - native_balance_formatted
-      - native_balance_usd
-      - token_balance_usd
-      - networth_usd
-      properties:
-        chain:
-          type: string
-          description: The chain
-          example: eth
-        native_balance:
-          type: string
-          description: The native balance
-          example: '1085513807021271641379'
-        native_balance_formatted:
-          type: string
-          description: The native balance formatted
-          example: '1085.513807021271641379'
-        native_balance_usd:
-          type: string
-          description: The native balance in USD
-          example: '3158392.48'
-        token_balance_usd:
-          type: string
-          description: The token balance in USD
-          example: '721458.93'
-        networth_usd:
-          type: string
-          description: The networth in USD
-          example: '3879851.41'
-    chainList:
-      type: string
-      example: eth
-      default: eth
-      enum:
-      - eth
-      - '0x1'
-      - sepolia
-      - '0xaa36a7'
-      - polygon
-      - '0x89'
-      - bsc
-      - '0x38'
-      - bsc testnet
-      - '0x61'
-      - avalanche
-      - '0xa86a'
-      - fantom
-      - '0xfa'
-      - cronos
-      - '0x19'
-      - arbitrum
-      - '0xa4b1'
-      - chiliz
-      - '0x15b38'
-      - chiliz testnet
-      - '0x15b32'
-      - gnosis
-      - '0x64'
-      - gnosis testnet
-      - '0x27d8'
-      - base
-      - '0x2105'
-      - base sepolia
-      - '0x14a34'
-      - optimism
-      - '0xa'
-      - polygon amoy
-      - '0x13882'
-      - linea
-      - '0xe708'
-      - moonbeam
-      - '0x504'
-      - moonriver
-      - '0x505'
-      - moonbase
-      - '0x507'
-      - linea sepolia
-      - '0xe705'
-      - flow
-      - '0x2eb'
-      - flow-testnet
-      - '0x221'
-      - ronin
-      - '0x7e4'
-      - ronin-testnet
-      - '0x31769'
-      - lisk
-      - '0x46f'
-      - lisk-sepolia
-      - '0x106a'
-      - pulse
-      - '0x171'
-      - sei-testnet
-      - '0x530'
-      - sei
-      - '0x531'
-      - monad
-      - '0x8f'
-    defiProtocolBalance:
-      required:
-      - total_usd_value
-      - positions
-      properties:
-        total_usd_value:
-          type: number
-          description: The total USD value of the protocol
-          example: '1000000'
-        total_unclaimed_usd_value:
-          type: number
-          description: The total unclaimed USD value of the protocol
-          example: '1000000'
-        positions:
-          type: number
-          description: The number of positions
-          example: '100'
+            $ref: '#/components/schemas/SetApprovalAllData'
     native_transfer:
       required:
       - from_address
@@ -2366,175 +1590,41 @@ components:
           type: string
           description: The logo of the token transferred
           example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-    TransferCounts:
+    WalletProfitabilityResponse:
       type: object
       properties:
-        sent:
-          type: integer
-          description: Number of transfers sent
-          example: 210
-        received:
-          type: integer
-          description: Number of transfers received
-          example: 272
-        total:
-          type: integer
-          description: Total number of transfers
-          example: 482
-    defiProtocolPosition:
-      required:
-      - label
-      - tokens
-      - balance_usd
-      - total_unclaimed_usd_value
-      properties:
-        label:
-          type: string
-          description: The label of the position
-          example: liquidity
-        tokens:
-          type: array
-          items:
-            $ref: '#/components/schemas/defiTokenBalance'
-        address:
-          type: string
-          description: The address of the position
-          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
-        balance_usd:
-          type: number
-          description: The balance in USD
-          example: '1000000'
-        total_unclaimed_usd_value:
-          type: number
-          description: The total unclaimed USD value of the position
-          example: '1000000'
-        position_details:
-          type: object
-          description: The details of the position
-          $ref: '#/components/schemas/defiPositionDetails'
-    ActivityMetadata:
-      type:
-      - object
-      - 'null'
-      properties:
-        chain:
-          type: string
-          description: Chain ID
-          example: '0x1'
-        blockNumber:
-          type: string
-          description: Block number
-          example: '23583751'
-        blockTimestamp:
-          type: string
-          description: Block timestamp
-          example: '2025-10-15T14:41:23.000Z'
-        transactionHash:
-          type: string
-          description: Transaction hash
-          example: 0x...
-        type:
-          type: string
-          description: Activity type
-          example: tokenTransfer
-        direction:
-          type: string
-          description: Direction (in or out)
-          example: in
-    defiProtocolList:
-      type: string
-      example: uniswap-v3
-      default: uniswap-v3
-      enum:
-      - uniswap-v2
-      - uniswap-v3
-      - pancakeswap-v2
-      - pancakeswap-v3
-      - quickswap-v2
-      - quickswap-v3
-      - sushiswap-v2
-      - aave-v2
-      - aave-v3
-      - aave-lido
-      - fraxswap-v1
-      - fraxswap-v2
-      - lido
-      - makerdao
-      - eigenlayer
-      - pendle
-      - etherfi
-      - rocketpool
-      - sparkfi
-      - takara-lend
-      - neverland
-      - kintsu
-    ETransactionCategory:
-      type: string
-      enum:
-      - send
-      - receive
-      - token send
-      - token receive
-      - nft send
-      - nft receive
-      - token swap
-      - deposit
-      - withdraw
-      - nft purchase
-      - nft sale
-      - airdrop
-      - mint
-      - burn
-      - borrow
-      - contract interaction
-      description: Defines the category of the transaction.
-    defiPositionSummaryResponse:
-      properties:
-        protocol_name:
-          type: string
-          description: The name of the protocol
-          example: Uniswap v2
-        protocol_id:
-          type: string
-          description: The id of the protocol
-          example: uniswap-v2
-        protocol_url:
-          type: string
-          description: The url of the protocol
-          example: https://app.uniswap.org/pools/v2
-        protocol_logo:
-          type: string
-          description: The logo of the protocol
-          example: https://cdn.moralis.io/defi/uniswap.png
-        position:
-          type: object
-          description: The position of the protocol
-          $ref: '#/components/schemas/defiProtocolPosition'
-    ResolveContractInteractionResponse:
-      oneOf:
-      - $ref: '#/components/schemas/ApprovalResponse'
-      - $ref: '#/components/schemas/RevokeResponse'
-      - $ref: '#/components/schemas/SetApprovalAllResponse'
-      - $ref: '#/components/schemas/SetRevokeAllResponse'
-    getSwapsByWalletAddressResponse:
-      required:
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
         result:
           type: array
           items:
-            $ref: '#/components/schemas/swapsByWalletAddressResult'
+            $ref: '#/components/schemas/WalletProfitabilityTokenData'
+          description: List of tokens traded with their respective profitability data.
+    walletDefiSummary:
+      required:
+      - active_protocols
+      - total_positions
+      - total_usd_value
+      - protocols
+      properties:
+        active_protocols:
+          type: number
+          description: The number of active protocols
+          example: '10'
+        total_positions:
+          type: number
+          description: The number of total positions
+          example: '100'
+        total_usd_value:
+          type: number
+          description: The total USD value of the wallet
+          example: '1000000'
+        total_unclaimed_usd_value:
+          type: number
+          description: The total unclaimed USD value of the wallet
+          example: '1000000'
+        protocols:
+          type: array
+          items:
+            $ref: '#/components/schemas/defiProtocolBalance'
     netWorthResult:
       required:
       - total_networth_usd
@@ -2558,24 +1648,129 @@ components:
           items:
             $ref: '#/components/schemas/unavailableChainNetWorth'
           description: The chains that are not available during the request
-    ApprovalResponse:
-      type: object
+    logVerbose:
+      required:
+      - log_index
+      - transaction_hash
+      - transaction_index
+      - address
+      - data
+      - topic0
+      - block_timestamp
+      - block_number
+      - block_hash
+      - decoded_event
       properties:
-        approvals:
+        log_index:
+          type: string
+          example: '273'
+        transaction_hash:
+          type: string
+          description: The hash of the transaction
+          example: '0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5'
+        transaction_index:
+          type: string
+          example: '204'
+        address:
+          type: string
+          description: The address of the contract
+          example: '0x3105d328c66d8d55092358cf595d54608178e9b5'
+        data:
+          type: string
+          description: The data of the log
+          example: '0x00000000000000000000000000000000000000000000000de05239bccd4d537400000000000000000000000000024dbc80a9f80e3d5fc0a0ee30e2693781a443'
+        topic0:
+          type: string
+          example: '0x2caecd17d02f56fa897705dcc740da2d237c373f70686f4e0d9bd3bf0400ea7a'
+        topic1:
+          type: string
+          example: '0x000000000000000000000000031002d15b0d0cd7c9129d6f644446368deae391'
+        topic2:
+          type: string
+          example: '0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9'
+        topic3:
+          type: string
+          example: null
+        block_timestamp:
+          type: string
+          description: The timestamp of the block
+          example: '2021-05-07T11:08:35.000Z'
+        block_number:
+          type: string
+          description: The block number
+          example: '12386788'
+        block_hash:
+          type: string
+          description: The hash of the block
+          example: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171'
+        decoded_event:
+          type: object
+          description: The decoded data of the log
+          $ref: '#/components/schemas/decodedEvent'
+    walletActiveChains:
+      required:
+      - address
+      - active_chains
+      properties:
+        address:
+          type: string
+          description: The address of the wallet
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        active_chains:
           type: array
           items:
-            $ref: '#/components/schemas/ApprovalData'
-    CounterpartyCounts:
-      type: object
+            $ref: '#/components/schemas/walletActiveChain'
+    walletHistory:
+      required:
+      - result
+      - page
+      - page_size
+      - cursor
       properties:
-        sentTo:
+        synced_at:
           type: integer
-          description: Number of unique counterparties sent to
-          example: 412
-        receivedFrom:
+          description: The position of the last synced block
+          example: '837451'
+        page:
           type: integer
-          description: Number of unique counterparties received from
-          example: 615
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/walletHistoryTransaction'
+    unavailableChainNetWorth:
+      required:
+      - chain_id
+      properties:
+        chain_id:
+          type: string
+          description: The chain id
+          example: '0x1'
+    defiProtocolBalance:
+      required:
+      - total_usd_value
+      - positions
+      properties:
+        total_usd_value:
+          type: number
+          description: The total USD value of the protocol
+          example: '1000000'
+        total_unclaimed_usd_value:
+          type: number
+          description: The total unclaimed USD value of the protocol
+          example: '1000000'
+        positions:
+          type: number
+          description: The number of positions
+          example: '100'
     swapsByWalletAddressResult:
       type: object
       required:
@@ -2654,6 +1849,115 @@ components:
         totalValueUsd:
           type: number
           example: 1165
+    walletHistoryNftTransfer:
+      required:
+      - token_address
+      - token_id
+      - log_index
+      - contract_type
+      - possible_spam
+      - value
+      - amount
+      - transaction_type
+      - direction
+      - from_address
+      - verified
+      properties:
+        token_address:
+          type: string
+          description: The address of the NFT contract
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        token_id:
+          type: string
+          description: The token ID of the NFT
+          example: '15'
+        token_name:
+          type: string
+          example: Tether USD
+        token_symbol:
+          type: string
+          example: USDT
+        from_address_entity:
+          type: string
+          description: The from address entity
+          example: Opensea
+        from_address_entity_logo:
+          type: string
+          description: The logo of the from address entity
+          example: https://opensea.io/favicon.ico
+        from_address:
+          type: string
+          description: The address that sent the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        from_address_label:
+          type:
+          - string
+          - 'null'
+          description: The label of the from address
+          example: Binance 1
+        to_address_entity:
+          type: string
+          description: The to address entity
+          example: Beaver Build
+        to_address_entity_logo:
+          type: string
+          description: The logo of the to address entity
+          example: https://beaverbuild.com/favicon.ico
+        to_address:
+          type: string
+          description: The address that received the NFT
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        to_address_label:
+          type:
+          - string
+          - 'null'
+          description: The label of the to address
+          example: Binance 2
+        value:
+          type: string
+          description: The value that was sent in the transaction (ETH/BNB/etc..)
+          example: '1000000000000000'
+        amount:
+          type: string
+          description: The number of tokens transferred
+          example: '1'
+        contract_type:
+          type: string
+          description: The type of NFT contract standard
+          example: ERC721
+        transaction_type:
+          type: string
+          description: The transaction type
+        log_index:
+          type: integer
+          description: The log index
+        operator:
+          type: string
+          description: The operator present only for ERC1155 transfers
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_collection:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: 'false'
+        direction:
+          type: string
+          description: The direction of the transfer
+          example: outgoing
+        collection_logo:
+          type: string
+          description: The logo of the collection
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        collection_banner_image:
+          type: string
+          description: The banner image of the collection
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        normalized_metadata:
+          $ref: '#/components/schemas/normalizedMetadata'
+          description: A normalized metadata version of the NFT's metadata.
     defiPositionDetails:
       properties:
         fee_tier:
@@ -2807,19 +2111,715 @@ components:
           - boolean
           - 'null'
           description: Whether the supply position is enabled as collateral
-    ApprovalData:
+    walletApprovals:
+      required:
+      - result
+      - page
+      - page_size
+      - cursor
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/tokenApproval'
+    decodedEvent:
       type: object
       properties:
-        value:
+        signature:
           type: string
-        value_formatted:
+          example: Transfer(address,address,uint256)
+        label:
+          type: string
+          example: Transfer
+        type:
+          type: string
+          example: event
+        params:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: from
+              value:
+                type: string
+                example: '0x26C5011483Add49801eA8E3Ee354fE013895aCe5'
+              type:
+                type: string
+                example: address
+    CounterpartyCounts:
+      type: object
+      properties:
+        sentTo:
+          type: integer
+          description: Number of unique counterparties sent to
+          example: 412
+        receivedFrom:
+          type: integer
+          description: Number of unique counterparties received from
+          example: 615
+    WalletProfitabilityTokenData:
+      type: object
+      required:
+      - token_address
+      - avg_buy_price_usd
+      - avg_sell_price_usd
+      - total_usd_invested
+      - total_tokens_sold
+      - total_tokens_bought
+      - total_sold_usd
+      - avg_cost_of_quantity_sold
+      - count_of_trades
+      - realized_profit_usd
+      - realized_profit_percentage
+      - total_buys
+      - total_sells
+      - name
+      - symbol
+      - decimals
+      - logo
+      - possible_spam
+      properties:
+        token_address:
+          type: string
+          description: The address of the traded token.
+        avg_buy_price_usd:
+          type: string
+          description: Average buy price in USD.
+        avg_sell_price_usd:
+          type: string
+          description: Average sell price in USD.
+        total_usd_invested:
+          type: string
+          description: Total USD invested.
+        total_tokens_sold:
+          type: string
+          description: Total tokens sold.
+        total_tokens_bought:
+          type: string
+          description: Total tokens bought.
+        total_sold_usd:
+          type: string
+          description: Total USD received from selling tokens.
+        avg_cost_of_quantity_sold:
+          type: string
+          description: Average cost of sold quantity.
+        count_of_trades:
+          type: number
+          description: Count of trades for the token.
+        realized_profit_usd:
+          type: string
+          description: Realized profit in USD for the token.
+        realized_profit_percentage:
+          type: number
+          description: Realized profit percentage for the token.
+        total_buys:
+          type: number
+          description: Total number of buys.
+        total_sells:
+          type: number
+          description: Total number of sells.
+        name:
+          type: string
+          description: Name of the token.
+        symbol:
+          type: string
+          description: Symbol of the token.
+        decimals:
+          type: string
+          description: Decimals of the token.
+        logo:
+          type: string
+          description: Logo URL of the token.
+        possible_spam:
+          type: boolean
+          description: Indicates whether the token is possibly spam.
+    ChainBreakdownEntry:
+      type: object
+      properties:
+        chain:
+          type: string
+          description: The chain ID
+          example: '0x1'
+        walletAgeDays:
+          type: integer
+          description: Wallet age in days on this chain
+        firstActivityAt:
+          $ref: '#/components/schemas/ActivityMetadata'
+        lastActivityAt:
+          $ref: '#/components/schemas/ActivityMetadata'
+        firstInitiatedAt:
+          $ref: '#/components/schemas/ActivityMetadata'
+        lastInitiatedAt:
+          $ref: '#/components/schemas/ActivityMetadata'
+        activeDays:
+          type: integer
+          description: Number of unique active days on this chain
+        transactionsInitiated:
+          type: integer
+          description: Number of transactions initiated on this chain
+        transactionsInvolved:
+          type: integer
+          description: Number of transactions involving the wallet on this chain
+        nativeTransfers:
+          $ref: '#/components/schemas/TransferCounts'
+        erc20Transfers:
+          $ref: '#/components/schemas/TransferCounts'
+        nftTransfers:
+          $ref: '#/components/schemas/TransferCounts'
+        uniqueCounterparties:
+          $ref: '#/components/schemas/CounterpartyCounts'
+        swapVolumeUsd:
+          type: number
+          description: Total swap volume in USD on this chain
+        totalGasSpentNative:
+          type: string
+          description: Total gas spent in native token
+        totalGasSpentUsd:
+          type: string
+          description: Total gas spent in USD
+        avgGasPerTransactionNative:
+          type: string
+          description: Average gas per initiated transaction in native token
+        avgGasPerTransactionUsd:
+          type: string
+          description: Average gas per initiated transaction in USD
+        nativeVolumeSent:
+          type: string
+          description: Total native token volume sent
+        nativeVolumeSentUsd:
+          type: string
+          description: Total native token volume sent in USD
+        nativeVolumeReceived:
+          type: string
+          description: Total native token volume received
+        nativeVolumeReceivedUsd:
+          type: string
+          description: Total native token volume received in USD
+        nativeNetFlow:
+          type: string
+          description: Net native token flow (received - sent). Negative means outflow
+        nativeNetFlowUsd:
+          type: string
+          description: Net native token flow in USD
+        uniqueTokensInteracted:
+          type: integer
+          description: Number of unique ERC20 token contracts interacted with
+        contractsCreated:
+          type: integer
+          description: Number of contracts created (deployed)
+        largestNativeTransferIn:
+          type: string
+          description: Largest single native transfer received
+        largestNativeTransferInUsd:
+          type: string
+          description: Largest single native transfer received in USD
+        largestNativeTransferOut:
+          type: string
+          description: Largest single native transfer sent
+        largestNativeTransferOutUsd:
+          type: string
+          description: Largest single native transfer sent in USD
+    erc20TokenBalanceWithPrice:
+      type: object
+      required:
+      - name
+      - symbol
+      - decimals
+      - balance
+      - possible_spam
+      - usd_price
+      - usd_price_24hr_percent_change
+      - usd_price_24hr_usd_change
+      - use_value_24hr_usd_change
+      - usd_value
+      - portfolio_percentage
+      - balance_formatted
+      - native_token
+      properties:
+        token_address:
+          type: string
+          description: The address of the token contract
+        name:
+          type: string
+          description: The name of the token
+        symbol:
+          type: string
+          description: The symbol of the token
+        logo:
+          type: string
+          description: The logo of the token
+        thumbnail:
+          type: string
+          description: The thumbnail of the token logo
+        decimals:
+          type: integer
+          description: The number of decimals on the token
+        balance:
+          type: string
+          description: The balance of the token
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+        verified_contract:
+          type: boolean
+          description: Indicates if a contract is verified
+        usd_price:
+          type: string
+          description: USD price of the token
+        usd_price_24hr_percent_change:
+          type: string
+          description: 24-hour percent change in USD price of the token
+        usd_price_24hr_usd_change:
+          type: string
+          description: 24-hour change in USD price of the token
+        usd_value_24hr_usd_change:
+          type: string
+          description: 24-hour change in USD value of the token based on the balance
+        usd_value:
+          type: number
+          description: USD value of the token balance
+        portfolio_percentage:
+          type: number
+          description: Percentage of the token in the entire portfolio
+        balance_formatted:
+          type: string
+          description: Balance of the token in decimal format
+        native_token:
+          type: boolean
+          description: Indicates if the token is a native coin
+        total_supply:
+          type: string
+          description: Total supply of the token
+        total_supply_formatted:
+          type: string
+          description: Total supply of the token in decimal format
+        percentage_relative_to_total_supply:
+          type: number
+          description: Percentage of the token in the total supply
+    walletHistoryErc20Transfer:
+      required:
+      - token_name
+      - token_symbol
+      - token_logo
+      - token_decimals
+      - value_formatted
+      - address
+      - from_address
+      - value
+      - transaction_index
+      - log_index
+      - possible_spam
+      - verified_contract
+      properties:
+        token_name:
+          type: string
+          example: Tether USD
+        token_symbol:
+          type: string
+          example: USDT
+        token_logo:
+          type: string
+          example: https://cdn.moralis.io/images/325/large/Tether-logo.png?1598003707
+        token_decimals:
+          type: string
+          example: '6'
+        address:
+          type: string
+          description: The address of the token
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        block_timestamp:
+          type: string
+          description: The block timestamp
+          example: '2021-04-02T10:07:54.000Z'
+        to_address_entity:
+          type: string
+          description: The to address entity
+          example: Beaver Build
+        to_address_entity_logo:
+          type: string
+          description: The logo of the to address entity
+          example: https://beaverbuild.com/favicon.ico
+        to_address:
+          type: string
+          description: The recipient
+          example: '0x62AED87d21Ad0F3cdE4D147Fdcc9245401Af0044'
+        to_address_label:
           type:
           - string
           - 'null'
-        token:
-          $ref: '#/components/schemas/TokenDetails'
-        spender:
-          $ref: '#/components/schemas/SpenderDetails'
+          description: The label of the to address
+          example: Binance 2
+        from_address_entity:
+          type: string
+          description: The from address entity
+          example: Opensea
+        from_address_entity_logo:
+          type: string
+          description: The logo of the from address entity
+          example: https://opensea.io/favicon.ico
+        from_address:
+          type: string
+          description: The sender
+          example: '0xd4a3BebD824189481FC45363602b83C9c7e9cbDf'
+        from_address_label:
+          type:
+          - string
+          - 'null'
+          description: The label of the from address
+          example: Binance 1
+        value:
+          type: string
+          description: The value that was transfered (in wei)
+          example: 650000000000000000
+        value_formatted:
+          type: string
+          description: The value that was transfered decimal format
+          example: '1.033'
+        log_index:
+          type: integer
+          description: The log index of the transfer within the block
+          example: 2
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_contract:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: 'false'
+    ApprovalResponse:
+      type: object
+      properties:
+        approvals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApprovalData'
+    WalletInsightResponse:
+      type: object
+      properties:
+        address:
+          type: string
+          description: The wallet address
+          example: '0xcB1C1FdE09f811B294172696404e88E658659905'
+        addressType:
+          type: string
+          description: The type of address
+          example: evm
+        walletAgeDays:
+          type: integer
+          description: Wallet age in days since first activity
+          example: 1314
+        firstActivityAt:
+          $ref: '#/components/schemas/ActivityMetadata'
+        lastActivityAt:
+          $ref: '#/components/schemas/ActivityMetadata'
+        firstInitiatedAt:
+          $ref: '#/components/schemas/ActivityMetadata'
+        lastInitiatedAt:
+          $ref: '#/components/schemas/ActivityMetadata'
+        activeDays:
+          type: integer
+          description: Number of unique active days
+          example: 503
+        activeChains:
+          type: integer
+          description: Number of unique chains the wallet is active on
+          example: 9
+        mostActiveChain:
+          type:
+          - string
+          - 'null'
+          description: The chain ID with the most active days
+          example: '0x1'
+        transactionsInitiated:
+          type: integer
+          description: Number of transactions initiated by the wallet
+          example: 724
+        transactionsInvolved:
+          type: integer
+          description: Number of transactions involving the wallet
+          example: 754
+        nativeTransfers:
+          $ref: '#/components/schemas/TransferCounts'
+        erc20Transfers:
+          $ref: '#/components/schemas/TransferCounts'
+        nftTransfers:
+          $ref: '#/components/schemas/TransferCounts'
+        uniqueCounterparties:
+          $ref: '#/components/schemas/CounterpartyCounts'
+        swapVolumeUsd:
+          type: number
+          description: Total swap volume in USD
+          example: 11778.556304337722
+        totalGasSpentUsd:
+          type: string
+          description: Total gas spent in USD across requested chains
+          example: '55.23'
+        avgGasPerTransactionUsd:
+          type: string
+          description: Average gas per initiated transaction in USD
+          example: '0.59'
+        nativeVolumeSentUsd:
+          type: string
+          description: Total native token volume sent in USD
+          example: '4025.93'
+        nativeVolumeReceivedUsd:
+          type: string
+          description: Total native token volume received in USD
+          example: '2081.83'
+        nativeNetFlowUsd:
+          type: string
+          description: Net native token flow in USD. Negative means outflow
+          example: '-1944.10'
+        uniqueTokensInteracted:
+          type: integer
+          description: Number of unique ERC20 token contracts interacted with
+          example: 4
+        contractsCreated:
+          type: integer
+          description: Number of contracts created (deployed)
+          example: 58
+        largestNativeTransferInUsd:
+          type: string
+          description: Largest single native transfer received in USD
+          example: '2061.94'
+        largestNativeTransferOutUsd:
+          type: string
+          description: Largest single native transfer sent in USD
+          example: '1570.53'
+        chainBreakdown:
+          type: array
+          description: Per-chain breakdown with both native and USD values. Only included when includeChainBreakdown=true.
+          items:
+            $ref: '#/components/schemas/ChainBreakdownEntry'
+    getSwapsByWalletAddressResponse:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/swapsByWalletAddressResult'
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    normalizedMetadataAttribute:
+      properties:
+        trait_type:
+          type: string
+          description: The trait title or descriptor
+          example: Eye Color
+        value:
+          type: object
+          description: The value of the attribute
+          example: hazel
+        display_type:
+          type: string
+          description: The type the attribute value should be displayed as
+          example: string
+        max_value:
+          type: number
+          description: For numeric values, the upper range
+          example: 100
+        trait_count:
+          type: number
+          description: The number of possible values for this trait
+          example: 7
+        order:
+          type: number
+          description: Order the trait should appear in the attribute list.
+          example: 1
+    defiProtocolList:
+      type: string
+      example: uniswap-v3
+      default: uniswap-v3
+      enum:
+      - uniswap-v2
+      - uniswap-v3
+      - pancakeswap-v2
+      - pancakeswap-v3
+      - quickswap-v2
+      - quickswap-v3
+      - sushiswap-v2
+      - aave-v2
+      - aave-v3
+      - aave-lido
+      - fraxswap-v1
+      - fraxswap-v2
+      - lido
+      - makerdao
+      - eigenlayer
+      - pendle
+      - etherfi
+      - rocketpool
+      - sparkfi
+      - takara-lend
+      - neverland
+      - kintsu
+    TransferCounts:
+      type: object
+      properties:
+        sent:
+          type: integer
+          description: Number of transfers sent
+          example: 210
+        received:
+          type: integer
+          description: Number of transfers received
+          example: 272
+        total:
+          type: integer
+          description: Total number of transfers
+          example: 482
+    normalizedMetadata:
+      properties:
+        name:
+          type: string
+          description: The name or title of the NFT
+          example: Moralis Mug
+        description:
+          type: string
+          description: A detailed description of the NFT
+          example: Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.
+        image:
+          type: string
+          description: The URL of the NFT's image
+          example: https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png
+        external_link:
+          type: string
+          description: A link to additional information
+          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+        external_url:
+          type: string
+          description: A link to additional information
+          example: https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+        animation_url:
+          type: string
+          description: An animated version of the NFT's image
+          example: https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/normalizedMetadataAttribute'
+    ActivityMetadata:
+      type:
+      - object
+      - 'null'
+      properties:
+        chain:
+          type: string
+          description: Chain ID
+          example: '0x1'
+        blockNumber:
+          type: string
+          description: Block number
+          example: '23583751'
+        blockTimestamp:
+          type: string
+          description: Block timestamp
+          example: '2025-10-15T14:41:23.000Z'
+        transactionHash:
+          type: string
+          description: Transaction hash
+          example: 0x...
+        type:
+          type: string
+          description: Activity type
+          example: tokenTransfer
+        direction:
+          type: string
+          description: Direction (in or out)
+          example: in
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
