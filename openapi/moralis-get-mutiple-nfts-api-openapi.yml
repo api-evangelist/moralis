@@ -45,56 +45,6 @@ paths:
                   $ref: '#/components/schemas/nftOwner'
 components:
   schemas:
-    GetMultipleNftsDto:
-      required:
-      - tokens
-      properties:
-        tokens:
-          type: array
-          maxItems: 25
-          description: The tokens to be fetched (max 25 tokens)
-          example:
-          - token_address: '0xa4991609c508b6d4fb7156426db0bd49fe298bd8'
-            token_id: '12'
-          - token_address: '0x3c64dc415ebb4690d1df2b6216148c8de6dd29f7'
-            token_id: '1'
-          - token_address: '0x3c64dc415ebb4690d1df2b6216148c8de6dd29f7'
-            token_id: '200'
-          items:
-            $ref: '#/components/schemas/tokenItem'
-        normalizeMetadata:
-          type: boolean
-          description: Should normalized metadata be returned?
-          example: false
-        media_items:
-          type: boolean
-          description: Should preview media data be returned?
-          example: false
-    mediaItem:
-      properties:
-        width:
-          type: integer
-          description: The width of the preview image.
-        height:
-          type: integer
-          description: The height of the preview image.
-        url:
-          type: string
-          description: The url of the preview file.
-      required:
-      - width
-      - height
-      - url
-    tokenItem:
-      properties:
-        token_address:
-          type: string
-          description: The contract address
-          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
-        token_id:
-          type: string
-          description: The id of the token
-          example: 100
     mediaCollection:
       properties:
         low:
@@ -111,37 +61,6 @@ components:
       - low
       - medium
       - high
-    media:
-      properties:
-        mimetype:
-          type: string
-          description: The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types]
-        category:
-          enum:
-          - image
-          - audio
-          - video
-        status:
-          enum:
-          - success
-          - processing
-          - unsupported_media
-          - invalid_url
-          - host_unavailable
-          - temporarily_unavailable
-          description: <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
-        original_media_url:
-          type: string
-          description: The url of the original media file.
-        updatedAt:
-          type: string
-          description: The timestamp of the last update to this NFT media record.
-        parent_hash:
-          type: string
-          description: Hash value of the original media file.
-        media_collection:
-          description: Preview item associated with the original
-          $ref: '#/components/schemas/mediaCollection'
     normalizedMetadataAttribute:
       properties:
         trait_type:
@@ -428,6 +347,77 @@ components:
                   type: string
                   description: The token address
                   example: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+    media:
+      properties:
+        mimetype:
+          type: string
+          description: The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types]
+        category:
+          enum:
+          - image
+          - audio
+          - video
+        status:
+          enum:
+          - success
+          - processing
+          - unsupported_media
+          - invalid_url
+          - host_unavailable
+          - temporarily_unavailable
+          description: <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
+        original_media_url:
+          type: string
+          description: The url of the original media file.
+        updatedAt:
+          type: string
+          description: The timestamp of the last update to this NFT media record.
+        parent_hash:
+          type: string
+          description: Hash value of the original media file.
+        media_collection:
+          description: Preview item associated with the original
+          $ref: '#/components/schemas/mediaCollection'
+    mediaItem:
+      properties:
+        width:
+          type: integer
+          description: The width of the preview image.
+        height:
+          type: integer
+          description: The height of the preview image.
+        url:
+          type: string
+          description: The url of the preview file.
+      required:
+      - width
+      - height
+      - url
+    GetMultipleNftsDto:
+      required:
+      - tokens
+      properties:
+        tokens:
+          type: array
+          maxItems: 25
+          description: The tokens to be fetched (max 25 tokens)
+          example:
+          - token_address: '0xa4991609c508b6d4fb7156426db0bd49fe298bd8'
+            token_id: '12'
+          - token_address: '0x3c64dc415ebb4690d1df2b6216148c8de6dd29f7'
+            token_id: '1'
+          - token_address: '0x3c64dc415ebb4690d1df2b6216148c8de6dd29f7'
+            token_id: '200'
+          items:
+            $ref: '#/components/schemas/tokenItem'
+        normalizeMetadata:
+          type: boolean
+          description: Should normalized metadata be returned?
+          example: false
+        media_items:
+          type: boolean
+          description: Should preview media data be returned?
+          example: false
     normalizedMetadata:
       properties:
         name:
@@ -458,6 +448,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/normalizedMetadataAttribute'
+    tokenItem:
+      properties:
+        token_address:
+          type: string
+          description: The contract address
+          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
+        token_id:
+          type: string
+          description: The id of the token
+          example: 100
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

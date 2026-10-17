@@ -297,58 +297,200 @@ paths:
       x-mcp-prompt: Submit the transaction hash to fetch its decoded details. Use this when users need in-depth transaction data or want to analyze contract calls.
 components:
   schemas:
-    log:
+    decodedCall:
+      type: object
+      properties:
+        signature:
+          type: string
+          example: transfer(address,uint256)
+        label:
+          type: string
+          example: transfer
+        type:
+          type: string
+          example: function
+        params:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: _to
+              value:
+                type: string
+                example: '0x1CA455A55108874A95C84620dDA2566c54D17953'
+              type:
+                type: string
+                example: address
+    internalTransaction:
       type: object
       required:
-      - log_index
       - transaction_hash
-      - transaction_index
-      - address
-      - data
-      - topic0
-      - block_timestamp
       - block_number
       - block_hash
+      - type
+      - from
+      - to
+      - value
+      - gas
+      - gas_used
+      - input
+      - output
+      - error
       properties:
-        log_index:
-          type: string
-          example: '273'
         transaction_hash:
           type: string
           description: The hash of the transaction
-          example: '0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5'
+          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
+        block_number:
+          type: string
+          description: The block number
+          example: 12526958
+        block_hash:
+          type: string
+          description: The block hash
+          example: '0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86'
+        type:
+          type: string
+          description: Call type
+          example: CALL
+        from:
+          type: string
+          description: The sender
+          example: '0xd4a3BebD824189481FC45363602b83C9c7e9cbDf'
+        to:
+          type: string
+          description: The recipient
+          example: '0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef'
+        value:
+          type: string
+          description: The value that was transfered (in wei)
+          example: '650000000000000000'
+        gas:
+          type: string
+          description: The gas of the transaction
+          example: '6721975'
+        gas_used:
+          type: string
+          description: The used gas
+          example: '6721975'
+        input:
+          type: string
+          description: The input
+          example: 0x
+        output:
+          type: string
+          description: The output
+          example: 0x
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message if the internal transaction failed
+          example: Execution reverted
+    blockTransactionVerbose:
+      type: object
+      required:
+      - hash
+      - nonce
+      - transaction_index
+      - from_address
+      - value
+      - gas_price
+      - input
+      - receipt_cumulative_gas_used
+      - receipt_gas_used
+      - receipt_status
+      - transaction_fee
+      - block_timestamp
+      - block_number
+      - block_hash
+      - logs
+      - decoded_call
+      properties:
+        hash:
+          type: string
+          description: The hash of the transaction
+          example: '0x1ed85b3757a6d31d01a4d6677fc52fd3911d649a0af21fe5ca3f886b153773ed'
+        nonce:
+          type: string
+          description: The nonce
+          example: '1848059'
         transaction_index:
           type: string
-          example: '204'
-        address:
+          example: '108'
+        from_address_entity:
           type: string
-          description: The address of the contract
-          example: '0x3105d328c66d8d55092358cf595d54608178e9b5'
-        data:
+          description: The from address entity
+          example: Opensea
+        from_address_entity_logo:
           type: string
-          description: The data of the log
-          example: '0x00000000000000000000000000000000000000000000000de05239bccd4d537400000000000000000000000000024dbc80a9f80e3d5fc0a0ee30e2693781a443'
-        topic0:
+          description: The logo of the from address entity
+          example: https://opensea.io/favicon.ico
+        from_address:
           type: string
-          example: '0x2caecd17d02f56fa897705dcc740da2d237c373f70686f4e0d9bd3bf0400ea7a'
-        topic1:
+          description: The from address
+          example: '0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0'
+        from_address_label:
           type:
           - string
           - 'null'
-          example: '0x000000000000000000000000031002d15b0d0cd7c9129d6f644446368deae391'
-        topic2:
+          description: The label of the from address
+          example: Binance 1
+        to_address_entity:
+          type: string
+          description: The to address entity
+          example: Beaver Build
+        to_address_entity_logo:
+          type: string
+          description: The logo of the to address entity
+          example: https://beaverbuild.com/favicon.ico
+        to_address:
+          type: string
+          description: The to address
+          example: '0x003dde3494f30d861d063232c6a8c04394b686ff'
+        to_address_label:
           type:
           - string
           - 'null'
-          example: '0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9'
-        topic3:
-          type:
-          - string
-          - 'null'
+          description: The label of the to address
+          example: Binance 2
+        value:
+          type: string
+          description: The value sent
+          example: '115580000000000000'
+        gas:
+          type: string
+          example: '30000'
+        gas_price:
+          type: string
+          description: The gas price
+          example: '52500000000'
+        input:
+          type: string
+          example: 0x
+        receipt_cumulative_gas_used:
+          type: string
+          example: '4923073'
+        receipt_gas_used:
+          type: string
+          example: '21000'
+        receipt_contract_address:
+          type: string
           example: null
+        receipt_root:
+          type: string
+          example: null
+        receipt_status:
+          type: string
+          example: '1'
+        transaction_fee:
+          type: string
+          example: '0.00034'
         block_timestamp:
           type: string
-          description: The timestamp of the block
+          description: The block timestamp
           example: '2021-05-07T11:08:35.000Z'
         block_number:
           type: string
@@ -358,6 +500,250 @@ components:
           type: string
           description: The hash of the block
           example: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171'
+        logs:
+          type: array
+          description: The logs of the transaction
+          items:
+            $ref: '#/components/schemas/logVerbose'
+        decoded_call:
+          type: object
+          description: The decoded data of the transaction
+          $ref: '#/components/schemas/decodedCall'
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    transactionCollection:
+      required:
+      - result
+      properties:
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/transaction'
+    blockTransaction:
+      type: object
+      required:
+      - hash
+      - nonce
+      - transaction_index
+      - from_address
+      - value
+      - gas_price
+      - input
+      - receipt_cumulative_gas_used
+      - receipt_gas_used
+      - receipt_status
+      - block_timestamp
+      - block_number
+      - block_hash
+      properties:
+        hash:
+          type: string
+          description: The hash of the transaction
+          example: '0x1ed85b3757a6d31d01a4d6677fc52fd3911d649a0af21fe5ca3f886b153773ed'
+        nonce:
+          type: string
+          description: The nonce
+          example: '1848059'
+        transaction_index:
+          type: string
+          example: '108'
+        from_address_entity:
+          type: string
+          description: The from address entity
+          example: Opensea
+        from_address_entity_logo:
+          type: string
+          description: The logo of the from address entity
+          example: https://opensea.io/favicon.ico
+        from_address:
+          type: string
+          description: The from address
+          example: '0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0'
+        from_address_label:
+          type:
+          - string
+          - 'null'
+          description: The label of the from address
+          example: Binance 1
+        to_address_entity:
+          type: string
+          description: The to address entity
+          example: Beaver Build
+        to_address_entity_logo:
+          type: string
+          description: The logo of the to address entity
+          example: https://beaverbuild.com/favicon.ico
+        to_address:
+          type:
+          - string
+          - 'null'
+          description: The to address
+          example: '0x003dde3494f30d861d063232c6a8c04394b686ff'
+        to_address_label:
+          type:
+          - string
+          - 'null'
+          description: The label of the to address
+          example: Binance 2
+        value:
+          type: string
+          description: The value sent
+          example: '115580000000000000'
+        gas:
+          type: string
+          example: '30000'
+        gas_price:
+          type: string
+          description: The gas price
+          example: '52500000000'
+        input:
+          type: string
+          example: 0x
+        receipt_cumulative_gas_used:
+          type: string
+          example: '4923073'
+        receipt_gas_used:
+          type: string
+          example: '21000'
+        receipt_contract_address:
+          type:
+          - string
+          - 'null'
+          example: null
+        receipt_root:
+          type:
+          - string
+          - 'null'
+          example: null
+        receipt_status:
+          type: string
+          example: '1'
+        block_timestamp:
+          type: string
+          description: The block timestamp
+          example: '2021-05-07T11:08:35.000Z'
+        block_number:
+          type: string
+          description: The block number
+          example: '12386788'
+        block_hash:
+          type: string
+          description: The hash of the block
+          example: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171'
+        logs:
+          type: array
+          description: The logs of the transaction
+          items:
+            $ref: '#/components/schemas/log'
+        internal_transactions:
+          type: array
+          description: The internal transactions of the transaction
+          items:
+            $ref: '#/components/schemas/internalTransaction'
+    transactionCollectionVerbose:
+      required:
+      - result
+      properties:
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/blockTransactionVerbose'
+    orderList:
+      type: string
+      example: DESC
+      default: DESC
+      enum:
+      - ASC
+      - DESC
     transaction:
       required:
       - hash
@@ -480,108 +866,58 @@ components:
           description: The internal transaction
           items:
             $ref: '#/components/schemas/internalTransaction'
-    blockTransactionVerbose:
+    log:
       type: object
       required:
-      - hash
-      - nonce
+      - log_index
+      - transaction_hash
       - transaction_index
-      - from_address
-      - value
-      - gas_price
-      - input
-      - receipt_cumulative_gas_used
-      - receipt_gas_used
-      - receipt_status
-      - transaction_fee
+      - address
+      - data
+      - topic0
       - block_timestamp
       - block_number
       - block_hash
-      - logs
-      - decoded_call
       properties:
-        hash:
+        log_index:
+          type: string
+          example: '273'
+        transaction_hash:
           type: string
           description: The hash of the transaction
-          example: '0x1ed85b3757a6d31d01a4d6677fc52fd3911d649a0af21fe5ca3f886b153773ed'
-        nonce:
-          type: string
-          description: The nonce
-          example: '1848059'
+          example: '0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5'
         transaction_index:
           type: string
-          example: '108'
-        from_address_entity:
+          example: '204'
+        address:
           type: string
-          description: The from address entity
-          example: Opensea
-        from_address_entity_logo:
+          description: The address of the contract
+          example: '0x3105d328c66d8d55092358cf595d54608178e9b5'
+        data:
           type: string
-          description: The logo of the from address entity
-          example: https://opensea.io/favicon.ico
-        from_address:
+          description: The data of the log
+          example: '0x00000000000000000000000000000000000000000000000de05239bccd4d537400000000000000000000000000024dbc80a9f80e3d5fc0a0ee30e2693781a443'
+        topic0:
           type: string
-          description: The from address
-          example: '0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0'
-        from_address_label:
+          example: '0x2caecd17d02f56fa897705dcc740da2d237c373f70686f4e0d9bd3bf0400ea7a'
+        topic1:
           type:
           - string
           - 'null'
-          description: The label of the from address
-          example: Binance 1
-        to_address_entity:
-          type: string
-          description: The to address entity
-          example: Beaver Build
-        to_address_entity_logo:
-          type: string
-          description: The logo of the to address entity
-          example: https://beaverbuild.com/favicon.ico
-        to_address:
-          type: string
-          description: The to address
-          example: '0x003dde3494f30d861d063232c6a8c04394b686ff'
-        to_address_label:
+          example: '0x000000000000000000000000031002d15b0d0cd7c9129d6f644446368deae391'
+        topic2:
           type:
           - string
           - 'null'
-          description: The label of the to address
-          example: Binance 2
-        value:
-          type: string
-          description: The value sent
-          example: '115580000000000000'
-        gas:
-          type: string
-          example: '30000'
-        gas_price:
-          type: string
-          description: The gas price
-          example: '52500000000'
-        input:
-          type: string
-          example: 0x
-        receipt_cumulative_gas_used:
-          type: string
-          example: '4923073'
-        receipt_gas_used:
-          type: string
-          example: '21000'
-        receipt_contract_address:
-          type: string
+          example: '0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9'
+        topic3:
+          type:
+          - string
+          - 'null'
           example: null
-        receipt_root:
-          type: string
-          example: null
-        receipt_status:
-          type: string
-          example: '1'
-        transaction_fee:
-          type: string
-          example: '0.00034'
         block_timestamp:
           type: string
-          description: The block timestamp
+          description: The timestamp of the block
           example: '2021-05-07T11:08:35.000Z'
         block_number:
           type: string
@@ -591,87 +927,6 @@ components:
           type: string
           description: The hash of the block
           example: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171'
-        logs:
-          type: array
-          description: The logs of the transaction
-          items:
-            $ref: '#/components/schemas/logVerbose'
-        decoded_call:
-          type: object
-          description: The decoded data of the transaction
-          $ref: '#/components/schemas/decodedCall'
-    internalTransaction:
-      type: object
-      required:
-      - transaction_hash
-      - block_number
-      - block_hash
-      - type
-      - from
-      - to
-      - value
-      - gas
-      - gas_used
-      - input
-      - output
-      - error
-      properties:
-        transaction_hash:
-          type: string
-          description: The hash of the transaction
-          example: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'
-        block_number:
-          type: string
-          description: The block number
-          example: 12526958
-        block_hash:
-          type: string
-          description: The block hash
-          example: '0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86'
-        type:
-          type: string
-          description: Call type
-          example: CALL
-        from:
-          type: string
-          description: The sender
-          example: '0xd4a3BebD824189481FC45363602b83C9c7e9cbDf'
-        to:
-          type: string
-          description: The recipient
-          example: '0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef'
-        value:
-          type: string
-          description: The value that was transfered (in wei)
-          example: '650000000000000000'
-        gas:
-          type: string
-          description: The gas of the transaction
-          example: '6721975'
-        gas_used:
-          type: string
-          description: The used gas
-          example: '6721975'
-        input:
-          type: string
-          description: The input
-          example: 0x
-        output:
-          type: string
-          description: The output
-          example: 0x
-        error:
-          type:
-          - string
-          - 'null'
-          description: Error message if the internal transaction failed
-          example: Execution reverted
-    includeList:
-      type: string
-      example: ''
-      default: ''
-      enum:
-      - internal_transactions
     logVerbose:
       required:
       - log_index
@@ -731,32 +986,12 @@ components:
           type: object
           description: The decoded data of the log
           $ref: '#/components/schemas/decodedEvent'
-    orderList:
+    includeList:
       type: string
-      example: DESC
-      default: DESC
+      example: ''
+      default: ''
       enum:
-      - ASC
-      - DESC
-    transactionCollectionVerbose:
-      required:
-      - result
-      properties:
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/blockTransactionVerbose'
+      - internal_transactions
     decodedEvent:
       type: object
       properties:
@@ -783,241 +1018,6 @@ components:
               type:
                 type: string
                 example: address
-    decodedCall:
-      type: object
-      properties:
-        signature:
-          type: string
-          example: transfer(address,uint256)
-        label:
-          type: string
-          example: transfer
-        type:
-          type: string
-          example: function
-        params:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                example: _to
-              value:
-                type: string
-                example: '0x1CA455A55108874A95C84620dDA2566c54D17953'
-              type:
-                type: string
-                example: address
-    chainList:
-      type: string
-      example: eth
-      default: eth
-      enum:
-      - eth
-      - '0x1'
-      - sepolia
-      - '0xaa36a7'
-      - polygon
-      - '0x89'
-      - bsc
-      - '0x38'
-      - bsc testnet
-      - '0x61'
-      - avalanche
-      - '0xa86a'
-      - fantom
-      - '0xfa'
-      - cronos
-      - '0x19'
-      - arbitrum
-      - '0xa4b1'
-      - chiliz
-      - '0x15b38'
-      - chiliz testnet
-      - '0x15b32'
-      - gnosis
-      - '0x64'
-      - gnosis testnet
-      - '0x27d8'
-      - base
-      - '0x2105'
-      - base sepolia
-      - '0x14a34'
-      - optimism
-      - '0xa'
-      - polygon amoy
-      - '0x13882'
-      - linea
-      - '0xe708'
-      - moonbeam
-      - '0x504'
-      - moonriver
-      - '0x505'
-      - moonbase
-      - '0x507'
-      - linea sepolia
-      - '0xe705'
-      - flow
-      - '0x2eb'
-      - flow-testnet
-      - '0x221'
-      - ronin
-      - '0x7e4'
-      - ronin-testnet
-      - '0x31769'
-      - lisk
-      - '0x46f'
-      - lisk-sepolia
-      - '0x106a'
-      - pulse
-      - '0x171'
-      - sei-testnet
-      - '0x530'
-      - sei
-      - '0x531'
-      - monad
-      - '0x8f'
-    blockTransaction:
-      type: object
-      required:
-      - hash
-      - nonce
-      - transaction_index
-      - from_address
-      - value
-      - gas_price
-      - input
-      - receipt_cumulative_gas_used
-      - receipt_gas_used
-      - receipt_status
-      - block_timestamp
-      - block_number
-      - block_hash
-      properties:
-        hash:
-          type: string
-          description: The hash of the transaction
-          example: '0x1ed85b3757a6d31d01a4d6677fc52fd3911d649a0af21fe5ca3f886b153773ed'
-        nonce:
-          type: string
-          description: The nonce
-          example: '1848059'
-        transaction_index:
-          type: string
-          example: '108'
-        from_address_entity:
-          type: string
-          description: The from address entity
-          example: Opensea
-        from_address_entity_logo:
-          type: string
-          description: The logo of the from address entity
-          example: https://opensea.io/favicon.ico
-        from_address:
-          type: string
-          description: The from address
-          example: '0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0'
-        from_address_label:
-          type:
-          - string
-          - 'null'
-          description: The label of the from address
-          example: Binance 1
-        to_address_entity:
-          type: string
-          description: The to address entity
-          example: Beaver Build
-        to_address_entity_logo:
-          type: string
-          description: The logo of the to address entity
-          example: https://beaverbuild.com/favicon.ico
-        to_address:
-          type:
-          - string
-          - 'null'
-          description: The to address
-          example: '0x003dde3494f30d861d063232c6a8c04394b686ff'
-        to_address_label:
-          type:
-          - string
-          - 'null'
-          description: The label of the to address
-          example: Binance 2
-        value:
-          type: string
-          description: The value sent
-          example: '115580000000000000'
-        gas:
-          type: string
-          example: '30000'
-        gas_price:
-          type: string
-          description: The gas price
-          example: '52500000000'
-        input:
-          type: string
-          example: 0x
-        receipt_cumulative_gas_used:
-          type: string
-          example: '4923073'
-        receipt_gas_used:
-          type: string
-          example: '21000'
-        receipt_contract_address:
-          type:
-          - string
-          - 'null'
-          example: null
-        receipt_root:
-          type:
-          - string
-          - 'null'
-          example: null
-        receipt_status:
-          type: string
-          example: '1'
-        block_timestamp:
-          type: string
-          description: The block timestamp
-          example: '2021-05-07T11:08:35.000Z'
-        block_number:
-          type: string
-          description: The block number
-          example: '12386788'
-        block_hash:
-          type: string
-          description: The hash of the block
-          example: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171'
-        logs:
-          type: array
-          description: The logs of the transaction
-          items:
-            $ref: '#/components/schemas/log'
-        internal_transactions:
-          type: array
-          description: The internal transactions of the transaction
-          items:
-            $ref: '#/components/schemas/internalTransaction'
-    transactionCollection:
-      required:
-      - result
-      properties:
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/transaction'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

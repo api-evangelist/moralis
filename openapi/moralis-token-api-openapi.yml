@@ -2033,115 +2033,498 @@ paths:
       x-mcp-prompt: Submit a list of token addresses and time period to retrieve their analytics. Use this when users want performance data for multiple tokens or are comparing token metrics.
 components:
   schemas:
-    TokenHolderSummaryHolderByAcquisition:
+    nativeErc20Price:
       required:
-      - swap
-      - transfer
-      - airdrop
+      - value
+      - decimals
+      - name
+      - symbol
+      - address
       properties:
-        swap:
-          type: number
-          description: Number of wallets with first interaction as a swap
+        value:
+          type: string
+          description: The native price of the token
+          example: '8409770570506626'
+        decimals:
+          type: integer
+          description: The number of decimals on the token
+          example: 18
+        name:
+          type: string
+          description: The name of the token
+          example: Ether
+        symbol:
+          type: string
+          description: The symbol of the token
+          example: ETH
+        address:
+          type: string
+          description: The address of the native token
+    chainList:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+    erc20TokenStat:
+      required:
+      - transfers
+      properties:
+        transfers:
+          type: object
+          description: ERC20 Token transfer stats
+          required:
+          - total
+          properties:
+            total:
+              type: string
+              description: The number of transfers of the token
+              example: '1000'
+    TokenHolderSupplyChange:
+      required:
+      - supply
+      - supplyPercent
+      properties:
+        supply:
+          type: string
+          description: Net holder change
           example: '10'
-        transfer:
+        supplyPercent:
           type: number
-          description: Number of wallets with first interaction as a transfer
-          example: '10'
-        airdrop:
-          type: number
-          description: Number of wallets with first interaction as a airdrop
-          example: '10'
-    TokenAnalyticsData:
+          description: The percentage change
+          example: '0.10'
+    newTokensByExchangeResponse:
       type: object
       properties:
-        chainId:
+        total:
+          type: integer
+          description: The total number of matches for this query
+          example: 10
+        page:
+          type: integer
+          description: The page of the current result
+          example: 1
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: 100
+        cursor:
           type: string
-          description: The chain ID
-          example: '0x1'
-        categoryId:
-          type: string
-          example: '0x1'
-        totalBuyVolume:
-          $ref: '#/components/schemas/VolumeData'
-        totalSellVolume:
-          $ref: '#/components/schemas/VolumeData'
-        totalBuyers:
-          $ref: '#/components/schemas/VolumeData'
-        totalSellers:
-          $ref: '#/components/schemas/VolumeData'
-        totalBuys:
-          $ref: '#/components/schemas/VolumeData'
-        totalSells:
-          $ref: '#/components/schemas/VolumeData'
-        uniqueWallets:
-          $ref: '#/components/schemas/VolumeData'
-        pricePercentChange:
-          $ref: '#/components/schemas/VolumeData'
-        usdPrice:
-          type: string
-          example: '530'
-        totalLiquidity:
-          type: string
-          example: '530'
-        totalFullyDilutedValuation:
-          type: string
-          example: '530'
-    TimeSeriesVolumeByTokenResponse:
-      type: object
-      properties:
-        chainId:
-          type: string
-          example: '0x1'
-        tokenAddress:
-          type: string
-          example: '0xdac17f958d2ee523a2206206994597c13d831ec7'
-        timeseries:
+          description: The cursor to use for the next page
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+        result:
           type: array
           items:
-            $ref: '#/components/schemas/TimeSeriesByTokenData'
-    TokenHolderSummaryResult:
-      required:
-      - totalHolders
-      - holderSupply
-      - holderChange
-      - holdersByAcquisition
-      - holderDistribution
+            type: object
+            properties:
+              tokenAddress:
+                type: string
+                description: The address of the token
+                example: '0x6b175474e89094c44da98b954eedeac495271d0f'
+              name:
+                type:
+                - string
+                - 'null'
+                description: The name of the token
+                example: Test Token
+              symbol:
+                type:
+                - string
+                - 'null'
+                description: The symbol of the token
+                example: TEST
+              logo:
+                type:
+                - string
+                - 'null'
+                description: The logo URL of the token
+                example: https://example.com/logo.png
+              decimals:
+                type:
+                - integer
+                - 'null'
+                description: The number of decimals of the token
+                example: 18
+              priceNative:
+                type:
+                - string
+                - 'null'
+                description: The price in the native currency
+                example: '0.5'
+              priceUsd:
+                type:
+                - string
+                - 'null'
+                description: The price in USD
+                example: '2.0'
+              liquidity:
+                type:
+                - string
+                - 'null'
+                description: The liquidity in USD
+                example: '500000'
+              fullyDilutedValuation:
+                type:
+                - string
+                - 'null'
+                description: The fully diluted valuation in USD
+                example: '2000000'
+              createdAt:
+                type: string
+                description: The timestamp when the token was created
+                example: '2023-01-20T09:39:55.818Z'
+    erc20Categories:
+      type: object
       properties:
-        totalHolders:
-          type: number
-          description: The total holders of the token
-          example: '99999'
-        holderSupply:
-          type: object
-          description: The holder supply
-          $ref: '#/components/schemas/TokenHolderSummarySupply'
-        holderChange:
-          type: object
-          description: The holder change
-          $ref: '#/components/schemas/TokenHolderSummaryHolderChange'
-        holdersByAcquisition:
-          type: object
-          description: The holder change
-          $ref: '#/components/schemas/TokenHolderSummaryHolderByAcquisition'
-        holderDistribution:
-          type: object
-          description: The holder distribution
-          $ref: '#/components/schemas/TokenHolderCategory'
-    GetTimeSeriesTokenAnalyticsDto:
-      required:
-      - tokens
-      properties:
-        tokens:
+        categories:
           type: array
-          maxItems: 30
-          description: The tokens to be fetched
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The name of the category
+                example: Stablecoin
+              id:
+                type: string
+                description: The unique identifier of the category
+                example: stablecoin
+            required:
+            - name
+            - id
+      required:
+      - categories
+    getSnipersTransactions:
+      type: object
+      required:
+      - transactionHash
+      - blocksAfterCreation
+      - transactionTimestamp
+      properties:
+        transactionHash:
+          type: string
+          example: '0x2bfcba4715774420936669cd0ff2241d70e9abec'
+        blocksAfterCreation:
+          type: integer
+          example: 0
+        transactionTimestamp:
+          type: number
+          example: 0
+    TokenHolderChange:
+      required:
+      - change
+      - changePercent
+      properties:
+        change:
+          type: number
+          description: Net holder change
+          example: '10'
+        changePercent:
+          type: number
+          description: The percentage change
+          example: '0.10'
+    TokenHolderSummaryHolderChange:
+      required:
+      - 5min
+      - 1h
+      - 6h
+      - 24h
+      - 7d
+      - 3d
+      - 30d
+      properties:
+        5min:
+          type: object
+          description: The holder change in the last 5 minutes
+          $ref: '#/components/schemas/TokenHolderChange'
+        1h:
+          type: object
+          description: Net holder change in the last 1 hour
+          $ref: '#/components/schemas/TokenHolderChange'
+        6h:
+          type: object
+          description: Net holder change in the last 6 hour
+          $ref: '#/components/schemas/TokenHolderChange'
+        24h:
+          type: object
+          description: Net holder change in the last 24 hour
+          $ref: '#/components/schemas/TokenHolderChange'
+        3d:
+          type: object
+          description: Net holder change in the last 3 days
+          $ref: '#/components/schemas/TokenHolderChange'
+        7d:
+          type: object
+          description: Net holder change in the last 7 days
+          $ref: '#/components/schemas/TokenHolderChange'
+        30d:
+          type: object
+          description: Net holder change in the last 30 days
+          $ref: '#/components/schemas/TokenHolderChange'
+    TokenScoreVolumeUsd:
+      type: object
+      properties:
+        10m:
+          type: number
+          example: 17506.72
+        30m:
+          type: number
+          example: 974862.35
+        1h:
+          type: number
+          example: 88701.15
+        4h:
+          type: number
+          example: 84547204.23
+        12h:
+          type: number
+          example: 974862.35
+        1d:
+          type: number
+          example: 1971902.13
+        7d:
+          type: number
+          example: 4571941.67
+        30d:
+          type: number
+          example: 445.57
+    tokenPriceItem:
+      required:
+      - token_address
+      properties:
+        token_address:
+          type: string
+          description: The contract address
+          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
+        exchange:
+          type: string
+          description: The exchange
+          example: uniswapv3
+        to_block:
+          type: string
+          description: The block number
+          example: 12526958
+    VolumeData:
+      type: object
+      properties:
+        5m:
+          type: number
+          format: double
+          example: 6516719.425429553
+        1h:
+          type: number
+          format: double
+          example: 137489621.30780438
+        6h:
+          type: number
+          format: double
+          example: 585436101.0503464
+        24h:
+          type: number
+          format: double
+          example: 2668170156.0409784
+    TokenHolderTimelineResult:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '1'
+        pageSize:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenHolderTimelineArray'
+    erc20Metadata:
+      type: object
+      required:
+      - address
+      - name
+      - symbol
+      - decimals
+      - created_at
+      - possible_spam
+      properties:
+        address:
+          type: string
+          description: The address of the token contract
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        address_label:
+          type:
+          - string
+          - 'null'
+          description: The label of the address
+          example: Binance 1
+        name:
+          type: string
+          description: The name of the token contract
+          example: Kylin Network
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: KYL
+        decimals:
+          type: string
+          description: The number of decimals on the token
+          example: '18'
+        logo:
+          type:
+          - string
+          - 'null'
+          description: The logo of the token
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        logo_hash:
+          type:
+          - string
+          - 'null'
+          description: The logo hash
+          example: ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d
+        thumbnail:
+          type:
+          - string
+          - 'null'
+          description: The thumbnail of the logo
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png
+        total_supply:
+          type: string
+          description: Total tokens created minus any that have been burned
+          example: '420689899999994793099999999997400'
+        total_supply_formatted:
+          type: string
+          description: Total tokens created minus any that have been burned (decimal formatted)
+          example: '420689899999994.7930999999999974'
+        implementations:
+          type: array
+          items:
+            description: The token addresses of the same symbol from another chains
+            required:
+            - chainId
+            - address
+            properties:
+              chainId:
+                type: string
+                description: The chain id
+                example: '0x1'
+              chain:
+                type: string
+                description: The chain name
+                example: eth
+              chainName:
+                type: string
+                description: The chain name
+                example: Ethereum
+              address:
+                type: string
+                description: The token address
+                example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        fully_diluted_valuation:
+          type: string
+          description: Fully Diluted Valuation (FDV), this represents the token's Current Price x Total Supply
+          example: '3407271444.05'
+        block_number:
+          type: string
+        validated:
+          type: number
+        created_at:
+          type: string
+          description: The timestamp of when the erc20 token was created
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_contract:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: false
+        categories:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Categories of the token
           example:
-          - chain: '0x1'
-            tokenAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7'
-          - chain: solana
-            tokenAddress: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
-          items:
-            $ref: '#/components/schemas/tokenAndChainItem'
+          - stablecoin
+        links:
+          $ref: '#/components/schemas/discoveryTokenLinks'
+        circulating_supply:
+          type: string
+          description: The circulating supply of the token
+          example: '4206864.7489303'
+        market_cap:
+          type: string
+          description: The market cap of the token
+          example: '3407271444.05'
     HistoricalTokenScoreResponse:
       type: object
       properties:
@@ -2162,6 +2545,252 @@ components:
               score:
                 type: number
                 example: 85
+    VolumeChainsResponse:
+      type: object
+      properties:
+        chains:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChainData'
+    erc20Price:
+      required:
+      - usdPrice
+      - possibleSpam
+      - verifiedContract
+      properties:
+        tokenName:
+          type: string
+          description: The name of the token
+          example: Kylin Network
+        tokenSymbol:
+          type: string
+          description: The symbol of the token
+          example: KYL
+        tokenLogo:
+          type: string
+          description: The logo of the token
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        tokenDecimals:
+          type: string
+          description: The number of decimals of the token
+          example: '18'
+        nativePrice:
+          $ref: '#/components/schemas/nativeErc20Price'
+        usdPrice:
+          type: number
+          format: double
+          description: The price in USD for the token
+          example: 19.722370676
+        usdPriceFormatted:
+          type: string
+          description: The price in USD for the token in string format
+          example: '19.722370676'
+        24hrPercentChange:
+          type: string
+          description: The 24hr percent change of the token
+          example: '-0.8842730258590583'
+        exchangeAddress:
+          type: string
+          description: The address of the exchange used to calculate the price
+          example: '0x1f98431c8ad98523631ae4a59f267346ea31f984'
+        exchangeName:
+          type: string
+          description: The name of the exchange used to calculate the price
+          example: Uniswap v3
+        tokenAddress:
+          type: string
+          description: The address of the token
+          example: '0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c'
+        toBlock:
+          type: string
+          description: toBlock
+          example: '16314545'
+        possibleSpam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verifiedContract:
+          type: boolean
+          description: Indicates if the contract is verified
+          example: true
+        pairAddress:
+          type: string
+          description: The address of the pair
+          example: '0x1f98431c8ad98523631ae4a59f267346ea31f984'
+        pairTotalLiquidityUsd:
+          type: string
+          description: The total liquidity in USD of the pair
+          example: '123.45'
+        usdPrice24h:
+          type: number
+          description: The USD price 24 hours ago
+          example: 1
+        usdPrice24hrUsdChange:
+          type: number
+          description: The USD change in price over the last 24 hours
+          example: -8.615972490000345e-05
+        usdPrice24hrPercentChange:
+          type: number
+          description: The percent change in USD price over the last 24 hours
+          example: -0.008615972490000345
+        securityScore:
+          type: number
+          description: A number between 0 and 100 that defines the trust level of this specific token
+          example: 1
+    GetTimeSeriesTokenAnalyticsDto:
+      required:
+      - tokens
+      properties:
+        tokens:
+          type: array
+          maxItems: 30
+          description: The tokens to be fetched
+          example:
+          - chain: '0x1'
+            tokenAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+          - chain: solana
+            tokenAddress: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+          items:
+            $ref: '#/components/schemas/tokenAndChainItem'
+    graduatedTokensByExchangeResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: The total number of matches for this query
+          example: 10
+        page:
+          type: integer
+          description: The page of the current result
+          example: 1
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: 100
+        cursor:
+          type: string
+          description: The cursor to use for the next page
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              tokenAddress:
+                type: string
+                description: The address of the token
+                example: '0x6b175474e89094c44da98b954eedeac495271d0f'
+              name:
+                type:
+                - string
+                - 'null'
+                description: The name of the token
+                example: Test Token
+              symbol:
+                type:
+                - string
+                - 'null'
+                description: The symbol of the token
+                example: TEST
+              logo:
+                type:
+                - string
+                - 'null'
+                description: The logo URL of the token
+                example: https://example.com/logo.png
+              decimals:
+                type:
+                - integer
+                - 'null'
+                description: The number of decimals of the token
+                example: 18
+              priceNative:
+                type:
+                - string
+                - 'null'
+                description: The price in the native currency
+                example: '0.5'
+              priceUsd:
+                type:
+                - string
+                - 'null'
+                description: The price in USD
+                example: '2.0'
+              liquidity:
+                type:
+                - string
+                - 'null'
+                description: The liquidity in USD
+                example: '500000'
+              fullyDilutedValuation:
+                type:
+                - string
+                - 'null'
+                description: The fully diluted valuation in USD
+                example: '2000000'
+              graduatedAt:
+                type: string
+                description: The timestamp when the token graduated in ISO format
+                example: '2023-01-15T12:30:45.000Z'
+    erc20TokenOwnerCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        total_supply:
+          type: string
+          description: The total supply of the token
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/erc20TokenOwner'
+    candleSticksResponse:
+      type: object
+      required:
+      - page
+      - cursor
+      - pairAddress
+      - timeframe
+      - currency
+      - result
+      properties:
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        pairAddress:
+          type: string
+          description: The pair address
+          example: '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640'
+        tokenAddress:
+          type: string
+          description: The token address
+          example: '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640'
+        timeframe:
+          type: string
+          description: The timeframe
+          example: 30min
+        currency:
+          type: string
+          description: The currency
+          example: usd
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/ohlcv'
     TokenHolderCategory:
       required:
       - whales
@@ -2200,165 +2829,34 @@ components:
           type: integer
           description: Number of wallets in the category
           example: '100'
-    TimeSeriesByTokenData:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          example: '2022-02-22T00:00:00Z'
-        buyVolume:
-          type: number
-          example: 4565
-        sellVolume:
-          type: number
-          example: 4565
-        liquidityUsd:
-          type: number
-          example: 4565
-        fullyDilutedValuation:
-          type: number
-          example: 4565
-    getSwapsByPairAddressResponse:
+    TokenHolderSummaryResult:
       required:
-      - result
+      - totalHolders
+      - holderSupply
+      - holderChange
+      - holdersByAcquisition
+      - holderDistribution
       properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        pageSize:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        exchangeAddress:
-          type: string
-          example: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
-        exchangeName:
-          type: string
-          example: Uniswap v2
-        exchangeLogo:
-          type: string
-          example: https://entities-logos.s3.us-east-1.amazonaws.com/uniswap.png
-        pairLabel:
-          type: string
-          example: BRETT/WETH
-        pairAddress:
-          type: string
-          example: '0x36a46dff597c5a444bbc521d26787f57867d2214'
-        baseToken:
-          $ref: '#/components/schemas/TokenTransactionTokenMetadata'
-        quoteToken:
-          $ref: '#/components/schemas/TokenTransactionTokenMetadata'
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/swapsByPairAddressResult'
-    swapsByPairAddressResult:
-      type: object
-      required:
-      - transactionHash
-      - transactionIndex
-      - transactionType
-      - subCategory
-      - blockTimestamp
-      - walletAddress
-      - baseTokenAmount
-      - quoteTokenAmount
-      - baseTokenPriceUsd
-      - quoteTokenPriceUsd
-      - totalValueUsd
-      - baseQuotePrice
-      - blockNumber
-      properties:
-        transactionHash:
-          type: string
-          example: '0x2bfcba4715774420936669cd0ff2241d70e9abecab76c9db813602015b3134ad'
-        transactionIndex:
-          type: integer
-          example: 1
-        transactionType:
-          type: string
-          example: buy
-        blockTimestamp:
-          type: string
-          example: '2022-02-22T00:00:00Z'
-        blockNumber:
+        totalHolders:
           type: number
-          example: 21093423
-        subCategory:
-          type: string
-          example: accumulation
-        walletAddress:
-          type: string
-          example: '0x2bfcba4715774420936669cd0ff2241d70e9abec'
-        baseTokenAmount:
-          type: string
-          example: '1481.00'
-        quoteTokenAmount:
-          type: string
-          example: '0.634'
-        baseTokenPriceUsd:
-          type: number
-          example: 0.0734634
-        quoteTokenPriceUsd:
-          type: number
-          example: 23330
-        baseQuotePrice:
-          type: string
-          example: '0.00003376480687'
-        totalValueUsd:
-          type: number
-          example: 1165
-    tokenPriceItem:
-      required:
-      - token_address
-      properties:
-        token_address:
-          type: string
-          description: The contract address
-          example: '0x06012c8cf97bead5deae237070f9587f8e7a266d'
-        exchange:
-          type: string
-          description: The exchange
-          example: uniswapv3
-        to_block:
-          type: string
-          description: The block number
-          example: 12526958
-    TimeSeriesByCategoryData:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          example: '2022-02-22T00:00:00Z'
-        buyVolume:
-          type: number
-          example: 4565
-        sellVolume:
-          type: number
-          example: 4565
-        liquidityUsd:
-          type: number
-          example: 4565
-        fullyDilutedValuation:
-          type: number
-          example: 4565
-    tokenAndChainItem:
-      required:
-      - chain
-      - tokenAddress
-      properties:
-        chain:
-          type: string
-          description: The chain to query
-          $ref: '#/components/schemas/chainList'
-        tokenAddress:
-          type: string
-          description: The token address
-          example: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+          description: The total holders of the token
+          example: '99999'
+        holderSupply:
+          type: object
+          description: The holder supply
+          $ref: '#/components/schemas/TokenHolderSummarySupply'
+        holderChange:
+          type: object
+          description: The holder change
+          $ref: '#/components/schemas/TokenHolderSummaryHolderChange'
+        holdersByAcquisition:
+          type: object
+          description: The holder change
+          $ref: '#/components/schemas/TokenHolderSummaryHolderByAcquisition'
+        holderDistribution:
+          type: object
+          description: The holder distribution
+          $ref: '#/components/schemas/TokenHolderCategory'
     orderList:
       type: string
       example: DESC
@@ -2366,13 +2864,68 @@ components:
       enum:
       - ASC
       - DESC
-    VolumeCategoriesResponse:
-      type: object
+    GetMultipleTokenAnalyticsDto:
+      required:
+      - tokens
       properties:
-        categories:
+        tokens:
           type: array
+          maxItems: 30
+          description: The tokens to be fetched
+          example:
+          - chain: '0x1'
+            tokenAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+          - chain: solana
+            tokenAddress: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
           items:
-            $ref: '#/components/schemas/CategoriesData'
+            $ref: '#/components/schemas/tokenAndChainItem'
+    TopProfitableWalletPerTokenResponse:
+      required:
+      - avg_buy_price_usd
+      - avg_cost_of_quantity_sold
+      - avg_sell_price_usd
+      - count_of_trades
+      - realized_profit_percentage
+      - realized_profit_usd
+      - total_sold_usd
+      - total_tokens_bought
+      - total_tokens_sold
+      - total_usd_invested
+      - address
+      properties:
+        avg_buy_price_usd:
+          type: string
+          description: Average buy price in USD.
+        avg_cost_of_quantity_sold:
+          type: string
+          description: Average cost of quantity sold.
+        avg_sell_price_usd:
+          type: string
+          description: Average sell price in USD.
+        count_of_trades:
+          type: number
+          description: Total number of trades.
+        realized_profit_percentage:
+          type: number
+          description: Realized profit as a percentage.
+        realized_profit_usd:
+          type: string
+          description: Realized profit in USD.
+        total_sold_usd:
+          type: string
+          description: Total amount in USD for sold tokens.
+        total_tokens_bought:
+          type: string
+          description: Total number of tokens bought.
+        total_tokens_sold:
+          type: string
+          description: Total number of tokens sold.
+        total_usd_invested:
+          type: string
+          description: Total amount of USD invested.
+        address:
+          type: string
+          description: The wallet address.
     erc20Transaction:
       required:
       - token_name
@@ -2479,113 +3032,64 @@ components:
           type: boolean
           description: Indicates if a contract is verified
           example: 'false'
-    bondingTokensByExchangeResponse:
-      type: object
+    getSnipersResponse:
+      required:
+      - result
+      - transactionHash
+      - blockNumber
+      - blockTimestamp
       properties:
-        total:
-          type: integer
-          description: The total number of matches for this query
-          example: 10
-        page:
-          type: integer
-          description: The page of the current result
-          example: 1
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: 100
-        cursor:
+        transactionHash:
           type: string
-          description: The cursor to use for the next page
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+          example: '0x2bfcba4715774420936669cd0ff2241d70e9abecab76c9db813602015b3134ad'
+        blockTimestamp:
+          type: string
+          example: '2022-02-22T00:00:00Z'
+        blockNumber:
+          type: number
+          example: 21093423
         result:
           type: array
           items:
-            type: object
-            properties:
-              tokenAddress:
-                type: string
-                description: The address of the token
-                example: '0x6b175474e89094c44da98b954eedeac495271d0f'
-              name:
-                type:
-                - string
-                - 'null'
-                description: The name of the token
-                example: Test Token
-              symbol:
-                type:
-                - string
-                - 'null'
-                description: The symbol of the token
-                example: TEST
-              logo:
-                type:
-                - string
-                - 'null'
-                description: The logo URL of the token
-                example: https://example.com/logo.png
-              decimals:
-                type:
-                - integer
-                - 'null'
-                description: The number of decimals of the token
-                example: 18
-              priceNative:
-                type:
-                - string
-                - 'null'
-                description: The price in the native currency
-                example: '0.5'
-              priceUsd:
-                type:
-                - string
-                - 'null'
-                description: The price in USD
-                example: '2.0'
-              liquidity:
-                type:
-                - string
-                - 'null'
-                description: The liquidity in USD
-                example: '500000'
-              fullyDilutedValuation:
-                type:
-                - string
-                - 'null'
-                description: The fully diluted valuation in USD
-                example: '2000000'
-              bondingCurveProgress:
-                type: number
-                description: The bonding curve progress as a percentage
-                example: 50
-    TokenScoreVolumeUsd:
-      type: object
+            $ref: '#/components/schemas/getSnipersResult'
+    getSwapsByPairAddressResponse:
+      required:
+      - result
       properties:
-        10m:
-          type: number
-          example: 17506.72
-        30m:
-          type: number
-          example: 974862.35
-        1h:
-          type: number
-          example: 88701.15
-        4h:
-          type: number
-          example: 84547204.23
-        12h:
-          type: number
-          example: 974862.35
-        1d:
-          type: number
-          example: 1971902.13
-        7d:
-          type: number
-          example: 4571941.67
-        30d:
-          type: number
-          example: 445.57
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        pageSize:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        exchangeAddress:
+          type: string
+          example: '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'
+        exchangeName:
+          type: string
+          example: Uniswap v2
+        exchangeLogo:
+          type: string
+          example: https://entities-logos.s3.us-east-1.amazonaws.com/uniswap.png
+        pairLabel:
+          type: string
+          example: BRETT/WETH
+        pairAddress:
+          type: string
+          example: '0x36a46dff597c5a444bbc521d26787f57867d2214'
+        baseToken:
+          $ref: '#/components/schemas/TokenTransactionTokenMetadata'
+        quoteToken:
+          $ref: '#/components/schemas/TokenTransactionTokenMetadata'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/swapsByPairAddressResult'
     pairStatsResponse:
       type: object
       required:
@@ -2718,268 +3222,31 @@ components:
         sellers:
           type: object
           $ref: '#/components/schemas/candleSummary'
-    TokenScoreResponse:
-      type: object
-      properties:
-        tokenAddress:
-          type: string
-          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
-        chainId:
-          type: string
-          example: '0x1'
-        score:
-          type: integer
-          example: 94
-        updatedAt:
-          type: string
-          example: '2025-12-03T21:10:28Z'
-        metrics:
-          $ref: '#/components/schemas/TokenScoreMetrics'
-    tokenSupportedPairsResponse:
-      type: object
+    TokenHolderSummaryHolderByAcquisition:
       required:
-      - result
-      - page
-      - page_size
-      - cursor
+      - swap
+      - transfer
+      - airdrop
       properties:
-        pairs:
-          type: array
-          items:
-            $ref: '#/components/schemas/supportedPairInfo'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '50'
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-    erc20Price:
-      required:
-      - usdPrice
-      - possibleSpam
-      - verifiedContract
-      properties:
-        tokenName:
-          type: string
-          description: The name of the token
-          example: Kylin Network
-        tokenSymbol:
-          type: string
-          description: The symbol of the token
-          example: KYL
-        tokenLogo:
-          type: string
-          description: The logo of the token
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        tokenDecimals:
-          type: string
-          description: The number of decimals of the token
-          example: '18'
-        nativePrice:
-          $ref: '#/components/schemas/nativeErc20Price'
-        usdPrice:
+        swap:
           type: number
-          format: double
-          description: The price in USD for the token
-          example: 19.722370676
-        usdPriceFormatted:
-          type: string
-          description: The price in USD for the token in string format
-          example: '19.722370676'
-        24hrPercentChange:
-          type: string
-          description: The 24hr percent change of the token
-          example: '-0.8842730258590583'
-        exchangeAddress:
-          type: string
-          description: The address of the exchange used to calculate the price
-          example: '0x1f98431c8ad98523631ae4a59f267346ea31f984'
-        exchangeName:
-          type: string
-          description: The name of the exchange used to calculate the price
-          example: Uniswap v3
-        tokenAddress:
-          type: string
-          description: The address of the token
-          example: '0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c'
-        toBlock:
-          type: string
-          description: toBlock
-          example: '16314545'
-        possibleSpam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        verifiedContract:
-          type: boolean
-          description: Indicates if the contract is verified
-          example: true
-        pairAddress:
-          type: string
-          description: The address of the pair
-          example: '0x1f98431c8ad98523631ae4a59f267346ea31f984'
-        pairTotalLiquidityUsd:
-          type: string
-          description: The total liquidity in USD of the pair
-          example: '123.45'
-        usdPrice24h:
-          type: number
-          description: The USD price 24 hours ago
-          example: 1
-        usdPrice24hrUsdChange:
-          type: number
-          description: The USD change in price over the last 24 hours
-          example: -8.615972490000345e-05
-        usdPrice24hrPercentChange:
-          type: number
-          description: The percent change in USD price over the last 24 hours
-          example: -0.008615972490000345
-        securityScore:
-          type: number
-          description: A number between 0 and 100 that defines the trust level of this specific token
-          example: 1
-    TokenScoreMetrics:
-      type: object
-      properties:
-        usdPrice:
-          type: number
-          example: 6.47147501365255e-06
-        liquidityUsd:
-          type: number
-          example: 10890420.9
-        volumeUsd:
-          $ref: '#/components/schemas/TokenScoreVolumeUsd'
-        transactions:
-          $ref: '#/components/schemas/TokenScoreTransactions'
-        supply:
-          $ref: '#/components/schemas/TokenScoreSupply'
-    SupportedPairTokenInfo:
-      type: object
-      properties:
-        token_address:
-          type: string
-          description: The token address
-        token_name:
-          type: string
-          description: The token name
-        token_symbol:
-          type: string
-          description: The token symbol
-        token_logo:
-          type: string
-          description: The token logo
-        token_decimals:
-          type: string
-          description: The token decimals
-        pair_token_type:
-          type: string
-        liquidity_usd:
-          type: string
-    TokenHolderTimelineResult:
-      required:
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '1'
-        pageSize:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/TokenHolderTimelineArray'
-    TimeSeriesByTokensData:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/TimeSeriesVolumeByTokenResponse'
-    TokenTransactionTokenMetadata:
-      type: object
-      properties:
-        address:
-          type: string
-          description: The address of the token
-          example: '0x003dde3494f30d861d063232c6a8c04394b686ff'
-        name:
-          type: string
-          description: The name of the token
-          example: BRETT
-        symbol:
-          type: string
-          description: The symbol of the token
-          example: BRETT
-        logo:
-          type: string
-          description: The URL of the token's logo
-          example: https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png
-        amount:
-          type: string
-          description: The amount of the token
-          example: '14811.98'
-        usdPrice:
-          type: number
-          description: The amount of the token
-          example: 0.078634
-        usdAmount:
-          type: number
-          description: The amount of the token
-          example: 1155.33
-      required:
-      - address
-      - name
-      - symbol
-      - logo
-      - amount
-      - usdPrice
-      - usdAmount
-    erc20TokenOwnerCollection:
-      required:
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        total_supply:
-          type: string
-          description: The total supply of the token
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/erc20TokenOwner'
-    TokenHolderSupplyChange:
-      required:
-      - supply
-      - supplyPercent
-      properties:
-        supply:
-          type: string
-          description: Net holder change
+          description: Number of wallets with first interaction as a swap
           example: '10'
-        supplyPercent:
+        transfer:
           type: number
-          description: The percentage change
-          example: '0.10'
+          description: Number of wallets with first interaction as a transfer
+          example: '10'
+        airdrop:
+          type: number
+          description: Number of wallets with first interaction as a airdrop
+          example: '10'
+    TimeSeriesVolumeByCategoryResponse:
+      type: object
+      properties:
+        timeseries:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesByCategoryData'
     erc20TokenBalance:
       required:
       - token_address
@@ -3025,440 +3292,6 @@ components:
           type: boolean
           description: Indicates if a contract is verified
           example: 'false'
-    MultipleTokenAnalyticsData:
-      type: object
-      properties:
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/TokenAnalyticsData'
-    TopProfitableWalletPerTokenResponse:
-      required:
-      - avg_buy_price_usd
-      - avg_cost_of_quantity_sold
-      - avg_sell_price_usd
-      - count_of_trades
-      - realized_profit_percentage
-      - realized_profit_usd
-      - total_sold_usd
-      - total_tokens_bought
-      - total_tokens_sold
-      - total_usd_invested
-      - address
-      properties:
-        avg_buy_price_usd:
-          type: string
-          description: Average buy price in USD.
-        avg_cost_of_quantity_sold:
-          type: string
-          description: Average cost of quantity sold.
-        avg_sell_price_usd:
-          type: string
-          description: Average sell price in USD.
-        count_of_trades:
-          type: number
-          description: Total number of trades.
-        realized_profit_percentage:
-          type: number
-          description: Realized profit as a percentage.
-        realized_profit_usd:
-          type: string
-          description: Realized profit in USD.
-        total_sold_usd:
-          type: string
-          description: Total amount in USD for sold tokens.
-        total_tokens_bought:
-          type: string
-          description: Total number of tokens bought.
-        total_tokens_sold:
-          type: string
-          description: Total number of tokens sold.
-        total_usd_invested:
-          type: string
-          description: Total amount of USD invested.
-        address:
-          type: string
-          description: The wallet address.
-    getSnipersTransactions:
-      type: object
-      required:
-      - transactionHash
-      - blocksAfterCreation
-      - transactionTimestamp
-      properties:
-        transactionHash:
-          type: string
-          example: '0x2bfcba4715774420936669cd0ff2241d70e9abec'
-        blocksAfterCreation:
-          type: integer
-          example: 0
-        transactionTimestamp:
-          type: number
-          example: 0
-    CategoriesData:
-      type: object
-      properties:
-        categoryId:
-          type: string
-          example: '0x1'
-        totalBuyVolume:
-          $ref: '#/components/schemas/VolumeData'
-        totalSellVolume:
-          $ref: '#/components/schemas/VolumeData'
-        totalBuyers:
-          $ref: '#/components/schemas/VolumeData'
-        totalSellers:
-          $ref: '#/components/schemas/VolumeData'
-        totalBuys:
-          $ref: '#/components/schemas/VolumeData'
-        totalSells:
-          $ref: '#/components/schemas/VolumeData'
-        uniqueWallets:
-          $ref: '#/components/schemas/VolumeData'
-    ChainData:
-      type: object
-      properties:
-        chainId:
-          type: string
-          example: '0x1'
-        totalVolume:
-          $ref: '#/components/schemas/VolumeData'
-        activeWallets:
-          $ref: '#/components/schemas/VolumeData'
-        totalTransactions:
-          $ref: '#/components/schemas/VolumeData'
-    VolumeChainsResponse:
-      type: object
-      properties:
-        chains:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChainData'
-    WalletTopProfitableWalletPerTokenResponse:
-      required:
-      - name
-      - symbol
-      - decimals
-      - logo
-      - possible_spam
-      - result
-      properties:
-        name:
-          type: string
-          description: The name of the token contract
-          example: Kylin Network
-        symbol:
-          type: string
-          description: The symbol of the NFT contract
-          example: KYL
-        decimals:
-          type: integer
-          description: The number of decimals on the token
-          example: 18
-        logo:
-          type: string
-          description: The logo of the token
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        possible_spam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/TopProfitableWalletPerTokenResponse'
-          description: List of top profitable wallets per token.
-    getSnipersResult:
-      type: object
-      required:
-      - walletAddress
-      - totalTokensSniped
-      - totalSnipedUsd
-      - totalSnipedTransactions
-      - totalTokensSold
-      - totalSoldUsd
-      - totalSellTransactions
-      - currentBalance
-      - currentBalanceUsdValue
-      - realizedProfitPercentage
-      - realizedProfitUsd
-      properties:
-        walletAddress:
-          type: string
-          example: '0x2bfcba4715774420936669cd0ff2241d70e9abec'
-        totalTokensSniped:
-          type: number
-          example: 0
-        totalSnipedUsd:
-          type: number
-          example: 0
-        totalSnipedTransactions:
-          type: number
-          example: 0
-        totalTokensSold:
-          type: number
-          example: 0
-        totalSoldUsd:
-          type: number
-          example: 0
-        totalSellTransactions:
-          type: number
-          example: 0
-        currentBalance:
-          type: number
-          example: 0
-        currentBalanceUsdValue:
-          type: number
-          example: 0
-        realizedProfitPercentage:
-          type: number
-          example: 0
-        realizedProfitUsd:
-          type: number
-          example: 0
-        snipedTransactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/getSnipersTransactions'
-        sellTransactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/getSnipersTransactions'
-    TimeSeriesData:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          example: '2022-02-22T00:00:00Z'
-        volume:
-          type: number
-          example: 4565
-        liquidityUsd:
-          type: number
-          example: 4565
-        fullyDilutedValuation:
-          type: number
-          example: 4565
-    erc20TransactionCollection:
-      required:
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
-          type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/erc20Transaction'
-    ohlcv:
-      type: object
-      properties:
-        timestamp:
-          type: string
-        open:
-          type: number
-        high:
-          type: number
-        low:
-          type: number
-        close:
-          type: number
-        volume:
-          type: number
-        trades:
-          type: number
-    erc20TokenOwner:
-      required:
-      - owner_address
-      - owner_address_label
-      - balance
-      - balance_formatted
-      - usd_value
-      - is_contract
-      - percentage_relative_to_total_supply
-      properties:
-        owner_address:
-          type: string
-          description: The address of the erc20 token owner
-          example: 0x244...
-        owner_address_label:
-          type: string
-          description: The label of the owner_address
-          example: Coinbase 1
-        balance:
-          type: string
-          description: The amount holding of the ERC20 token
-          example: '57888888888888888888880'
-        balance_formatted:
-          type: string
-          description: The amount holding of the ERC20 token in decimaal
-          example: '5.78'
-        usd_value:
-          type: string
-          description: The USD value of the balance
-          example: '57888888888888888888880'
-        is_contract:
-          type: boolean
-          description: Indicates if the token address is for a contract or not
-        percentage_relative_to_total_supply:
-          type: number
-          example: 10
-          description: The percentage of total supply held by the owner
-        entity:
-          type:
-          - string
-          - 'null'
-          description: The owner address entity
-          example: Opensea
-        entity_logo:
-          type:
-          - string
-          - 'null'
-          description: The logo of the owner address entity
-          example: https://opensea.io/favicon.ico
-    erc20Metadata:
-      type: object
-      required:
-      - address
-      - name
-      - symbol
-      - decimals
-      - created_at
-      - possible_spam
-      properties:
-        address:
-          type: string
-          description: The address of the token contract
-          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
-        address_label:
-          type:
-          - string
-          - 'null'
-          description: The label of the address
-          example: Binance 1
-        name:
-          type: string
-          description: The name of the token contract
-          example: Kylin Network
-        symbol:
-          type: string
-          description: The symbol of the NFT contract
-          example: KYL
-        decimals:
-          type: string
-          description: The number of decimals on the token
-          example: '18'
-        logo:
-          type:
-          - string
-          - 'null'
-          description: The logo of the token
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        logo_hash:
-          type:
-          - string
-          - 'null'
-          description: The logo hash
-          example: ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d
-        thumbnail:
-          type:
-          - string
-          - 'null'
-          description: The thumbnail of the logo
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png
-        total_supply:
-          type: string
-          description: Total tokens created minus any that have been burned
-          example: '420689899999994793099999999997400'
-        total_supply_formatted:
-          type: string
-          description: Total tokens created minus any that have been burned (decimal formatted)
-          example: '420689899999994.7930999999999974'
-        implementations:
-          type: array
-          items:
-            description: The token addresses of the same symbol from another chains
-            required:
-            - chainId
-            - address
-            properties:
-              chainId:
-                type: string
-                description: The chain id
-                example: '0x1'
-              chain:
-                type: string
-                description: The chain name
-                example: eth
-              chainName:
-                type: string
-                description: The chain name
-                example: Ethereum
-              address:
-                type: string
-                description: The token address
-                example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
-        fully_diluted_valuation:
-          type: string
-          description: Fully Diluted Valuation (FDV), this represents the token's Current Price x Total Supply
-          example: '3407271444.05'
-        block_number:
-          type: string
-        validated:
-          type: number
-        created_at:
-          type: string
-          description: The timestamp of when the erc20 token was created
-        possible_spam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        verified_contract:
-          type: boolean
-          description: Indicates if a contract is verified
-          example: false
-        categories:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Categories of the token
-          example:
-          - stablecoin
-        links:
-          $ref: '#/components/schemas/discoveryTokenLinks'
-        circulating_supply:
-          type: string
-          description: The circulating supply of the token
-          example: '4206864.7489303'
-        market_cap:
-          type: string
-          description: The market cap of the token
-          example: '3407271444.05'
-    GetMultipleTokenAnalyticsDto:
-      required:
-      - tokens
-      properties:
-        tokens:
-          type: array
-          maxItems: 30
-          description: The tokens to be fetched
-          example:
-          - chain: '0x1'
-            tokenAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7'
-          - chain: solana
-            tokenAddress: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
-          items:
-            $ref: '#/components/schemas/tokenAndChainItem'
     TokenHolderTimelineArray:
       required:
       - timestamp
@@ -3495,66 +3328,258 @@ components:
           type: object
           description: The holders in by category
           $ref: '#/components/schemas/TokenHolderCategory'
-    GetMultipleTokenPricesDto:
-      required:
-      - tokens
+    TimeSeriesByTokenData:
+      type: object
       properties:
-        tokens:
+        timestamp:
+          type: string
+          example: '2022-02-22T00:00:00Z'
+        buyVolume:
+          type: number
+          example: 4565
+        sellVolume:
+          type: number
+          example: 4565
+        liquidityUsd:
+          type: number
+          example: 4565
+        fullyDilutedValuation:
+          type: number
+          example: 4565
+    MultipleTokenAnalyticsData:
+      type: object
+      properties:
+        categories:
           type: array
-          maxItems: 30
-          description: The tokens to be fetched
-          example:
-          - token_address: '0xdac17f958d2ee523a2206206994597c13d831ec7'
-          - token_address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
-          - token_address: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84'
-            exchange: uniswapv2
-            to_block: '16314545'
-          - token_address: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
           items:
-            $ref: '#/components/schemas/tokenPriceItem'
-    VolumeData:
-      type: object
-      properties:
-        5m:
-          type: number
-          format: double
-          example: 6516719.425429553
-        1h:
-          type: number
-          format: double
-          example: 137489621.30780438
-        6h:
-          type: number
-          format: double
-          example: 585436101.0503464
-        24h:
-          type: number
-          format: double
-          example: 2668170156.0409784
-    candleSummary:
-      type: object
+            $ref: '#/components/schemas/TokenAnalyticsData'
+    getSwapsByWalletAddressResponse:
       required:
-      - 5min
-      - 1h
-      - 4h
-      - 24h
+      - result
       properties:
-        5min:
-          type:
-          - number
-          - 'null'
-        1h:
-          type:
-          - number
-          - 'null'
-        4h:
-          type:
-          - number
-          - 'null'
-        24h:
-          type:
-          - number
-          - 'null'
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/swapsByWalletAddressResult'
+    SupportedPairTokenInfo:
+      type: object
+      properties:
+        token_address:
+          type: string
+          description: The token address
+        token_name:
+          type: string
+          description: The token name
+        token_symbol:
+          type: string
+          description: The token symbol
+        token_logo:
+          type: string
+          description: The token logo
+        token_decimals:
+          type: string
+          description: The token decimals
+        pair_token_type:
+          type: string
+        liquidity_usd:
+          type: string
+    erc20TransactionCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '2'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        cursor:
+          type: string
+          description: The cursor to get to the next page
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/erc20Transaction'
+    TokenScoreResponse:
+      type: object
+      properties:
+        tokenAddress:
+          type: string
+          example: '0x6982508145454ce325ddbe47a25d4ec3d2311933'
+        chainId:
+          type: string
+          example: '0x1'
+        score:
+          type: integer
+          example: 94
+        updatedAt:
+          type: string
+          example: '2025-12-03T21:10:28Z'
+        metrics:
+          $ref: '#/components/schemas/TokenScoreMetrics'
+    bondingTokensByExchangeResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: The total number of matches for this query
+          example: 10
+        page:
+          type: integer
+          description: The page of the current result
+          example: 1
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: 100
+        cursor:
+          type: string
+          description: The cursor to use for the next page
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              tokenAddress:
+                type: string
+                description: The address of the token
+                example: '0x6b175474e89094c44da98b954eedeac495271d0f'
+              name:
+                type:
+                - string
+                - 'null'
+                description: The name of the token
+                example: Test Token
+              symbol:
+                type:
+                - string
+                - 'null'
+                description: The symbol of the token
+                example: TEST
+              logo:
+                type:
+                - string
+                - 'null'
+                description: The logo URL of the token
+                example: https://example.com/logo.png
+              decimals:
+                type:
+                - integer
+                - 'null'
+                description: The number of decimals of the token
+                example: 18
+              priceNative:
+                type:
+                - string
+                - 'null'
+                description: The price in the native currency
+                example: '0.5'
+              priceUsd:
+                type:
+                - string
+                - 'null'
+                description: The price in USD
+                example: '2.0'
+              liquidity:
+                type:
+                - string
+                - 'null'
+                description: The liquidity in USD
+                example: '500000'
+              fullyDilutedValuation:
+                type:
+                - string
+                - 'null'
+                description: The fully diluted valuation in USD
+                example: '2000000'
+              bondingCurveProgress:
+                type: number
+                description: The bonding curve progress as a percentage
+                example: 50
+    chainListWithSolana:
+      type: string
+      example: eth
+      default: eth
+      enum:
+      - eth
+      - '0x1'
+      - sepolia
+      - '0xaa36a7'
+      - polygon
+      - '0x89'
+      - bsc
+      - '0x38'
+      - bsc testnet
+      - '0x61'
+      - avalanche
+      - '0xa86a'
+      - fantom
+      - '0xfa'
+      - cronos
+      - '0x19'
+      - arbitrum
+      - '0xa4b1'
+      - chiliz
+      - '0x15b38'
+      - chiliz testnet
+      - '0x15b32'
+      - gnosis
+      - '0x64'
+      - gnosis testnet
+      - '0x27d8'
+      - base
+      - '0x2105'
+      - base sepolia
+      - '0x14a34'
+      - optimism
+      - '0xa'
+      - polygon amoy
+      - '0x13882'
+      - linea
+      - '0xe708'
+      - moonbeam
+      - '0x504'
+      - moonriver
+      - '0x505'
+      - moonbase
+      - '0x507'
+      - linea sepolia
+      - '0xe705'
+      - flow
+      - '0x2eb'
+      - flow-testnet
+      - '0x221'
+      - ronin
+      - '0x7e4'
+      - ronin-testnet
+      - '0x31769'
+      - lisk
+      - '0x46f'
+      - lisk-sepolia
+      - '0x106a'
+      - pulse
+      - '0x171'
+      - sei-testnet
+      - '0x530'
+      - sei
+      - '0x531'
+      - monad
+      - '0x8f'
+      - solana
     swapsByWalletAddressResult:
       type: object
       required:
@@ -3633,141 +3658,44 @@ components:
         totalValueUsd:
           type: number
           example: 1165
-    nativeErc20Price:
+    tokenAndChainItem:
       required:
-      - value
-      - decimals
-      - name
-      - symbol
-      - address
+      - chain
+      - tokenAddress
       properties:
-        value:
+        chain:
           type: string
-          description: The native price of the token
-          example: '8409770570506626'
-        decimals:
-          type: integer
-          description: The number of decimals on the token
-          example: 18
-        name:
+          description: The chain to query
+          $ref: '#/components/schemas/chainList'
+        tokenAddress:
           type: string
-          description: The name of the token
-          example: Ether
-        symbol:
-          type: string
-          description: The symbol of the token
-          example: ETH
-        address:
-          type: string
-          description: The address of the native token
-    supportedPairInfo:
+          description: The token address
+          example: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+    TimeSeriesVolumeResponse:
       type: object
       properties:
-        exchange_address:
-          type: string
-        exchange_name:
-          type: string
-        exchange_logo:
-          type: string
-        pair_label:
-          type: string
-        pair_address:
-          type: string
-        usd_price:
-          type: number
-        usd_price_24hr:
-          type: number
-        usd_price_24hr_percent_change:
-          type: number
-        usd_price_24hr_usd_change:
-          type: number
-        liquidity_usd:
-          type: number
-        inactive_pair:
-          type: boolean
-          description: Pair without 24h volume are set as inactive
-        base_token:
-          type: string
-        quote_token:
-          type: string
-        volume_24h_native:
-          type: number
-        volume_24h_usd:
-          type: number
-        pair:
+        timeseries:
           type: array
           items:
-            $ref: '#/components/schemas/SupportedPairTokenInfo'
-    chainListWithSolana:
-      type: string
-      example: eth
-      default: eth
-      enum:
-      - eth
-      - '0x1'
-      - sepolia
-      - '0xaa36a7'
-      - polygon
-      - '0x89'
-      - bsc
-      - '0x38'
-      - bsc testnet
-      - '0x61'
-      - avalanche
-      - '0xa86a'
-      - fantom
-      - '0xfa'
-      - cronos
-      - '0x19'
-      - arbitrum
-      - '0xa4b1'
-      - chiliz
-      - '0x15b38'
-      - chiliz testnet
-      - '0x15b32'
-      - gnosis
-      - '0x64'
-      - gnosis testnet
-      - '0x27d8'
-      - base
-      - '0x2105'
-      - base sepolia
-      - '0x14a34'
-      - optimism
-      - '0xa'
-      - polygon amoy
-      - '0x13882'
-      - linea
-      - '0xe708'
-      - moonbeam
-      - '0x504'
-      - moonriver
-      - '0x505'
-      - moonbase
-      - '0x507'
-      - linea sepolia
-      - '0xe705'
-      - flow
-      - '0x2eb'
-      - flow-testnet
-      - '0x221'
-      - ronin
-      - '0x7e4'
-      - ronin-testnet
-      - '0x31769'
-      - lisk
-      - '0x46f'
-      - lisk-sepolia
-      - '0x106a'
-      - pulse
-      - '0x171'
-      - sei-testnet
-      - '0x530'
-      - sei
-      - '0x531'
-      - monad
-      - '0x8f'
-      - solana
+            $ref: '#/components/schemas/TimeSeriesData'
+    TimeSeriesByCategoryData:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          example: '2022-02-22T00:00:00Z'
+        buyVolume:
+          type: number
+          example: 4565
+        sellVolume:
+          type: number
+          example: 4565
+        liquidityUsd:
+          type: number
+          example: 4565
+        fullyDilutedValuation:
+          type: number
+          example: 4565
     tokenBondingStatusResponse:
       type: object
       required:
@@ -3790,53 +3718,74 @@ components:
           - string
           - 'null'
           example: '2022-01-20T09:39:55.818Z'
-    TokenScoreSupply:
+    GetMultipleTokenPricesDto:
+      required:
+      - tokens
+      properties:
+        tokens:
+          type: array
+          maxItems: 30
+          description: The tokens to be fetched
+          example:
+          - token_address: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+          - token_address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+          - token_address: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84'
+            exchange: uniswapv2
+            to_block: '16314545'
+          - token_address: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+          items:
+            $ref: '#/components/schemas/tokenPriceItem'
+    ohlcv:
       type: object
       properties:
-        total:
+        timestamp:
+          type: string
+        open:
           type: number
-          example: 420689899653542.56
-        top10Percent:
+        high:
           type: number
-          example: 41.03
-    TokenHolderSummaryHolderChange:
+        low:
+          type: number
+        close:
+          type: number
+        volume:
+          type: number
+        trades:
+          type: number
+    WalletTopProfitableWalletPerTokenResponse:
       required:
-      - 5min
-      - 1h
-      - 6h
-      - 24h
-      - 7d
-      - 3d
-      - 30d
+      - name
+      - symbol
+      - decimals
+      - logo
+      - possible_spam
+      - result
       properties:
-        5min:
-          type: object
-          description: The holder change in the last 5 minutes
-          $ref: '#/components/schemas/TokenHolderChange'
-        1h:
-          type: object
-          description: Net holder change in the last 1 hour
-          $ref: '#/components/schemas/TokenHolderChange'
-        6h:
-          type: object
-          description: Net holder change in the last 6 hour
-          $ref: '#/components/schemas/TokenHolderChange'
-        24h:
-          type: object
-          description: Net holder change in the last 24 hour
-          $ref: '#/components/schemas/TokenHolderChange'
-        3d:
-          type: object
-          description: Net holder change in the last 3 days
-          $ref: '#/components/schemas/TokenHolderChange'
-        7d:
-          type: object
-          description: Net holder change in the last 7 days
-          $ref: '#/components/schemas/TokenHolderChange'
-        30d:
-          type: object
-          description: Net holder change in the last 30 days
-          $ref: '#/components/schemas/TokenHolderChange'
+        name:
+          type: string
+          description: The name of the token contract
+          example: Kylin Network
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: KYL
+        decimals:
+          type: integer
+          description: The number of decimals on the token
+          example: 18
+        logo:
+          type: string
+          description: The logo of the token
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopProfitableWalletPerTokenResponse'
+          description: List of top profitable wallets per token.
     discoveryTokenLinks:
       type: object
       required:
@@ -3893,6 +3842,15 @@ components:
         youtube:
           type: string
           description: The link of the token on the platform
+    TokenScoreSupply:
+      type: object
+      properties:
+        total:
+          type: number
+          example: 420689899653542.56
+        top10Percent:
+          type: number
+          example: 41.03
     TokenHolderSummarySupply:
       required:
       - top10
@@ -3926,43 +3884,389 @@ components:
           type: object
           description: The holder breakdown of the top 500 holders
           $ref: '#/components/schemas/TokenHolderSupplyChange'
-    candleSticksResponse:
+    CategoriesData:
+      type: object
+      properties:
+        categoryId:
+          type: string
+          example: '0x1'
+        totalBuyVolume:
+          $ref: '#/components/schemas/VolumeData'
+        totalSellVolume:
+          $ref: '#/components/schemas/VolumeData'
+        totalBuyers:
+          $ref: '#/components/schemas/VolumeData'
+        totalSellers:
+          $ref: '#/components/schemas/VolumeData'
+        totalBuys:
+          $ref: '#/components/schemas/VolumeData'
+        totalSells:
+          $ref: '#/components/schemas/VolumeData'
+        uniqueWallets:
+          $ref: '#/components/schemas/VolumeData'
+    getSnipersResult:
       type: object
       required:
-      - page
-      - cursor
-      - pairAddress
-      - timeframe
-      - currency
-      - result
+      - walletAddress
+      - totalTokensSniped
+      - totalSnipedUsd
+      - totalSnipedTransactions
+      - totalTokensSold
+      - totalSoldUsd
+      - totalSellTransactions
+      - currentBalance
+      - currentBalanceUsdValue
+      - realizedProfitPercentage
+      - realizedProfitUsd
       properties:
+        walletAddress:
+          type: string
+          example: '0x2bfcba4715774420936669cd0ff2241d70e9abec'
+        totalTokensSniped:
+          type: number
+          example: 0
+        totalSnipedUsd:
+          type: number
+          example: 0
+        totalSnipedTransactions:
+          type: number
+          example: 0
+        totalTokensSold:
+          type: number
+          example: 0
+        totalSoldUsd:
+          type: number
+          example: 0
+        totalSellTransactions:
+          type: number
+          example: 0
+        currentBalance:
+          type: number
+          example: 0
+        currentBalanceUsdValue:
+          type: number
+          example: 0
+        realizedProfitPercentage:
+          type: number
+          example: 0
+        realizedProfitUsd:
+          type: number
+          example: 0
+        snipedTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/getSnipersTransactions'
+        sellTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/getSnipersTransactions'
+    VolumeCategoriesResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoriesData'
+    ChainData:
+      type: object
+      properties:
+        chainId:
+          type: string
+          example: '0x1'
+        totalVolume:
+          $ref: '#/components/schemas/VolumeData'
+        activeWallets:
+          $ref: '#/components/schemas/VolumeData'
+        totalTransactions:
+          $ref: '#/components/schemas/VolumeData'
+    supportedPairInfo:
+      type: object
+      properties:
+        exchange_address:
+          type: string
+        exchange_name:
+          type: string
+        exchange_logo:
+          type: string
+        pair_label:
+          type: string
+        pair_address:
+          type: string
+        usd_price:
+          type: number
+        usd_price_24hr:
+          type: number
+        usd_price_24hr_percent_change:
+          type: number
+        usd_price_24hr_usd_change:
+          type: number
+        liquidity_usd:
+          type: number
+        inactive_pair:
+          type: boolean
+          description: Pair without 24h volume are set as inactive
+        base_token:
+          type: string
+        quote_token:
+          type: string
+        volume_24h_native:
+          type: number
+        volume_24h_usd:
+          type: number
+        pair:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportedPairTokenInfo'
+    TokenScoreMetrics:
+      type: object
+      properties:
+        usdPrice:
+          type: number
+          example: 6.47147501365255e-06
+        liquidityUsd:
+          type: number
+          example: 10890420.9
+        volumeUsd:
+          $ref: '#/components/schemas/TokenScoreVolumeUsd'
+        transactions:
+          $ref: '#/components/schemas/TokenScoreTransactions'
+        supply:
+          $ref: '#/components/schemas/TokenScoreSupply'
+    TimeSeriesVolumeByTokenResponse:
+      type: object
+      properties:
+        chainId:
+          type: string
+          example: '0x1'
+        tokenAddress:
+          type: string
+          example: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+        timeseries:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesByTokenData'
+    erc20TokenOwner:
+      required:
+      - owner_address
+      - owner_address_label
+      - balance
+      - balance_formatted
+      - usd_value
+      - is_contract
+      - percentage_relative_to_total_supply
+      properties:
+        owner_address:
+          type: string
+          description: The address of the erc20 token owner
+          example: 0x244...
+        owner_address_label:
+          type: string
+          description: The label of the owner_address
+          example: Coinbase 1
+        balance:
+          type: string
+          description: The amount holding of the ERC20 token
+          example: '57888888888888888888880'
+        balance_formatted:
+          type: string
+          description: The amount holding of the ERC20 token in decimaal
+          example: '5.78'
+        usd_value:
+          type: string
+          description: The USD value of the balance
+          example: '57888888888888888888880'
+        is_contract:
+          type: boolean
+          description: Indicates if the token address is for a contract or not
+        percentage_relative_to_total_supply:
+          type: number
+          example: 10
+          description: The percentage of total supply held by the owner
+        entity:
+          type:
+          - string
+          - 'null'
+          description: The owner address entity
+          example: Opensea
+        entity_logo:
+          type:
+          - string
+          - 'null'
+          description: The logo of the owner address entity
+          example: https://opensea.io/favicon.ico
+    swapsByPairAddressResult:
+      type: object
+      required:
+      - transactionHash
+      - transactionIndex
+      - transactionType
+      - subCategory
+      - blockTimestamp
+      - walletAddress
+      - baseTokenAmount
+      - quoteTokenAmount
+      - baseTokenPriceUsd
+      - quoteTokenPriceUsd
+      - totalValueUsd
+      - baseQuotePrice
+      - blockNumber
+      properties:
+        transactionHash:
+          type: string
+          example: '0x2bfcba4715774420936669cd0ff2241d70e9abecab76c9db813602015b3134ad'
+        transactionIndex:
+          type: integer
+          example: 1
+        transactionType:
+          type: string
+          example: buy
+        blockTimestamp:
+          type: string
+          example: '2022-02-22T00:00:00Z'
+        blockNumber:
+          type: number
+          example: 21093423
+        subCategory:
+          type: string
+          example: accumulation
+        walletAddress:
+          type: string
+          example: '0x2bfcba4715774420936669cd0ff2241d70e9abec'
+        baseTokenAmount:
+          type: string
+          example: '1481.00'
+        quoteTokenAmount:
+          type: string
+          example: '0.634'
+        baseTokenPriceUsd:
+          type: number
+          example: 0.0734634
+        quoteTokenPriceUsd:
+          type: number
+          example: 23330
+        baseQuotePrice:
+          type: string
+          example: '0.00003376480687'
+        totalValueUsd:
+          type: number
+          example: 1165
+    tokenSupportedPairsStatsResponse:
+      type: object
+      properties:
+        total_liquidity_usd:
+          type: string
+        total_active_pairs:
+          type: string
+        total_active_dexes:
+          type: string
+    TimeSeriesData:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          example: '2022-02-22T00:00:00Z'
+        volume:
+          type: number
+          example: 4565
+        liquidityUsd:
+          type: number
+          example: 4565
+        fullyDilutedValuation:
+          type: number
+          example: 4565
+    TokenTransactionTokenMetadata:
+      type: object
+      properties:
+        address:
+          type: string
+          description: The address of the token
+          example: '0x003dde3494f30d861d063232c6a8c04394b686ff'
+        name:
+          type: string
+          description: The name of the token
+          example: BRETT
+        symbol:
+          type: string
+          description: The symbol of the token
+          example: BRETT
+        logo:
+          type: string
+          description: The URL of the token's logo
+          example: https://cdn.moralis.io/tokens/0x0000000000085d4780b73119b644ae5ecd22b376.png
+        amount:
+          type: string
+          description: The amount of the token
+          example: '14811.98'
+        usdPrice:
+          type: number
+          description: The amount of the token
+          example: 0.078634
+        usdAmount:
+          type: number
+          description: The amount of the token
+          example: 1155.33
+      required:
+      - address
+      - name
+      - symbol
+      - logo
+      - amount
+      - usdPrice
+      - usdAmount
+    tokenSupportedPairsResponse:
+      type: object
+      required:
+      - result
+      - page
+      - page_size
+      - cursor
+      properties:
+        pairs:
+          type: array
+          items:
+            $ref: '#/components/schemas/supportedPairInfo'
         cursor:
           type: string
           description: The cursor to get to the next page
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '50'
         page:
           type: integer
           description: The current page of the result
           example: '2'
-        pairAddress:
-          type: string
-          description: The pair address
-          example: '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640'
-        tokenAddress:
-          type: string
-          description: The token address
-          example: '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640'
-        timeframe:
-          type: string
-          description: The timeframe
-          example: 30min
-        currency:
-          type: string
-          description: The currency
-          example: usd
+    TimeSeriesByTokensData:
+      type: object
+      properties:
         result:
           type: array
           items:
-            $ref: '#/components/schemas/ohlcv'
+            $ref: '#/components/schemas/TimeSeriesVolumeByTokenResponse'
+    candleSummary:
+      type: object
+      required:
+      - 5min
+      - 1h
+      - 4h
+      - 24h
+      properties:
+        5min:
+          type:
+          - number
+          - 'null'
+        1h:
+          type:
+          - number
+          - 'null'
+        4h:
+          type:
+          - number
+          - 'null'
+        24h:
+          type:
+          - number
+          - 'null'
     TokenScoreTransactions:
       type: object
       properties:
@@ -3990,345 +4294,41 @@ components:
         30d:
           type: number
           example: 25
-    newTokensByExchangeResponse:
+    TokenAnalyticsData:
       type: object
       properties:
-        total:
-          type: integer
-          description: The total number of matches for this query
-          example: 10
-        page:
-          type: integer
-          description: The page of the current result
-          example: 1
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: 100
-        cursor:
+        chainId:
           type: string
-          description: The cursor to use for the next page
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-        result:
-          type: array
-          items:
-            type: object
-            properties:
-              tokenAddress:
-                type: string
-                description: The address of the token
-                example: '0x6b175474e89094c44da98b954eedeac495271d0f'
-              name:
-                type:
-                - string
-                - 'null'
-                description: The name of the token
-                example: Test Token
-              symbol:
-                type:
-                - string
-                - 'null'
-                description: The symbol of the token
-                example: TEST
-              logo:
-                type:
-                - string
-                - 'null'
-                description: The logo URL of the token
-                example: https://example.com/logo.png
-              decimals:
-                type:
-                - integer
-                - 'null'
-                description: The number of decimals of the token
-                example: 18
-              priceNative:
-                type:
-                - string
-                - 'null'
-                description: The price in the native currency
-                example: '0.5'
-              priceUsd:
-                type:
-                - string
-                - 'null'
-                description: The price in USD
-                example: '2.0'
-              liquidity:
-                type:
-                - string
-                - 'null'
-                description: The liquidity in USD
-                example: '500000'
-              fullyDilutedValuation:
-                type:
-                - string
-                - 'null'
-                description: The fully diluted valuation in USD
-                example: '2000000'
-              createdAt:
-                type: string
-                description: The timestamp when the token was created
-                example: '2023-01-20T09:39:55.818Z'
-    graduatedTokensByExchangeResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: The total number of matches for this query
-          example: 10
-        page:
-          type: integer
-          description: The page of the current result
-          example: 1
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: 100
-        cursor:
+          description: The chain ID
+          example: '0x1'
+        categoryId:
           type: string
-          description: The cursor to use for the next page
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-        result:
-          type: array
-          items:
-            type: object
-            properties:
-              tokenAddress:
-                type: string
-                description: The address of the token
-                example: '0x6b175474e89094c44da98b954eedeac495271d0f'
-              name:
-                type:
-                - string
-                - 'null'
-                description: The name of the token
-                example: Test Token
-              symbol:
-                type:
-                - string
-                - 'null'
-                description: The symbol of the token
-                example: TEST
-              logo:
-                type:
-                - string
-                - 'null'
-                description: The logo URL of the token
-                example: https://example.com/logo.png
-              decimals:
-                type:
-                - integer
-                - 'null'
-                description: The number of decimals of the token
-                example: 18
-              priceNative:
-                type:
-                - string
-                - 'null'
-                description: The price in the native currency
-                example: '0.5'
-              priceUsd:
-                type:
-                - string
-                - 'null'
-                description: The price in USD
-                example: '2.0'
-              liquidity:
-                type:
-                - string
-                - 'null'
-                description: The liquidity in USD
-                example: '500000'
-              fullyDilutedValuation:
-                type:
-                - string
-                - 'null'
-                description: The fully diluted valuation in USD
-                example: '2000000'
-              graduatedAt:
-                type: string
-                description: The timestamp when the token graduated in ISO format
-                example: '2023-01-15T12:30:45.000Z'
-    chainList:
-      type: string
-      example: eth
-      default: eth
-      enum:
-      - eth
-      - '0x1'
-      - sepolia
-      - '0xaa36a7'
-      - polygon
-      - '0x89'
-      - bsc
-      - '0x38'
-      - bsc testnet
-      - '0x61'
-      - avalanche
-      - '0xa86a'
-      - fantom
-      - '0xfa'
-      - cronos
-      - '0x19'
-      - arbitrum
-      - '0xa4b1'
-      - chiliz
-      - '0x15b38'
-      - chiliz testnet
-      - '0x15b32'
-      - gnosis
-      - '0x64'
-      - gnosis testnet
-      - '0x27d8'
-      - base
-      - '0x2105'
-      - base sepolia
-      - '0x14a34'
-      - optimism
-      - '0xa'
-      - polygon amoy
-      - '0x13882'
-      - linea
-      - '0xe708'
-      - moonbeam
-      - '0x504'
-      - moonriver
-      - '0x505'
-      - moonbase
-      - '0x507'
-      - linea sepolia
-      - '0xe705'
-      - flow
-      - '0x2eb'
-      - flow-testnet
-      - '0x221'
-      - ronin
-      - '0x7e4'
-      - ronin-testnet
-      - '0x31769'
-      - lisk
-      - '0x46f'
-      - lisk-sepolia
-      - '0x106a'
-      - pulse
-      - '0x171'
-      - sei-testnet
-      - '0x530'
-      - sei
-      - '0x531'
-      - monad
-      - '0x8f'
-    getSwapsByWalletAddressResponse:
-      required:
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '2'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        cursor:
+          example: '0x1'
+        totalBuyVolume:
+          $ref: '#/components/schemas/VolumeData'
+        totalSellVolume:
+          $ref: '#/components/schemas/VolumeData'
+        totalBuyers:
+          $ref: '#/components/schemas/VolumeData'
+        totalSellers:
+          $ref: '#/components/schemas/VolumeData'
+        totalBuys:
+          $ref: '#/components/schemas/VolumeData'
+        totalSells:
+          $ref: '#/components/schemas/VolumeData'
+        uniqueWallets:
+          $ref: '#/components/schemas/VolumeData'
+        pricePercentChange:
+          $ref: '#/components/schemas/VolumeData'
+        usdPrice:
           type: string
-          description: The cursor to get to the next page
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/swapsByWalletAddressResult'
-    erc20TokenStat:
-      required:
-      - transfers
-      properties:
-        transfers:
-          type: object
-          description: ERC20 Token transfer stats
-          required:
-          - total
-          properties:
-            total:
-              type: string
-              description: The number of transfers of the token
-              example: '1000'
-    TokenHolderChange:
-      required:
-      - change
-      - changePercent
-      properties:
-        change:
-          type: number
-          description: Net holder change
-          example: '10'
-        changePercent:
-          type: number
-          description: The percentage change
-          example: '0.10'
-    TimeSeriesVolumeByCategoryResponse:
-      type: object
-      properties:
-        timeseries:
-          type: array
-          items:
-            $ref: '#/components/schemas/TimeSeriesByCategoryData'
-    TimeSeriesVolumeResponse:
-      type: object
-      properties:
-        timeseries:
-          type: array
-          items:
-            $ref: '#/components/schemas/TimeSeriesData'
-    erc20Categories:
-      type: object
-      properties:
-        categories:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: The name of the category
-                example: Stablecoin
-              id:
-                type: string
-                description: The unique identifier of the category
-                example: stablecoin
-            required:
-            - name
-            - id
-      required:
-      - categories
-    getSnipersResponse:
-      required:
-      - result
-      - transactionHash
-      - blockNumber
-      - blockTimestamp
-      properties:
-        transactionHash:
+          example: '530'
+        totalLiquidity:
           type: string
-          example: '0x2bfcba4715774420936669cd0ff2241d70e9abecab76c9db813602015b3134ad'
-        blockTimestamp:
+          example: '530'
+        totalFullyDilutedValuation:
           type: string
-          example: '2022-02-22T00:00:00Z'
-        blockNumber:
-          type: number
-          example: 21093423
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/getSnipersResult'
-    tokenSupportedPairsStatsResponse:
-      type: object
-      properties:
-        total_liquidity_usd:
-          type: string
-        total_active_pairs:
-          type: string
-        total_active_dexes:
-          type: string
+          example: '530'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

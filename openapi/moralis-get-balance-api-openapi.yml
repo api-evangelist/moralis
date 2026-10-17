@@ -67,6 +67,51 @@ paths:
       x-mcp-prompt: Provide the wallet address to fetch its ERC20 token balances. Use this when users ask for a wallet’s token holdings or want to check their portfolio.
 components:
   schemas:
+    erc20TokenBalance:
+      required:
+      - token_address
+      - name
+      - symbol
+      - decimals
+      - balance
+      - possible_spam
+      properties:
+        token_address:
+          type: string
+          description: The address of the token contract
+          example: '0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09'
+        name:
+          type: string
+          description: The name of the token contract
+          example: Kylin Network
+        symbol:
+          type: string
+          description: The symbol of the NFT contract
+          example: KYL
+        logo:
+          type: string
+          description: The logo of the token
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+        thumbnail:
+          type: string
+          description: The thumbnail of the logo
+          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png
+        decimals:
+          type: integer
+          description: The number of decimals on the token
+          example: 18
+        balance:
+          type: string
+          description: Timestamp of when the contract was last synced with the node
+          example: '123456789'
+        possible_spam:
+          type: boolean
+          description: Indicates if a contract is possibly a spam contract
+          example: 'false'
+        verified_contract:
+          type: boolean
+          description: Indicates if a contract is verified
+          example: 'false'
     chainList:
       type: string
       example: eth
@@ -136,51 +181,6 @@ components:
       - '0x531'
       - monad
       - '0x8f'
-    erc20TokenBalance:
-      required:
-      - token_address
-      - name
-      - symbol
-      - decimals
-      - balance
-      - possible_spam
-      properties:
-        token_address:
-          type: string
-          description: The address of the token contract
-          example: '0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09'
-        name:
-          type: string
-          description: The name of the token contract
-          example: Kylin Network
-        symbol:
-          type: string
-          description: The symbol of the NFT contract
-          example: KYL
-        logo:
-          type: string
-          description: The logo of the token
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
-        thumbnail:
-          type: string
-          description: The thumbnail of the logo
-          example: https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png
-        decimals:
-          type: integer
-          description: The number of decimals on the token
-          example: 18
-        balance:
-          type: string
-          description: Timestamp of when the contract was last synced with the node
-          example: '123456789'
-        possible_spam:
-          type: boolean
-          description: Indicates if a contract is possibly a spam contract
-          example: 'false'
-        verified_contract:
-          type: boolean
-          description: Indicates if a contract is verified
-          example: 'false'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

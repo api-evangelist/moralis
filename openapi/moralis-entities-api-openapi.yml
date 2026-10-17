@@ -129,142 +129,6 @@ paths:
       x-mcp-prompt: Provide the category name to list its entities. Use this when users want to find entities in a specific category or are analyzing category-based activity.
 components:
   schemas:
-    addressModel:
-      type: object
-      properties:
-        address:
-          type: string
-          description: The address
-          example: '0x1f98431c8ad98523631ae4a59f267346ea31f984'
-        chain:
-          type: string
-          description: The chain
-          example: ethereum
-        is_multi_chain:
-          type: boolean
-          description: Indicates if the address is multi chain
-          example: false
-        primary_label:
-          type: string
-          description: The primary label
-          example: Uniswap
-    entitiesWithTotalAddressCollection:
-      required:
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '1'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/entityModelWithTotalAddress'
-    addressModelAdditionalLabels:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/addressModel'
-      properties:
-        additional_labels:
-          type: array
-          items:
-            type: string
-            example:
-            - Uniswap
-            - Uniswap V3
-    basicModel:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name
-          example: Uniswap
-        id:
-          type: string
-          description: The id
-          example: uniswap
-    categoryModel:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/basicModel'
-      properties:
-        total_entities:
-          type: integer
-          description: The total number of entities
-          example: 100
-    entityModelWithTotalAddress:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/entityModel'
-      properties:
-        total_addresses:
-          type: integer
-          description: The total number of addresses
-          example: 100
-    searchEntitiesResponseCollection:
-      required:
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '1'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        result:
-          type: object
-          properties:
-            entities:
-              type: array
-              items:
-                $ref: '#/components/schemas/entityModel'
-            addresses:
-              type: array
-              items:
-                $ref: '#/components/schemas/addressModelWithEntity'
-            categories:
-              type: array
-              items:
-                $ref: '#/components/schemas/basicModel'
-    addressModelWithEntity:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/addressModel'
-      properties:
-        entity:
-          type: object
-          $ref: '#/components/schemas/basicModel'
-    categoryCollection:
-      required:
-      - result
-      properties:
-        page:
-          type: integer
-          description: The current page of the result
-          example: '1'
-        page_size:
-          type: integer
-          description: The number of results per page
-          example: '100'
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/categoryModel'
-    entityModelWithAddress:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/entityModel'
-      properties:
-        addresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/addressModelAdditionalLabels'
     entityModel:
       type: object
       properties:
@@ -300,6 +164,142 @@ components:
           type: string
           description: The type of the entity
           example: exchange
+    entityModelWithTotalAddress:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/entityModel'
+      properties:
+        total_addresses:
+          type: integer
+          description: The total number of addresses
+          example: 100
+    entitiesWithTotalAddressCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '1'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/entityModelWithTotalAddress'
+    searchEntitiesResponseCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '1'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        result:
+          type: object
+          properties:
+            entities:
+              type: array
+              items:
+                $ref: '#/components/schemas/entityModel'
+            addresses:
+              type: array
+              items:
+                $ref: '#/components/schemas/addressModelWithEntity'
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/basicModel'
+    categoryCollection:
+      required:
+      - result
+      properties:
+        page:
+          type: integer
+          description: The current page of the result
+          example: '1'
+        page_size:
+          type: integer
+          description: The number of results per page
+          example: '100'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/categoryModel'
+    addressModel:
+      type: object
+      properties:
+        address:
+          type: string
+          description: The address
+          example: '0x1f98431c8ad98523631ae4a59f267346ea31f984'
+        chain:
+          type: string
+          description: The chain
+          example: ethereum
+        is_multi_chain:
+          type: boolean
+          description: Indicates if the address is multi chain
+          example: false
+        primary_label:
+          type: string
+          description: The primary label
+          example: Uniswap
+    categoryModel:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/basicModel'
+      properties:
+        total_entities:
+          type: integer
+          description: The total number of entities
+          example: 100
+    addressModelWithEntity:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/addressModel'
+      properties:
+        entity:
+          type: object
+          $ref: '#/components/schemas/basicModel'
+    addressModelAdditionalLabels:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/addressModel'
+      properties:
+        additional_labels:
+          type: array
+          items:
+            type: string
+            example:
+            - Uniswap
+            - Uniswap V3
+    entityModelWithAddress:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/entityModel'
+      properties:
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/addressModelAdditionalLabels'
+    basicModel:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name
+          example: Uniswap
+        id:
+          type: string
+          description: The id
+          example: uniswap
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

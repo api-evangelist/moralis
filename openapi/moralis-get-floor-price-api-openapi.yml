@@ -125,50 +125,6 @@ paths:
       x-mcp-prompt: Enter the contract address and time period to view historical floor prices. Use this when users want to analyze a collection’s price trends or need historical market data.
 components:
   schemas:
-    marketplace:
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The name of the marketplace
-          example: blur
-        logo:
-          type: string
-          description: The logo of the marketplace
-          example: https://cdn.moralis.io/marketplaces/blur.png
-    tokenFloorPrice:
-      required:
-      - address
-      - token_id
-      properties:
-        address:
-          type: string
-          description: The address of the NFT contract
-          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
-        token_id:
-          type: string
-          description: The token ID of the NFT
-          example: '2441'
-        floor_price:
-          type: string
-          description: The floor price of the contract
-          example: '0.2176'
-        floor_price_usd:
-          type: string
-          description: The floor price of the contract in USD
-          example: '564.24'
-        currency:
-          type: string
-          description: The currency of the floor price
-          example: eth
-        marketplace:
-          $ref: '#/components/schemas/marketplace'
-          description: The marketplace in which the floor price is present
-        last_updated:
-          type: string
-          description: The timestamp of when the floor price was last updated
-          example: '2024-08-21T15:59:11.000Z'
     historicalContractFloorPrice:
       required:
       - timestamp
@@ -193,34 +149,18 @@ components:
           type: string
           description: The timestamp of when the floor price was last updated
           example: '2024-08-21T15:59:11.000Z'
-    contractFloorPrice:
+    marketplace:
       required:
-      - address
-      - last_updated
+      - name
       properties:
-        address:
+        name:
           type: string
-          description: The address of the NFT contract
-          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
-        floor_price:
+          description: The name of the marketplace
+          example: blur
+        logo:
           type: string
-          description: The floor price of the contract
-          example: '0.2176'
-        floor_price_usd:
-          type: string
-          description: The floor price of the contract in USD
-          example: '564.24'
-        currency:
-          type: string
-          description: The currency of the floor price
-          example: eth
-        marketplace:
-          $ref: '#/components/schemas/marketplace'
-          description: The marketplace in which the floor price is present
-        last_updated:
-          type: string
-          description: The timestamp of when the floor price was last updated
-          example: '2024-08-21T15:59:11.000Z'
+          description: The logo of the marketplace
+          example: https://cdn.moralis.io/marketplaces/blur.png
     chainList:
       type: string
       example: eth
@@ -310,6 +250,66 @@ components:
           items:
             $ref: '#/components/schemas/historicalContractFloorPrice'
           description: List of historical contract floor prices at various intervals.
+    tokenFloorPrice:
+      required:
+      - address
+      - token_id
+      properties:
+        address:
+          type: string
+          description: The address of the NFT contract
+          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+        token_id:
+          type: string
+          description: The token ID of the NFT
+          example: '2441'
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '0.2176'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '564.24'
+        currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        marketplace:
+          $ref: '#/components/schemas/marketplace'
+          description: The marketplace in which the floor price is present
+        last_updated:
+          type: string
+          description: The timestamp of when the floor price was last updated
+          example: '2024-08-21T15:59:11.000Z'
+    contractFloorPrice:
+      required:
+      - address
+      - last_updated
+      properties:
+        address:
+          type: string
+          description: The address of the NFT contract
+          example: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d'
+        floor_price:
+          type: string
+          description: The floor price of the contract
+          example: '0.2176'
+        floor_price_usd:
+          type: string
+          description: The floor price of the contract in USD
+          example: '564.24'
+        currency:
+          type: string
+          description: The currency of the floor price
+          example: eth
+        marketplace:
+          $ref: '#/components/schemas/marketplace'
+          description: The marketplace in which the floor price is present
+        last_updated:
+          type: string
+          description: The timestamp of when the floor price was last updated
+          example: '2024-08-21T15:59:11.000Z'
     nftFloorPriceIntervalList:
       type: string
       example: 1d
